@@ -1,6 +1,10 @@
 # ngrib
 Download of weather data directly from NOAA
 
+### Prerequisites
+
+To execute the program you need to install wgrib
+
 ## Author
 
 * **Remo Tomasi** - *Idea and initial work* - [remotomasi](https://github.com/remotomasi)
