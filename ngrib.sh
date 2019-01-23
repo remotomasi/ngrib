@@ -4,9 +4,8 @@
 #	Thanks to NOAA - http://nomads.ncep.noaa.gov
 #
 #	by Remo Tomasi
-#	21-01-2019 v0.07
+#	23-01-2019 v0.08
 #
-#	- Reordered columns
 #################################################################################
 
 today=$(date +%Y%m%d)
