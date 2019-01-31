@@ -12,36 +12,36 @@ middle cloud layer
 mean_sea_level
 surface
 tropopause
-ABSV	Absolute vorticity
-ACPCP	Convective precipitation
-APCP	Total precipitation
-CAPE	Convective Available Potential Energy
+ABSV	Absolute vorticity							/s
+ACPCP	Convective precipitation					kg/m2
+APCP	Total precipitation							kg/m2
+CAPE	Convective Available Potential Energy		J/kg
 CFRZR	Categorical freezing rain [yes=1; no=0]
 CICEP	Categorical ice pellets (yes=1; no=0)
-CIN		Convective inhibition
-CPOFP	Percent of frozen precipitation
-CPRAT	Convective Precipitation rate
+CIN		Convective inhibition						J/kg
+CPOFP	Percent of frozen precipitation				%
+CPRAT	Convective Precipitation rate				kg/m2/s
 CRAIN	Categorical rain (yes=1; no=0)
 CSNOW	Categorical snow (yes=1; no=0)
-DPT		Dew point temperature
-GUST	Surface wind gust
-HGT		Geopotential height
-HLCY	Storm relative helicity
+DPT		Dew point temperature						°K
+GUST	Surface wind gust							m/s
+HGT		Geopotential height							gpm
+HLCY	Storm relative helicity						m2/s2
 ICEC	Ice cover (ice=1, no ice=0)
-ICSEV	Icing severity
-LFTX	Surface lifted index
-PEVPR	Potential evaporation rate
-PRATE	Precipitation rate
-PRES	Pressure
-PRMSL	Pressure reduced to MSL
-RH		Relative humidity
-SNOD	Snow depth
-SUNSD	Sunshine Duration
-TCDC	Total cloud cover
-TMP		Temperature
-UGRD	u-component of wind
-VGRD	v-component of wind
-VIS		Visibility
-VVEL	Vertical velocity (pressure)
-VWSH	Vertical speed shear
-WEASD 	Water equiv. of accum. snow depth
+ICSEV	Icing severity								non-dim
+LFTX	Surface lifted index						K
+PEVPR	Potential evaporation rate					W/m2
+PRATE	Precipitation rate							kg/m2/s
+PRES	Pressure									Pa
+PRMSL	Pressure reduced to MSL						Pa
+RH		Relative humidity							%
+SNOD	Snow depth									m
+SUNSD	Sunshine Duration							s
+TCDC	Total cloud cover							%
+TMP		Temperature									°K
+UGRD	u-component of wind							m/s
+VGRD	v-component of wind							m/s
+VIS		Visibility									m
+VVEL	Vertical velocity (pressure)				Pa/s
+VWSH	Vertical speed shear						1/s
+WEASD 	Water equiv. of accum. snow depth			kg/m2
