@@ -98,10 +98,10 @@ cat p6f.csv >> p6e.csv
 
 awk 'BEGIN{FS=OFS=","}{ print $1,$17,$18,$19,$20,$21,$43,$44,$45,$3,$35,$36,$37,$42,$23,$24,$25,$26,$30,$29,$28,$22,$27,$15,$32,$33,$38,$4,$7,$10,$14,$41,$5,$8,$11,$6,$9,$12,$13,$2,$16,$39,$31 }' p6e.csv > final.csv
 
-awk '{print $1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17,$18,$19,$20,$21,$22,$23,$24,$25,$26,$27,$28,$29,$13,$31,$32,$33,$34,$35,$36,$37,$38,$39,$40,$41,$42,$43,$44,$45}' OFS="|" final.csv > final.xls
+cat final.csv | tr '"' ' ' > final.txt
 
 echo "<table  border='1'>" > final.html
     while read INPUT ; do
-            echo "<tr><td>${INPUT//,/</td><td>}</td></tr>" >> final.html ;
-    done < final.csv ;
+            echo "<tr><td>${INPUT//,/</td><td>}</td></tr>" >> final.html;
+    done < final.txt ;
 echo "</table>" >> final.html
