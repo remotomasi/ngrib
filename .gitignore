@@ -1,0 +1,9 @@
+*.csv
+pro*
+*.xls
+*.html
+<<<<<<< HEAD
+send.sh
+*.log*
+=======
+>>>>>>> df2f8c89cd70dd2549fd53a08fb912adc777ea83
