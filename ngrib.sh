@@ -8,6 +8,9 @@
 #
 #################################################################################
 
+echo -e "Insert latitude, longitude separated by spaces (i.e.: 60 21)"
+read lat lon
+
 today=$(date +%Y%m%d)
 
 o=00
@@ -34,7 +37,7 @@ for i in ${h[*]}; do $(if [ -e "pro$i" ]; then rm pro$i; fi); done			# remove pr
 for i in ${h[*]}; do $(if [ -e "csv$i.csv" ]; then rm csv$i.csv; fi); done	# remove csv#.csv
 #for i in {1..6}; do $(if [ -e "p$i.csv" ]; then rm p$i.csv; fi); done		# remove p#.csv
 
-for i in ${h[*]}; do curl "http://nomads.ncep.noaa.gov/cgi-bin/filter_gfs_0p25.pl?file=gfs.t${hh}z.pgrb2.0p25.f${i}&lev_0C_isotherm=on&lev_1000_mb=on&lev_10_m_above_ground=on&lev_2_m_above_ground=on&lev_500_mb=on&lev_700_mb=on&lev_850_mb=on&lev_high_cloud_layer=on&lev_low_cloud_layer=on&lev_mean_sea_level=on&lev_middle_cloud_layer=on&lev_surface=on&lev_tropopause=on&var_ABSV=on&var_ACPCP=on&var_APCP=on&var_CAPE=on&var_CFRZR=on&var_CICEP=on&var_CIN=on&var_CPOFP=on&var_CPRAT=on&var_CRAIN=on&var_CSNOW=on&var_DPT=on&var_GUST=on&var_HGT=on&var_ICEC=on&var_LFTX=on&var_PEVPR=on&var_PRATE=on&var_PRES=on&var_PRMSL=on&var_RH=on&var_SNOD=on&var_SUNSD=on&var_TCDC=on&var_TMP=on&var_UGRD=on&var_VGRD=on&var_VIS=on&var_VVEL=on&var_VWSH=on&subregion=&leftlon=18&rightlon=18&toplat=40&bottomlat=40&dir=%2Fgfs.${today}${hh}" -o pro$i; done
+for i in ${h[*]}; do curl "http://nomads.ncep.noaa.gov/cgi-bin/filter_gfs_0p25.pl?file=gfs.t${hh}z.pgrb2.0p25.f${i}&lev_0C_isotherm=on&lev_1000_mb=on&lev_10_m_above_ground=on&lev_2_m_above_ground=on&lev_500_mb=on&lev_700_mb=on&lev_850_mb=on&lev_high_cloud_layer=on&lev_low_cloud_layer=on&lev_mean_sea_level=on&lev_middle_cloud_layer=on&lev_surface=on&lev_tropopause=on&var_ABSV=on&var_ACPCP=on&var_APCP=on&var_CAPE=on&var_CFRZR=on&var_CICEP=on&var_CIN=on&var_CPOFP=on&var_CPRAT=on&var_CRAIN=on&var_CSNOW=on&var_DPT=on&var_GUST=on&var_HGT=on&var_ICEC=on&var_LFTX=on&var_PEVPR=on&var_PRATE=on&var_PRES=on&var_PRMSL=on&var_RH=on&var_SNOD=on&var_SUNSD=on&var_TCDC=on&var_TMP=on&var_UGRD=on&var_VGRD=on&var_VIS=on&var_VVEL=on&var_VWSH=on&subregion=&leftlon=$lon&rightlon=$lon&toplat=$lat&bottomlat=$lat&dir=%2Fgfs.${today}${hh}" -o pro$i; done
 
 for i in ${h[*]}; do ./wgrib2.exe pro$i -csv csv$i.csv; done						# obtain infos from gribs to csvs
 for i in ${h[*]}; do cat csv$i.csv >> final.csv; done								# merge of csvs
@@ -94,3 +97,11 @@ sed -i '/^$/d' p6f.csv				# delete void lines
 cat p6f.csv >> p6e.csv
 
 awk 'BEGIN{FS=OFS=","}{ print $1,$17,$18,$19,$20,$21,$43,$44,$45,$3,$35,$36,$37,$42,$23,$24,$25,$26,$30,$29,$28,$22,$27,$15,$32,$33,$38,$4,$7,$10,$14,$41,$5,$8,$11,$6,$9,$12,$13,$2,$16,$39,$31 }' p6e.csv > final.csv
+
+awk '{print $1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17,$18,$19,$20,$21,$22,$23,$24,$25,$26,$27,$28,$29,$13,$31,$32,$33,$34,$35,$36,$37,$38,$39,$40,$41,$42,$43,$44,$45}' OFS="|" final.csv > final.xls
+
+echo "<table  border='1'>" > final.html
+    while read INPUT ; do
+            echo "<tr><td>${INPUT//,/</td><td>}</td></tr>" >> final.html ;
+    done < final.csv ;
+echo "</table>" >> final.html
