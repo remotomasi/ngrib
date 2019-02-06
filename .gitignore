@@ -4,3 +4,4 @@ pro*
 *.html
 send.sh
 *.log*
+*.txt
