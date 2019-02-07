@@ -19,9 +19,9 @@ hh=""
 if [ "$o" -ge 0 ] && [ "$o" -lt 8 ]
 	then hh="18"
 		today=$(date +%Y%m%d -d "yesterday")
-elif [ "$o" -ge 8 ] && [ "$o" -lt 14 ]
+elif [ "$o" -ge 8 ] && [ "$o" -lt 13 ]
 	then hh="00"
-elif [ "$o" -ge 14 ] && [ "$o" -lt 20 ]
+elif [ "$o" -ge 13 ] && [ "$o" -lt 20 ]
 	then hh="06"
 elif [ "$o" -ge 20 ]
 	then hh="12"
