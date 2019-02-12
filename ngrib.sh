@@ -4,7 +4,7 @@
 #	Thanks to NOAA - http://nomads.ncep.noaa.gov
 #
 #	by Remo Tomasi
-#	04-02-2019 v0.10
+#	12-02-2019 v0.21
 #
 #################################################################################
 
@@ -28,7 +28,6 @@ elif [ "$o" -ge 18 ]
 fi
 
 #today="20190115"
-dir=""
 
 h=(000 003 006 009 012 015 018 021 024 027 030 033 036 039 042 045 048 051 054 057 060 063 066 069 072 075 078 081 084 087 090 093 096 099 102 105 108 111 114 117 120)
 
@@ -97,13 +96,9 @@ sed -i '/^$/d' p6f.csv				# delete void lines
 # "'"`windDirection "$44"`"'"
 cat p6f.csv >> p6e.csv
 
-sed -i -e 's/2_m_above_ground/2m/g' p6e.csv
-sed -i -e 's/10_m_above_ground/10m/g' p6e.csv
-sed -i -e 's/low_cloud_layer/low_cloud/g' p6e.csv
-sed -i -e 's/middle_cloud_layer/middle_cloud/g' p6e.csv
-sed -i -e 's/high_cloud_layer/high_cloud/g' p6e.csv
-sed -i -e 's/mean_sea_level/mean_sea/g' p6e.csv
-sed -i -e 's/:00:00/:00/g' p6e.csv
+sed -i -e 's/2_m_above_ground/2m/g;s/10_m_above_ground/10m/g;s/low_cloud_layer/low_cloud/g' p6e.csv
+sed -i -e 's/middle_cloud_layer/middle_cloud/g;s/high_cloud_layer/high_cloud/g' p6e.csv
+sed -i -e 's/mean_sea_level/mean_sea/g;s/:00:00/:00/g' p6e.csv
 
 awk 'BEGIN{FS=OFS=","}{ print $1,$17,$18,$19,$20,$21,$43,$44,$45,$3,$35,$36,$37,$42,$23,$24,$25,$26,$30,$29,$28,$22,$27,$15,$32,$33,$38,$4,$7,$10,$14,$41,$5,$8,$11,$6,$9,$12,$13,$2,$16,$39,$31 }' p6e.csv > final.csv
 
