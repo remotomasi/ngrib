@@ -14,13 +14,13 @@ surface
 tropopause
 ABSV	Absolute vorticity							/s
 ACPCP	Convective precipitation					kg/m2
-APCP	Total precipitation							kg/m2
+APCP	Total precipitation							kg/m2 --> mm
 CAPE	Convective Available Potential Energy		J/kg
 CFRZR	Categorical freezing rain [yes=1; no=0]
 CICEP	Categorical ice pellets (yes=1; no=0)
 CIN		Convective inhibition						J/kg
 CPOFP	Percent of frozen precipitation				%
-CPRAT	Convective Precipitation rate				kg/m2/s
+CPRAT	Convective Precipitation rate				kg/m2/s --> mm/h
 CRAIN	Categorical rain (yes=1; no=0)
 CSNOW	Categorical snow (yes=1; no=0)
 DPT		Dew point temperature						°K
@@ -31,7 +31,7 @@ ICEC	Ice cover (ice=1, no ice=0)
 ICSEV	Icing severity								non-dim
 LFTX	Surface lifted index						K
 PEVPR	Potential evaporation rate					W/m2
-PRATE	Precipitation rate							kg/m2/s
+PRATE	Precipitation rate							kg/m2/s --> mm/h
 PRES	Pressure									Pa
 PRMSL	Pressure reduced to MSL						Pa
 RH		Relative humidity							%

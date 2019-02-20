@@ -1,0 +1,35 @@
+#!/usr/bin/gnuplot -persist
+reset
+set terminal png
+set term png size 1024,600 #800 pixels by 600 pixels
+set angle degrees
+
+set datafile separator " "
+set xdata time
+set timefmt "%Y-%m-%d %H"
+set xrange [time(0):time(0) + 5*24*60*60]
+set format x "h%H\n%d/%m\n%a"
+set xlabel "Time"
+set xtics font ", 10"
+
+set ytics 5
+set yrange [-10:50]
+set ylabel '°C'
+set y2tics 10
+set y2range [0:100]
+set y2label '% - Km/h'
+
+set title "Weather Forecast GFS Model - NOAA (Temp-DewPoint)"
+set key lmargin
+set key font ",10"
+set grid
+set size 1, 1 # ratio 1:1
+
+set style data lines
+set bars small
+
+plot 'final3.csv' u 1:3:($4):3 w errorlines ls 1 pt 0 lt 1 lc rgb "red" axes x1y1 ti "T°C", \
+"" u 1:5 title "Hum" axes x1y2, \
+"" u 1:8 title "WSpd" axes x1y2, \
+"" u 46:(70):(0.05*$8*cos(90-$9)):(0.05*$8*sin(90-$9)) with vectors nohead lw 2 lc rgb "dark-green" title "WDir" axes x2y2, \
+"" u 46:(70) w p lt 2 pt 7 ps 1.5 notitle axes x2y2

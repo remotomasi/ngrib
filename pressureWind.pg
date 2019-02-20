@@ -1,0 +1,33 @@
+#!/usr/bin/gnuplot -persist
+reset
+set terminal png
+set term png size 1024,600 #800 pixels by 600 pixels
+set angle degrees
+
+set datafile separator " "
+set xdata time
+set timefmt "%Y-%m-%d %H"
+set xrange [time(0):time(0) + 5*24*60*60]
+set format x "h%H\n%d/%m\n%a"
+set xlabel "Time"
+set xtics font ", 10"
+
+#set x2tics 10
+#set x2range [0:50]
+#set x2label 'Ore'
+
+set ylabel "hPa"
+set ytics 5
+set yrange [990:1040]
+
+set title "Weather Forecast by Weather unlocked and Remo Tomasi (Pressure)"
+set key lmargin
+set grid
+set size 1, 1 # ratio 1:1
+
+set style data lines
+set bar 0 # disable whiskers on the errorbars
+
+plot "final3.csv" using 1:15 title "Pres", \
+"" u 46:(1025):(0.05*$8*cos(90-$9)):(0.05*$8*sin(90-$9)) with vectors nohead lw 2 lc rgb "dark-green" title "Wind" axes x2y1, \
+"" u 46:(1025) w p lt 2 pt 7 ps 1.5 notitle axes x2y1
