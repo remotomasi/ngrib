@@ -131,6 +131,9 @@ gnuplot ./precipitations.pg > precipitations.png
 gnuplot ./clouds.pg > clouds.png
 gnuplot ./hgt.pg > hgt.png
 gnuplot ./temperatures.pg > temperatures.png
+gnuplot ./cape-lftx.pg > cape-lftx.png
+
+convert \( weather.png precipitations.png -append \) \( clouds.png pressureWind.png -append \) \( hgt.png temperatures.png -append \) \( cape-lftx.png -append \) +append weatherForecastFinal.png
 
 # clean last created files
 

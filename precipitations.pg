@@ -18,7 +18,7 @@ set y2tics 10
 set y2range [0:100]
 set y2label '% Chance'
 
-set title "Weather Forecast GFS Model - NOAA (Rain - Frozen/Freezing - Snow)"
+set title "Weather Forecast GFS Model - NOAA (Rain-Frozen/Freezing-Snow)"
 set key lmargin
 set key font ",10"
 set grid
@@ -35,7 +35,8 @@ plot "final3.csv" using 1:16 w boxes lc rgb "blue" fs solid border -1 title "RaM
 "" using 1:23 lc rgb "red" title "FP%" axes x1y2, \
 "" using 1:21 lc rgb "grey" title "F01" axes x1y1, \
 "" using 1:20 lc rgb "green" title "R01" axes x1y1, \
-"" using 1:24 lc rgb "yellow" title "S01" axes x1y1
+"" using 1:24 lc rgb "yellow" title "S01" axes x1y1, \
+"" using 1:22 lc rgb "black" title "ICEP01" axes x1y1
 #"" using 1:13 w boxes lc rgb "green" fs solid border -1 title "SnMM" axes x1y1, \
 #"" using 1:14 w boxes lc rgb "yellow" fs solid border -1 title "SnCM" axes x1y1, \
 #"" using 1:11 lc rgb "red" title "Pr%" axes x1y2, \

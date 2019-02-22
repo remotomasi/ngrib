@@ -20,7 +20,7 @@ set ylabel "hPa"
 set ytics 5
 set yrange [990:1040]
 
-set title "Weather Forecast by Weather unlocked and Remo Tomasi (Pressure)"
+set title "Weather Forecast by Weather unlocked and Remo Tomasi (Pressure-Wind)"
 set key lmargin
 set grid
 set size 1, 1 # ratio 1:1

@@ -22,7 +22,7 @@ set y2tics 5
 set y2range [-50:50]
 set y2label '°C'
 
-set title "Weather Forecast GFS Model - NOAA (TEMPERATURES)"
+set title "Weather Forecast GFS Model - NOAA (Temperatures)"
 set key lmargin
 set key font ",10"
 set grid
