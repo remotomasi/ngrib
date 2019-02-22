@@ -32,6 +32,7 @@ plot "final3.csv" using 1:16 w boxes lc rgb "blue" fs solid border -1 title "RaM
 2.5 lc rgb "#2F4F4F" lw 2 notitle, \
 10 lc rgb "#2F4F4F" lw 2 notitle, \
 "" using 1:18 lc "purple" title "PrMM" axes x1y1, \
+"" using 1:29 lc rgb "orange" title "CONV" axes x1y1, \
 "" using 1:23 lc rgb "red" title "FP%" axes x1y2, \
 "" using 1:21 lc rgb "grey" title "F01" axes x1y1, \
 "" using 1:20 lc rgb "green" title "R01" axes x1y1, \
