@@ -100,7 +100,7 @@ sed -i -e 's/2_m_above_ground/2m/g;s/10_m_above_ground/10m/g;s/low_cloud_layer/l
 sed -i -e 's/middle_cloud_layer/middle_cloud/g;s/high_cloud_layer/high_cloud/g' p6e.csv
 sed -i -e 's/mean_sea_level/mean_sea/g;s/:00:00/:00/g' p6e.csv
 
-awk 'BEGIN{FS=OFS=","}{ print $1,$17,$18,$19,$20,$21,$43,$44,$45,$3,$35,$36,$37,$42,$23,$24,$25,$26,$30,$29,$28,$22,$27,$15,$32,$33,$38,$4,$7,$10,$14,$40,$41,$5,$8,$11,$6,$9,$12,$13,$2,$16,$39,$31 }' p6e.csv > final.csv
+awk 'BEGIN{FS=OFS=","}{ print $1,$17,$18,$19,$20,$21,$43,$44,$45,$3,$35,$36,$37,$42,$23,$24,$25,$26,$30,$29,$28,$22,$27,$15,$32,$33,$38,$4,$7,$10,$14,$40,$41,$5,$8,$11,$6,$9,$12,$13,$2,$16,$39,$31,$10-$14,$7-$14,$4-$14,$7-$10,$4-$10 }' p6e.csv > final.csv
 
 cat final.csv | tr '"' ' ' > final.txt
 
@@ -132,8 +132,9 @@ gnuplot ./clouds.pg > clouds.png
 gnuplot ./hgt.pg > hgt.png
 gnuplot ./temperatures.pg > temperatures.png
 gnuplot ./cape-lftx.pg > cape-lftx.png
+gnuplot ./precTypes.pg > precTypes.png
 
-convert \( weather.png precipitations.png -append \) \( clouds.png pressureWind.png -append \) \( hgt.png temperatures.png -append \) \( cape-lftx.png -append \) +append weatherForecastFinal.png
+convert \( weather.png precipitations.png -append \) \( clouds.png pressureWind.png -append \) \( hgt.png temperatures.png -append \) \( cape-lftx.png precTypes.png -append \) +append weatherForecastFinal.png
 
 # clean last created files
 

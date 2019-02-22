@@ -1,0 +1,42 @@
+#!/usr/bin/gnuplot -persist
+reset
+set terminal png
+set term png size 1024,600 #800 pixels by 600 pixels
+
+set datafile separator " "
+set xdata time
+set timefmt "%Y-%m-%d %H"
+set xrange [time(0):time(0) + 4.6*24*60*60]
+set format x "h%H\n%d/%m\n%a"
+set xlabel "Time"
+set xtics font ", 10"
+
+#set x2tics 10
+#set x2range [0:40]
+#set x2label 'ore'
+
+set ytics 500
+set yrange [1200:4500]
+set ylabel '°C'
+set y2tics 500
+set y2range [1200:4500]
+set y2label '°C'
+
+set title "Weather Forecast GFS Model - NOAA (Precipitations types)"
+set key lmargin
+set key font ",10"
+set grid
+set size 1, 1 # ratio 1:1
+
+set style data lines
+
+plot "final3.csv" using 1:46 title "1000-850" lw 2 lt 2 lc "grey", \
+"" using 1:47 title "1000-700" lw 2 lt 2 lc "red", \
+"" using 1:48 title "1000-500" lw 2 lt 2 lc "orange", \
+"" using 1:49 title "850-700" lw 2 lt 2 lc "green", \
+"" using 1:50 title "850-500" lw 2 lt 2 lc "blue", \
+1281 lc rgb "#112233" lw 1 notitle, \
+2800 lc rgb "#112233" lw 1 notitle, \
+5360 lc rgb "#112233" lw 1 notitle, \
+1520 lc rgb "#112233" lw 1 notitle, \
+4050 lc rgb "#112233" lw 1 notitle
