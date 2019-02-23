@@ -71,7 +71,7 @@ cat p2b.csv | paste -s >> p2c.csv				# labels + atmosphere labels
 cat p2c.csv | tr ' ' '_' > p2d.csv			# transform spaces to _ (to obtain one word")
 paste -d',' p1.csv p.csv > p5.csv				# adding date to datas
 
-awk 'BEGIN{FS=OFS=";"}{if (NR>=3&&NR<=42) print $1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17,$18,$19,$20,$13,$14,$15,$16,$17,$18,$19,$20,$21,$22,$23*3600,$24*3600,$25,$26,$27,$28,$29,$30,$31,$32,$33,$34,$35,$36,$37,$38,$39,$40,$41,$42 }' p5.csv
+awk 'BEGIN{FS=OFS=";"}{if (NR>=3&&NR<=42) print $1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17,$18,$19,$20,$13,$14,$15*100,$16,$17,$18,$19,$20,$21,$22,$23*3600,$24*3600,$25,$26,$27,$28,$29,$30,$31,$32,$33,$34,$35,$36,$37,$38,$39,$40,$41,$42 }' p5.csv
 cut -d',' -f2 p2d.csv > p3.csv					# taking the 2nd $1umn after the comma
 cat p5.csv >> p3.csv										# adding labels + (date + datas)
 cat p3.csv | tr '\t' ',' > p6.csv				# convert tabs and commas into semi$1on
@@ -154,4 +154,4 @@ gnuplot ./precTypes.pg > precTypes.png
 convert \( weather.png precipitations.png -append \) \( clouds.png pressureWind.png -append \) \( hgt.png temperatures.png -append \) \( cape-lftx.png precTypes.png -append \) +append weatherForecastFinal.png
 
 # clean last created files
-rm final2.csv final3.csv
+# rm final2.csv final3.csv

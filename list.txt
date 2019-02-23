@@ -13,7 +13,7 @@ mean_sea_level
 surface
 tropopause
 ABSV	Absolute vorticity							/s
-ACPCP	Convective precipitation					kg/m2
+ACPCP	Convective precipitation					kg/m2 --> mm
 APCP	Total precipitation							kg/m2 --> mm
 CAPE	Convective Available Potential Energy		J/kg
 CFRZR	Categorical freezing rain [yes=1; no=0]
@@ -35,7 +35,7 @@ PRATE	Precipitation rate							kg/m2/s --> mm/h
 PRES	Pressure									Pa
 PRMSL	Pressure reduced to MSL						Pa
 RH		Relative humidity							%
-SNOD	Snow depth									m
+SNOD	Snow depth									m	--> cm
 SUNSD	Sunshine Duration							s
 TCDC	Total cloud cover							%
 TMP		Temperature									°K
