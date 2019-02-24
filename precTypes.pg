@@ -17,10 +17,10 @@ set xtics font ", 10"
 
 set ytics 500
 set yrange [1200:4500]
-set ylabel '°C'
+set ylabel 'm'
 set y2tics 500
 set y2range [1200:4500]
-set y2label '°C'
+set y2label 'm'
 
 set title "Weather Forecast GFS Model - NOAA (Precipitations types)"
 set key lmargin
