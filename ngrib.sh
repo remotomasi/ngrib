@@ -8,7 +8,7 @@
 #
 #################################################################################
 
-echo -e "Insert latitude and longitude (only first decimal) separated by spaces (i.e.: 60.7 21.3)"
+echo -e "Insert latitude and longitude separated by spaces (i.e.: 60.75 21.34)"
 read lat lon
 
 # calculation of the coordinates of the square area
@@ -37,20 +37,21 @@ fi
 
 h=(000 003 006 009 012 015 018 021 024 027 030 033 036 039 042 045 048 051 054 057 060 063 066 069 072 075 078 081 084 087 090 093 096 099 102 105 108 111 114 117 120)
 
-# OS VERSION
-unameOut="$(uname -s)"
-case "${unameOut}" in
-    Linux*)     machine=Linux;;
-    Darwin*)    machine=Mac;;
-    CYGWIN*)    machine=Cygwin;;
-    MINGW*)     machine=MinGw;;
-    *)          machine="UNKNOWN:${unameOut}"
-esac
+# OS VERSION - only Ubuntu/Windows
+unameOut="$(uname -a)"
+# case "${unameOut}" in
+#     Linux*)     machine=Linux;;
+#     Darwin*)    machine=Mac;;
+#     CYGWIN*)    machine=Cygwin;;
+#     MINGW*)     machine=MinGw;;
+#     *)          machine="UNKNOWN:${unameOut}"
+# esac
 #echo ${machine}
-if [ $machine = "Linux" ]
+if [[ $unameOut == *"Ubuntu"* ]]
 	then
 		command="wgrib2"
-	else
+elif [[ $unameOut == *"Microsoft"* ]]
+	then
 		command="wgrib2.exe"
 fi
 
