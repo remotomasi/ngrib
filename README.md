@@ -17,10 +17,10 @@ Then you will be asked to insert coordinates:
 $ Insert latitude and longitude (only integer values) separated by spaces (i.e.: 60 21)
 ```
 
-And you have to insert you coordinates (NOTE: Only the first digit after the comma!) i.e.:
+And you have to insert you coordinates i.e.:
 
 ```bash
-$ 45.3 22.7
+$ 45.35 22.72
 ```
 
 
