@@ -11,11 +11,13 @@ set format x "h%H\n%d/%m\n%a"
 set xlabel "Time"
 set xtics font ", 10"
 
+set autoscale y
+set autoscale y2
 set ytics 500
-set yrange [0:3000]
+#set yrange [0:3000]
 set ylabel 'J/Kg'
 set y2tics 1
-set y2range [-6:15]
+#set y2range [-6:15]
 set y2label 'K'
 
 set title "Weather Forecast GFS Model - NOAA (Cape-LiftedIndex)"
