@@ -13,13 +13,13 @@ set xlabel "Time"
 set xtics font ", 10"
 
 set autoscale y
-#set autoscale y2
+set autoscale y2
 set ylabel "hPa"
 #set ytics 5
 #set yrange [990:1040]
 set y2tics 10
-set y2range [0:100]
-set y2label '% - Km/h'
+#set y2range [0:100]
+set y2label 'Km/h'
 
 set title "Weather Forecast by Weather unlocked and Remo Tomasi (Pressure-Wind)"
 set key lmargin
@@ -30,6 +30,6 @@ set style data lines
 set bar 0 # disable whiskers on the errorbars
 
 plot "final3.csv" using 1:15 title "Pres", \
-"" u 52:(1025):(0.05*$8*cos(90-$9)):(0.05*$8*sin(90-$9)) with vectors nohead lw 2 lc rgb "dark-green" title "Wind" axes x2y1, \
-"" u 52:(1025) w p lt 2 pt 7 ps 1.5 notitle axes x2y1, \
+"" u 52:(1023):(0.05*$8*cos(90-$9)):(0.05*$8*sin(90-$9)) with vectors nohead lw 2 lc rgb "dark-green" title "Wind" axes x2y1, \
+"" u 52:(1023) w p lt 2 pt 7 ps 1.5 notitle axes x2y1, \
 "" u 1:8 title "WSpd" axes x1y2

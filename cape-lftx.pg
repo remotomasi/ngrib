@@ -12,7 +12,7 @@ set xlabel "Time"
 set xtics font ", 10"
 
 set autoscale y
-set autoscale y2
+#set autoscale y2
 set ytics 500
 #set yrange [0:3000]
 set ylabel 'J/Kg'
@@ -32,6 +32,7 @@ set boxwidth 0.95 relative
 
 plot "final3.csv" using 1:27 w boxes lc rgb "orange" fs solid border -1 title "CAPE" axes x1y1, \
 "" using 1:26 lc "purple" title "LFTX" axes x1y2, \
-0 lc rgb "purple" lw 2 notitle axes x1y2, \
-1500 lc rgb "orange" lw 2 notitle
+0 lc rgb "purple" lw 2 notitle axes x1y2
+#, \
+#1500 lc rgb "orange" lw 2 notitle
 #, \
