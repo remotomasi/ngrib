@@ -12,7 +12,7 @@ set xlabel "Time"
 set xtics font ", 10"
 
 set autoscale y
-#set autoscale yfixmin
+set autoscale yfixmin
 #set ytics 0.05
 #set yrange [0:12]
 set ylabel 'mm/h'
@@ -40,7 +40,8 @@ plot "final3.csv" using 1:17 w boxes lc rgb "blue" fs solid border -1 title "PrM
 "" using 1:24 lc rgb "yellow" title "S01" axes x1y1, \
 "" using 1:25 lc rgb "olive" title "SDepth" axes x1y1, \
 "" using 1:22 lc rgb "black" title "IceP01" axes x1y1, \
-#10 lc rgb "#5F9EA0" lw 2 notitle, \
-2.5 lc rgb "#5F9EA0" lw 2 notitle, \
-1 lc rgb "#5F9EA0" lw 2 notitle
+1 lc rgb "#5F9EA0" lw 2 notitle, \
+2.5 lc rgb "#5F9EA0" lw 2 notitle
+#, \
+#10 lc rgb "#5F9EA0" lw 2 notitle
 
