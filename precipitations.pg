@@ -1,7 +1,8 @@
 #!/usr/bin/gnuplot -persist
 reset
-set terminal png
-set term png size 1024,600 #800 pixels by 600 pixels
+set terminal pngcairo truecolor
+set termoption dashed
+set term pngcairo size 1024,600 #800 pixels by 600 pixels
 
 set datafile separator " "
 set xdata time
@@ -12,10 +13,10 @@ set xlabel "Time"
 set xtics font ", 10"
 
 set autoscale y
-set autoscale yfixmin
+#set autoscale yfixmin
 #set ytics 0.05
 #set yrange [0:12]
-set ylabel 'mm/h'
+set ylabel 'mm/h - mm'
 set y2tics 10
 set y2range [0:100]
 set y2label '% Chance'
@@ -31,7 +32,7 @@ set boxwidth 0.95 relative
 #set style fill transparent solid 0.5 noborder
 
 plot "final3.csv" using 1:17 w boxes lc rgb "blue" fs solid border -1 title "PrMM/h" axes x1y1, \
-"" using 1:18 with filledcurve lc rgb "purple" title "TotPr" axes x1y1, \
+"" using 1:18 w boxes lc rgb "purple" fs solid border -1 title "TotPr" axes x1y1, \
 "" using 1:16 lc rgb "brown" title "CPrMM/h" axes x1y1, \
 "" using 1:19 lc rgb "orange" title "CPrTot" axes x1y1, \
 "" using 1:23 lc rgb "red" title "FP%" axes x1y2, \
@@ -40,8 +41,11 @@ plot "final3.csv" using 1:17 w boxes lc rgb "blue" fs solid border -1 title "PrM
 "" using 1:24 lc rgb "yellow" title "S01" axes x1y1, \
 "" using 1:25 lc rgb "olive" title "SDepth" axes x1y1, \
 "" using 1:22 lc rgb "black" title "IceP01" axes x1y1, \
-1 lc rgb "#5F9EA0" lw 2 notitle, \
-2.5 lc rgb "#5F9EA0" lw 2 notitle
+"" u 1:($16>1 || $17>1 ||$18>1 ||$19>1 ||$20>1 ||$21>1 ||$22>1 ||$24>1 ||$25>1?1:1/0) dt 2 lc rgb "#5F9EA0" lw 1 notitle, \
+"" u 1:($16>2.5 || $17>2.5 ||$18>2.5 ||$19>2.5 ||$20>2.5 ||$21>2.5 ||$22>2.5 ||$24>2.5 ||$25>2.5?2.5:1/0) dt 2 lc rgb "#5F9EA0" lw 1 notitle, \
+"" u 1:($16>10 || $17>10 ||$18>10 ||$19>10 ||$20>10 ||$21>10 ||$22>10 ||$24>10 ||$25>10?10:1/0) dt 2 lc rgb "#5F9EA0" lw 1 notitle
+
+#1 lc rgb "#5F9EA0" lw 2 notitle, \
+#2.5 lc rgb "#5F9EA0" lw 2 notitle
 #, \
 #10 lc rgb "#5F9EA0" lw 2 notitle
-
