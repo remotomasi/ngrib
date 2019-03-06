@@ -35,7 +35,7 @@ fi
 
 #today="20190115"
 
-h=(000 003 006 009 012 015 018 021 024 027 030 033 036 039 042 045 048 051 054 057 060 063 066 069 072 075 078 081 084 087 090 093 096 099 102 105 108 111 114 117 120)
+h=(000 003 006 009 012 015 018 021 024 027 030 033 036 039 042 045 048 051 054 057 060 063 066 069 072 075 078 081 084 087 090 093 096 099 102 105 108 111 114 117 120 123 126 129 132)
 
 # OS VERSION - only Ubuntu/Windows
 unameOut="$(uname -a)"
@@ -78,7 +78,7 @@ cat p2b.csv | paste -s >> p2c.csv				# labels + atmosphere labels
 cat p2c.csv | tr ' ' '_' > p2d.csv			# transform spaces to _ (to obtain one word")
 paste -d',' p1.csv p.csv > p5.csv				# adding date to datas
 
-awk 'BEGIN{FS=OFS=";"}{if (NR>=3&&NR<=42) print $1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17,$18,$19,$20,$13,$14,$15*100,$16,$17,$18,$19,$20,$21,$22,$23*3600,$24*3600,$25,$26,$27,$28,$29,$30,$31,$32,$33,$34,$35,$36,$37,$38,$39,$40,$41,$42 }' p5.csv
+awk 'BEGIN{FS=OFS=";"}{if (NR>=3&&NR<=46) print $1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17,$18,$19,$20,$13,$14,$15*100,$16,$17,$18,$19,$20,$21,$22,$23*3600,$24*3600,$25,$26,$27,$28,$29,$30,$31,$32,$33,$34,$35,$36,$37,$38,$39,$40,$41,$42 }' p5.csv
 cut -d',' -f2 p2d.csv > p3.csv					# taking the 2nd $1umn after the comma
 cat p5.csv >> p3.csv										# adding labels + (date + datas)
 cat p3.csv | tr '\t' ',' > p6.csv				# convert tabs and commas into semi$1on
@@ -115,7 +115,7 @@ function windDirection(x) {
 		print $1,$2,$3*3.6,$4,$5-273.15,$6,$7,$8-273.15,$9,$10,$11-273.15,$12,$13,$14,$15,$16,$17-273.15,$18-273.15,$19,$20*3.6,$21*3.6,$22,$23,$24,$25,$26,$27,$28,$29,$30,$31/3600,$32,$33,$34,$35,$36,$37,$38,$39,$40,$41,$42/100,(sqrt($20*$20+$21*$21))*3.6,(atan2($20,$21)*57.3+180),"NW"                  #North-West (Maestrale)
 	}
 }
-{if (NR>=3&&NR<=42) print windDirection((atan2($20,$21)*57.3+180)) }' p6d.csv > p6f.csv			# added function that transform direction from degree to a capital letter
+{if (NR>=3&&NR<=46) print windDirection((atan2($20,$21)*57.3+180)) }' p6d.csv > p6f.csv			# added function that transform direction from degree to a capital letter
 
 sed -i '/^$/d' p6f.csv																			# delete void lines
 cat p6f.csv >> p6e.csv
@@ -124,7 +124,7 @@ sed -i -e 's/2_m_above_ground/2m/g;s/10_m_above_ground/10m/g;s/low_cloud_layer/l
 sed -i -e 's/middle_cloud_layer/middle_cloud/g;s/high_cloud_layer/high_cloud/g' p6e.csv
 sed -i -e 's/mean_sea_level/mean_sea/g;s/:00:00/:00/g' p6e.csv
 
-awk 'BEGIN{FS=OFS=","}{ print $1,$17,$18,$19,$20,$21,$43,$44,$45,$3,$35,$36,$37,$42,$23,$24,$25,$26,$30,$29,$28,$22,$27,$15,$32,$33,$38,$4,$7,$10,$14,$40,$41,$5,$8,$11,$6,$9,$12,$13,$2,$16,$39,$31,$10-$14,$7-$14,$4-$14,$7-$10,$4-$10,5-($17-$18) }' p6e.csv > final.csv
+awk 'BEGIN{FS=OFS=","}{ print $1,$17,$18,$19,$20,$21,$43,$44,$45,$3,$35,$36,100-$37,$42,$23,$24,$25,$26,$30,$29,$28,$22,$27,$15,$32,$33,$38,$4,$7,$10,$14,$40,$41,$5,$8,$11,$6,$9,$12,$13,$2,$16,$39,$31,$10-$14,$7-$14,$4-$14,$7-$10,$4-$10,2.5-($17-$18),$34 }' p6e.csv > final.csv
 
 cat final.csv | tr '"' ' ' > final.txt
 
@@ -147,7 +147,7 @@ rm p*.csv																										# remove all p*.csv
 # graphic part
 cat final.txt | tr '|' ' ' | tr ',' ' ' | tr '"' ' ' | cut -d' ' -f2- > final2.csv
 sed -i -e 's/  / /g;s/:00:00/ /g;s/  / /g' final2.csv
-awk '{if (NR>=3&&NR<=42) print $0, NR }' final2.csv > final3.csv	# added the number of the line at the end of each of them
+awk '{if (NR>=3&&NR<=46) print $0, NR }' final2.csv > final3.csv	# added the number of the line at the end of each of them
 
 gnuplot ./weather.pg > weather.png
 gnuplot ./pressureWind.pg > pressureWind.png
@@ -161,4 +161,4 @@ gnuplot ./precTypes.pg > precTypes.png
 convert \( weather.png precipitations.png cape-lftx.png -append \) \( clouds.png pressureWind.png precTypes.png -append \) \( hgt.png temperatures.png -append \) +append weatherForecastFinal.png
 
 # clean last created files
-# rm final2.csv final3.csv
+# rm final2.csv final3.csv finalg.csv finalg.txt

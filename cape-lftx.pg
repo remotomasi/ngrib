@@ -1,26 +1,27 @@
 #!/usr/bin/gnuplot -persist
 reset
-set terminal png
-set term png size 1024,600 #800 pixels by 600 pixels
+set terminal pngcairo truecolor
+set termoption dashed
+set term pngcairo size 1024,600 #800 pixels by 600 pixels
 
 set datafile separator " "
 set xdata time
 set timefmt "%Y-%m-%d %H"
-set xrange [time(0):time(0) + 4.6*24*60*60]
+set xrange [time(0):time(0) + 5*24*60*60]
 set format x "h%H\n%d/%m\n%a"
 set xlabel "Time"
 set xtics font ", 10"
 
 set autoscale y
 #set autoscale y2
-set ytics 500
+#set ytics 500
 #set yrange [0:3000]
 set ylabel 'J/Kg'
 set y2tics 1
 #set y2range [-6:15]
 set y2label 'K'
 
-set title "Weather Forecast GFS Model - NOAA (Cape-LiftedIndex)"
+set title "Weather Forecast GFS Model - NOAA (Cape-LiftedIndex-Cin)"
 set key lmargin
 set key font ",10"
 set grid
@@ -31,8 +32,14 @@ set boxwidth 0.95 relative
 #set style fill transparent solid 0.5 noborder
 
 plot "final3.csv" using 1:27 w boxes lc rgb "orange" fs solid border -1 title "CAPE" axes x1y1, \
+500 lc rgb "orange" dt 2 lw 2 notitle axes x1y1, \
+1000 lc rgb "orange" dt 2 lw 2 notitle axes x1y1, \
+2000 lc rgb "orange" dt 2 lw 2 notitle axes x1y1, \
 "" using 1:26 lc "purple" title "LFTX" axes x1y2, \
-0 lc rgb "purple" lw 2 notitle axes x1y2
-#, \
-#1500 lc rgb "orange" lw 2 notitle
-#, \
+2 lc rgb "purple" dt 2 lw 1 notitle axes x1y2, \
+0 lc rgb "purple" dt 2 lw 1 notitle axes x1y2, \
+-2 lc rgb "purple" dt 2 lw 1 notitle axes x1y2, \
+-4 lc rgb "purple" dt 2 lw 1 notitle axes x1y2, \
+-6 lc rgb "purple" dt 2 lw 1 notitle axes x1y2, \
+75 lc rgb "red" dt 2 lw 1 notitle axes x1y1, \
+"" using 1:52 lc "red" title "CIN" axes x1y1
