@@ -40,10 +40,10 @@ plot "final3.csv" using 1:46 title "1000-850" lw 2 lt 2 lc "grey", \
 "" using 1:48 title "1000-500" lw 2 lt 2 lc "orange", \
 "" using 1:49 title "850-700" lw 2 lt 2 lc "green", \
 "" using 1:50 title "850-500" lw 2 lt 2 lc "blue", \
-1281 dt 2 lc rgb "#112233" lw 1 notitle, \
-2800 dt 2 lc rgb "#112233" lw 1 notitle, \
-5225 dt 2 lc rgb "#112233" lw 1 notitle, \
-1520 dt 2 lc rgb "#112233" lw 1 notitle, \
-4050 dt 2 lc rgb "#112233" lw 1 notitle
+1281 dt 2 lc "grey" lw 1 notitle, \
+2800 dt 2 lc "red" lw 1 notitle, \
+5225 dt 2 lc "orange" lw 1 notitle, \
+1520 dt 2 lc "green" lw 1 notitle, \
+4050 dt 2 lc "blue" lw 1 notitle
 # , \
 # 5360 dt 2 lc rgb "#112233" lw 1 notitle, \
