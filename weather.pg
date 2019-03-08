@@ -1,7 +1,8 @@
 #!/usr/bin/gnuplot -persist
 reset
-set terminal png truecolor
-set term png size 1024,600 #800 pixels by 600 pixels
+set terminal pngcairo truecolor
+set termoption dashed
+set term pngcairo size 1024,600 #800 pixels by 600 pixels
 set angle degrees
 
 set datafile separator " "
@@ -30,6 +31,7 @@ set style data lines
 set style fill transparent solid 0.5
 set bars small
 
+set title "Plot actual y-value as a label"
 plot 'final3.csv' u 1:($3):($4) with filledcurves above x1 lc "red" notitle, \
 "" u 1:($3):($4) with filledcurves below x1 notitle, \
 "" u 1:3 lc "red" lw 2 axes x1y1 ti "Temp", \
