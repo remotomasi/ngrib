@@ -39,9 +39,9 @@ set size 1, 1 # ratio 1:1
 set style data lines
 set bar 0 # disable whiskers on the errorbars
 
-set label sprintf("Wmax = %4.4g Km/h",max_yW) at graph 0.7,0.97 center font "Arial,10"
-set label sprintf("Pmax = %4.4g hPa",max_yP) at graph 0.9,0.97 center font "Arial,10"
-set label sprintf("Pmin = %4.4g hPa",min_yP) at graph 0.9,0.94 center font "Arial,10"
+set label sprintf("Wmax = %4.4g Km/h",max_yW) at graph 0.65,0.97 left font "Arial,10" tc rgb "orange"
+set label sprintf("Pmax = %4.4g hPa",max_yP) at graph 0.85,0.97 left font "Arial,10" tc rgb "purple"
+set label sprintf("Pmin = %4.4g hPa",min_yP) at graph 0.85,0.94 left font "Arial,10" tc rgb "purple"
 plot "final3.csv" using 1:15 title "Pres", \
 "" u 53:(10):(0.05*$8*cos(90-$9)):(0.05*$8*sin(90-$9)) with vectors nohead lw 2 lc rgb "dark-green" title "Wind" axes x2y2, \
 "" u 53:(10) w p lt 2 pt 7 ps 1.5 notitle axes x2y2, \
