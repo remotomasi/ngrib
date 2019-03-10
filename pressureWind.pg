@@ -4,6 +4,16 @@ set terminal png
 set term png size 1024,600 #800 pixels by 600 pixels
 set angle degrees
 
+data = 'final3.csv'
+# Retrieve statistical properties for Wind velocity
+stats data using 1:8
+max_yW = STATS_max_y
+
+# Retrieve statistical properties for Pressure
+stats data using 1:15
+max_yP = STATS_max_y
+min_yP = STATS_min_y
+
 set datafile separator " "
 set xdata time
 set timefmt "%Y-%m-%d %H"
@@ -29,6 +39,9 @@ set size 1, 1 # ratio 1:1
 set style data lines
 set bar 0 # disable whiskers on the errorbars
 
+set label sprintf("Wmax = %4.4g Km/h",max_yW) at graph 0.7,0.97 center font "Arial,10"
+set label sprintf("Pmax = %4.4g hPa",max_yP) at graph 0.9,0.97 center font "Arial,10"
+set label sprintf("Pmin = %4.4g hPa",min_yP) at graph 0.9,0.94 center font "Arial,10"
 plot "final3.csv" using 1:15 title "Pres", \
 "" u 53:(10):(0.05*$8*cos(90-$9)):(0.05*$8*sin(90-$9)) with vectors nohead lw 2 lc rgb "dark-green" title "Wind" axes x2y2, \
 "" u 53:(10) w p lt 2 pt 7 ps 1.5 notitle axes x2y2, \

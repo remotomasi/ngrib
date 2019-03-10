@@ -1,7 +1,19 @@
 #!/usr/bin/gnuplot -persist
 reset
-set terminal png
-set term png size 1024,600 #800 pixels by 600 pixels
+set terminal pngcairo truecolor
+set termoption dashed
+set term pngcairo size 1024,600 #800 pixels by 600 pixels
+
+data = 'final3.csv'
+# Retrieve statistical properties for Temperature
+stats data using 1:33
+max_yZ = STATS_max_y
+min_yZ = STATS_min_y
+
+# Retrieve statistical properties for 500 Hgt
+stats data using 1:29
+max_y500 = STATS_max_y
+min_y500 = STATS_min_y
 
 set datafile separator " "
 set xdata time
@@ -32,6 +44,10 @@ set size 1, 1 # ratio 1:1
 
 set style data lines
 
+set label sprintf("0LevMax = %4.4g m",max_yZ) at graph 0.9,0.97 center font "Arial,10"
+set label sprintf("0LevMin = %4.4g m",min_yZ) at graph 0.9,0.94 center font "Arial,10"
+set label sprintf("500max = %4.4g m",max_y500) at graph 0.7,0.97 center font "Arial,10"
+set label sprintf("500min = %4.4g m",min_y500) at graph 0.7,0.94 center font "Arial,10"
 plot "final3.csv" using 1:29 title "500" lw 2 lt 2 lc "blue", \
 "" using 1:30 title "700" lw 2 lt 2 lc "green", \
 "" using 1:31 title "850" lw 2 lt 2 lc "orange", \

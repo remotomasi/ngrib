@@ -4,6 +4,27 @@ set terminal pngcairo truecolor
 set termoption dashed
 set term pngcairo size 1024,600 #800 pixels by 600 pixels
 
+data = 'final3.csv'
+# Retrieve statistical properties for 1000-850
+stats data using 1:46
+min_yM8 = STATS_min_y
+
+# Retrieve statistical properties for 1000-700
+stats data using 1:47
+min_yM7 = STATS_min_y
+
+# Retrieve statistical properties for 1000-500
+stats data using 1:48
+min_yM5 = STATS_min_y
+
+# Retrieve statistical properties for 850-700
+stats data using 1:49
+min_y87 = STATS_min_y
+
+# Retrieve statistical properties for 850-500
+stats data using 1:50
+min_y85 = STATS_min_y
+
 set datafile separator " "
 set xdata time
 set timefmt "%Y-%m-%d %H"
@@ -35,6 +56,11 @@ set style data lines
 
 # 5225 is the snow/rain line
 
+set label sprintf("1000-850min = %4.4g m",min_yM8) at graph 0.5,0.97 center font "Arial,10"
+set label sprintf("1000-700min = %4.4g m",min_yM7) at graph 0.5,0.94 center font "Arial,10"
+set label sprintf("1000-500min = %4.4g m",min_yM5) at graph 0.7,0.97 center font "Arial,10"
+set label sprintf("850-700min = %4.4g m",min_y87) at graph 0.7,0.94 center font "Arial,10"
+set label sprintf("850-500min = %4.4g m",min_y85) at graph 0.9,0.97 center font "Arial,10"
 plot "final3.csv" using 1:46 title "1000-850" lw 2 lt 2 lc "grey", \
 "" using 1:47 title "1000-700" lw 2 lt 2 lc "red", \
 "" using 1:48 title "1000-500" lw 2 lt 2 lc "orange", \
