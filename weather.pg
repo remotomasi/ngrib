@@ -5,6 +5,17 @@ set termoption dashed
 set term pngcairo size 1024,600 #800 pixels by 600 pixels
 set angle degrees
 
+data = 'final3.csv'
+# Retrieve statistical properties for Temperature
+stats data using 1:3
+max_yT = STATS_max_y
+min_yT = STATS_min_y
+
+data = 'final3.csv'
+# Retrieve statistical properties for Velocity
+stats data using 1:8
+max_yW = STATS_max_y
+
 set datafile separator " "
 set xdata time
 set timefmt "%Y-%m-%d %H"
@@ -31,7 +42,9 @@ set style data lines
 set style fill transparent solid 0.5
 set bars small
 
-set title "Plot actual y-value as a label"
+set label sprintf("Tmax = %3.3g °C",max_yT) at graph 0.9,0.97 center font "Arial,10"
+set label sprintf("Tmin = %3.3g °C",min_yT) at graph 0.9,0.94 center font "Arial,10"
+set label sprintf("Wmax = %3.3g Km/h",max_yW) at graph 0.7,0.97 center font "Arial,10"
 plot 'final3.csv' u 1:($3):($4) with filledcurves above x1 lc "red" notitle, \
 "" u 1:($3):($4) with filledcurves below x1 notitle, \
 "" u 1:3 lc "red" lw 2 axes x1y1 ti "Temp", \
