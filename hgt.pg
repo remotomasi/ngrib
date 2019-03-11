@@ -44,6 +44,7 @@ set size 1, 1 # ratio 1:1
 
 set style data lines
 
+set label 4 '5520' at graph 1.08, first 5520 front tc rgb "blue"
 set label sprintf("0LevMax = %4.4g m",max_yZ) at graph 0.8,0.97 left font "Arial,10" tc rgb "red"
 set label sprintf("0LevMin = %4.4g m",min_yZ) at graph 0.8,0.94 left font "Arial,10" tc rgb "red"
 set label sprintf("500max = %4.4g m",max_y500) at graph 0.6,0.97 left font "Arial,10" tc rgb "blue"
@@ -52,4 +53,5 @@ plot "final3.csv" using 1:29 title "500" lw 2 lt 2 lc "blue", \
 "" using 1:30 title "700" lw 2 lt 2 lc "green", \
 "" using 1:31 title "850" lw 2 lt 2 lc "orange", \
 "" using 1:32 title "1000" lw 2 lt 2 lc "grey", \
-"" using 1:33 title "0°C" lw 2 lt 2 lc "red"
+"" using 1:33 title "0°C" lw 2 lt 2 lc "red", \
+5520 dt 2 lc rgb "blue" lw 1 notitle

@@ -8,8 +8,12 @@ set term pngcairo size 1024,600 #800 pixels by 600 pixels
 data = 'final3.csv'
 # Retrieve statistical properties for LFTX
 stats data using 1:26
-min_y = STATS_min_y
-max_y = STATS_max_y
+min_yL = STATS_min_y
+max_yL = STATS_max_y
+
+# Retrieve statistical properties for CAPE
+stats data using 1:27
+max_yCP = STATS_max_y
 
 # Retrieve statistical properties for CIN
 stats data using 1:52
@@ -30,7 +34,7 @@ set autoscale y2
 set ylabel 'J/Kg'
 set y2tics 1
 #set y2range [-6:15]
-set y2label 'K'
+set y2label '°K'
 
 set title "Weather Forecast GFS Model - NOAA (Cape-LiftedIndex-Cin)"
 set key lmargin
@@ -42,15 +46,17 @@ set style data lines
 set boxwidth 0.95 relative
 #set style fill transparent solid 0.5 noborder
 
+set label sprintf("CAPEmax = %4.4g J/Kg",max_yCP) at graph 0.8,0.97 left font "Arial,10" tc rgb "orange"
+set label sprintf("LFTXmin = %4.4g °K",min_yL) at graph 0.8,0.94 left font "Arial,10" tc rgb "purple"
 plot "final3.csv" using 1:27 w boxes lc rgb "orange" fs solid border -1 title "CAPE" axes x1y1, \
-"" u 1:($27>=500?500:1/0) lc rgb "orange" dt 2 lw 1 notitle, \
-"" u 1:($27>=1000?1000:1/0) lc rgb "orange" dt 2 lw 2 notitle axes x1y1, \
-"" u 1:($27>=2000?2000:1/0) lc rgb "orange" dt 2 lw 2 notitle axes x1y1, \
+"" u 1:(max_yCP>=500?500:1/0) lc rgb "orange" dt 2 lw 1 notitle, \
+"" u 1:(max_yCP>=1000?1000:1/0) lc rgb "orange" dt 2 lw 1 notitle axes x1y1, \
+"" u 1:(max_yCP>=2000?2000:1/0) lc rgb "orange" dt 2 lw 1 notitle axes x1y1, \
 "" u 1:26 lc "purple" title "LFTX" axes x1y2, \
-"" u 1:(max_y>=2?2:1/0) lc rgb "purple" dt 2 lw 1 notitle axes x1y2, \
-"" u 1:(min_y<=0?0:1/0) lc rgb "purple" dt 2 lw 1 notitle axes x1y2, \
-"" u 1:(min_y<=-2?-2:1/0) lc rgb "purple" dt 2 lw 1 notitle axes x1y2, \
-"" u 1:(min_y<=-4?-4:1/0) lc rgb "purple" dt 2 lw 1 notitle axes x1y2, \
-"" u 1:(min_y<=-6?-6:1/0) lc rgb "purple" dt 2 lw 1 notitle axes x1y2, \
+"" u 1:(max_yL>=2?2:1/0) lc rgb "purple" dt 2 lw 1 notitle axes x1y2, \
+"" u 1:(min_yL<=0?0:1/0) lc rgb "purple" dt 2 lw 1 notitle axes x1y2, \
+"" u 1:(min_yL<=-2?-2:1/0) lc rgb "purple" dt 2 lw 1 notitle axes x1y2, \
+"" u 1:(min_yL<=-4?-4:1/0) lc rgb "purple" dt 2 lw 1 notitle axes x1y2, \
+"" u 1:(min_yL<=-6?-6:1/0) lc rgb "purple" dt 2 lw 1 notitle axes x1y2, \
 "" u 1:(max_yC>=75?75:1/0) lc rgb "red" dt 2 lw 1 notitle axes x1y1, \
 "" u 1:52 lc "red" title "CIN" axes x1y1

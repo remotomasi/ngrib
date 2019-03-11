@@ -50,10 +50,10 @@ set size 1, 1 # ratio 1:1
 
 set style data lines
 
-set label sprintf("Tmin = %4.4g °C",min_yT) at graph 0.7,0.97 center font "Arial,10"
-set label sprintf("T850min = %4.4g °C",min_yT8) at graph 0.7,0.94 center font "Arial,10"
-set label sprintf("T700min = %4.4g °C",min_yT7) at graph 0.9,0.97 center font "Arial,10"
-set label sprintf("T500min = %4.4g °C",min_yT5) at graph 0.9,0.94 center font "Arial,10"
+set label sprintf("Tmin = %4.4g °C",min_yT) at graph 0.7,0.97 center font "Arial,10" tc rgb "red"
+set label sprintf("T850min = %4.4g °C",min_yT8) at graph 0.7,0.94 center font "Arial,10" tc rgb "orange"
+set label sprintf("T700min = %4.4g °C",min_yT7) at graph 0.9,0.97 center font "Arial,10" tc rgb "green"
+set label sprintf("T500min = %4.4g °C",min_yT5) at graph 0.9,0.94 center font "Arial,10" tc rgb "blue"
 plot "final3.csv" using 1:35 title "500" lw 2 lt 2 lc "blue", \
 "" using 1:36 title "700" lw 2 lt 2 lc "green", \
 "" using 1:37 title "850" lw 2 lt 2 lc "orange", \

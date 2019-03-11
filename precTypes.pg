@@ -56,7 +56,12 @@ set style data lines
 
 # 5225 is the snow/rain line
 
-set label sprintf("1000-850min = %4.4g m",min_yM8) at graph 0.4,0.97 left font "Arial,10" tc rgb "grey"
+set label 1 '1281' at graph 1.08, first 1281 front tc rgb "dark-grey"
+set label 2 '1520' at graph 1.08, first 1520 front tc rgb "green"
+set label 3 '2800' at graph 1.08, first 2800 front tc rgb "red"
+set label 4 '4050' at graph 1.08, first 4050 front tc rgb "blue"
+set label 5 '5225' at graph 1.08, first 5225 front tc rgb "orange"
+set label sprintf("1000-850min = %4.4g m",min_yM8) at graph 0.4,0.97 left font "Arial,10" tc rgb "dark-grey"
 set label sprintf("1000-700min = %4.4g m",min_yM7) at graph 0.4,0.94 left font "Arial,10" tc rgb "red"
 set label sprintf("1000-500min = %4.4g m",min_yM5) at graph 0.6,0.97 left font "Arial,10" tc rgb "orange"
 set label sprintf("850-700min = %4.4g m",min_y87) at graph 0.6,0.94 left font "Arial,10" tc rgb "green"
@@ -66,10 +71,10 @@ plot "final3.csv" using 1:46 title "1000-850" lw 2 lt 2 lc "grey", \
 "" using 1:48 title "1000-500" lw 2 lt 2 lc "orange", \
 "" using 1:49 title "850-700" lw 2 lt 2 lc "green", \
 "" using 1:50 title "850-500" lw 2 lt 2 lc "blue", \
-1281 dt 2 lc "grey" lw 1 notitle, \
-2800 dt 2 lc "red" lw 1 notitle, \
 5225 dt 2 lc "orange" lw 1 notitle, \
+4050 dt 2 lc "blue" lw 1 notitle, \
+2800 dt 2 lc "red" lw 1 notitle, \
 1520 dt 2 lc "green" lw 1 notitle, \
-4050 dt 2 lc "blue" lw 1 notitle
+1281 dt 2 lc "dark-grey" lw 1 notitle
 # , \
 # 5360 dt 2 lc rgb "#112233" lw 1 notitle, \
