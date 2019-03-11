@@ -134,6 +134,10 @@ echo -e "<html><body><table style='font-family:"Arial", Courier, monospace; font
     done < final.txt ;
 echo -e "</font></table></body></html>" >> final.html
 
+# restoration of some title: 100 -> TCDC // 100 -> high_cloud
+sed -i -e 's/TCDC <\/td><td>100<\/td><td> PRMSL/TCDC <\/td><td> TCDC <\/td><td> PRMSL/g' final.html
+sed -i -e 's/middle_cloud <\/td><td>100<\/td><td> mean_sea/middle_cloud <\/td><td> high_cloud <\/td><td> mean_sea/g' final.html
+
 # cleaning of some files
 if [ -e "final.csv" ]; then rm final.csv; fi								# remove final.csv
 for i in ${h[*]};
