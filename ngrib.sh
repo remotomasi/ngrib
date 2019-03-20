@@ -59,12 +59,16 @@ fi
 # for i in ${h[*]}; do curl "http://nomads.ncep.noaa.gov/cgi-bin/filter_gfs_0p25.pl?file=gfs.t${hh}z.pgrb2.0p25.f${i}&lev_0C_isotherm=on&lev_1000_mb=on&lev_10_m_above_ground=on&lev_2_m_above_ground=on&lev_500_mb=on&lev_700_mb=on&lev_850_mb=on&lev_high_cloud_layer=on&lev_low_cloud_layer=on&lev_mean_sea_level=on&lev_middle_cloud_layer=on&lev_surface=on&lev_tropopause=on&var_ABSV=on&var_ACPCP=on&var_APCP=on&var_CAPE=on&var_CFRZR=on&var_CICEP=on&var_CIN=on&var_CPOFP=on&var_CPRAT=on&var_CRAIN=on&var_CSNOW=on&var_DPT=on&var_GUST=on&var_HGT=on&var_ICEC=on&var_LFTX=on&var_PEVPR=on&var_PRATE=on&var_PRES=on&var_PRMSL=on&var_RH=on&var_SNOD=on&var_SUNSD=on&var_TCDC=on&var_TMP=on&var_UGRD=on&var_VGRD=on&var_VIS=on&var_VVEL=on&var_VWSH=on&subregion=&leftlon=$lon&rightlon=$lon&toplat=$lat&bottomlat=$lat&dir=%2Fgfs.${today}${hh}" -o pro$i; done
 
 # wget VERSION
+
+wget "http://nomads.ncep.noaa.gov/cgi-bin/filter_gfs_0p25_1hr.pl?file=gfs.t${hh}z.pgrb2.0p25.anl&lev_0C_isotherm=on&lev_1000_mb=on&lev_10_m_above_ground=on&lev_2_m_above_ground=on&lev_500_mb=on&lev_700_mb=on&lev_850_mb=on&lev_high_cloud_layer=on&lev_low_cloud_layer=on&lev_mean_sea_level=on&lev_middle_cloud_layer=on&lev_surface=on&lev_tropopause=on&var_ABSV=on&var_ACPCP=on&var_APCP=on&var_CAPE=on&var_CFRZR=on&var_CICEP=on&var_CIN=on&var_CPOFP=on&var_CPRAT=on&var_CRAIN=on&var_CSNOW=on&var_DPT=on&var_GUST=on&var_HGT=on&var_ICEC=on&var_LFTX=on&var_PEVPR=on&var_PRATE=on&var_PRES=on&var_PRMSL=on&var_RH=on&var_SNOD=on&var_SUNSD=on&var_TCDC=on&var_TMP=on&var_UGRD=on&var_VGRD=on&var_VIS=on&var_VVEL=on&var_VWSH=on&subregion=&leftlon=$lon2&rightlon=$lon1&toplat=$lat1&bottomlat=$lat2&dir=%2Fgfs.${today}${hh}"  2>/dev/null -O - > anlFile
+run="$(./wgrib2.exe anlFile | head -n 1  | cut -d'=' -f2 | cut -c9-10)"
+
 for i in ${h[*]};
 	do
 		#wget "http://nomads.ncep.noaa.gov/cgi-bin/filter_gfs_0p25.pl?file=gfs.t${hh}z.pgrb2.0p25.f${i}&lev_0C_isotherm=on&lev_1000_mb=on&lev_10_m_above_ground=on&lev_2_m_above_ground=on&lev_500_mb=on&lev_700_mb=on&lev_850_mb=on&lev_high_cloud_layer=on&lev_low_cloud_layer=on&lev_mean_sea_level=on&lev_middle_cloud_layer=on&lev_surface=on&lev_tropopause=on&var_ABSV=on&var_ACPCP=on&var_APCP=on&var_CAPE=on&var_CFRZR=on&var_CICEP=on&var_CIN=on&var_CPOFP=on&var_CPRAT=on&var_CRAIN=on&var_CSNOW=on&var_DPT=on&var_GUST=on&var_HGT=on&var_ICEC=on&var_LFTX=on&var_PEVPR=on&var_PRATE=on&var_PRES=on&var_PRMSL=on&var_RH=on&var_SNOD=on&var_SUNSD=on&var_TCDC=on&var_TMP=on&var_UGRD=on&var_VGRD=on&var_VIS=on&var_VVEL=on&var_VWSH=on&subregion=&leftlon=$lon&rightlon=$lon&toplat=$lat&bottomlat=$lat&dir=%2Fgfs.${today}${hh}"  2>/dev/null -O - > pro$i
 		wget "http://nomads.ncep.noaa.gov/cgi-bin/filter_gfs_0p25.pl?file=gfs.t${hh}z.pgrb2.0p25.f${i}&lev_0C_isotherm=on&lev_1000_mb=on&lev_10_m_above_ground=on&lev_2_m_above_ground=on&lev_500_mb=on&lev_700_mb=on&lev_850_mb=on&lev_high_cloud_layer=on&lev_low_cloud_layer=on&lev_mean_sea_level=on&lev_middle_cloud_layer=on&lev_surface=on&lev_tropopause=on&var_ABSV=on&var_ACPCP=on&var_APCP=on&var_CAPE=on&var_CFRZR=on&var_CICEP=on&var_CIN=on&var_CPOFP=on&var_CPRAT=on&var_CRAIN=on&var_CSNOW=on&var_DPT=on&var_GUST=on&var_HGT=on&var_ICEC=on&var_LFTX=on&var_PEVPR=on&var_PRATE=on&var_PRES=on&var_PRMSL=on&var_RH=on&var_SNOD=on&var_SUNSD=on&var_TCDC=on&var_TMP=on&var_UGRD=on&var_VGRD=on&var_VIS=on&var_VVEL=on&var_VWSH=on&subregion=&leftlon=$lon2&rightlon=$lon1&toplat=$lat1&bottomlat=$lat2&dir=%2Fgfs.${today}${hh}"  2>/dev/null -O - > pro$i
 		./$command pro$i -csv csv$i.csv			# obtain infos from gribs to csvs
-		cat csv$i.csv >> final.csv						# merge of csvs
+		cat csv$i.csv >> final.csv					# merge of csvs
 done
 for i in ${h[*]}; do cut -d',' -f7 csv$i.csv | paste -s; done  | tail -n +2 > p.csv # union of the values of all the grib files
 for i in ${h[*]}; do cut -d',' -f2 csv$i.csv | head -1; done | tail -n +2> p1.csv		# obtain date $1umn
@@ -134,6 +138,7 @@ echo -e "<html><body><table style='font-family:"Arial", Courier, monospace; font
     done < final.txt ;
 echo -e "</font></table></body></html>" >> final.html
 
+
 # restoration of some title: 100 -> TCDC // 100 -> high_cloud
 sed -i -e 's/TCDC <\/td><td>100<\/td><td> PRMSL/TCDC <\/td><td> TCDC <\/td><td> PRMSL/g' final.html
 sed -i -e 's/middle_cloud <\/td><td>100<\/td><td> mean_sea/middle_cloud <\/td><td> high_cloud <\/td><td> mean_sea/g' final.html
@@ -153,16 +158,17 @@ cat final.txt | tr '|' ' ' | tr ',' ' ' | tr '"' ' ' | cut -d' ' -f2- > final2.c
 sed -i -e 's/  / /g;s/:00:00/ /g;s/  / /g' final2.csv
 awk '{if (NR>=3&&NR<=46) print $0, NR }' final2.csv > final3.csv	# added the number of the line at the end of each of them
 
-gnuplot ./weather.pg > weather.png
-gnuplot ./pressureWind.pg > pressureWind.png
-gnuplot ./precipitations.pg > precipitations.png
-gnuplot ./clouds.pg > clouds.png
-gnuplot ./hgt.pg > hgt.png
-gnuplot ./temperatures.pg > temperatures.png
-gnuplot ./cape-lftx.pg > cape-lftx.png
-gnuplot ./precTypes.pg > precTypes.png
+gnuplot -e "run=$run" ./weather.pg > weather.png
+gnuplot -e "run=$run" ./pressureWind.pg > pressureWind.png
+gnuplot -e "run=$run" ./precipitations.pg > precipitations.png
+gnuplot -e "run=$run" ./clouds.pg > clouds.png
+gnuplot -e "run=$run" ./hgt.pg > hgt.png
+gnuplot -e "run=$run" ./temperatures.pg > temperatures.png
+gnuplot -e "run=$run" ./cape-lftx.pg > cape-lftx.png
+gnuplot -e "run=$run" ./precTypes.pg > precTypes.png
 
 convert \( weather.png precipitations.png cape-lftx.png -append \) \( clouds.png pressureWind.png precTypes.png -append \) \( hgt.png temperatures.png -append \) +append weatherForecastFinal.png
 
 # clean last created files
 # rm final2.csv final3.csv finalg.csv finalg.txt
+rm anlFile
