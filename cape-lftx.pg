@@ -36,7 +36,7 @@ set y2tics 1
 #set y2range [-6:15]
 set y2label '°K'
 
-set title "Weather Forecast GFS Model - NOAA (Cape-LiftedIndex-Cin)"
+set title "Weather Forecast GFS Model - NOAA (Cape-LiftedIndex-Cin) RUN:" . run . "z"
 set key lmargin
 set key font ",10"
 set grid

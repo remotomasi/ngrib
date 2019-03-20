@@ -36,7 +36,7 @@ set y2tics 500
 #set y2range [-200:6000]
 set y2label 'm'
 
-set title "Weather Forecast GFS Model - NOAA (Hgt)"
+set title "Weather Forecast GFS Model - NOAA (Hgt) RUN:" . run . "z"
 set key lmargin
 set key font ",10"
 set grid

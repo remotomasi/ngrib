@@ -9,6 +9,7 @@ data = 'final3.csv'
 # Retrieve statistical properties for Wind velocity
 stats data using 1:8
 max_yW = STATS_max_y
+mean_yW = STATS_mean_y
 
 # Retrieve statistical properties for GUST
 stats data using 1:11
@@ -36,7 +37,7 @@ set y2tics 10
 #set y2range [0:100]
 set y2label 'Km/h'
 
-set title "Weather Forecast by Weather unlocked and Remo Tomasi (Pressure-Wind)"
+set title "Weather Forecast by Weather unlocked and Remo Tomasi (Pressure-Wind) RUN:" . run . "z"
 set key lmargin
 set grid
 set size 1, 1 # ratio 1:1
@@ -44,6 +45,7 @@ set size 1, 1 # ratio 1:1
 set style data lines
 set bar 0 # disable whiskers on the errorbars
 
+set label sprintf("Wmean = %4.4g Km/h",mean_yW) at graph 0.45,0.97 left font "Arial,10" tc rgb "dark-orange"
 set label sprintf("Wmax = %4.4g Km/h",max_yW) at graph 0.65,0.97 left font "Arial,10" tc rgb "orange"
 set label sprintf("Gmax = %4.4g Km/h",max_yG) at graph 0.65,0.94 left font "Arial,10" tc rgb "red"
 set label sprintf("Pmax = %4.5g hPa",max_yP) at graph 0.84,0.97 left font "Arial,10" tc rgb "purple"
