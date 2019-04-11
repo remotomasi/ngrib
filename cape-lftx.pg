@@ -50,7 +50,9 @@ set boxwidth 0.95 relative
 #set style fill transparent solid 0.5 noborder
 
 set label 1 sprintf("%4.4g",max_yCP) at graph -0.05, first max_yCP front tc rgb "orange"
-set label 2 sprintf("%4.4g",min_yL) at graph 1.01, first min_yL front tc rgb "purple"
+set label 2 sprintf("%4.4g",min_yL) at graph 1.01, second min_yL front tc rgb "purple"
+set label 2 sprintf("%4.4g",GPVAL_X_MAX) at graph 0.3, second min_yL front tc rgb "purple"
+
 plot "final3.csv" using 1:27 w boxes lc rgb "orange" fs solid border -1 title "CAPE" axes x1y1, \
 "" u 1:(max_yCP) lc rgb "orange" dt 3 lw 2 notitle axes x1y1, \
 "" u 1:(max_yCP>=500?500:1/0) lc rgb "orange" dt 2 lw 1 notitle, \
