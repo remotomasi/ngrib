@@ -28,6 +28,13 @@ set format x "h%H\n%d/%m\n%a"
 set xlabel "Time"
 set xtics font ", 10"
 
+#set x2range [-7000:3000]
+set link x
+set x2tics font ",8"
+set format x2 "%t"
+#format "%D\n%R" time
+#set xtics format "%tH:%tM:%tS" time
+
 set autoscale y
 set autoscale y2
 #set ytics 500
@@ -51,7 +58,7 @@ set boxwidth 0.95 relative
 
 set label 1 sprintf("%4.4g",max_yCP) at graph -0.05, first max_yCP front tc rgb "orange"
 set label 2 sprintf("%4.4g",min_yL) at graph 1.01, second min_yL front tc rgb "purple"
-set label 2 sprintf("%4.4g",GPVAL_X_MAX) at graph 0.3, second min_yL front tc rgb "purple"
+#set label 2 sprintf("%4.4g",GPVAL_X_MAX) at graph 0.3, second min_yL front tc rgb "purple"
 
 plot "final3.csv" using 1:27 w boxes lc rgb "orange" fs solid border -1 title "CAPE" axes x1y1, \
 "" u 1:(max_yCP) lc rgb "orange" dt 3 lw 2 notitle axes x1y1, \
@@ -61,13 +68,13 @@ plot "final3.csv" using 1:27 w boxes lc rgb "orange" fs solid border -1 title "C
 "" u 1:26 lc "purple" title "LFTX" axes x1y2, \
 "" u 1:(min_yL) lc rgb "purple" dt 3 lw 2 notitle axes x1y2, \
 "" u 1:(max_yL>=2?2:1/0) lc rgb "purple" dt 2 lw 1 notitle axes x1y2, \
-"" u 1:(min_yL<=0?0:1/0) lc rgb "purple" dt 2 lw 1 notitle axes x1y2, \
 "" u 1:(min_yL<=-2?-2:1/0) lc rgb "purple" dt 2 lw 1 notitle axes x1y2, \
 "" u 1:(min_yL<=-4?-4:1/0) lc rgb "purple" dt 2 lw 1 notitle axes x1y2, \
 "" u 1:(min_yL<=-6?-6:1/0) lc rgb "purple" dt 2 lw 1 notitle axes x1y2, \
+"" u 1:(0):($26*100) with filledcurves above x1 lc rgb "purple" notitle, \
 "" u 1:(max_yC>=75?75:1/0) lc rgb "red" dt 2 lw 1 notitle axes x1y1, \
 "" u 1:52 lc "red" title "CIN" axes x1y1
 
 #"" u 1:(min_yL) with linespoints ls 1 lc rgb "purple" lw 2 notitle axes x1y2, \
-#set label sprintf("CAPEmax = %4.4g J/Kg",max_yCP) at graph 0.8,0.97 left font "Arial,10" tc rgb "orange"
+set label sprintf("CAPEmax = %4.4g J/Kg",max_yCP) at graph 0.8,0.97 left font "Arial,10" tc rgb "orange"
 #set label sprintf("LFTXmin = %4.4g °K",min_yL) at graph 0.8,0.94 left font "Arial,10" tc rgb "purple"
