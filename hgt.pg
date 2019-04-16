@@ -5,15 +5,23 @@ set termoption dashed
 set term pngcairo size 1024,600 #800 pixels by 600 pixels
 
 data = 'final3.csv'
-# Retrieve statistical properties for Temperature
+# Retrieve statistical properties for 0° level
 stats data using 1:33
 max_yZ = STATS_max_y
 min_yZ = STATS_min_y
+set timefmt "%Y-%m-%d %H:%M"
+stats [*:time(0) + 5*24*60*60] 'final3.csv' u (timecolumn(1)):33
+max_pos_yZ = STATS_pos_max_y
+min_pos_yZ = STATS_pos_min_y
 
 # Retrieve statistical properties for 500 Hgt
 stats data using 1:29
 max_y500 = STATS_max_y
 min_y500 = STATS_min_y
+set timefmt "%Y-%m-%d %H:%M"
+stats [*:time(0) + 5*24*60*60] 'final3.csv' u (timecolumn(1)):29
+max_pos_y500 = STATS_pos_max_y
+min_pos_y500 = STATS_pos_min_y
 
 set datafile separator " "
 set xdata time
@@ -44,13 +52,11 @@ set size 1, 1 # ratio 1:1
 
 set style data lines
 
-set label 2 sprintf("%4.4g",min_yZ) at graph 1.08, first min_yZ front tc rgb "red"
-set label 3 sprintf("%4.4g",max_yZ) at graph 1.08, first max_yZ front tc rgb "red"
+set label 2 sprintf("%4.4g",min_yZ) at first min_pos_yZ, first min_yZ front tc rgb "red"
+set label 3 sprintf("%4.4g",max_yZ) at first max_pos_yZ, first max_yZ front tc rgb "red"
 set label 4 '5520' at graph 1.08, first 5520 front tc rgb "blue"
-#set label sprintf("0LevMax = %4.4g m",max_yZ) at graph 0.8,0.97 left font "Arial,10" tc rgb "red"
-#set label sprintf("0LevMin = %4.4g m",min_yZ) at graph 0.8,0.94 left font "Arial,10" tc rgb "red"
-set label sprintf("500max = %4.4g m",max_y500) at graph 0.6,0.97 left font "Arial,10" tc rgb "blue"
-set label sprintf("500min = %4.4g m",min_y500) at graph 0.6,0.94 left font "Arial,10" tc rgb "blue"
+set label sprintf("%4.4g",max_y500) at first max_pos_y500,max_y500 left tc rgb "blue"
+set label sprintf("%4.4g",min_y500) at first min_pos_y500,max_y500 left tc rgb "blue"
 plot "final3.csv" using 1:29 title "500" lw 2 lt 2 lc "blue", \
 "" u 1:(min_yZ) lc rgb "red" dt 3 lw 2 notitle, \
 "" u 1:(max_yZ) lc rgb "red" dt 3 lw 2 notitle, \
@@ -59,3 +65,6 @@ plot "final3.csv" using 1:29 title "500" lw 2 lt 2 lc "blue", \
 "" using 1:32 title "1000" lw 2 lt 2 lc "grey", \
 "" using 1:33 title "0°C" lw 2 lt 2 lc "red", \
 5520 dt 2 lc rgb "blue" lw 1 notitle
+
+#set label sprintf("0LevMax = %4.4g m",max_yZ) at graph 0.8,0.97 left font "Arial,10" tc rgb "red"
+#set label sprintf("0LevMin = %4.4g m",min_yZ) at graph 0.8,0.94 left font "Arial,10" tc rgb "red"
