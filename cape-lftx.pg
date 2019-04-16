@@ -9,12 +9,16 @@ data = 'final3.csv'
 # Retrieve statistical properties for LFTX
 stats data using 1:26
 min_yL = STATS_min_y
-max_yL = STATS_max_y
+set timefmt "%Y-%m-%d %H:%M"
+stats [*:time(0) + 5*24*60*60] 'final3.csv' u (timecolumn(1)):26
+min_pos_yL = STATS_pos_min_y
 
 # Retrieve statistical properties for CAPE
 stats data using 1:27
 max_yCP = STATS_max_y
-max_posCP = STATS_pos_max_y
+set timefmt "%Y-%m-%d %H:%M"
+stats [*:time(0) + 5*24*60*60] 'final3.csv' u (timecolumn(1)):27
+max_pos_yCP = STATS_pos_max_y
 
 # Retrieve statistical properties for CIN
 stats data using 1:52
@@ -28,11 +32,12 @@ set format x "h%H\n%d/%m\n%a"
 set xlabel "Time"
 set xtics font ", 10"
 
-#set x2range [-7000:3000]
+#set x2range [0:100]
 set link x
 set x2tics font ",8"
-set format x2 "%t"
-#format "%D\n%R" time
+set format x2 "%s" time
+unset x2tics
+#set format x2 "%D\n%R" time
 #set xtics format "%tH:%tM:%tS" time
 
 set autoscale y
@@ -56,9 +61,8 @@ set style line 1 linecolor rgb '#0060ad' linetype 1 linewidth 2 pointtype 7 poin
 set boxwidth 0.95 relative
 #set style fill transparent solid 0.5 noborder
 
-set label 1 sprintf("%4.4g",max_yCP) at graph -0.05, first max_yCP front tc rgb "orange"
-set label 2 sprintf("%4.4g",min_yL) at graph 1.01, second min_yL front tc rgb "purple"
-#set label 2 sprintf("%4.4g",GPVAL_X_MAX) at graph 0.3, second min_yL front tc rgb "purple"
+set label 1 sprintf("%4.4g",max_yCP) at first max_pos_yCP, first max_yCP left tc rgb "orange"
+set label 3 sprintf("%4.4g J/Kg",min_yL) at first min_pos_yL, second min_yL left tc rgb "purple"
 
 plot "final3.csv" using 1:27 w boxes lc rgb "orange" fs solid border -1 title "CAPE" axes x1y1, \
 "" u 1:(max_yCP) lc rgb "orange" dt 3 lw 2 notitle axes x1y1, \
@@ -67,7 +71,6 @@ plot "final3.csv" using 1:27 w boxes lc rgb "orange" fs solid border -1 title "C
 "" u 1:(max_yCP>=2000?2000:1/0) lc rgb "orange" dt 2 lw 1 notitle axes x1y1, \
 "" u 1:26 lc "purple" title "LFTX" axes x1y2, \
 "" u 1:(min_yL) lc rgb "purple" dt 3 lw 2 notitle axes x1y2, \
-"" u 1:(max_yL>=2?2:1/0) lc rgb "purple" dt 2 lw 1 notitle axes x1y2, \
 "" u 1:(min_yL<=-2?-2:1/0) lc rgb "purple" dt 2 lw 1 notitle axes x1y2, \
 "" u 1:(min_yL<=-4?-4:1/0) lc rgb "purple" dt 2 lw 1 notitle axes x1y2, \
 "" u 1:(min_yL<=-6?-6:1/0) lc rgb "purple" dt 2 lw 1 notitle axes x1y2, \
@@ -76,5 +79,5 @@ plot "final3.csv" using 1:27 w boxes lc rgb "orange" fs solid border -1 title "C
 "" u 1:52 lc "red" title "CIN" axes x1y1
 
 #"" u 1:(min_yL) with linespoints ls 1 lc rgb "purple" lw 2 notitle axes x1y2, \
-set label sprintf("CAPEmax = %4.4g J/Kg",max_yCP) at graph 0.8,0.97 left font "Arial,10" tc rgb "orange"
+#set label sprintf("CAPEmax = %4.4g J/Kg",max_yCP) at graph 0.8,0.97 left font "Arial,10" tc rgb "orange"
 #set label sprintf("LFTXmin = %4.4g °K",min_yL) at graph 0.8,0.94 left font "Arial,10" tc rgb "purple"
