@@ -8,16 +8,16 @@ set term pngcairo size 1024,600 #800 pixels by 600 pixels
 data = 'final3.csv'
 # Retrieve statistical properties for LFTX
 stats data using 1:26
-min_yL = STATS_min_y
 set timefmt "%Y-%m-%d %H:%M"
-stats [*:time(0) + 5*24*60*60] 'final3.csv' u (timecolumn(1)):26
+stats [time(0):time(0) + 5*24*60*60] 'final3.csv' u (timecolumn(1)):26
+min_yL = STATS_min_y
 min_pos_yL = STATS_pos_min_y
 
 # Retrieve statistical properties for CAPE
 stats data using 1:27
-max_yCP = STATS_max_y
 set timefmt "%Y-%m-%d %H:%M"
-stats [*:time(0) + 5*24*60*60] 'final3.csv' u (timecolumn(1)):27
+stats [time(0):time(0) + 5*24*60*60] 'final3.csv' u (timecolumn(1)):27
+max_yCP = STATS_max_y
 max_pos_yCP = STATS_pos_max_y
 
 # Retrieve statistical properties for CIN

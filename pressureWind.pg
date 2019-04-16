@@ -8,16 +8,16 @@ set angle degrees
 data = 'final3.csv'
 # Retrieve statistical properties for Wind velocity
 stats data using 1:8
-max_yW = STATS_max_y
 set timefmt "%Y-%m-%d %H:%M"
-stats [*:time(0) + 5*24*60*60] 'final3.csv' u (timecolumn(1)):8
+stats [time(0):time(0) + 5*24*60*60] 'final3.csv' u (timecolumn(1)):8
+max_yW = STATS_max_y
 max_pos_yW = STATS_pos_max_y
 mean_yW = STATS_mean_y
 
 # Retrieve statistical properties for GUST
 stats data using 1:11
 set timefmt "%Y-%m-%d %H:%M"
-stats [*:time(0) + 5*24*60*60] 'final3.csv' u (timecolumn(1)):11
+stats [time(0):time(0) + 5*24*60*60] 'final3.csv' u (timecolumn(1)):11
 max_yG = STATS_max_y
 max_pos_yG = STATS_pos_max_y
 

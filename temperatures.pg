@@ -8,28 +8,28 @@ data = 'final3.csv'
 # Retrieve statistical properties for Temperature
 stats data using 1:3
 set timefmt "%Y-%m-%d %H:%M"
-stats [*:time(0) + 5*24*60*60] 'final3.csv' u (timecolumn(1)):3
+stats [time(0):time(0) + 5*24*60*60] 'final3.csv' u (timecolumn(1)):3
 min_yT = STATS_min_y
 min_pos_yT = STATS_pos_min_y
 
 # Retrieve statistical properties for T850
 stats data using 1:37
 set timefmt "%Y-%m-%d %H:%M"
-stats [*:time(0) + 5*24*60*60] 'final3.csv' u (timecolumn(1)):37
+stats [time(0):time(0) + 5*24*60*60] 'final3.csv' u (timecolumn(1)):37
 min_yT8 = STATS_min_y
 min_pos_yT8 = STATS_pos_min_y
 
 # Retrieve statistical properties for T700
 stats data using 1:36
 set timefmt "%Y-%m-%d %H:%M"
-stats [*:time(0) + 5*24*60*60] 'final3.csv' u (timecolumn(1)):36
+stats [time(0):time(0) + 5*24*60*60] 'final3.csv' u (timecolumn(1)):36
 min_yT7 = STATS_min_y
 min_pos_yT7 = STATS_pos_min_y
 
 # Retrieve statistical properties for T500
 stats data using 1:35
 set timefmt "%Y-%m-%d %H:%M"
-stats [*:time(0) + 5*24*60*60] 'final3.csv' u (timecolumn(1)):35
+stats [time(0):time(0) + 5*24*60*60] 'final3.csv' u (timecolumn(1)):35
 min_yT5 = STATS_min_y
 min_pos_yT5 = STATS_pos_min_y
 
