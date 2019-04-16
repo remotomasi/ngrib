@@ -7,19 +7,31 @@ set term pngcairo size 1024,600 #800 pixels by 600 pixels
 data = 'final3.csv'
 # Retrieve statistical properties for Temperature
 stats data using 1:3
+set timefmt "%Y-%m-%d %H:%M"
+stats [*:time(0) + 5*24*60*60] 'final3.csv' u (timecolumn(1)):3
 min_yT = STATS_min_y
+min_pos_yT = STATS_pos_min_y
 
 # Retrieve statistical properties for T850
 stats data using 1:37
+set timefmt "%Y-%m-%d %H:%M"
+stats [*:time(0) + 5*24*60*60] 'final3.csv' u (timecolumn(1)):37
 min_yT8 = STATS_min_y
+min_pos_yT8 = STATS_pos_min_y
 
 # Retrieve statistical properties for T700
 stats data using 1:36
+set timefmt "%Y-%m-%d %H:%M"
+stats [*:time(0) + 5*24*60*60] 'final3.csv' u (timecolumn(1)):36
 min_yT7 = STATS_min_y
+min_pos_yT7 = STATS_pos_min_y
 
 # Retrieve statistical properties for T500
 stats data using 1:35
+set timefmt "%Y-%m-%d %H:%M"
+stats [*:time(0) + 5*24*60*60] 'final3.csv' u (timecolumn(1)):35
 min_yT5 = STATS_min_y
+min_pos_yT5 = STATS_pos_min_y
 
 set datafile separator " "
 set xdata time
@@ -50,10 +62,10 @@ set size 1, 1 # ratio 1:1
 
 set style data lines
 
-set label sprintf("Tmin = %4.4g °C",min_yT) at graph 0.7,0.97 center font "Arial,10" tc rgb "red"
-set label sprintf("T850min = %4.4g °C",min_yT8) at graph 0.7,0.94 center font "Arial,10" tc rgb "orange"
-set label sprintf("T700min = %4.4g °C",min_yT7) at graph 0.9,0.97 center font "Arial,10" tc rgb "green"
-set label sprintf("T500min = %4.4g °C",min_yT5) at graph 0.9,0.94 center font "Arial,10" tc rgb "blue"
+set label sprintf("%4.4g",min_yT) at first min_pos_yT, first min_yT left tc rgb "red"
+set label sprintf("%4.4g",min_yT8) at first min_pos_yT8, first min_yT8 left tc rgb "orange"
+set label sprintf("%4.4g",min_yT7) at first min_pos_yT7, first min_yT7 left tc rgb "green"
+set label sprintf("%4.4g",min_yT5) at first min_pos_yT5, first min_yT5 left tc rgb "blue"
 plot "final3.csv" using 1:35 title "500" lw 2 lt 2 lc "blue", \
 "" using 1:36 title "700" lw 2 lt 2 lc "green", \
 "" using 1:37 title "850" lw 2 lt 2 lc "orange", \
