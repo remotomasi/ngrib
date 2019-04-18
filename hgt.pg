@@ -8,7 +8,7 @@ data = 'final3.csv'
 # Retrieve statistical properties for 0° level
 stats data using 1:33
 set timefmt "%Y-%m-%d %H:%M"
-stats [time(0):*] 'final3.csv' u (timecolumn(1)):33
+stats [time(0):time(0) + 5*24*60*60] 'final3.csv' u (timecolumn(1)):33
 max_yZ = STATS_max_y
 min_yZ = STATS_min_y
 max_pos_yZ = STATS_pos_max_y
@@ -17,7 +17,7 @@ min_pos_yZ = STATS_pos_min_y
 # Retrieve statistical properties for 500 Hgt
 stats data using 1:29
 set timefmt "%Y-%m-%d %H:%M"
-stats [time(0):*] 'final3.csv' u (timecolumn(1)):29
+stats [time(0):time(0) + 5*24*60*60] 'final3.csv' u (timecolumn(1)):29
 max_y500 = STATS_max_y
 min_y500 = STATS_min_y
 max_pos_y500 = STATS_pos_max_y
@@ -26,7 +26,7 @@ min_pos_y500 = STATS_pos_min_y
 set datafile separator " "
 set xdata time
 set timefmt "%Y-%m-%d %H"
-set xrange [time(0):*]
+set xrange [time(0):time(0) + 5*24*60*60]
 set format x "h%H\n%d/%m\n%a"
 set xlabel "Time"
 set xtics font ", 10"
