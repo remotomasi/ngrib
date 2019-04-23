@@ -45,7 +45,7 @@ set y2tics 10
 #set y2range [0:100]
 set y2label 'Km/h'
 
-set title "Weather Forecast by Weather unlocked and Remo Tomasi (Pressure-Wind) RUN:" . run . "z"
+set title ""Weather Forecast GFS Model - NOAA (Pressure-Wind) RUN:" . run . "z"
 set key lmargin
 set grid
 set size 1, 1 # ratio 1:1
