@@ -154,12 +154,12 @@ for i in ${h[*]};
 		$(if [ -e "csv$i.csv" ]; then rm csv$i.csv; fi)
 done
 
-rm p*.csv																										# remove all p*.csv
+rm p*.csv	# remove all p*.csv
 
 # graphic part
 cat final.txt | tr '|' ' ' | tr ',' ' ' | tr '"' ' ' | cut -d' ' -f2- > final2.csv
 sed -i -e 's/  / /g;s/:00:00/ /g;s/  / /g' final2.csv
-awk '{if (NR>=3&&NR<=46) print $0, NR }' final2.csv > final3.csv	# added the number of the line at the end of each of them
+awk '{if (NR>=3&&NR<46) print $0, NR }' final2.csv > final3.csv	# added the number of the line at the end of each of them
 
 gnuplot -e "run=$run" ./weather.pg > weather.png
 gnuplot -e "run=$run" ./pressureWind.pg > pressureWind.png
@@ -175,3 +175,4 @@ convert \( weather.png precipitations.png cape-lftx.png -append \) \( clouds.png
 # clean last created files
 # rm final2.csv final3.csv finalg.csv finalg.txt
 rm anlFile
+gnuplot -e "run=$run" ./cape-lftx.pg > cape-lftx.png
