@@ -263,3 +263,54 @@ do
         then sed -i -e "s/id=$(echo $i)\>/id=$(echo $i) style=\"background-color: Yellow; color: black\"/g" finalImage.html
     fi
 done
+
+
+# Rain (categorical)
+h=()
+for l in {53..452..19}
+    do h+=($l)
+done
+
+for i in "${h[@]}"
+do
+    val=$(cat finalImage.html | grep "id=$(echo $i)>" | awk -F[=\>] '{print $3}' | awk -F[=\<] '{print $1}')
+    if (( $(echo "$val < 1" |bc -l) ))
+        then sed -i -e "s/id=$(echo $i)\>/id=$(echo $i) style=\"background-color: White; color: black\"/g" finalImage.html
+    elif (( $(echo "$val > 0" |bc -l) ))
+        then sed -i -e "s/id=$(echo $i)\>/id=$(echo $i) style=\"background-color: Green; color: white\"/g" finalImage.html
+    fi
+done
+
+
+# Total precipitations
+h=()
+for l in {51..450..19}
+    do h+=($l)
+done
+
+for i in "${h[@]}"
+do
+    val=$(cat finalImage.html | grep "id=$(echo $i)>" | awk -F[=\>] '{print $3}' | awk -F[=\<] '{print $1}')
+    if (( $(echo "$val == 0" |bc -l) ))
+        then sed -i -e "s/id=$(echo $i)\>/id=$(echo $i) style=\"background-color: White; color: black\"/g" finalImage.html
+    elif (( $(echo "$val > 0" |bc -l) ))
+        then sed -i -e "s/id=$(echo $i)\>/id=$(echo $i) style=\"background-color: Purple; color: white\"/g" finalImage.html
+    fi
+done
+
+
+# Convective precipitations
+h=()
+for l in {52..451..19}
+    do h+=($l)
+done
+
+for i in "${h[@]}"
+do
+    val=$(cat finalImage.html | grep "id=$(echo $i)>" | awk -F[=\>] '{print $3}' | awk -F[=\<] '{print $1}')
+    if (( $(echo "$val == 0" |bc -l) ))
+        then sed -i -e "s/id=$(echo $i)\>/id=$(echo $i) style=\"background-color: White; color: black\"/g" finalImage.html
+    elif (( $(echo "$val > 0" |bc -l) ))
+        then sed -i -e "s/id=$(echo $i)\>/id=$(echo $i) style=\"background-color: Orange; color: white\"/g" finalImage.html
+    fi
+done
