@@ -36,12 +36,13 @@ set grid
 set size 1, 1 # ratio 1:1
 
 set style data lines
-set boxwidth 0.95 relative
-#set style fill transparent solid 0.5 noborder
+#set boxwidth 0.95 relative
+set style fill transparent solid 0.7
+#set style histogram clustered gap 0.0
 
 set label sprintf("PrecTot = %3.3g mm",tot_yTP) at graph 0.9,0.97 center font "Arial,10" tc rgb "purple"
-plot "final3.csv" using 1:17 w boxes lc rgb "blue" fs solid border -1 title "PrMM/h" axes x1y1, \
-"" using 1:18 w boxes lc rgb "purple" fs solid border -1 title "TotPr" axes x1y1, \
+plot "final3.csv" using 1:17 w boxes lc rgb "blue" title "PrMM/h" axes x1y1, \
+"" using 1:18 w boxes lc rgb "purple" title "TotPr" axes x1y1, \
 "" using 1:16 lc rgb "brown" lw 2 title "CPrMM/h" axes x1y1, \
 "" using 1:19 lc rgb "orange" lw 2 title "CPrTot" axes x1y1, \
 "" using 1:23 lc rgb "red" lw 2 title "FP%" axes x1y2, \

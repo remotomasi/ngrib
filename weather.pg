@@ -40,8 +40,11 @@ set grid
 set size 1, 1 # ratio 1:1
 
 set style data lines
-set style fill transparent solid 0.5
-set bars small
+#set bars small
+#set boxwidth 0.95 relative
+#fs solid border -1 
+set style fill transparent solid 0.7
+#set style histogram clustered gap 0.0
 
 set label sprintf("Tmax = %3.3g °C",max_yT) at graph 0.9,0.97 center font "Arial,10" tc rgb "red"
 set label sprintf("Tmean = %3.3g °C",mean_yT) at graph 0.9,0.94 center font "Arial,10" tc rgb "red"
@@ -55,7 +58,8 @@ plot 'final3.csv' u 1:($3):($4) with filledcurves above x1 lc "red" notitle, \
 "" u 1:5 lc "dark-blue" title "Hum" axes x1y2, \
 "" u 53:(20):(0.05*$8*cos(90-$9)):(0.05*$8*sin(90-$9)) with vectors nohead lw 2 lc rgb "dark-green" title "WDir" axes x2y1, \
 "" u 53:(20) w p lt 2 pt 7 ps 1.5 notitle axes x2y1, \
-"" u 1:18 w boxes lc rgb "purple" fs solid border -1 title "TotPr" axes x1y1, \
+"" u 1:17 w boxes lc rgb "blue" title "PrMM/h" axes x1y1, \
+"" u 1:18 w boxes lc rgb "purple" title "TotPr" axes x1y1, \
 "" using 1:19 lw 2 lc rgb "orange" title "CPrTot" axes x1y1, \
 "" u 1:25 w boxes lc rgb "olive" fs solid border -1 title "SDepth" axes x1y1, \
 "" u 1:($51>=0 && $5>=70?$51:1/0):(-$51<=0 && $5>=70?-$51:1/0) w filledcurves above x2 lc "dark-yellow" title "Mist", \
