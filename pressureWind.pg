@@ -58,8 +58,8 @@ set bar 0 # disable whiskers on the errorbars
 set label sprintf("Wmean = %4.4g Km/h",mean_yW) at graph 0.45, second mean_yW left font "Arial,10" tc rgb "dark-orange"
 set label sprintf("< %4.4g",max_yW) at first max_pos_yW, second max_yW left tc rgb "orange"
 set label sprintf("< %4.4g",max_yG) at first max_pos_yG, second max_yG left tc rgb "red"
-set label sprintf("< %4.5g",max_yP) at first max_pos_yP, first max_yP left tc rgb "blue"
-set label sprintf("< %4.5g",min_yP) at first min_pos_yP, first min_yP left tc rgb "blue"
+set label sprintf("< %4.5g",max_yP) at first max_pos_yP, first max_yP left tc rgb "purple"
+set label sprintf("< %4.5g",min_yP) at first min_pos_yP, first min_yP left tc rgb "purple"
 plot "final3.csv" using 1:15 title "Pres", \
 "" u 53:(10):(0.05*$8*cos(90-$9)):(0.05*$8*sin(90-$9)) with vectors nohead lw 2 lc rgb "dark-green" title "Wind" axes x2y2, \
 "" u 53:(10) w p lt 2 pt 7 ps 1.5 notitle axes x2y2, \
