@@ -175,4 +175,3 @@ convert \( weather.png precipitations.png cape-lftx.png -append \) \( clouds.png
 # clean last created files
 # rm final2.csv final3.csv finalg.csv finalg.txt
 rm anlFile
-# gnuplot -e "run=$run" ./cape-lftx.pg > cape-lftx.png

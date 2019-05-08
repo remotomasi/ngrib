@@ -1,6 +1,6 @@
 #!/bin/bash
 
-cat final.txt | cut -d',' -f1,2,3,4,7,9,11,12,13,15,16,17,18,19,20,23,24,21,22 | sed '/03:00/d;/09:00/d;/15:00/d;/21:00/d' > finalImage.csv
+cat final.txt | cut -d',' -f1,2,3,4,7,9,11,12,13,15,16,17,18,19,20,23,24,21,22,25,26 | sed '/03:00/d;/09:00/d;/15:00/d;/21:00/d' > finalImage.csv
 sed -i -e '/03:00/d;/09:00/d;/15:00/d;/21:00/d' finalImage.csv
 #sed '/00:00/d;/03:00/d;/15:00/d;/21:00/d' final.html > finalImages2.html
 #sed '1d;2d;3d;27d;28d' finalImages2.html > finalImages3.html
@@ -36,7 +36,7 @@ sed -i -e 's/>NW</><img src="icons\/nw.png" class="center" height="20" width="20
 
 # Temperatures
 h=()
-for l in {44..464..20}
+for l in {48..510..22}
     do h+=($l)
 done
 
@@ -77,7 +77,7 @@ done
 
 # Humidity
 h=()
-for l in {46..466..20}
+for l in {50..512..22}
     do h+=($l)
 done
 
@@ -100,7 +100,7 @@ done
 
 # Dew Point
 h=()
-for l in {45..465..20}
+for l in {49..511..22}
     do h+=($l)
 done
 
@@ -129,7 +129,7 @@ done
 
 # Wind power
 h=()
-for l in {47..467..20}
+for l in {51..513..22}
     do h+=($l)
 done
 
@@ -176,7 +176,7 @@ done
 
 # Cloud cover low
 h=()
-for l in {49..469..20}
+for l in {53..515..22}
     do h+=($l)
 done
 
@@ -201,7 +201,7 @@ done
 
 # Cloud cover middle
 h=()
-for l in {50..470..20}
+for l in {54..516..22}
     do h+=($l)
 done
 
@@ -226,7 +226,7 @@ done
 
 # Cloud cover high
 h=()
-for l in {51..471..20}
+for l in {55..517..22}
     do h+=($l)
 done
 
@@ -251,7 +251,7 @@ done
 
 # Precipitations rate
 h=()
-for l in {53..473..20}
+for l in {57..519..22}
     do h+=($l)
 done
 
@@ -262,9 +262,9 @@ do
         then sed -i -e "s/id=$(echo $i)\>/id=$(echo $i) style=\"background-color: White; color: black\"/g" finalImage.html
     elif (( $(echo "$val > 0" |bc -l) && $(echo "$val < 1" |bc -l) ))
         then sed -i -e "s/id=$(echo $i)\>/id=$(echo $i) style=\"background-color: #CCFAF4; color: black\"/g" finalImage.html
-    elif (( $(echo "$val >= 1" |bc -l) ))
+    elif (( $(echo "$val >= 1" |bc -l) && $(echo "$val < 2.5" |bc -l) ))
         then sed -i -e "s/id=$(echo $i)\>/id=$(echo $i) style=\"background-color: Light-Blue; color: black\"/g" finalImage.html
-    elif (( $(echo "$val >= 2.5" |bc -l) ))
+    elif (( $(echo "$val >= 2.5" |bc -l) && $(echo "$val < 10" |bc -l) ))
         then sed -i -e "s/id=$(echo $i)\>/id=$(echo $i) style=\"background-color: Blue; color: white\"/g" finalImage.html
     elif (( $(echo "$val >= 10" |bc -l) ))
         then sed -i -e "s/id=$(echo $i)\>/id=$(echo $i) style=\"background-color: Dark-Blue; color: white\"/g" finalImage.html
@@ -274,7 +274,7 @@ done
 
 # Rain (categorical)
 h=()
-for l in {56..476..20}
+for l in {60..522..22}
     do h+=($l)
 done
 
@@ -291,7 +291,7 @@ done
 
 # Total precipitations
 h=()
-for l in {54..474..20}
+for l in {58..520..22}
     do h+=($l)
 done
 
@@ -308,7 +308,7 @@ done
 
 # Convective precipitations rate
 h=()
-for l in {52..472..20}
+for l in {56..518..22}
     do h+=($l)
 done
 
@@ -325,7 +325,7 @@ done
 
 # Convective total precipitations
 h=()
-for l in {55..475..20}
+for l in {59..521..22}
     do h+=($l)
 done
 
@@ -342,7 +342,7 @@ done
 
 # Snow
 h=()
-for l in {61..481..20}
+for l in {64..527..22}
     do h+=($l)
 done
 
@@ -359,7 +359,7 @@ done
 
 # Snow (categorical)
 h=()
-for l in {60..480..20}
+for l in {65..526..22}
     do h+=($l)
 done
 
@@ -370,5 +370,49 @@ do
         then sed -i -e "s/id=$(echo $i)\>/id=$(echo $i) style=\"background-color: White; color: black\"/g" finalImage.html
     elif (( $(echo "$val > 0" |bc -l) ))
         then sed -i -e "s/id=$(echo $i)\>/id=$(echo $i) style=\"background-color: Yellow; color: black\"/g" finalImage.html
+    fi
+done
+
+
+# Lifted Index
+h=()
+for l in {66..528..22}
+    do h+=($l)
+done
+
+for i in "${h[@]}"
+do
+    val=$(cat finalImage.html | grep "id=$(echo $i)>" | awk -F[=\>] '{print $3}' | awk -F[=\<] '{print $1}')
+    if (( $(echo "$val >= 0" |bc -l) ))
+        then sed -i -e "s/id=$(echo $i)\>/id=$(echo $i) style=\"background-color: White; color: black\"/g" finalImage.html
+    elif (( $(echo "$val > -2" |bc -l) && $(echo "$val < 0" |bc -l) ))
+        then sed -i -e "s/id=$(echo $i)\>/id=$(echo $i) style=\"background-color: Cyan; color: black\"/g" finalImage.html
+    elif (( $(echo "$val > -4" |bc -l) && $(echo "$val <= -2" |bc -l) ))
+        then sed -i -e "s/id=$(echo $i)\>/id=$(echo $i) style=\"background-color: Turquoise; color: black\"/g" finalImage.html
+    elif (( $(echo "$val > -6" |bc -l) && $(echo "$val <= -4" |bc -l) ))
+        then sed -i -e "s/id=$(echo $i)\>/id=$(echo $i) style=\"background-color: Lightseagreen; color: white\"/g" finalImage.html
+    elif (( $(echo "$val < -6" |bc -l) ))
+        then sed -i -e "s/id=$(echo $i)\>/id=$(echo $i) style=\"background-color: darkcyan; color: white\"/g" finalImage.html
+    fi
+done
+
+
+# CAPE
+h=()
+for l in {67..529..22}
+    do h+=($l)
+done
+
+for i in "${h[@]}"
+do
+    val=$(cat finalImage.html | grep "id=$(echo $i)>" | awk -F[=\>] '{print $3}' | awk -F[=\<] '{print $1}')
+    if (( $(echo "$val < 500" |bc -l) ))
+        then sed -i -e "s/id=$(echo $i)\>/id=$(echo $i) style=\"background-color: While; color: black\"/g" finalImage.html
+    elif (( $(echo "$val >= 500" |bc -l) && $(echo "$val < 1000" |bc -l) ))
+        then sed -i -e "s/id=$(echo $i)\>/id=$(echo $i) style=\"background-color: Gold; color: black\"/g" finalImage.html
+    elif (( $(echo "$val >= 1000" |bc -l) && $(echo "$val < 2000" |bc -l) ))
+        then sed -i -e "s/id=$(echo $i)\>/id=$(echo $i) style=\"background-color: Orange; color: white\"/g" finalImage.html
+    elif (( $(echo "$val > 2000" |bc -l) ))
+        then sed -i -e "s/id=$(echo $i)\>/id=$(echo $i) style=\"background-color: Orangered; color: white\"/g" finalImage.html
     fi
 done
