@@ -263,7 +263,7 @@ do
     elif (( $(echo "$val > 0" |bc -l) && $(echo "$val < 1" |bc -l) ))
         then sed -i -e "s/id=$(echo $i)\>/id=$(echo $i) style=\"background-color: #CCFAF4; color: black\"/g" finalImage.html
     elif (( $(echo "$val >= 1" |bc -l) && $(echo "$val < 2.5" |bc -l) ))
-        then sed -i -e "s/id=$(echo $i)\>/id=$(echo $i) style=\"background-color: Light-Blue; color: black\"/g" finalImage.html
+        then sed -i -e "s/id=$(echo $i)\>/id=$(echo $i) style=\"background-color: #A8DBEA; color: black\"/g" finalImage.html
     elif (( $(echo "$val >= 2.5" |bc -l) && $(echo "$val < 10" |bc -l) ))
         then sed -i -e "s/id=$(echo $i)\>/id=$(echo $i) style=\"background-color: Blue; color: white\"/g" finalImage.html
     elif (( $(echo "$val >= 10" |bc -l) ))
@@ -300,8 +300,12 @@ do
     val=$(cat finalImage.html | grep "id=$(echo $i)>" | awk -F[=\>] '{print $3}' | awk -F[=\<] '{print $1}')
     if (( $(echo "$val == 0" |bc -l) ))
         then sed -i -e "s/id=$(echo $i)\>/id=$(echo $i) style=\"background-color: White; color: black\"/g" finalImage.html
-    elif (( $(echo "$val > 0" |bc -l) ))
-        then sed -i -e "s/id=$(echo $i)\>/id=$(echo $i) style=\"background-color: Purple; color: white\"/g" finalImage.html
+    elif (( $(echo "$val > 0" |bc -l) && $(echo "$val < 16.7" |bc -l) ))
+        then sed -i -e "s/id=$(echo $i)\>/id=$(echo $i) style=\"background-color: LightGreen; color: black\"/g" finalImage.html
+    elif (( $(echo "$val >= 16.7" |bc -l) && $(echo "$val < 33.3" |bc -l) ))
+        then sed -i -e "s/id=$(echo $i)\>/id=$(echo $i) style=\"background-color: Yellow; color: black\"/g" finalImage.html
+    elif (( $(echo "$val >= 33.3" |bc -l) ))
+        then sed -i -e "s/id=$(echo $i)\>/id=$(echo $i) style=\"background-color: Red; color: white\"/g" finalImage.html
     fi
 done
 
