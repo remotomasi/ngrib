@@ -170,7 +170,7 @@ gnuplot -e "run=$run" ./temperatures.pg > temperatures.png
 gnuplot -e "run=$run" ./cape-lftx.pg > cape-lftx.png
 gnuplot -e "run=$run" ./precTypes.pg > precTypes.png
 
-convert \( weather.png precipitations.png cape-lftx.png -append \) \( clouds.png pressureWind.png precTypes.png -append \) \( hgt.png temperatures.png -append \) +append weatherForecastFinal.png
+convert \( clouds.png precipitations.png cape-lftx.png -append \) \( temperatures.png hgt.png precTypes.png -append \) \( weather.png pressureWind.png  -append \) +append weatherForecastFinal.png
 
 # clean last created files
 # rm final2.csv final3.csv finalg.csv finalg.txt
