@@ -10,7 +10,7 @@ sed -i -e '/03:00/d;/09:00/d;/15:00/d;/21:00/d' finalImage.csv
 sed -i -e 's/,,, TCDC/, WIND , WINDIR , TCDC/g' finalImage.csv
 sed -i -e 's/,,, low_cloud/, 10m , 10m , low_cloud/g' finalImage.csv
 
-echo -e "<html><head><link rel="stylesheet" href="graphic.css"></head><body><table style='font-family:"Arial", Courier, monospace; font-size:60%; white-space:nowrap; overflow: hidden; border-collapse: collapse; text-align:center' border='1' align='center'>" > finalImage.html
+echo -e "<html><head><link rel="stylesheet" href="graphic.css"></head><body><table style='font-family:"Arial", Courier, monospace; font-size:70%; white-space:nowrap; overflow: hidden; border-collapse: collapse; text-align:center' border='1' align='center'>" > finalImage.html
     while read INPUT ; do
             echo "<tr><td>${INPUT//,/</td><td>}</td></tr>" >> finalImage.html;
     done < finalImage.csv;
@@ -23,6 +23,16 @@ sed -i -e 's/middle_cloud <\/td><td>100</middle_cloud <\/td><td> high_cloud </g'
 awk '{gsub("<td>","\n<td>"); print}' finalImage.html > finalMiddle.html
 awk '{gsub("<td>","<td id=" ++n ">"); print}' finalMiddle.html > finalImage.html
 
+# Function useful for transformations from scientific to decimal
+convNum () {
+    scientific=$1
+    base=$(echo $scientific | cut -d 'e' -f1)
+    exp=$(expr $(echo $scientific | cut -d 'e' -f2)*1 | bc)
+    converted=$(bc -l <<< "$base*(10^$exp)")
+
+    echo $converted
+}
+
 # Wind direction
 sed -i -e 's/>N</><img src="icons\/n.png" class="center" height="20" width="20"><\/img></g' finalImage.html
 sed -i -e 's/>NE</><img src="icons\/ne.png" class="center" height="20" width="20"><\/img></g' finalImage.html
@@ -33,6 +43,16 @@ sed -i -e 's/>SW</><img src="icons\/sw.png" class="center" height="20" width="20
 sed -i -e 's/>W</><img src="icons\/w.png" class="center" height="20" width="20"><\/img></g' finalImage.html
 sed -i -e 's/>NW</><img src="icons\/nw.png" class="center" height="20" width="20"><\/img></g' finalImage.html
 
+# Tilles
+h=()
+for l in {4..23..1}
+    do h+=($l)
+done
+
+for i in "${h[@]}"
+do
+    sed -i -e "s/id=$(echo $i)\>/id=$(echo $i) style=\"background-color: darkblue; color: white\"/g" finalImage.html
+done
 
 # Temperatures
 h=()
@@ -281,9 +301,9 @@ done
 for i in "${h[@]}"
 do
     val=$(cat finalImage.html | grep "id=$(echo $i)>" | awk -F[=\>] '{print $3}' | awk -F[=\<] '{print $1}')
-    if (( $(echo "$val < 1" |bc -l) ))
+    if (( $(echo "$val == 0" |bc -l) ))
         then sed -i -e "s/id=$(echo $i)\>/id=$(echo $i) style=\"background-color: White; color: black\"/g" finalImage.html
-    elif (( $(echo "$val > 0" |bc -l) ))
+    elif (( $(echo "$val == 1" |bc -l) ))
         then sed -i -e "s/id=$(echo $i)\>/id=$(echo $i) style=\"background-color: Green; color: white\"/g" finalImage.html
     fi
 done
@@ -344,33 +364,86 @@ do
 done
 
 
-# Snow
+# Freezing Rain (categorical)
 h=()
-for l in {64..527..22}
+for l in {61..523..22}
     do h+=($l)
 done
 
 for i in "${h[@]}"
 do
     val=$(cat finalImage.html | grep "id=$(echo $i)>" | awk -F[=\>] '{print $3}' | awk -F[=\<] '{print $1}')
-    if (( $(echo "$val < 1" |bc -l) ))
+    if (( $(echo "$val == 0" |bc -l) ))
         then sed -i -e "s/id=$(echo $i)\>/id=$(echo $i) style=\"background-color: White; color: black\"/g" finalImage.html
-    elif (( $(echo "$val > 0" |bc -l) ))
-        then sed -i -e "s/id=$(echo $i)\>/id=$(echo $i) style=\"background-color: Dark-Yellow; color: black\"/g" finalImage.html
+    elif (( $(echo "$val == 1" |bc -l) ))
+        then sed -i -e "s/id=$(echo $i)\>/id=$(echo $i) style=\"background-color: Dark-Grey; color: white\"/g" finalImage.html
+    fi
+done
+
+
+# Ice Pellets (categorical)
+h=()
+for l in {62..524..22}
+    do h+=($l)
+done
+
+for i in "${h[@]}"
+do
+    val=$(cat finalImage.html | grep "id=$(echo $i)>" | awk -F[=\>] '{print $3}' | awk -F[=\<] '{print $1}')
+    if (( $(echo "$val == 0" |bc -l) ))
+        then sed -i -e "s/id=$(echo $i)\>/id=$(echo $i) style=\"background-color: White; color: black\"/g" finalImage.html
+    elif (( $(echo "$val == 1" |bc -l) ))
+        then sed -i -e "s/id=$(echo $i)\>/id=$(echo $i) style=\"background-color: Black; color: white\"/g" finalImage.html
+    fi
+done
+
+
+# Frozen precipitations (percentage)
+h=()
+for l in {63..525..22}
+    do h+=($l)
+done
+
+for i in "${h[@]}"
+do
+    val=$(cat finalImage.html | grep "id=$(echo $i)>" | awk -F[=\>] '{print $3}' | awk -F[=\<] '{print $1}')
+    #valConv=$(convert $val)
+    valConv=$(echo $val | awk '{printf "%4.6f\n",$1}')
+    if (( $(echo "$valConv < 0" |bc -l) )) 
+        then sed -i -e "s/id=$(echo $i)\>/id=$(echo $i) style=\"background-color: White; color: black\"/g" finalImage.html
+    elif (( $(echo "$valConv >= 0" |bc -l) ))
+        then sed -i -e "s/id=$(echo $i)\>/id=$(echo $i) style=\"background-color: Brown; color: white\"/g" finalImage.html
     fi
 done
 
 
 # Snow (categorical)
 h=()
-for l in {65..526..22}
+for l in {64..526..22}
     do h+=($l)
 done
 
 for i in "${h[@]}"
 do
     val=$(cat finalImage.html | grep "id=$(echo $i)>" | awk -F[=\>] '{print $3}' | awk -F[=\<] '{print $1}')
-    if (( $(echo "$val < 1" |bc -l) ))
+    if (( $(echo "$val == 0" |bc -l) ))
+        then sed -i -e "s/id=$(echo $i)\>/id=$(echo $i) style=\"background-color: White; color: black\"/g" finalImage.html
+    elif (( $(echo "$val == 1" |bc -l) ))
+        then sed -i -e "s/id=$(echo $i)\>/id=$(echo $i) style=\"background-color: Dark-Yellow; color: black\"/g" finalImage.html
+    fi
+done
+
+
+# Snow
+h=()
+for l in {65..527..22}
+    do h+=($l)
+done
+
+for i in "${h[@]}"
+do
+    val=$(cat finalImage.html | grep "id=$(echo $i)>" | awk -F[=\>] '{print $3}' | awk -F[=\<] '{print $1}')
+    if (( $(echo "$val == 0" |bc -l) ))
         then sed -i -e "s/id=$(echo $i)\>/id=$(echo $i) style=\"background-color: White; color: black\"/g" finalImage.html
     elif (( $(echo "$val > 0" |bc -l) ))
         then sed -i -e "s/id=$(echo $i)\>/id=$(echo $i) style=\"background-color: Yellow; color: black\"/g" finalImage.html
