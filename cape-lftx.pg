@@ -59,12 +59,12 @@ set style data lines
 # Set linestyle 1 to blue (#0060ad)
 set style line 1 linecolor rgb '#0060ad' linetype 1 linewidth 2 pointtype 7 pointsize 1
 set boxwidth 0.95 relative
-#set style fill transparent solid 0.5 noborder
+set style fill transparent solid 0.7 noborder
 
 set label 1 sprintf("  < %4.4g",max_yCP) at first max_pos_yCP, first max_yCP left tc rgb "orange"
 set label 3 sprintf("< %4.4g J/Kg",min_yL) at first min_pos_yL, second min_yL left tc rgb "purple"
 
-plot "final3.csv" using 1:27 w boxes lc rgb "orange" fs solid border -1 title "CAPE" axes x1y1, \
+plot "final3.csv" using 1:27 w boxes lc rgb "orange" fs transparent solid 0.3 border -1 title "CAPE" axes x1y1, \
 "" u 1:(max_yCP) lc rgb "orange" dt 3 lw 2 notitle axes x1y1, \
 "" u 1:(max_yCP>=500?500:1/0) lc rgb "orange" dt 2 lw 1 notitle, \
 "" u 1:(max_yCP>=1000?1000:1/0) lc rgb "orange" dt 2 lw 1 notitle axes x1y1, \

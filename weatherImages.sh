@@ -23,16 +23,6 @@ sed -i -e 's/middle_cloud <\/td><td>100</middle_cloud <\/td><td> high_cloud </g'
 awk '{gsub("<td>","\n<td>"); print}' finalImage.html > finalMiddle.html
 awk '{gsub("<td>","<td id=" ++n ">"); print}' finalMiddle.html > finalImage.html
 
-# Function useful for transformations from scientific to decimal
-convNum () {
-    scientific=$1
-    base=$(echo $scientific | cut -d 'e' -f1)
-    exp=$(expr $(echo $scientific | cut -d 'e' -f2)*1 | bc)
-    converted=$(bc -l <<< "$base*(10^$exp)")
-
-    echo $converted
-}
-
 # Wind direction
 sed -i -e 's/>N</><img src="icons\/n.png" class="center" height="20" width="20"><\/img></g' finalImage.html
 sed -i -e 's/>NE</><img src="icons\/ne.png" class="center" height="20" width="20"><\/img></g' finalImage.html
@@ -342,7 +332,7 @@ do
     if (( $(echo "$val == 0" |bc -l) ))
         then sed -i -e "s/id=$(echo $i)\>/id=$(echo $i) style=\"background-color: White; color: black\"/g" finalImage.html
     elif (( $(echo "$val > 0" |bc -l) ))
-        then sed -i -e "s/id=$(echo $i)\>/id=$(echo $i) style=\"background-color: Orange; color: black\"/g" finalImage.html
+        then sed -i -e "s/id=$(echo $i)\>/id=$(echo $i) style=\"background-color: Brown; color: white\"/g" finalImage.html
     fi
 done
 
@@ -412,7 +402,7 @@ do
     if (( $(echo "$valConv < 0" |bc -l) )) 
         then sed -i -e "s/id=$(echo $i)\>/id=$(echo $i) style=\"background-color: White; color: black\"/g" finalImage.html
     elif (( $(echo "$valConv >= 0" |bc -l) ))
-        then sed -i -e "s/id=$(echo $i)\>/id=$(echo $i) style=\"background-color: Brown; color: white\"/g" finalImage.html
+        then sed -i -e "s/id=$(echo $i)\>/id=$(echo $i) style=\"background-color: Red; color: white\"/g" finalImage.html
     fi
 done
 
@@ -465,9 +455,9 @@ do
     elif (( $(echo "$val > -2" |bc -l) && $(echo "$val < 0" |bc -l) ))
         then sed -i -e "s/id=$(echo $i)\>/id=$(echo $i) style=\"background-color: Cyan; color: black\"/g" finalImage.html
     elif (( $(echo "$val > -4" |bc -l) && $(echo "$val <= -2" |bc -l) ))
-        then sed -i -e "s/id=$(echo $i)\>/id=$(echo $i) style=\"background-color: Turquoise; color: black\"/g" finalImage.html
+        then sed -i -e "s/id=$(echo $i)\>/id=$(echo $i) style=\"background-color: Lightseagreen; color: black\"/g" finalImage.html
     elif (( $(echo "$val > -6" |bc -l) && $(echo "$val <= -4" |bc -l) ))
-        then sed -i -e "s/id=$(echo $i)\>/id=$(echo $i) style=\"background-color: Lightseagreen; color: white\"/g" finalImage.html
+        then sed -i -e "s/id=$(echo $i)\>/id=$(echo $i) style=\"background-color: cadetblue; color: white\"/g" finalImage.html
     elif (( $(echo "$val < -6" |bc -l) ))
         then sed -i -e "s/id=$(echo $i)\>/id=$(echo $i) style=\"background-color: darkcyan; color: white\"/g" finalImage.html
     fi
@@ -493,3 +483,8 @@ do
         then sed -i -e "s/id=$(echo $i)\>/id=$(echo $i) style=\"background-color: Orangered; color: white\"/g" finalImage.html
     fi
 done
+
+
+# Transform the html into an image
+now=$(date +%F)
+xvfb-run --server-args="-screen 0, 1024x768x24" cutycapt --url=file://$PWD/finalImage.html --out=IMAGES/finalImage_$now.png
