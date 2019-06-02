@@ -33,7 +33,7 @@ sed -i -e 's/>SW</><img src="icons\/sw.png" class="center" height="20" width="20
 sed -i -e 's/>W</><img src="icons\/w.png" class="center" height="20" width="20"><\/img></g' finalImage.html
 sed -i -e 's/>NW</><img src="icons\/nw.png" class="center" height="20" width="20"><\/img></g' finalImage.html
 
-# Tilles
+# Titles
 h=()
 for l in {4..23..1}
     do h+=($l)
@@ -72,7 +72,7 @@ do
     elif (( $(echo "$val > 25" |bc -l) && $(echo "$val <= 30" |bc -l) ))
         then sed -i -e "s/id=$(echo $i)\>/id=$(echo $i) style=\"background-color: red; color: black\"/g" finalImage.html
     elif (( $(echo "$val > 30" |bc -l) && $(echo "$val <= 35" |bc -l) ))
-        then sed -i -e "s45d=$(echo $i)\>/id=$(echo $i) style=\"background-color: maroon; color: black\"/g" finalImage.html
+        then sed -i -e "s/d=$(echo $i)\>/id=$(echo $i) style=\"background-color: maroon; color: black\"/g" finalImage.html
     elif (( $(echo "$val > 35" |bc -l) && $(echo "$val <= 40" |bc -l) ))
         then sed -i -e "s/id=$(echo $i)\>/id=$(echo $i) style=\"background-color: fuchsia; color: black\"/g" finalImage.html
     elif (( $(echo "$val > 40" |bc -l) && $(echo "$val <= 45" |bc -l) ))
@@ -487,4 +487,4 @@ done
 
 # Transform the html into an image
 now=$(date +%F)
-xvfb-run --server-args="-screen 0, 1024x768x24" cutycapt --url=/$PWD/finalImage.html --out=IMAGES/finalImage_$now.png
+xvfb-run --server-args="-screen 0, 1024x768x24" cutycapt --url=/$PWD/finalImage.html --out=finalImage_$now.png
