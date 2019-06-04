@@ -486,5 +486,5 @@ done
 
 
 # Transform the html into an image
-now=$(date +%F)
+now=$(date +%d%m%Y_%H%M)
 xvfb-run --server-args="-screen 0, 1024x768x24" cutycapt --url=file://$PWD/finalImage.html --out=/$PWD/finalImage_$now.png
