@@ -7,24 +7,24 @@ set angle degrees
 
 data = 'final3.csv'
 # Retrieve statistical properties for Wind velocity
-stats data using 1:8
+stats data using 1:81
 set timefmt "%Y-%m-%d %H:%M"
-stats [time(0):*] 'final3.csv' u (timecolumn(1)):8
+stats [time(0):*] 'final3.csv' u (timecolumn(1)):81
 max_yW = STATS_max_y
 max_pos_yW = STATS_pos_max_y
 mean_yW = STATS_mean_y
 
 # Retrieve statistical properties for GUST
-stats data using 1:11
+stats data using 1:4
 set timefmt "%Y-%m-%d %H:%M"
-stats [time(0):*] 'final3.csv' u (timecolumn(1)):11
+stats [time(0):*] 'final3.csv' u (timecolumn(1)):4
 max_yG = STATS_max_y
 max_pos_yG = STATS_pos_max_y
 
 # Retrieve statistical properties for Pressure
-stats data using 1:15
+stats data using 1:80
 set timefmt "%Y-%m-%d %H:%M"
-stats [time(0):*] 'final3.csv' u (timecolumn(1)):15
+stats [time(0):*] 'final3.csv' u (timecolumn(1)):80
 max_yP = STATS_max_y
 max_pos_yP = STATS_pos_max_y
 min_yP = STATS_min_y
@@ -60,11 +60,11 @@ set label sprintf("< %4.4g",max_yW) at first max_pos_yW, second max_yW left tc r
 set label sprintf("< %4.4g",max_yG) at first max_pos_yG, second max_yG left tc rgb "red"
 set label sprintf("< %4.5g",max_yP) at first max_pos_yP, first max_yP left tc rgb "purple"
 set label sprintf("< %4.5g",min_yP) at first min_pos_yP, first min_yP left tc rgb "purple"
-plot "final3.csv" using 1:15 title "Pres", \
-"" u 53:(10):(0.05*$8*cos(90-$9)):(0.05*$8*sin(90-$9)) with vectors nohead lw 2 lc rgb "dark-green" title "Wind" axes x2y2, \
-"" u 53:(10) w p lt 2 pt 7 ps 1.5 notitle axes x2y2, \
-"" u 1:8 title "WSpd" axes x1y2, \
-"" u 1:11 title "GUST" dt 3 lc rgb "red" lw 1 axes x1y2, \
+plot "final3.csv" using 1:80 title "Pres", \
+"" u 89:(10):(0.05*$81*cos(90-$82)):(0.05*$81*sin(90-$82)) with vectors nohead lw 2 lc rgb "dark-green" title "Wind" axes x2y2, \
+"" u 89:(10) w p lt 2 pt 7 ps 1.5 notitle axes x2y2, \
+"" u 1:81 title "WSpd" axes x1y2, \
+"" u 1:4 title "GUST" dt 3 lc rgb "red" lw 1 axes x1y2, \
 "" u 1:(max_yW>=118?118:1/0) dt 2 lc rgb "orange" lw 1 axes x1y2 notitle, \
 "" u 1:(max_yW>=103 && max_yW<=117?103:1/0) dt 2 lc rgb "orange" lw 1 axes x1y2 notitle, \
 "" u 1:(max_yW>=89 && max_yW<=102?89:1/0) dt 2 lc rgb "orange" lw 1 axes x1y2 notitle, \
