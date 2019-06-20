@@ -1,19 +1,21 @@
 #!/bin/bash
 
-cat final.txt | cut -d',' -f1,2,3,4,7,9,11,12,13,15,16,17,18,19,20,23,24,21,22,25,26 | sed '/03:00/d;/09:00/d;/15:00/d;/21:00/d' > finalImage.csv
+cat final.txt | cut -d',' -f1,41,42,43,46,47,48,51,53,55,39,56,57,58,63,64,65,67,68,69,79,80,82 | sed '/03:00/d;/09:00/d;/15:00/d;/21:00/d' > finalImage.csv
 sed -i -e '/03:00/d;/09:00/d;/15:00/d;/21:00/d' finalImage.csv
 #sed '/00:00/d;/03:00/d;/15:00/d;/21:00/d' final.html > finalImages2.html
 #sed '1d;2d;3d;27d;28d' finalImages2.html > finalImages3.html
 #sed 's/<\/td><td>/|/g' finalImages3.html > finalImages4.html
 
 # restoration of some title for Wind and WindDirection
-sed -i -e 's/,,, TCDC/, WIND , WINDIR , TCDC/g' finalImage.csv
-sed -i -e 's/,,, low_cloud/, 10m , 10m , low_cloud/g' finalImage.csv
+sed -i -e 's/ PRMSL ,,/ PRMSL , WIND , WINDIR/g' finalImage.csv
+sed -i -e 's/ mean_sea ,,/ mean_sea , 10m , 10m/g' finalImage.csv
+
+awk 'BEGIN{FS=OFS=","}{ print $1,$3,$4,$5,$22,$23,$18,$19,$20,$16,$17,$21,$14,$8,$7,$9,$10,$13,$6,$12,$11,$2,$15 }' finalImage.csv > finalImages.csv
 
 echo -e "<html><head><link rel="stylesheet" href="graphic.css"></head><body><table style='font-family:"Arial", Courier, monospace; font-size:70%; white-space:nowrap; overflow: hidden; border-collapse: collapse; text-align:center' border='1' align='center'>" > finalImage.html
     while read INPUT ; do
             echo "<tr><td>${INPUT//,/</td><td>}</td></tr>" >> finalImage.html;
-    done < finalImage.csv;
+    done < finalImages.csv;
 echo -e "</font></table></body></html>" >> finalImage.html
 
 # restoration of some title: 100 -> TCDC // 100 -> high_cloud
@@ -35,7 +37,7 @@ sed -i -e 's/>NW</><img src="icons\/nw.png" class="center" height="20" width="20
 
 # Titles
 h=()
-for l in {4..23..1}
+for l in {4..25..1}
     do h+=($l)
 done
 
@@ -44,9 +46,10 @@ do
     sed -i -e "s/id=$(echo $i)\>/id=$(echo $i) style=\"background-color: darkblue; color: white\"/g" finalImage.html
 done
 
+
 # Temperatures
 h=()
-for l in {48..510..22}
+for l in {52..556..24}
     do h+=($l)
 done
 
@@ -87,7 +90,7 @@ done
 
 # Humidity
 h=()
-for l in {50..512..22}
+for l in {54..558..24}
     do h+=($l)
 done
 
@@ -110,9 +113,10 @@ done
 
 # Dew Point
 h=()
-for l in {49..511..22}
+for l in {53..557..24}
     do h+=($l)
 done
+
 
 for i in "${h[@]}"
 do
@@ -126,7 +130,7 @@ do
     elif (( $(echo "$val > 15" |bc -l) && $(echo "$val <= 18" |bc -l) ))
         then sed -i -e "s/id=$(echo $i)\>/id=$(echo $i) style=\"background-color: yellow; color: black\"/g" finalImage.html
     elif (( $(echo "$val > 18" |bc -l) && $(echo "$val <= 21" |bc -l) ))
-        then sed -i -e "s/id=$(echo $i)\>/id=$(echo $i) style=\"background-color: Borangelue; color: white\"/g" finalImage.html
+        then sed -i -e "s/id=$(echo $i)\>/id=$(echo $i) style=\"background-color: #ff5500; color: white\"/g" finalImage.html
     elif (( $(echo "$val > 21" |bc -l) && $(echo "$val <= 24" |bc -l) ))
         then sed -i -e "s/id=$(echo $i)\>/id=$(echo $i) style=\"background-color: #ff8000; color: white\"/g" finalImage.html
     elif (( $(echo "$val > 24" |bc -l) && $(echo "$val <= 26" |bc -l) ))
@@ -139,7 +143,7 @@ done
 
 # Wind power
 h=()
-for l in {51..513..22}
+for l in {55..559..24}
     do h+=($l)
 done
 
@@ -186,7 +190,7 @@ done
 
 # Cloud cover low
 h=()
-for l in {53..515..22}
+for l in {57..561..24}
     do h+=($l)
 done
 
@@ -211,7 +215,7 @@ done
 
 # Cloud cover middle
 h=()
-for l in {54..516..22}
+for l in {58..562..24}
     do h+=($l)
 done
 
@@ -236,7 +240,7 @@ done
 
 # Cloud cover high
 h=()
-for l in {55..517..22}
+for l in {59..563..24}
     do h+=($l)
 done
 
@@ -261,7 +265,7 @@ done
 
 # Precipitations rate
 h=()
-for l in {57..519..22}
+for l in {64..568..24}
     do h+=($l)
 done
 
@@ -284,7 +288,7 @@ done
 
 # Rain (categorical)
 h=()
-for l in {60..522..22}
+for l in {63..567..24}
     do h+=($l)
 done
 
@@ -301,7 +305,7 @@ done
 
 # Total precipitations
 h=()
-for l in {58..520..22}
+for l in {66..570..24}
     do h+=($l)
 done
 
@@ -322,7 +326,7 @@ done
 
 # Convective precipitations rate
 h=()
-for l in {56..518..22}
+for l in {65..569..24}
     do h+=($l)
 done
 
@@ -339,7 +343,7 @@ done
 
 # Convective total precipitations
 h=()
-for l in {59..521..22}
+for l in {67..571..24}
     do h+=($l)
 done
 
@@ -356,7 +360,7 @@ done
 
 # Freezing Rain (categorical)
 h=()
-for l in {61..523..22}
+for l in {68..572..24}
     do h+=($l)
 done
 
@@ -373,7 +377,7 @@ done
 
 # Ice Pellets (categorical)
 h=()
-for l in {62..524..22}
+for l in {70..574..24}
     do h+=($l)
 done
 
@@ -390,7 +394,7 @@ done
 
 # Frozen precipitations (percentage)
 h=()
-for l in {63..525..22}
+for l in {69..573..24}
     do h+=($l)
 done
 
@@ -409,7 +413,7 @@ done
 
 # Snow (categorical)
 h=()
-for l in {64..526..22}
+for l in {71..575..24}
     do h+=($l)
 done
 
@@ -426,7 +430,7 @@ done
 
 # Snow
 h=()
-for l in {65..527..22}
+for l in {72..576..24}
     do h+=($l)
 done
 
@@ -443,7 +447,7 @@ done
 
 # Lifted Index
 h=()
-for l in {66..528..22}
+for l in {60..564..24}
     do h+=($l)
 done
 
@@ -466,7 +470,7 @@ done
 
 # CAPE
 h=()
-for l in {67..529..22}
+for l in {61..565..24}
     do h+=($l)
 done
 

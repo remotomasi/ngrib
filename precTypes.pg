@@ -6,23 +6,23 @@ set term pngcairo size 1024,600 #800 pixels by 600 pixels
 
 data = 'final3.csv'
 # Retrieve statistical properties for 1000-850
-stats data using 1:46
+stats data using 1:84
 min_yM8 = STATS_min_y
 
 # Retrieve statistical properties for 1000-700
-stats data using 1:47
+stats data using 1:85
 min_yM7 = STATS_min_y
 
 # Retrieve statistical properties for 1000-500
-stats data using 1:48
+stats data using 1:86
 min_yM5 = STATS_min_y
 
 # Retrieve statistical properties for 850-700
-stats data using 1:49
+stats data using 1:87
 min_y87 = STATS_min_y
 
 # Retrieve statistical properties for 850-500
-stats data using 1:50
+stats data using 1:88
 min_y85 = STATS_min_y
 
 set datafile separator " "
@@ -66,11 +66,11 @@ set label sprintf("1000-700min = %4.4g m",min_yM7) at graph 0.4,0.94 left font "
 set label sprintf("1000-500min = %4.4g m",min_yM5) at graph 0.6,0.97 left font "Arial,10" tc rgb "orange"
 set label sprintf("850-700min = %4.4g m",min_y87) at graph 0.6,0.94 left font "Arial,10" tc rgb "green"
 set label sprintf("850-500min = %4.4g m",min_y85) at graph 0.8,0.97 left font "Arial,10" tc rgb "blue"
-plot "final3.csv" using 1:46 title "1000-850" lw 2 lt 2 lc "grey", \
-"" using 1:47 title "1000-700" lw 2 lt 2 lc "red", \
-"" using 1:48 title "1000-500" lw 2 lt 2 lc "orange", \
-"" using 1:49 title "850-700" lw 2 lt 2 lc "green", \
-"" using 1:50 title "850-500" lw 2 lt 2 lc "blue", \
+plot "final3.csv" using 1:84 title "1000-850" lw 2 lt 2 lc "grey", \
+"" using 1:85 title "1000-700" lw 2 lt 2 lc "red", \
+"" using 1:86 title "1000-500" lw 2 lt 2 lc "orange", \
+"" using 1:87 title "850-700" lw 2 lt 2 lc "green", \
+"" using 1:88 title "850-500" lw 2 lt 2 lc "blue", \
 5225 dt 2 lc "orange" lw 1 notitle, \
 4050 dt 2 lc "blue" lw 1 notitle, \
 2800 dt 2 lc "red" lw 1 notitle, \
