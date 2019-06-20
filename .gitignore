@@ -2,7 +2,6 @@
 pro*
 *.xls
 *.html
-send.sh
 *.log*
 *.txt
 *.png
