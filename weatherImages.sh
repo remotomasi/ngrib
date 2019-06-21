@@ -502,7 +502,13 @@ do
     fi
 done
 
+if [ -d imageFiles ]   # control if the imageFiles folder exists 
+then 
+    echo "..creating folder"
+else
+    $(mkdir imageFiles)
+fi
 
 # Transform the html into an image
 now=$(date +%d%m%Y_%H%M)
-xvfb-run --server-args="-screen 0, 1024x768x24" cutycapt --url=file://$PWD/finalImage.html --out=/$PWD/finalImage_$now.png
+xvfb-run --server-args="-screen 0, 1024x768x24" cutycapt --url=file://$PWD/finalImage.html --out=/$PWD/imageFiles/finalImage_$now.png

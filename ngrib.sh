@@ -164,14 +164,21 @@ cat final.txt | tr '|' ' ' | tr ',' ' ' | tr '"' ' ' | cut -d' ' -f2- > final2.c
 sed -i -e 's/  / /g;s/:00:00/ /g;s/  / /g' final2.csv
 awk '{if (NR>=3&&NR<46) print $0, NR }' final2.csv > final3.csv	# added the number of the line at the end of each of them
 
-gnuplot -e "run=$run" ./weather.pg > weather.png
-gnuplot -e "run=$run" ./pressureWind.pg > pressureWind.png
-gnuplot -e "run=$run" ./precipitations.pg > precipitations.png
-gnuplot -e "run=$run" ./clouds.pg > clouds.png
-gnuplot -e "run=$run" ./hgt.pg > hgt.png
-gnuplot -e "run=$run" ./temperatures.pg > temperatures.png
-gnuplot -e "run=$run" ./cape-lftx.pg > cape-lftx.png
-gnuplot -e "run=$run" ./precTypes.pg > precTypes.png
+if [ -d graphs ]   # control if the imageFiles folder exists 
+then 
+    echo "..creating folder"
+else
+    $(mkdir graphs)
+fi
+
+gnuplot -e "run=$run" ./weather.pg > graphs/weather.png
+gnuplot -e "run=$run" ./pressureWind.pg > graphs/pressureWind.png
+gnuplot -e "run=$run" ./precipitations.pg > graphs/precipitations.png
+gnuplot -e "run=$run" ./clouds.pg > graphs/clouds.png
+gnuplot -e "run=$run" ./hgt.pg > graphs/hgt.png
+gnuplot -e "run=$run" ./temperatures.pg > graphs/temperatures.png
+gnuplot -e "run=$run" ./cape-lftx.pg > graphs/cape-lftx.png
+gnuplot -e "run=$run" ./precTypes.pg > graphs/precTypes.png
 
 convert \( clouds.png precipitations.png cape-lftx.png -append \) \( temperatures.png hgt.png precTypes.png -append \) \( weather.png pressureWind.png  -append \) +append weatherForecastFinal.png
 

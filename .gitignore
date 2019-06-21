@@ -6,3 +6,5 @@ pro*
 *.txt
 *.png
 wbgrib2
+graphs
+imageFiles
