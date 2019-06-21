@@ -6,17 +6,17 @@ set term pngcairo size 1024,600 #800 pixels by 600 pixels
 
 data = 'final3.csv'
 # Retrieve statistical properties for Total Precipitations
-stats data using 1:52
+stats data using 1:49
 set timefmt "%Y-%m-%d %H:%M"
-stats [time(0):time(0) + 5*24*60*60] 'final3.csv' u (timecolumn(1)):52
+stats [time(0):time(0) + 5*24*60*60] 'final3.csv' u (timecolumn(1)):49
 max_yPR = STATS_max_y
 tot_yPR = STATS_sum_y
 
 data = 'final3.csv'
 # Retrieve statistical properties for Total Precipitations
-stats data using 1:54
+stats data using 1:52
 set timefmt "%Y-%m-%d %H:%M"
-stats [time(0):time(0) + 5*24*60*60] 'final3.csv' u (timecolumn(1)):54
+stats [time(0):time(0) + 5*24*60*60] 'final3.csv' u (timecolumn(1)):52
 max_yTP = STATS_max_y
 tot_yTP = STATS_sum_y
 
@@ -49,7 +49,7 @@ set style fill transparent solid 0.7
 #set style histogram clustered gap 0.0
 
 set label sprintf("PrecTot = %3.3g mm",tot_yTP) at graph 0.9,0.97 center font "Arial,10" tc rgb "purple"
-plot "final3.csv" using 1:51 w boxes lc rgb "blue" title "PrMM/h" axes x1y1, \
+plot "final3.csv" using 1:49 w boxes lc rgb "blue" title "PrMM/h" axes x1y1, \
 "" using 1:52 w boxes lc rgb "purple" title "TotPr" axes x1y1, \
 "" using 1:48 lc rgb "brown" lw 2 title "CPrMM/h" axes x1y1, \
 "" using 1:54 lc rgb "orange" lw 2 title "CPrTot" axes x1y1, \
