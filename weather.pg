@@ -62,8 +62,8 @@ plot 'final3.csv' u 1:($42):($43) with filledcurves above x1 lc "red" notitle, \
 "" u 1:52 w boxes lc rgb "purple" title "TotPr" axes x1y1, \
 "" using 1:54 lw 2 lc rgb "orange" title "CPrTot" axes x1y1, \
 "" u 1:40 w boxes lc rgb "olive" fs solid border -1 title "SDepth" axes x1y1, \
-"" u 1:($51>=0 && $44>=70?$51:1/0):(-$51<=0 && $5>=70?-$51:1/0) w filledcurves above x2 lc "dark-yellow" title "Mist", \
-"" u 1:($51>=0 && $44>=70?$51:1/0):(-$51<=0 && $5>=70?-$51:1/0) w filledcurves below x2 notitle, \
+"" u 1:($89>=0 && $44>=70?$89:1/0):(-$89<=0 && $44>=70?-$89:1/0) w filledcurves above x2 lc "dark-yellow" title "Mist", \
+"" u 1:($89>=0 && $44>=70?$89:1/0):(-$89<=0 && $44>=70?-$89:1/0) w filledcurves below x2 notitle, \
 2.5 dt 2 lc rgb "dark-yellow" lw 1 axes x1y1 notitle, \
 "" u 1:81 title "WSpd" lc "cyan" axes x1y2, \
 "" u 1:(max_yW>=118?118:1/0) dt 2 lc rgb "cyan" lw 1 axes x1y2 notitle, \
