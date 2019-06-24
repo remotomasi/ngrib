@@ -185,3 +185,20 @@ convert \( clouds.png precipitations.png cape-lftx.png -append \) \( temperature
 # clean last created files
 rm final2.csv
 rm anlFile
+
+# move data files into data folder
+
+if [ -d data ]   # control if the imageFiles folder exists 
+then 
+    echo "..creating folder"
+else
+    $(mkdir data)
+fi
+
+mv *.csv data
+mv *.html data
+mv final.txt data
+
+# rename data csv file
+now=$(date +%d%m%Y_%H%M)
+mv final.txt final_$now.csv
