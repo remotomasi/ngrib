@@ -23,23 +23,23 @@ min_pos_yT8 = STATS_pos_min_y
 max_yT8 = STATS_max_y
 max_pos_yT8 = STATS_pos_max_y
 
-# Retrieve statistical properties for T700
-stats data using 1:14
+# Retrieve statistical properties for RH2m
+stats data using 1:44
 set timefmt "%Y-%m-%d %H:%M"
-stats [time(0):time(0) + 5*24*60*60] 'final3.csv' u (timecolumn(1)):14
-min_yT7 = STATS_min_y
-min_pos_yT7 = STATS_pos_min_y
-max_yT7 = STATS_max_y
-max_pos_yT7 = STATS_pos_max_y
+stats [time(0):time(0) + 5*24*60*60] 'final3.csv' u (timecolumn(1)):44
+min_yRH = STATS_min_y
+min_pos_yRH = STATS_pos_min_y
+max_yRH = STATS_max_y
+max_pos_yRH = STATS_pos_max_y
 
-# Retrieve statistical properties for T500
-stats data using 1:6
+# Retrieve statistical properties for RH700
+stats data using 1:15
 set timefmt "%Y-%m-%d %H:%M"
-stats [time(0):time(0) + 5*24*60*60] 'final3.csv' u (timecolumn(1)):6
-min_yT5 = STATS_min_y
-min_pos_yT5 = STATS_pos_min_y
-max_yT5 = STATS_max_y
-max_pos_yT5 = STATS_pos_max_y
+stats [time(0):time(0) + 5*24*60*60] 'final3.csv' u (timecolumn(1)):15
+min_yRH7 = STATS_min_y
+min_pos_yRH7 = STATS_pos_min_y
+max_yRH7 = STATS_max_y
+max_pos_yRH7 = STATS_pos_max_y
 
 set datafile separator " "
 set xdata time
@@ -74,16 +74,15 @@ set label sprintf("< %4.4g",min_yT) at first min_pos_yT, first min_yT left tc rg
 set label sprintf("< %4.4g",max_yT) at first max_pos_yT, first max_yT left tc rgb "blue"
 set label sprintf("< %4.4g",min_yT8) at first min_pos_yT8, first min_yT8 left tc rgb "green"
 set label sprintf("< %4.4g",max_yT8) at first max_pos_yT8, first max_yT8 left tc rgb "green"
-set label sprintf("< %4.4g",min_yT7) at first min_pos_yT7, first min_yT7 left tc rgb "orange"
-set label sprintf("< %4.4g",max_yT7) at first max_pos_yT7, first max_yT7 left tc rgb "orange"
-set label sprintf("< %4.4g",min_yT5) at first min_pos_yT5, first min_yT5 left tc rgb "red"
-set label sprintf("< %4.4g",max_yT5) at first max_pos_yT5, first max_yT5 left tc rgb "red"
-plot "final3.csv" using 1:6 title "500" lw 2 lt 2 lc "blue", \
-"" using 1:14 title "700" lw 2 lt 2 lc "green", \
-"" using 1:22 title "850" lw 2 lt 2 lc "orange", \
-"" using 1:42 title "2m" lw 2 lt 2 lc "red", \
--12 dt 2 lc rgb "green" lw 1 notitle, \
+set label sprintf("< %4.4g",min_yRH) at first min_pos_yRH, first min_yRH left tc rgb "orange"
+set label sprintf("< %4.4g",max_yRH) at first max_pos_yRH, first max_yRH left tc rgb "orange"
+set label sprintf("< %4.4g",min_yRH7) at first min_pos_yRH7, first min_yRH7 left tc rgb "red"
+set label sprintf("< %4.4g",max_yRH7) at first max_pos_yRH7, first max_yRH7 left tc rgb "red"
+plot "final3.csv" using 1:15 title "RH700" lw 2 lt 2 lc "blue", \
+"" u 1:($22):($42) with filledcurves above x1 lc rgb "purple" notitle axes x1y2, \
+"" using 1:44 title "RH2m" lw 2 lt 2 lc "green", \
+"" using 1:22 title "T850" lw 2 lt 2 lc "orange", \
+"" using 1:42 title "T2m" lw 2 lt 2 lc "red", \
 -8 dt 2 lc rgb "orange" lw 1 notitle, \
 2 dt 2 lc rgb "red" lw 1 notitle, \
-0 dt 1 lc rgb "grey" lw 2 notitle, \
-"" u 1:($6<=-37?-37:1/0) dt 2 lc rgb "blue" lw 1 notitle
+0 dt 1 lc rgb "grey" lw 2 notitle

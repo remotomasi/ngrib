@@ -33,7 +33,7 @@ set y2tics 10
 set y2range [0:100]
 set y2label '% - Km/h'
 
-set title "Weather Forecast GFS Model - NOAA (Temp-DewPoint) RUN:" . run . "z"
+set title "Weather Forecast GFS Model - NOAA RUN:" . run . "z"
 set key lmargin
 set key font ",10"
 set grid

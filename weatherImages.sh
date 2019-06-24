@@ -46,10 +46,11 @@ do
     sed -i -e "s/id=$(echo $i)\>/id=$(echo $i) style=\"background-color: darkblue; color: white\"/g" finalImage.html
 done
 
+step=24
 
 # Temperatures
 h=()
-for l in {52..556..24}
+for l in {52..52+($step*21)..$step}
     do h+=($l)
 done
 
@@ -90,7 +91,7 @@ done
 
 # Humidity
 h=()
-for l in {54..558..24}
+for l in {54..54+($step*21)..$step}
     do h+=($l)
 done
 
@@ -113,7 +114,7 @@ done
 
 # Dew Point
 h=()
-for l in {53..557..24}
+for l in {53..53+($step*21)..$step}
     do h+=($l)
 done
 
@@ -143,7 +144,7 @@ done
 
 # Wind power
 h=()
-for l in {55..559..24}
+for l in {55..55+($step*21)..$step}
     do h+=($l)
 done
 
@@ -190,7 +191,7 @@ done
 
 # Cloud cover low
 h=()
-for l in {57..561..24}
+for l in {57..57+($step*21)..$step}
     do h+=($l)
 done
 
@@ -215,7 +216,7 @@ done
 
 # Cloud cover middle
 h=()
-for l in {58..562..24}
+for l in {58..58+($step*21)..$step}
     do h+=($l)
 done
 
@@ -240,7 +241,7 @@ done
 
 # Cloud cover high
 h=()
-for l in {59..563..24}
+for l in {59..59+($step*21)..$step}
     do h+=($l)
 done
 
@@ -265,7 +266,7 @@ done
 
 # Precipitations rate
 h=()
-for l in {64..568..24}
+for l in {64..64+($step*21)..$step}
     do h+=($l)
 done
 
@@ -288,7 +289,7 @@ done
 
 # Rain (categorical)
 h=()
-for l in {63..567..24}
+for l in {63..63+($step*21)..$step}
     do h+=($l)
 done
 
@@ -305,7 +306,7 @@ done
 
 # Total precipitations
 h=()
-for l in {66..570..24}
+for l in {66..66+($step*21)..$step}
     do h+=($l)
 done
 
@@ -326,7 +327,7 @@ done
 
 # Convective precipitations rate
 h=()
-for l in {65..569..24}
+for l in {65..65+($step*21)..$step}
     do h+=($l)
 done
 
@@ -343,7 +344,7 @@ done
 
 # Convective total precipitations
 h=()
-for l in {67..571..24}
+for l in {67..67+($step*21)..$step}
     do h+=($l)
 done
 
@@ -360,7 +361,7 @@ done
 
 # Freezing Rain (categorical)
 h=()
-for l in {68..572..24}
+for l in {68..68+($step*21)..$step}
     do h+=($l)
 done
 
@@ -377,7 +378,7 @@ done
 
 # Ice Pellets (categorical)
 h=()
-for l in {70..574..24}
+for l in {70..70+($step*21)..$step}
     do h+=($l)
 done
 
@@ -394,7 +395,7 @@ done
 
 # Frozen precipitations (percentage)
 h=()
-for l in {69..573..24}
+for l in {69..69+($step*21)..$step}
     do h+=($l)
 done
 
@@ -427,7 +428,7 @@ done
 
 # Snow (categorical)
 h=()
-for l in {71..575..24}
+for l in {71..71+($step*21)..$step}
     do h+=($l)
 done
 
@@ -444,7 +445,7 @@ done
 
 # Snow
 h=()
-for l in {72..576..24}
+for l in {72..72+($step*21)..$step}
     do h+=($l)
 done
 
@@ -461,7 +462,7 @@ done
 
 # Lifted Index
 h=()
-for l in {60..564..24}
+for l in {60..60+($step*21)..$step}
     do h+=($l)
 done
 
@@ -484,7 +485,7 @@ done
 
 # CAPE
 h=()
-for l in {61..565..24}
+for l in {61..61+($step*21)..$step}
     do h+=($l)
 done
 

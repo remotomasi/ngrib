@@ -134,7 +134,7 @@ sed -i -e 's/mean_sea_level/mean_sea/g;s/:00:00/:00/g' p6e.csv
 
 #awk 'BEGIN{FS=OFS=","}{ print $1,$17,$18,$19,$20,$21,$43,$44,$45,$3,$35,$36,$37,$42,$23,$24,$25,$26,$30,$29,$28,$22,$27,$15,$32,$33,$38,$4,$7,$10,$14,$40,$41,$5,$8,$11,$6,$9,$12,$13,$2,$16,$39,$31,$10-$14,$7-$14,$4-$14,$7-$10,$4-$10,2.5-($17-$18),$34 }' p6e.csv > final.csv
 #awk 'BEGIN{FS=OFS=","}{ print $1,$18,$22,$23,$24,$25,$54,$55,$56,$3,$42,$43,$44,$53,$27,$28,$29,$33,$30,$37,$36,$36,$38,$19,$40,$33,$45,$4,$8,$10,$15,$50,$51,$5,$8,$11,$7,$11,$12,$13,$3,$20,$46,$39,$10-$14,$8-$15,$4-$15,$8-$10,$4-$10,2.5-($18-$22),$41 }' p6e.csv > final.csv
-awk 'BEGIN{FS=OFS=","}{ print $1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17,$18,$19,$20,$21,$22,$23,$24,$25,$26,$27,$28,$29,$30,$31,$32,$33,$34,$35,$36,$37,$38,$39,$40,$41,$42,$43,$44,$45,$46,$47,$48,$49,$50,$51,$52,$53,$54,$55,$56,$57,$58,$59,$60,$61,$62,$63,$64,$65,$66,$67,$68,$69,$70,$71,$72,$73,$74,$75,$76,$77,$78,$79,$80,$81,$82,$83,$20-$35,$12-$35,$4-$35,$12-$20,$4-$20,2.5-($41-$42) }' p6e.csv > final.csv
+awk 'BEGIN{FS=OFS=","}{ print $1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17,$18,$19,$20,$21,$22,$23,$24,$25,$26,$27,$28,$29,$30,$31,$32,$33,$34,$35,$36,$37,$38,$39,$40,$41,$42,$43,$44,$45,$46,$47,$48,$49,$50,$51,$52,$53,$54,$55,$56,$57,$58,$59,$60,$61,$62,$63,$64,$65,$66,$67,$68,$69,$70,$71,$72,$73,$74,$75,$76,$77,$78,$79,$80,$81,$82,$20-$35,$12-$35,$4-$35,$12-$20,$4-$20,2.5-($41-$42) }' p6e.csv > final.csv
 
 cat final.csv | tr '"' ' ' > final.txt
 
@@ -179,8 +179,9 @@ gnuplot -e "run=$run" ./hgt.pg > graphs/hgt.png
 gnuplot -e "run=$run" ./temperatures.pg > graphs/temperatures.png
 gnuplot -e "run=$run" ./cape-lftx.pg > graphs/cape-lftx.png
 gnuplot -e "run=$run" ./precTypes.pg > graphs/precTypes.png
+gnuplot -e "run=$run" ./cloud700.pg > graphs/cloud700.png
 
-convert \( clouds.png precipitations.png cape-lftx.png -append \) \( temperatures.png hgt.png precTypes.png -append \) \( weather.png pressureWind.png  -append \) +append weatherForecastFinal.png
+convert \( graphs/clouds.png graphs/cloud700.png graphs/precipitations.png  -append \) \( graphs/temperatures.png graphs/hgt.png graphs/precTypes.png -append \) \( graphs/weather.png graphs/pressureWind.png graphs/cape-lftx.png  -append \) +append graphs/weatherForecastFinal.png
 
 # clean last created files
 rm final2.csv
@@ -201,4 +202,4 @@ mv final.txt data
 
 # rename data csv file
 now=$(date +%d%m%Y_%H%M)
-mv final.txt final_$now.csv
+mv data/final.txt data/final_$now.csv
