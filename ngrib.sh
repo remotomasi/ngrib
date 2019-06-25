@@ -198,8 +198,3 @@ fi
 
 mv *.csv data
 mv *.html data
-mv final.txt data
-
-# rename data csv file
-now=$(date +%d%m%Y_%H%M)
-mv data/final.txt data/final_$now.csv
