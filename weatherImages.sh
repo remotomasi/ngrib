@@ -403,24 +403,24 @@ do
     val=$(cat finalImage.html | grep "id=$(echo $i)>" | awk -F[=\>] '{print $3}' | awk -F[=\<] '{print $1}')
     #valConv=$(convert $val)
     valConv=$(echo $val | awk '{printf "%4.6f\n",$1}')
-    if (( $(echo "$valConv < 1.915" |bc -l) )) 
-        then sed -i -e "s/id=$(echo $i)\>/id=$(echo $i) style=\"background-color: White; color: black\"/g" finalImage.html
-    elif (( $(echo "$valConv <= 0.895" |bc -l) ))
-        then sed -i -e "s/id=$(echo $i)\>/id=$(echo $i) style=\"background-color: #E8DAEF; color: black\"/g" finalImage.html
-    elif (( $(echo "$valConv <= 0.49" |bc -l) ))
-        then sed -i -e "s/id=$(echo $i)\>/id=$(echo $i) style=\"background-color: #D2B4DE; color: black\"/g" finalImage.html
-     elif (( $(echo "$valConv <= 0.21" |bc -l) ))
-        then sed -i -e "s/id=$(echo $i)\>/id=$(echo $i) style=\"background-color: #BB8FCE; color: white\"/g" finalImage.html
-     elif (( $(echo "$valConv <= -0.5" |bc -l) ))
-        then sed -i -e "s/id=$(echo $i)\>/id=$(echo $i) style=\"background-color: #A569BD; color: white\"/g" finalImage.html
-     elif (( $(echo "$valConv <= -0.825" |bc -l) ))
-        then sed -i -e "s/id=$(echo $i)\>/id=$(echo $i) style=\"background-color: #8E44AD; color: white\"/g" finalImage.html
-     elif (( $(echo "$valConv <= -1.28" |bc -l) ))
-        then sed -i -e "s/id=$(echo $i)\>/id=$(echo $i) style=\"background-color: #7D3C98; color: white\"/g" finalImage.html
-     elif (( $(echo "$valConv <= -1.75" |bc -l) ))
-        then sed -i -e "s/id=$(echo $i)\>/id=$(echo $i) style=\"background-color: #6C3483; color: white\"/g" finalImage.html
-     elif (( $(echo "$valConv <= -2.9" |bc -l) ))
+    if (( $(echo "$valConv > 0.895" |bc -l) )) # <= 1.915 
         then sed -i -e "s/id=$(echo $i)\>/id=$(echo $i) style=\"background-color: #5B2C6F; color: white\"/g" finalImage.html
+    elif (( $(echo "$valConv > 0.49" |bc -l) && $(echo "$valConv < 0.895" |bc -l) ))
+        then sed -i -e "s/id=$(echo $i)\>/id=$(echo $i) style=\"background-color: #6C3483; color: white\"/g" finalImage.html
+    elif (( $(echo "$valConv > -0.21" |bc -l) && $(echo "$valConv < 0.49" |bc -l) ))
+        then sed -i -e "s/id=$(echo $i)\>/id=$(echo $i) style=\"background-color: #7D3C98; color: white\"/g" finalImage.html
+     elif (( $(echo "$valConv > -0.5" |bc -l) && $(echo "$valConv < -0.21" |bc -l) ))
+        then sed -i -e "s/id=$(echo $i)\>/id=$(echo $i) style=\"background-color: #8E44AD; color: white\"/g" finalImage.html
+     elif (( $(echo "$valConv > -0.825" |bc -l) && $(echo "$valConv < -0.5" |bc -l) ))
+        then sed -i -e "s/id=$(echo $i)\>/id=$(echo $i) style=\"background-color: #A569BD; color: white\"/g" finalImage.html
+     elif (( $(echo "$valConv > -1.28" |bc -l) && $(echo "$valConv < -0.825" |bc -l) ))
+        then sed -i -e "s/id=$(echo $i)\>/id=$(echo $i) style=\"background-color: #BB8FCE; color: white\"/g" finalImage.html
+     elif (( $(echo "$valConv > -1.75" |bc -l) && $(echo "$valConv < -1.28" |bc -l) ))
+        then sed -i -e "s/id=$(echo $i)\>/id=$(echo $i) style=\"background-color: #D2B4DE; color: black\"/g" finalImage.html
+     elif (( $(echo "$valConv > -2.9" |bc -l) && $(echo "$valConv < -1.75" |bc -l) ))
+        then sed -i -e "s/id=$(echo $i)\>/id=$(echo $i) style=\"background-color: #E8DAEF; color: black\"/g" finalImage.html
+     elif (( $(echo "$valConv <= -2.9" |bc -l) ))
+        then sed -i -e "s/id=$(echo $i)\>/id=$(echo $i) style=\"background-color: White; color: black\"/g" finalImage.html
      fi
 done
 
@@ -502,10 +502,7 @@ do
     fi
 done
 
-if [ -d imageFiles ]   # control if the imageFiles folder exists 
-then 
-    echo "..creating folder"
-else
+if [[ ! -e imageFiles ]]; then	# control if the imageFiles folder not exists
     $(mkdir imageFiles)
 fi
 
@@ -513,7 +510,7 @@ fi
 now=$(date +%d%m%Y_%H%M)
 xvfb-run --server-args="-screen 0, 1024x768x24" cutycapt --url=file://$PWD/finalImage.html --out=/$PWD/imageFiles/finalImage_$now.png
 
-mv final.txt data
+cp final.txt data
 
 # rename data csv file
 now=$(date +%d%m%Y_%H%M)

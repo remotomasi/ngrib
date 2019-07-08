@@ -187,14 +187,10 @@ convert \( graphs/clouds.png graphs/cloud700.png graphs/precipitations.png  -app
 rm final2.csv
 rm anlFile
 
-# move data files into data folder
-
-if [ -d data ]   # control if the imageFiles folder exists 
-then 
-    echo "..creating folder"
-else
+if [[ ! -e data ]]; then	# control if the data folder not exists
     $(mkdir data)
 fi
 
+# move data files into data folder
 mv *.csv data
 mv *.html data
