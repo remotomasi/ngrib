@@ -60,7 +60,7 @@ plot 'final3.csv' u 1:($42):($43) with filledcurves above x1 lc "red" notitle, \
 "" u 90:(20) w p lt 2 pt 7 ps 1.5 notitle axes x2y1, \
 "" u 1:51 w boxes lc rgb "blue" title "PrMM/h" axes x1y1, \
 "" u 1:52 w boxes lc rgb "purple" title "TotPr" axes x1y1, \
-"" using 1:54 lw 2 lc rgb "orange" title "CPrTot" axes x1y1, \
+"" using 1:53 lw 2 lc rgb "orange" title "CPrTot" axes x1y1, \
 "" u 1:40 w boxes lc rgb "olive" fs solid border -1 title "SDepth" axes x1y1, \
 "" u 1:($89>=0 && $44>=70?$89:1/0):(-$89<=0 && $44>=70?-$89:1/0) w filledcurves above x2 lc "dark-yellow" title "Mist", \
 "" u 1:($89>=0 && $44>=70?$89:1/0):(-$89<=0 && $44>=70?-$89:1/0) w filledcurves below x2 notitle, \
