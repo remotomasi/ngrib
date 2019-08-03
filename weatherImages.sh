@@ -468,15 +468,17 @@ done
 for i in "${h[@]}"
 do
     val=$(cat finalImage.html | grep "id=$(echo $i)>" | awk -F[=\>] '{print $3}' | awk -F[=\<] '{print $1}')
-    if (( $(echo "$val >= 0" |bc -l) ))
+    #valConv=$(convert $val)
+    valConv=$(echo $val | awk '{printf "%4.6f\n",$1}')
+    if (( $(echo "$valConv >= 0" |bc -l) ))
         then sed -i -e "s/id=$(echo $i)\>/id=$(echo $i) style=\"background-color: White; color: black\"/g" finalImage.html
-    elif (( $(echo "$val > -2" |bc -l) && $(echo "$val < 0" |bc -l) ))
+    elif (( $(echo "$valConv > -2" |bc -l) && $(echo "$valConv < 0" |bc -l) ))
         then sed -i -e "s/id=$(echo $i)\>/id=$(echo $i) style=\"background-color: Cyan; color: black\"/g" finalImage.html
-    elif (( $(echo "$val > -4" |bc -l) && $(echo "$val <= -2" |bc -l) ))
+    elif (( $(echo "$valConv > -4" |bc -l) && $(echo "$valConv <= -2" |bc -l) ))
         then sed -i -e "s/id=$(echo $i)\>/id=$(echo $i) style=\"background-color: Lightseagreen; color: black\"/g" finalImage.html
-    elif (( $(echo "$val > -6" |bc -l) && $(echo "$val <= -4" |bc -l) ))
+    elif (( $(echo "$valConv > -6" |bc -l) && $(echo "$valConv <= -4" |bc -l) ))
         then sed -i -e "s/id=$(echo $i)\>/id=$(echo $i) style=\"background-color: cadetblue; color: white\"/g" finalImage.html
-    elif (( $(echo "$val < -6" |bc -l) ))
+    elif (( $(echo "$valConv < -6" |bc -l) ))
         then sed -i -e "s/id=$(echo $i)\>/id=$(echo $i) style=\"background-color: darkcyan; color: white\"/g" finalImage.html
     fi
 done
