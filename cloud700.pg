@@ -79,7 +79,8 @@ set label sprintf("< %4.4g",max_yRH) at first max_pos_yRH, first max_yRH left tc
 set label sprintf("< %4.4g",min_yRH7) at first min_pos_yRH7, first min_yRH7 left tc rgb "red"
 set label sprintf("< %4.4g",max_yRH7) at first max_pos_yRH7, first max_yRH7 left tc rgb "red"
 plot "final3.csv" using 1:15 title "RH700" lw 2 lt 2 lc "blue", \
-"" u 1:($22):($42) with filledcurves above x1 lc rgb "purple" notitle axes x1y2, \
+"" using 1:23 title "RH850" lw 2 lt 2 lc "#00BBAA", \
+"" using 1:($22):($42) with filledcurves above x1 lc rgb "purple" notitle axes x1y2, \
 "" using 1:44 title "RH2m" lw 2 lt 2 lc "green", \
 "" using 1:22 title "T850" lw 2 lt 2 lc "orange", \
 "" using 1:42 title "T2m" lw 2 lt 2 lc "red", \
