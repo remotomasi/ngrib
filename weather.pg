@@ -31,7 +31,9 @@ set ytics 5
 set ylabel '°C' offset  2, 0 textcolor rgb "red"
 set y2tics 10
 set y2range [0:100]
-set y2label '% - Km/h'
+set y2tics offset -1,0
+set y2label '% - Km/h' textcolor rgb "green"
+set y2label offset -4.5,0
 
 set title "Weather Forecast GFS Model - NOAA RUN:" . run . "z"
 set key lmargin
@@ -65,7 +67,7 @@ plot 'final3.csv' u 1:($42):($43) with filledcurves above x1 lc "red" notitle, \
 "" u 1:($89>=0 && $44>=70?$89:1/0):(-$89<=0 && $44>=70?-$89:1/0) w filledcurves above x2 lc "dark-yellow" title "Mist", \
 "" u 1:($89>=0 && $44>=70?$89:1/0):(-$89<=0 && $44>=70?-$89:1/0) w filledcurves below x2 notitle, \
 2.5 dt 2 lc rgb "dark-yellow" lw 1 axes x1y1 notitle, \
-"" u 1:81 title "WSpd" lc "cyan" axes x1y2, \
+"" u 1:81 title "WSpd" lw 2 lc "cyan" axes x1y2, \
 "" u 1:(max_yW>=118?118:1/0) dt 2 lc rgb "cyan" lw 1 axes x1y2 notitle, \
 "" u 1:(max_yW>=103 && max_yW<=117?103:1/0) dt 2 lc rgb "cyan" lw 1 axes x1y2 notitle, \
 "" u 1:(max_yW>=89 && max_yW<=102?89:1/0) dt 2 lc rgb "cyan" lw 1 axes x1y2 notitle, \
@@ -91,6 +93,19 @@ plot "final3.csv" using 1:51 w boxes lc rgb "blue" title "PrMM/h" axes x1y1, \
 "" using 1:56 lc rgb "yellow" lw 2 title "S01" axes x1y1, \
 "" using 1:40 lc rgb "olive" lw 2 title "SDepth" axes x1y1
 
+
+##### Third plot
+
+set autoscale y
+set ytics 1
+
+set style data lines
+
+set ytics offset  80.5, 0
+set ylabel "Pressure" offset  88.5, 0 textcolor rgb "purple"
+
+set key b 
+plot "final3.csv" using 1:80 lw 2 lc rgb "purple" title "Pres"
 
 unset multiplot
 
