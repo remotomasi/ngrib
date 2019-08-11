@@ -32,7 +32,7 @@ set ylabel '°C' offset  2, 0 textcolor rgb "red"
 set y2tics 10
 set y2range [0:100]
 set y2tics offset -1,0
-set y2label '% - Km/h' textcolor rgb "green"
+set y2label '% - Km/h' textcolor rgb "cyan"
 set y2label offset -4.5,0
 
 set title "Weather Forecast GFS Model - NOAA RUN:" . run . "z"
@@ -82,8 +82,8 @@ set ytics 1
 
 set style fill transparent solid 0.7
 
-set ytics offset  -3, 0
-set ylabel "Rain" offset  -2, 0 textcolor rgb "purple"
+set ytics offset  -3.5, 0
+set ylabel "Rain/Snow" offset  -2, 0 textcolor rgb "purple"
 
 set key c 
 plot "final3.csv" using 1:51 w boxes lc rgb "blue" title "PrMM/h" axes x1y1, \
@@ -105,7 +105,7 @@ set ytics offset  80.5, 0
 set ylabel "Pressure" offset  88.5, 0 textcolor rgb "purple"
 
 set key b 
-plot "final3.csv" using 1:80 lw 2 lc rgb "purple" title "Pres"
+plot "final3.csv" using 1:80 dt 1 lw 1 lc rgb "purple" title "Pres"
 
 unset multiplot
 
