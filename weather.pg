@@ -12,6 +12,16 @@ max_yT = STATS_max_y
 mean_yT = STATS_mean_y
 min_yT = STATS_min_y
 
+data = 'final3.csv'
+# Retrieve statistical properties for DP
+stats data using 1:43
+set timefmt "%Y-%m-%d %H:%M"
+stats [time(0):time(0) + 5*24*60*60] 'final3.csv' u (timecolumn(1)):43
+min_yDP = STATS_min_y
+min_pos_yDP = STATS_pos_min_y
+max_yDP = STATS_max_y
+max_pos_yDP = STATS_pos_max_y
+
 # Retrieve statistical properties for Wind velocity
 stats data using 1:81
 max_yW = STATS_max_y
@@ -56,6 +66,8 @@ set label sprintf("Tmean = %3.3g °C",mean_yT) at graph 0.9,0.94 center font "Ar
 set label sprintf("Tmin = %3.3g °C",min_yT) at graph 0.9,0.91 center font "Arial,10" tc rgb "red"
 set label sprintf("Wmax = %3.3g Km/h",max_yW) at graph 0.7,0.97 center font "Arial,10" tc rgb "dark-cyan"
 set label sprintf("Wmean = %3.3g Km/h",mean_yW) at graph 0.7,0.94 center font "Arial,10" tc rgb "dark-cyan"
+set label sprintf("< %4.4g",min_yDP) at first min_pos_yDP, first min_yDP left tc rgb "black"
+set label sprintf("< %4.4g",max_yDP) at first max_pos_yDP, first max_yDP left tc rgb "black"
 plot 'final3.csv' u 1:($42):($43) with filledcurves above x1 lc "red" notitle, \
 "" u 1:($42):($43) with filledcurves below x1 notitle, \
 "" u 1:42 lc "red" lw 2 axes x1y1 ti "Temp", \
