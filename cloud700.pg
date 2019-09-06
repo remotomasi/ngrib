@@ -66,10 +66,10 @@ plot "final3.csv" using 1:(100-$70) title "High" with filledcurves x2 lc "yellow
 91 dt 2 lc rgb "yellow" lw 1 notitle axis x1y2, \
 105 dt 2 lc rgb "orange" lw 1 notitle axis x1y2, \
 129 dt 2 lc rgb "red" lw 1 notitle axis x1y2
-
+#, \
 #"" using 1:23 title "RH850" lw 2 lt 2 lc "#00BBAA", \
 #"" using 1:7 title "RH500" lw 2 lt 2 lc "dark-orange", \
 #"" using 1:78 title "RH0" lw 2 lt 2 lc "cyan", \
-#"" using 1:30 title "RH1000" lw 2 lt 2 lc "purple", \
+#"" using 1:30 title "RH1000" lw 2 lt 2 lc "purple"
 # (80 °F - 32) × 5/9 
 # C * 9/5 +32
