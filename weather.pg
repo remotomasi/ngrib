@@ -102,6 +102,7 @@ plot "final3.csv" using 1:51 w boxes lc rgb "blue" title "PrMM/h" axes x1y1, \
 "" using 1:52 w boxes lc rgb "purple" title "TotPr" axes x1y1, \
 "" using 1:50 lc rgb "brown" lw 2 title "CPrMM/h" axes x1y1, \
 "" using 1:53 lc rgb "orange" lw 2 title "CPrTot" axes x1y1, \
+"" using 1:59 lc rgb "green" lw 2 title "R01" axes x1y1, \
 "" using 1:56 lc rgb "yellow" lw 2 title "S01" axes x1y1, \
 "" using 1:40 lc rgb "olive" lw 2 title "SDepth" axes x1y1
 
