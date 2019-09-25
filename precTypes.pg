@@ -7,7 +7,10 @@ set term pngcairo size 1024,600 #800 pixels by 600 pixels
 data = 'final3.csv'
 # Retrieve statistical properties for 1000-850
 stats data using 1:84
+set timefmt "%Y-%m-%d %H:%M"
+stats [time(0):time(0) + 5*24*60*60] 'final3.csv' u (timecolumn(1)):84
 min_yM8 = STATS_min_y
+min_pos_yM8 = STATS_pos_min_y
 
 # Retrieve statistical properties for 1000-700
 stats data using 1:85
@@ -66,6 +69,7 @@ set label sprintf("1000-700min = %4.4g m",min_yM7) at graph 0.4,0.94 left font "
 set label sprintf("1000-500min = %4.4g m",min_yM5) at graph 0.6,0.97 left font "Arial,10" tc rgb "orange"
 set label sprintf("850-700min = %4.4g m",min_y87) at graph 0.6,0.94 left font "Arial,10" tc rgb "green"
 set label sprintf("850-500min = %4.4g m",min_y85) at graph 0.8,0.97 left font "Arial,10" tc rgb "blue"
+set label sprintf("< %4.4g",min_yM8) at first min_pos_yM8, first min_yM8 left tc rgb "orange"
 plot "final3.csv" using 1:84 title "1000-850" lw 2 lt 2 lc "grey", \
 "" using 1:85 title "1000-700" lw 2 lt 2 lc "red", \
 "" using 1:86 title "1000-500" lw 2 lt 2 lc "orange", \
