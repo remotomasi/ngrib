@@ -35,7 +35,7 @@ set yrange [0:100]
 set ylabel '%'
 set y2tics 10
 set y2range [0:140]
-set y2label '%'
+set y2label '°C'
 
 set title "Weather Forecast GFS Model - NOAA (Clouds) RUN:" . run . "z"
 set key lmargin
