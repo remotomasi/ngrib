@@ -117,7 +117,7 @@ set ytics 1
 set style data lines
 
 set ytics offset  81.2, 0
-set ylabel "Pressure" offset  88.5, 0 textcolor rgb "purple"
+set ylabel "hPa" offset  88.5, 0 textcolor rgb "purple"
 
 set key b 
 plot "final3.csv" using 1:80 dt 1 lw 1 lc rgb "purple" title "Pres"

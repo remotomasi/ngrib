@@ -1,7 +1,8 @@
 #!/usr/bin/gnuplot -persist
 reset
-set terminal png truecolor
-set term png size 1024,600 #800 pixels by 600 pixels
+set terminal pngcairo truecolor
+set termoption dashed
+set term pngcairo size 1024,600 #800 pixels by 600 pixels
 
 data = 'final3.csv'
 # Retrieve statistical properties for RH700
@@ -22,6 +23,16 @@ min_pos_yRH850 = STATS_pos_min_y
 max_yRH850 = STATS_max_y
 max_pos_yRH850 = STATS_pos_max_y
 
+data = 'final3.csv'
+# Retrieve statistical properties for DP
+stats data using 1:43
+set timefmt "%Y-%m-%d %H:%M"
+stats [time(0):time(0) + 5*24*60*60] 'final3.csv' u (timecolumn(1)):43
+min_yDP = STATS_min_y
+min_pos_yDP = STATS_pos_min_y
+max_yDP = STATS_max_y
+max_pos_yDP = STATS_pos_max_y
+
 set datafile separator " "
 set xdata time
 set timefmt "%Y-%m-%d %H"
@@ -31,11 +42,11 @@ set xlabel "Time"
 set xtics font ", 10"
 
 set ytics 10
-set yrange [0:100]
-set ylabel '%'
+set autoscale y
+set ylabel '°C'
 set y2tics 10
-set y2range [0:140]
-set y2label '%'
+set autoscale y2
+set y2label '°C'
 
 set title "Weather Forecast GFS Model - NOAA (Clouds) RUN:" . run . "z"
 set key lmargin
@@ -46,26 +57,42 @@ set size 1, 1 # ratio 1:1
 set style data lines
 set style fill transparent solid 0.3 noborder
 
-set label sprintf("< %4.4g",min_yRH7) at first min_pos_yRH7, first min_yRH7 left tc rgb "red"
-set label sprintf("< %4.4g",max_yRH7) at first max_pos_yRH7, first max_yRH7 left tc rgb "red"
+set label 1 '27' at graph 1.08, second 27 front tc rgb "cyan"
+set label 2 '33' at graph 1.08, second 33 front tc rgb "yellow"
+set label 3 '41' at graph 1.08, second 41 front tc rgb "orange"
+set label 4 '54' at graph 1.08, second 54 front tc rgb "red"
+set label 5 '24' at screen 0.08, first 24 front tc rgb "dark-red"
+set label 6 '20' at screen 0.08, first 20 front tc rgb "dark-orange"
+set label 7 '15' at screen 0.08, first 15 front tc rgb "dark-yellow"
+set label 8 '10' at screen 0.08, first 10 front tc rgb "dark-green"
+set label 9 '5' at screen 0.08, first 5 front tc rgb "dark-blue"
+#set label sprintf("< %4.4g",min_yRH7) at first min_pos_yRH7, first min_yRH7 left tc rgb "red"
+#set label sprintf("< %4.4g",max_yRH7) at first max_pos_yRH7, first max_yRH7 left tc rgb "red"
 #set label sprintf("< %4.4g",min_yRH850) at first min_pos_yRH850, first min_yRH850 left tc rgb "red"
 #set label sprintf("< %4.4g",max_yRH850) at first max_pos_yRH850, first max_yRH850 left tc rgb "red"
-plot "final3.csv" using 1:(100-$70) title "High" with filledcurves x2 lc "yellow", \
-"" using 1:(($69)/2+50):((100-($69)/2)-50) title "Mid" with filledcurves above x2, \
-"" using 1:(($69)/2+50):((100-($69)/2)-50) notitle with filledcurves below x2, \
-"" using 1:68 title "Low" with filledcurves x1 lc "blue", \
-"" using 1:15 title "RH700" lw 2 lt 2 lc "green", \
-"" using 1:44 title "RH2m" lw 1 lt 2 lc "blue", \
-"" using 1:22 title "T850" lw 2 lt 2 lc "orange", \
-"" using 1:42 title "T2m" lw 2 lt 2 lc "red", \
-"" using 1:(0.5 * (($42*9/5+32) + 61.0 + ((($42*9/5+32)-68.0)*1.2) + ($44*0.094))<80?0.5 * (($42*9/5+32) + 61.0 + ((($42*9/5+32)-68.0)*1.2) + ($44*0.094)):1/0) title "HI" with linespoints ls 7 lc "dark-yellow" axis x1y2, \
-"" using 1:((($42<26) || ($44>13 && $44<85) || ($42>31 && $44>13) || ($42>45)) && (0.5 * (($42*9/5+32) + 61.0 + ((($42*9/5+32)-68.0)*1.2) + ($44*0.094))>=80)?-42.379 + 2.04901523*($42*9/5+32) + 10.14333127*$44 - .22475541*($42*9/5+32)*$44 - .00683783*($42*9/5+32)*($42*9/5+32) - .05481717*$44*$44 + .00122874*($42*9/5+32)*($42*9/5+32)*$44 + .00085282*($42*9/5+32)*$44*$44 - .00000199*($42*9/5+32)*($42*9/5+32)*$44*$44:1/0) notitle with linespoints ls 7 lc "dark-yellow" axis x1y2, \
-"" using 1:((($42>26 && $42<45 && $44<13) && (0.5 * (($42*9/5+32) + 61.0 + ((($42*9/5+32)-68.0)*1.2) + ($44*0.094))>=80))?-42.379 + 2.04901523*($42*9/5+32) + 10.14333127*$44 - .22475541*($42*9/5+32)*$44 - .00683783*($42*9/5+32)*($42*9/5+32) - .05481717*$44*$44 + .00122874*($42*9/5+32)*($42*9/5+32)*$44 + .00085282*($42*9/5+32)*$44*$44 - .00000199*($42*9/5+32)*($42*9/5+32)*$44*$44 - ((13-$44)/4)*sqrt((17-abs(($42*9/5+32)-95))/17):1/0) notitle with linespoints ls 7 lc "dark-yellow" axis x1y2, \
-"" using 1:((($42>26 && $42<31 && $44>85) && (0.5 * (($42*9/5+32) + 61.0 + ((($42*9/5+32)-68.0)*1.2) + ($44*0.094))>=80))?-42.379 + 2.04901523*($42*9/5+32) + 10.14333127*$44 - .22475541*($42*9/5+32)*$44 - .00683783*($42*9/5+32)*($42*9/5+32) - .05481717*$44*$44 + .00122874*($42*9/5+32)*($42*9/5+32)*$44 + .00085282*($42*9/5+32)*$44*$44 - .00000199*($42*9/5+32)*($42*9/5+32)*$44*$44 + ((($44-85)/10) * ((87-($42*9/5+32))/5)):1/0) notitle with linespoints ls 7 lc "dark-yellow" axis x1y2, \
-80 dt 2 lc rgb "cyan" lw 1 notitle axis x1y2, \
-91 dt 2 lc rgb "yellow" lw 1 notitle axis x1y2, \
-105 dt 2 lc rgb "orange" lw 1 notitle axis x1y2, \
-129 dt 2 lc rgb "red" lw 1 notitle axis x1y2
+plot "final3.csv" using 1:42 title "T2m" lw 2 lt 2 lc "red", \
+"" using 1:43 lc "green" lw 2 axes x1y1 ti "DP", \
+"" using 1:(0.5 * ($42 + 61.0 + (($42-68.0)*1.2) + ($44*0.094))<27?0.5 * ($42 + 61.0 + (($42-68.0)*1.2) + ($44*0.094)):1/0) title "HI" with linespoints ls 7 lc "dark-yellow" axis x1y2, \
+"" using 1:((($42<26) || ($44>13 && $44<85) || ($42>31 && $44>13) || ($42>45)) && (0.5 * ($42 + 61.0 + (($42-68.0)*1.2) + ($44*0.094))>=27)?-42.379 + 2.04901523*$42 + 10.14333127*$44 - .22475541*$42*$44 - .00683783*$42*$42 - .05481717*$44*$44 + .00122874*$42*$42*$44 + .00085282*$42*$44*$44 - .00000199*$42*$42*$44*$44:1/0) notitle with linespoints ls 7 lc "dark-yellow" axis x1y2, \
+"" using 1:((($42>26 && $42<45 && $44<13) && (0.5 * ($42 + 61.0 + (($42-68.0)*1.2) + ($44*0.094))>=27))?-42.379 + 2.04901523*$42 + 10.14333127*$44 - .22475541*$42*$44 - .00683783*$42*$42 - .05481717*$44*$44 + .00122874*$42*$42*$44 + .00085282*$42*$44*$44 - .00000199*$42*$42*$44*$44 - ((13-$44)/4)*sqrt((17-abs($42-95))/17):1/0) notitle with linespoints ls 7 lc "dark-yellow" axis x1y2, \
+"" using 1:((($42>26 && $42<31 && $44>85) && (0.5 * ($42 + 61.0 + (($42-68.0)*1.2) + ($44*0.094))>=27))?-42.379 + 2.04901523*$42 + 10.14333127*$44 - .22475541*$42*$44 - .00683783*$42*$42 - .05481717*$44*$44 + .00122874*$42*$42*$44 + .00085282*$42*$44*$44 - .00000199*$42*$42*$44*$44 + ((($44-85)/10) * ((87-$42)/5)):1/0) notitle with linespoints ls 7 lc "dark-yellow" axis x1y2, \
+27 dt 2 lc rgb "dark-yellow" lw 1 notitle axis x1y2, \
+33 dt 2 lc rgb "dark-yellow" lw 1 notitle axis x1y2, \
+41 dt 2 lc rgb "dark-yellow" lw 1 notitle axis x1y2, \
+54 dt 2 lc rgb "dark-yellow" lw 1 notitle axis x1y2,\
+24 dt 2 lc rgb "green" lw 1 notitle axis x1y1, \
+20 dt 2 lc rgb "green" lw 1 notitle axis x1y1, \
+15 dt 2 lc rgb "green" lw 1 notitle axis x1y1, \
+10 dt 2 lc rgb "green" lw 1 notitle axis x1y1, \
+5 dt 2 lc rgb "green" lw 1 notitle axis x1y1
+#using 1:(100-$70) title "High" with filledcurves x2 lc "yellow", \
+#"" using 1:(($69)/2+50):((100-($69)/2)-50) title "Mid" with filledcurves above x2, \
+#"" using 1:(($69)/2+50):((100-($69)/2)-50) notitle with filledcurves below x2, \
+#"" using 1:68 title "Low" with filledcurves x1 lc "blue", \
+#"" using 1:15 title "RH700" lw 2 lt 2 lc "green", \
+#"" using 1:44 title "RH2m" lw 1 lt 2 lc "blue", \
+#"" using 1:22 title "T850" lw 2 lt 2 lc "orange", \
+
 #, \
 #"" using 1:23 title "RH850" lw 2 lt 2 lc "#00BBAA", \
 #"" using 1:7 title "RH500" lw 2 lt 2 lc "dark-orange", \
