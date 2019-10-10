@@ -45,11 +45,8 @@ set ytics 10
 set autoscale y
 set ylabel '°C'
 set y2tics 10
-<<<<<<< HEAD
 set autoscale y2
-=======
 set y2range [0:140]
->>>>>>> 85d16a070a2bfc0f121b1fc1d787cb832779b019
 set y2label '°C'
 
 set title "Weather Forecast GFS Model - NOAA (Clouds) RUN:" . run . "z"
