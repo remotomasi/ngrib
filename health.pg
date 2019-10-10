@@ -4,6 +4,45 @@ set terminal pngcairo truecolor
 set termoption dashed
 set term pngcairo size 1024,600 #800 pixels by 600 pixels
 
+set multiplot layout 2,1
+set datafile separator " "
+set xdata time
+set timefmt "%Y-%m-%d %H"
+set xrange [time(0):time(0) + 5*24*60*60]
+set format x "h%H\n%d/%m\n%a"
+set xlabel "Time"
+set xtics font ", 10"
+
+set ytics 10
+set autoscale y
+set ylabel '°C'
+#set y2tics 10
+#set autoscale y2
+#set y2label '°C'
+
+set title "Weather Forecast GFS Model - NOAA (Heat Index) RUN:" . run . "z"
+set key lmargin
+set key font ",10"
+set grid
+#set size 1, 1 # ratio 1:1
+
+set style data lines
+#set style fill transparent solid 0.3 noborder
+
+#set label 1 '54' at screen 0.05, second 54 front tc rgb "red"
+#set label 2 '41' at screen 0.05, second 41 front tc rgb "orange"
+#set label 3 '33' at screen 0.05, second 33 front tc rgb "dark-yellow"
+#set label 4 '27' at screen 0.05, second 27 front tc rgb "cyan"
+plot "final3.csv" using 1:(0.5 * ($42 + 61.0 + (($42-68.0)*1.2) + ($44*0.094))<27?0.5 * ($42 + 61.0 + (($42-68.0)*1.2) + ($44*0.094)):1/0) title "HI" with linespoints ls 7 lc "dark-yellow", \
+"" using 1:((($42<26) || ($44>13 && $44<85) || ($42>31 && $44>13) || ($42>45)) && (0.5 * ($42 + 61.0 + (($42-68.0)*1.2) + ($44*0.094))>=27)?-42.379 + 2.04901523*$42 + 10.14333127*$44 - .22475541*$42*$44 - .00683783*$42*$42 - .05481717*$44*$44 + .00122874*$42*$42*$44 + .00085282*$42*$44*$44 - .00000199*$42*$42*$44*$44:1/0) notitle with linespoints ls 7 lc "dark-yellow", \
+"" using 1:((($42>26 && $42<45 && $44<13) && (0.5 * ($42 + 61.0 + (($42-68.0)*1.2) + ($44*0.094))>=27))?-42.379 + 2.04901523*$42 + 10.14333127*$44 - .22475541*$42*$44 - .00683783*$42*$42 - .05481717*$44*$44 + .00122874*$42*$42*$44 + .00085282*$42*$44*$44 - .00000199*$42*$42*$44*$44 - ((13-$44)/4)*sqrt((17-abs($42-95))/17):1/0) notitle with linespoints ls 7 lc "dark-yellow", \
+"" using 1:((($42>26 && $42<31 && $44>85) && (0.5 * ($42 + 61.0 + (($42-68.0)*1.2) + ($44*0.094))>=27))?-42.379 + 2.04901523*$42 + 10.14333127*$44 - .22475541*$42*$44 - .00683783*$42*$42 - .05481717*$44*$44 + .00122874*$42*$42*$44 + .00085282*$42*$44*$44 - .00000199*$42*$42*$44*$44 + ((($44-85)/10) * ((87-$42)/5)):1/0) notitle with linespoints ls 7 lc "dark-yellow", \
+54 dt 2 lc rgb "dark-red" lw 1 notitle, \
+41 dt 2 lc rgb "dark-orange" lw 1 notitle, \
+33 dt 2 lc rgb "dark-yellow" lw 1 notitle, \
+27 dt 2 lc rgb "dark-green" lw 1 notitle
+
+## 2 ##
 
 set datafile separator " "
 set xdata time
@@ -16,23 +55,13 @@ set xtics font ", 10"
 set ytics 10
 set autoscale y
 set ylabel '°C'
-set y2tics 10
-set autoscale y2
-set y2label '°C'
 
-set title "Weather Forecast GFS Model - NOAA (Clouds) RUN:" . run . "z"
+set title "Weather Forecast GFS Model - NOAA (Temp - Dew Point) RUN:" . run . "z"
 set key lmargin
 set key font ",10"
 set grid
-set size 1, 1 # ratio 1:1
 
 set style data lines
-set style fill transparent solid 0.3 noborder
-
-set label 1 '54' at graph 1.05, second 54 front tc rgb "red"
-set label 2 '41' at graph 1.05, second 41 front tc rgb "orange"
-set label 3 '33' at graph 1.05, second 33 front tc rgb "dark-yellow"
-set label 4 '27' at graph 1.05, second 27 front tc rgb "cyan"
 set label 5 '24' at screen 0.08, first 24 front tc rgb "dark-red"
 set label 6 '20' at screen 0.08, first 20 front tc rgb "dark-orange"
 set label 7 '15' at screen 0.08, first 15 front tc rgb "dark-yellow"
@@ -40,16 +69,8 @@ set label 8 '10' at screen 0.08, first 10 front tc rgb "dark-green"
 set label 9 '5' at screen 0.08, first 5 front tc rgb "dark-blue"
 plot "final3.csv" using 1:42 title "T2m" lw 2 lt 2 lc "red", \
 "" using 1:43 lc "green" lw 2 axes x1y1 ti "DP", \
-"" using 1:(0.5 * ($42 + 61.0 + (($42-68.0)*1.2) + ($44*0.094))<27?0.5 * ($42 + 61.0 + (($42-68.0)*1.2) + ($44*0.094)):1/0) title "HI" with linespoints ls 7 lc "dark-yellow" axis x1y2, \
-"" using 1:((($42<26) || ($44>13 && $44<85) || ($42>31 && $44>13) || ($42>45)) && (0.5 * ($42 + 61.0 + (($42-68.0)*1.2) + ($44*0.094))>=27)?-42.379 + 2.04901523*$42 + 10.14333127*$44 - .22475541*$42*$44 - .00683783*$42*$42 - .05481717*$44*$44 + .00122874*$42*$42*$44 + .00085282*$42*$44*$44 - .00000199*$42*$42*$44*$44:1/0) notitle with linespoints ls 7 lc "dark-yellow" axis x1y2, \
-"" using 1:((($42>26 && $42<45 && $44<13) && (0.5 * ($42 + 61.0 + (($42-68.0)*1.2) + ($44*0.094))>=27))?-42.379 + 2.04901523*$42 + 10.14333127*$44 - .22475541*$42*$44 - .00683783*$42*$42 - .05481717*$44*$44 + .00122874*$42*$42*$44 + .00085282*$42*$44*$44 - .00000199*$42*$42*$44*$44 - ((13-$44)/4)*sqrt((17-abs($42-95))/17):1/0) notitle with linespoints ls 7 lc "dark-yellow" axis x1y2, \
-"" using 1:((($42>26 && $42<31 && $44>85) && (0.5 * ($42 + 61.0 + (($42-68.0)*1.2) + ($44*0.094))>=27))?-42.379 + 2.04901523*$42 + 10.14333127*$44 - .22475541*$42*$44 - .00683783*$42*$42 - .05481717*$44*$44 + .00122874*$42*$42*$44 + .00085282*$42*$44*$44 - .00000199*$42*$42*$44*$44 + ((($44-85)/10) * ((87-$42)/5)):1/0) notitle with linespoints ls 7 lc "dark-yellow" axis x1y2, \
-54 dt 2 lc rgb "dark-yellow" lw 1 notitle axis x1y2, \
-41 dt 2 lc rgb "dark-yellow" lw 1 notitle axis x1y2, \
-33 dt 2 lc rgb "dark-yellow" lw 1 notitle axis x1y2, \
-27 dt 2 lc rgb "dark-yellow" lw 1 notitle axis x1y2,\
-24 dt 2 lc rgb "green" lw 1 notitle axis x1y1, \
-20 dt 2 lc rgb "green" lw 1 notitle axis x1y1, \
-15 dt 2 lc rgb "green" lw 1 notitle axis x1y1, \
-10 dt 2 lc rgb "green" lw 1 notitle axis x1y1, \
-5 dt 2 lc rgb "green" lw 1 notitle axis x1y1
+24 dt 2 lc rgb "dark-red" lw 1 notitle axis x1y1, \
+20 dt 2 lc rgb "dark-orange" lw 1 notitle axis x1y1, \
+15 dt 2 lc rgb "dark-yellow" lw 1 notitle axis x1y1, \
+10 dt 2 lc rgb "dark-green" lw 1 notitle axis x1y1, \
+5 dt 2 lc rgb "dark-blue" lw 1 notitle axis x1y1
