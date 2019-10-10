@@ -179,7 +179,7 @@ gnuplot -e "run=$run" ./hgt.pg > graphs/hgt.png
 gnuplot -e "run=$run" ./temperatures.pg > graphs/temperatures.png
 gnuplot -e "run=$run" ./cape-lftx.pg > graphs/cape-lftx.png
 gnuplot -e "run=$run" ./precTypes.pg > graphs/precTypes.png
-gnuplot -e "run=$run" ./cloud700.pg > graphs/cloud700.png
+gnuplot -e "run=$run" ./health.pg > graphs/health.png
 
 convert \( graphs/clouds.png graphs/cloud700.png graphs/precipitations.png  -append \) \( graphs/temperatures.png graphs/hgt.png graphs/precTypes.png -append \) \( graphs/weather.png graphs/pressureWind.png graphs/cape-lftx.png  -append \) +append graphs/weatherForecastFinal.png
 
