@@ -39,6 +39,7 @@ plot "final3.csv" using 1:(0.5 * ($42 + 61.0 + (($42-68.0)*1.2) + ($44*0.094))<2
 27 dt 1 lc rgb "dark-green" lw 1 title "No discomf."
 
 ## 2 ##
+
 unset label
 set datafile separator " "
 set xdata time
@@ -69,3 +70,5 @@ plot "final3.csv" using 1:43 lc "green" lw 2 axes x1y1 notitle, \
 15 dt 1 lc rgb "dark-yellow" lw 2 title "Ucomfortable" axis x1y1, \
 10 dt 2 lc rgb "dark-green" lw 1 title "Comfortable" axis x1y1, \
 5 dt 2 lc rgb "dark-blue" lw 1 title "Dry" axis x1y1
+
+unset multiplot
