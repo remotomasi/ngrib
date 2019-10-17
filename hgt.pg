@@ -57,9 +57,9 @@ set style data lines
 set label sprintf("< %4.4g",max_y500) at second max_pos_y500, second max_y500 left tc rgb "red"
 set label sprintf("< %4.4g",min_y500) at second min_pos_y500, second min_y500 left tc rgb "red"
 plot "final3.csv" using 1:5 title "500" lw 2 lt 2 lc "blue" axis x1y2, \
-5720 dt 3 lc rgb "blue" lw 2 title "576" axis x1y2, \
-5760 dt 3 lc rgb "blue" lw 2 title "572" axis x1y2, \
-"" u 1:(abs($5-5520)<50?5520:1/0) dt 2 lc rgb "green" lw 2 title "552" axis x1y2
+5720 dt 3 lc rgb "blue" lw 2 notitle axis x1y2, \
+5760 dt 3 lc rgb "blue" lw 2 notitle axis x1y2, \
+"" u 1:(abs($5-5520)<50?5520:1/0) dt 2 lc rgb "green" lw 2 notitle axis x1y2
 #"" u 1:(max_yPR>1?1:1/0) dt 2 lc rgb "blue" lw 1 notitle
 
 
@@ -110,8 +110,9 @@ set style data lines
 
 unset title
 
+set label 1 '1490' at graph 1.08, second 1490 front tc rgb "grey"
 plot "final3.csv" using 1:21 title "850" lw 2 lt 2 lc "orange" axis x1y2, \
-1490 dt 3 lc rgb "dark-grey" lw 2 title "1490" axis x1y2
+1490 dt 3 lc rgb "dark-grey" lw 2 notitle axis x1y2
 #, \
 #"" using 1:36 title "1000" lw 2 lt 2 lc "grey" axis x1y1
 
