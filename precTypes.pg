@@ -28,6 +28,52 @@ min_y87 = STATS_min_y
 stats data using 1:88
 min_y85 = STATS_min_y
 
+## 1 ##
+
+set multiplot layout 2,1
+set datafile separator " "
+set xdata time
+set timefmt "%Y-%m-%d %H"
+set xrange [time(0):time(0) + 5*24*60*60]
+set format x "h%H\n%d/%m\n%a"
+unset xlabel
+unset xtics #font ", 10"
+
+set autoscale y2
+set y2tics 500
+set y2label 'm'
+
+set title "Weather Forecast GFS Model - NOAA (Precipitations types) RUN:" . run . "z"
+set key lmargin
+set key font ",10"
+set grid
+#set size 1, 1 # ratio 1:1
+
+set style data lines
+
+# 5225 is the snow/rain line
+
+set label 2 '1520' at graph 1.08, second 1520 front tc rgb "green"
+set label 3 '2800' at graph 1.08, second 2800 front tc rgb "red"
+set label 4 '4050' at graph 1.08, second 4050 front tc rgb "blue"
+set label 5 '5225' at graph 1.08, second 5225 front tc rgb "orange"
+set label sprintf("1000-700min = %4.4g m",min_yM7) at graph 0.4,0.94 left font "Arial,10" tc rgb "red"
+set label sprintf("1000-500min = %4.4g m",min_yM5) at graph 0.6,0.97 left font "Arial,10" tc rgb "orange"
+set label sprintf("850-500min = %4.4g m",min_y85) at graph 0.8,0.97 left font "Arial,10" tc rgb "blue"
+set label sprintf("850-700min = %4.4g m",min_y87) at graph 0.6,0.94 left font "Arial,10" tc rgb "green"
+plot "final3.csv" using 1:85 title "1000-700" lw 2 lt 2 lc "red" axis x1y2, \
+"" using 1:86 title "1000-500" lw 2 lt 2 lc "orange" axis x1y2, \
+"" using 1:88 title "850-500" lw 2 lt 2 lc "blue" axis x1y2, \
+"" using 1:87 title "850-700" lw 2 lt 2 lc "green" axis x1y2, \
+5225 dt 2 lc "orange" lw 1 notitle axis x1y2, \
+4050 dt 2 lc "blue" lw 1 notitle axis x1y2, \
+2800 dt 2 lc "red" lw 1 notitle axis x1y2, \
+1520 dt 2 lc "green" lw 1 notitle axis x1y2
+
+
+## 2 ##
+
+unset label
 set datafile separator " "
 set xdata time
 set timefmt "%Y-%m-%d %H"
@@ -36,16 +82,8 @@ set format x "h%H\n%d/%m\n%a"
 set xlabel "Time"
 set xtics font ", 10"
 
-#set x2tics 10
-#set x2range [0:40]
-#set x2label 'ore'
-
-set autoscale y
 set autoscale y2
-set ytics 500
-#set yrange [1200:4500]
-set ylabel 'm'
-set y2tics 500
+set y2tics 50
 #set y2range [1200:4500]
 set y2label 'm'
 
@@ -53,32 +91,14 @@ set title "Weather Forecast GFS Model - NOAA (Precipitations types) RUN:" . run 
 set key lmargin
 set key font ",10"
 set grid
-set size 1, 1 # ratio 1:1
+#set size 1, 1 # ratio 1:1
 
 set style data lines
 
 # 5225 is the snow/rain line
 
-set label 1 '1281' at graph 1.08, first 1281 front tc rgb "dark-grey"
-set label 2 '1520' at graph 1.08, first 1520 front tc rgb "green"
-set label 3 '2800' at graph 1.08, first 2800 front tc rgb "red"
-set label 4 '4050' at graph 1.08, first 4050 front tc rgb "blue"
-set label 5 '5225' at graph 1.08, first 5225 front tc rgb "orange"
+set label 1 '1281' at graph 1.08, second 1281 front tc rgb "dark-grey"
 set label sprintf("1000-850min = %4.4g m",min_yM8) at graph 0.4,0.97 left font "Arial,10" tc rgb "dark-grey"
-set label sprintf("1000-700min = %4.4g m",min_yM7) at graph 0.4,0.94 left font "Arial,10" tc rgb "red"
-set label sprintf("1000-500min = %4.4g m",min_yM5) at graph 0.6,0.97 left font "Arial,10" tc rgb "orange"
-set label sprintf("850-700min = %4.4g m",min_y87) at graph 0.6,0.94 left font "Arial,10" tc rgb "green"
-set label sprintf("850-500min = %4.4g m",min_y85) at graph 0.8,0.97 left font "Arial,10" tc rgb "blue"
-set label sprintf("< %4.4g",min_yM8) at first min_pos_yM8, first min_yM8 left tc rgb "orange"
-plot "final3.csv" using 1:84 title "1000-850" lw 2 lt 2 lc "grey", \
-"" using 1:85 title "1000-700" lw 2 lt 2 lc "red", \
-"" using 1:86 title "1000-500" lw 2 lt 2 lc "orange", \
-"" using 1:87 title "850-700" lw 2 lt 2 lc "green", \
-"" using 1:88 title "850-500" lw 2 lt 2 lc "blue", \
-5225 dt 2 lc "orange" lw 1 notitle, \
-4050 dt 2 lc "blue" lw 1 notitle, \
-2800 dt 2 lc "red" lw 1 notitle, \
-1520 dt 2 lc "green" lw 1 notitle, \
-1281 dt 2 lc "dark-grey" lw 1 notitle
-# , \
-# 5360 dt 2 lc rgb "#112233" lw 1 notitle, \
+set label sprintf("< %4.4g",min_yM8) at second min_pos_yM8, second min_yM8 left tc rgb "orange"
+plot "final3.csv" using 1:84 title "1000-850" lw 2 lt 2 lc "grey" axis x1y2, \
+"" u 1:(abs($87-1281)<50?1281:1/0) dt 2 lc "dark-grey" lw 1 notitle axis x1y2

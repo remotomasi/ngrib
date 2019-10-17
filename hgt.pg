@@ -110,7 +110,8 @@ set style data lines
 
 unset title
 
-plot "final3.csv" using 1:21 title "850" lw 2 lt 2 lc "orange" axis x1y2
+plot "final3.csv" using 1:21 title "850" lw 2 lt 2 lc "orange" axis x1y2, \
+1490 dt 3 lc rgb "dark-grey" lw 2 title "1490" axis x1y2
 #, \
 #"" using 1:36 title "1000" lw 2 lt 2 lc "grey" axis x1y1
 
