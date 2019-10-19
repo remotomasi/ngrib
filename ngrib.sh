@@ -6,6 +6,7 @@
 #	by Remo Tomasi
 #	24-02-2019 v0.31
 #	16-04-2019 v0.5
+#	19-10-2019 v0.55
 #################################################################################
 
 #echo -e "Insert latitude and longitude separated by spaces (i.e.: 60.75 21.34)"
@@ -55,7 +56,7 @@ if [[ $unameOut == *"Ubuntu"* ]]
 		command="wgrib2"
 elif [[ $unameOut == *"Microsoft"* ]]
 	then
-		command="wgrib2.exe"
+		command="wgrib2.exe" 
 fi
 
 # curl VERSION
@@ -73,6 +74,9 @@ for i in ${h[*]};
 		./$command pro$i -csv csv$i.csv		# obtain infos from gribs to csvs
 		cat csv$i.csv >> final.csv			# merge of csvs
 done
+
+echo $today $run > test.txt # insert last data and run to compare this info and know if they are updates
+
 for i in ${h[*]}; do cut -d',' -f7 csv$i.csv | paste -s; done  | tail -n +2 > p.csv 	# union of the values of all the grib files
 for i in ${h[*]}; do cut -d',' -f2 csv$i.csv | head -1; done | tail -n +2 > p1.csv		# obtain date $1umn
 
