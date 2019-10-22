@@ -14,6 +14,24 @@ min_yZ = STATS_min_y
 max_pos_yZ = STATS_pos_max_y
 min_pos_yZ = STATS_pos_min_y
 
+# Retrieve statistical properties for 700 Hgt
+stats data using 1:17
+set timefmt "%Y-%m-%d %H:%M"
+stats [time(0):time(0) + 5*24*60*60] 'final3.csv' u (timecolumn(1)):13
+max_y700 = STATS_max_y
+min_y700 = STATS_min_y
+max_pos_y700 = STATS_pos_max_y
+min_pos_y700 = STATS_pos_min_y
+
+# Retrieve statistical properties for 850 Hgt
+stats data using 1:21
+set timefmt "%Y-%m-%d %H:%M"
+stats [time(0):time(0) + 5*24*60*60] 'final3.csv' u (timecolumn(1)):21
+max_y850 = STATS_max_y
+min_y850 = STATS_min_y
+max_pos_y850 = STATS_pos_max_y
+min_pos_y850 = STATS_pos_min_y
+
 # Retrieve statistical properties for 500 Hgt
 stats data using 1:5
 set timefmt "%Y-%m-%d %H:%M"
@@ -25,7 +43,7 @@ min_pos_y500 = STATS_pos_min_y
 
 ## 1 ##
 
-set multiplot layout 3,1
+set multiplot layout 4,1
 #set tmargin 0
 #set bmargin 3
 set datafile separator " "
@@ -34,7 +52,7 @@ set timefmt "%Y-%m-%d %H"
 set xrange [time(0):time(0) + 5*24*60*60]
 set format x "h%H\n%d/%m\n%a"
 unset xlabel
-set xtics font ", 10
+unset xtics #font ", 10"
 
 #set x2tics 10
 #set x2range [0:50]
@@ -44,6 +62,7 @@ unset ytics
 set autoscale y2
 set y2tics 50
 set y2label 'm'
+set grid y2tics lt 0 lw 1 lc rgb "#008800"
 
 set title "Weather Forecast GFS Model - NOAA (Hgt) RUN:" . run . "z"
 set key lmargin
@@ -66,49 +85,84 @@ plot "final3.csv" using 1:5 title "500" lw 2 lt 2 lc "blue" axis x1y2, \
 ## 2 ##
 
 unset label
-set datafile separator " "
-set xdata time
-set timefmt "%Y-%m-%d %H"
-set xrange [time(0):time(0) + 5*24*60*60]
-set format x "h%H\n%d/%m\n%a"
-set xtics font ", 10"
-unset xlabel 
+set bmargin 0.6
+set tmargin 0.2
+unset xlabel
+unset xtics #font ", 10"
 
 unset ytics
-set autoscale y2
-set y2tics 500
+#set autoscale y2
+set y2tics 100
+set y2range [min_yZ:max_yZ]
 set y2label 'm'
+set grid y2tics lt 0 lw 1 lc rgb "#008800"
+unset title
+set key lmargin
+set key font ",10"
+set grid
+#set size 1, 1 # ratio 1:1
 
 set style data lines
-
-unset title
 
 set label 2 sprintf("< %4.4g",min_yZ) at second min_pos_yZ, second min_yZ front tc rgb "blue"
 set label 3 sprintf("< %4.4g",max_yZ) at second max_pos_yZ, second max_yZ front tc rgb "blue"
-plot "final3.csv" using 1:(min_yZ) lc rgb "red" dt 3 lw 2 notitle axis x1y2, \
-"" u 1:(max_yZ) lc rgb "red" dt 3 lw 2 notitle axis x1y2, \
-"" using 1:13 title "700" lw 2 lt 2 lc "green" axis x1y2, \
-"" using 1:77 title "0°C" lw 2 lt 2 lc "red" axis x1y2
+plot "final3.csv" using 1:77 title "0 C" lw 2 lt 2 lc "red" axis x1y2
 
 ## 3 ##
 
-unset label
+#unset label
+set bmargin 0.6
+set tmargin 0.2
 set datafile separator " "
 set xdata time
 set timefmt "%Y-%m-%d %H"
 set xrange [time(0):time(0) + 5*24*60*60]
 set format x "h%H\n%d/%m\n%a"
-unset xlabel
-set xtics font ", 10"
+#unset xlabel
+#unset xtics #font ", 10"
 
 unset ytics
-set autoscale y2
-set y2tics 50
+#set autoscale y2
+set y2tics 10 
+set y2range [min_y700:max_y700]
 set y2label 'm'
+set grid y2tics lt 0 lw 1 lc rgb "#008800"
+set grid xtics lt 0 lw 1 lc rgb "#008800"
 
 set style data lines
 
 unset title
+
+set label 2 sprintf("< %4.4g",min_y700) at second min_pos_y700, second min_y700 front tc rgb "blue"
+set label 3 sprintf("< %4.4g",max_y700) at second max_pos_y700, second max_y700 front tc rgb "blue"
+plot "final3.csv" using 1:13 title "700" lw 2 lt 2 lc "green" axis x1y2
+
+## 4 ##
+
+#unset label
+set tmargin 0.2
+unset bmargin
+set datafile separator " "
+set xdata time
+set timefmt "%Y-%m-%d %H"
+set xrange [time(0):time(0) + 5*24*60*60]
+set format x "h%H %d/%m\n%a"
+unset xlabel #"Time"
+set xtics font ", 8"
+
+#unset ytics
+#set autoscale y2
+set y2tics 10
+set y2range [min_y850:max_y850]
+set y2label 'm'
+set grid y2tics lt 0 lw 1 lc rgb "#008800"
+
+unset title
+set key lmargin
+set key font ",10"
+#set size 1, 1 # ratio 1:1
+
+set style data lines
 
 set label 1 '1490' at graph 1.08, second 1490 front tc rgb "grey"
 plot "final3.csv" using 1:21 title "850" lw 2 lt 2 lc "orange" axis x1y2, \
