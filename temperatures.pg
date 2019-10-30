@@ -14,6 +14,15 @@ min_pos_yT = STATS_pos_min_y
 max_yT = STATS_max_y
 max_pos_yT = STATS_pos_max_y
 
+# Retrieve statistical properties for T1000
+stats data using 1:29
+set timefmt "%Y-%m-%d %H:%M"
+stats [time(0):time(0) + 5*24*60*60] 'final3.csv' u (timecolumn(1)):29
+min_yT1 = STATS_min_y
+min_pos_yT1 = STATS_pos_min_y
+max_yT1 = STATS_max_y
+max_pos_yT1 = STATS_pos_max_y
+
 # Retrieve statistical properties for T850
 stats data using 1:22
 set timefmt "%Y-%m-%d %H:%M"
@@ -85,9 +94,11 @@ set label sprintf("< %4.4g",max_yT5) at first max_pos_yT5, first max_yT5 left tc
 plot "final3.csv" using 1:6 title "500" lw 2 lt 2 lc "blue", \
 "" using 1:14 title "700" lw 2 lt 2 lc "green", \
 "" using 1:22 title "850" lw 2 lt 2 lc "orange", \
+"" using 1:29 title "1000" lw 2 lt 2 lc "grey", \
 "" using 1:42 title "2m" lw 2 lt 2 lc "red", \
+"" using 1:(($29-$42)>=12?($29-$42):1/0) title "Inst" with linespoints ls 7 lc "purple", \
 -12 dt 2 lc rgb "green" lw 1 notitle, \
 -8 dt 2 lc rgb "orange" lw 1 notitle, \
 2 dt 2 lc rgb "red" lw 1 notitle, \
 0 dt 1 lc rgb "grey" lw 2 notitle, \
-"" u 1:($6<=-37?-37:1/0) dt 2 lc rgb "blue" lw 1 notitle
+"" u 1:(abs(min_yT5-37)<5?-37:1/0) dt 2 lc rgb "blue" lw 1 notitle

@@ -151,7 +151,7 @@ set label sprintf("< %4.4g",max_yM7) at second max_pos_yM7, second max_yM7 left 
 set label sprintf("< %4.4g",min_yM7) at second min_pos_yM7, second min_yM7 left tc rgb "green"
 #set label sprintf("1000-700min = %4.4g m",min_yM7) at graph 0.4,0.94 left font "Arial,10" tc rgb "red"
 plot "final3.csv" using 1:85 title "1000-700" lw 2 lt 2 lc "red" axis x1y2, \
-"" u 1:(abs($85-2800)<50?2800:1/0) dt 2 lc "red" lw 1 notitle axis x1y2
+"" u 1:((min_yM7-2800)<50?2800:1/0) dt 2 lc "red" lw 1 notitle axis x1y2
 
 
 ## 4 ##
@@ -183,7 +183,7 @@ set label sprintf("< %4.4g",max_yM87) at second max_pos_yM87, second max_yM87 le
 set label sprintf("< %4.4g",min_yM87) at second min_pos_yM87, second min_yM87 left tc rgb "red"
 #set label sprintf("850-700min = %4.4g m",min_yM87) at graph 0.6,0.94 left font "Arial,10" tc rgb "green"
 plot "final3.csv" using 1:87 title " 850-700" lw 2 lt 2 lc "green" axis x1y2, \
-"" u 1:(abs($87-1520)<30?1520:1/0) dt 2 lc "green" lw 1 notitle axis x1y2
+"" u 1:((min_yM87-1520)<30?1520:1/0) dt 2 lc "green" lw 1 notitle axis x1y2
 
 
 ## 5 ##
@@ -221,6 +221,6 @@ set label 1 '1281' at graph 1.08, second 1281 front tc rgb "dark-grey"
 set label sprintf("< %4.4g",max_yM8) at second max_pos_yM8, second max_yM8 left tc rgb "dark-orange"
 set label sprintf("< %4.4g",min_yM8) at second min_pos_yM8, second min_yM8 left tc rgb "dark-orange"
 plot "final3.csv" using 1:84 title "1000-850" lw 2 lt 2 lc "grey" axis x1y2, \
-"" u 1:(abs($84-1281)<50?1281:1/0) dt 2 lc "dark-grey" lw 1 notitle axis x1y2
+"" u 1:((min_yM8-1281)<50?1281:1/0) dt 2 lc "dark-grey" lw 1 notitle axis x1y2
 
 unset multiplot
