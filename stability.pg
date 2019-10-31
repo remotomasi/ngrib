@@ -1,0 +1,65 @@
+#!/usr/bin/gnuplot -persist
+reset
+set terminal pngcairo truecolor
+set termoption dashed
+set term pngcairo size 1024,600 #800 pixels by 600 pixels
+
+set multiplot layout 2,1 scale 1,1
+
+## 1 ##
+
+set datafile separator " "
+set xdata time
+set timefmt "%Y-%m-%d %H"
+set xrange [time(0):time(0) + 5*24*60*60]
+set format x "h%H\n%d/%m\n%a"
+set xlabel "Time"
+set xtics font ", 10"
+
+unset ytics
+set y2tics 20
+set autoscale y2
+set y2label 'hPa/h'
+
+set title "Weather Forecast GFS Model - NOAA (500hPa VVEL/700hPa VVEL) RUN:" . run . "z"
+set key lmargin
+set key font ",10"
+set grid
+#set size 1, 1 # ratio 1:1
+
+set style data lines
+set style fill transparent solid 0.3
+
+plot "final3.csv" using 1:($17*36) title "VVEL7" lw 2 lt 1 lc "dark-blue" axis x1y2, \
+"" using 1:($9*36) title "VVEL5" lw 2 lt 1 lc "dark-yellow" axis x1y2, \
+0 dt 3 lc rgb "dark-green" lw 2 notitle axis x1y2
+
+
+## 2 ##
+
+set datafile separator " "
+set xdata time
+set timefmt "%Y-%m-%d %H"
+set xrange [time(0):time(0) + 5*24*60*60]
+set format x "h%H\n%d/%m\n%a"
+set xlabel "Time"
+set xtics font ", 10"
+
+unset ytics
+set y2tics 20
+set y2range [0:100]
+set y2label '%'
+
+set title "Weather Forecast GFS Model - NOAA (500-700-850-1000 hPa RH) RUN:" . run . "z"
+set key lmargin
+set key font ",10"
+set grid
+#set size 1, 1 # ratio 1:1
+
+set style data lines
+set style fill transparent solid 0.3
+
+plot "final3.csv" using 1:7 title "  RH5" lw 2 lt 1 lc "yellow" axis x1y2, \
+"" using 1:15 title "  RH7" lw 2 lt 1 lc "orange" axis x1y2, \
+"" using 1:22 title "  RH8" lw 2 lt 1 lc "red" axis x1y2, \
+"" using 1:29 title "  RH1" lw 2 lt 1 lc "brown" axis x1y2

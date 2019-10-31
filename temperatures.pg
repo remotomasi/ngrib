@@ -96,7 +96,7 @@ plot "final3.csv" using 1:6 title "500" lw 2 lt 2 lc "blue", \
 "" using 1:22 title "850" lw 2 lt 2 lc "orange", \
 "" using 1:29 title "1000" lw 2 lt 2 lc "grey", \
 "" using 1:42 title "2m" lw 2 lt 2 lc "red", \
-"" using 1:(($29-$42)>=12?($29-$42):1/0) title "Inst" with linespoints ls 7 lc "purple", \
+"" using 1:(($29-$22)>=12?($29-$42):1/0) title "Inst" with linespoints ls 7 lc "purple", \
 -12 dt 2 lc rgb "green" lw 1 notitle, \
 -8 dt 2 lc rgb "orange" lw 1 notitle, \
 2 dt 2 lc rgb "red" lw 1 notitle, \

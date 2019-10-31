@@ -80,7 +80,7 @@ set grid
 
 set style data lines
 
-# 5225 is the snow/rain line
+# 5225 is the snow/rain line  --> 5400 for the 50%/50% (Centrometeo)
 
 set label 5 '5225' at graph 1.08, second 5225 front tc rgb "orange"
 set label sprintf("< %4.4g",max_yM5) at second max_pos_yM5, second max_yM5 left tc rgb "blue"
@@ -112,7 +112,7 @@ set grid
 
 set style data lines
 
-# 5225 is the snow/rain line
+# 4050 is the snow/rain line --> 4100 (Centrometeo)
 
 set label 4 '4050' at graph 1.08, second 4050 front tc rgb "blue"
 set label sprintf("< %4.4g",max_y85) at second max_pos_y85, second max_y85 left tc rgb "orange"
@@ -144,7 +144,7 @@ set grid
 
 set style data lines
 
-# 2800 is the snow/rain line
+# 2800 is the snow/rain line --> 2840 (Centrometeo)
 
 #set label 3 '2800' at graph 1.08, second 2800 front tc rgb "red"
 set label sprintf("< %4.4g",max_yM7) at second max_pos_yM7, second max_yM7 left tc rgb "green"
@@ -176,7 +176,7 @@ set grid
 
 set style data lines
 
-# 1520 is the snow/rain line
+# 1520 is the snow/rain line --> 1540 (Centrometeo)
 
 set label 2 '1520' at graph 1.08, second 1520 front tc rgb "green"
 set label sprintf("< %4.4g",max_yM87) at second max_pos_yM87, second max_yM87 left tc rgb "red"
@@ -214,7 +214,7 @@ set grid
 
 set style data lines
 
-# 1281 is the snow/rain line
+# 1281 is the snow/rain line --> 1300 (Centrometeo)
 
 set label 1 '1281' at graph 1.08, second 1281 front tc rgb "dark-grey"
 #set label sprintf("1000-850min = %4.4g m",min_yM8) at graph 0.4,0.97 left font "Arial,10" tc rgb "dark-grey"

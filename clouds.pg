@@ -20,9 +20,9 @@ set xtics font ", 10"
 set ytics 10
 set yrange [0:100]
 set ylabel '%'
-set y2tics 5
-set autoscale y2
-set y2label 'hPa/hr'
+set y2tics 10
+set yrange [0:100]
+set ylabel '%'
 
 set title "Weather Forecast GFS Model - NOAA (Clouds/700hPa VVEL) RUN:" . run . "z"
 set key lmargin
@@ -36,6 +36,4 @@ set style fill transparent solid 0.3
 plot "final3.csv" using 1:(100-$70) title "High" with filledcurves x2 lc "yellow", \
 "" using 1:(($69)/2+50):((100-($69)/2)-50) title "Mid" with filledcurves above x2, \
 "" using 1:(($69)/2+50):((100-($69)/2)-50) notitle with filledcurves below x2, \
-"" using 1:68 title "Low" with filledcurves x1 lc "blue", \
-"" using 1:($17*36) title "VVEL" lw 2 lt 1 lc "dark-red" axis x1y2, \
-0 dt 3 lc rgb "dark-green" lw 2 notitle axis x1y2
+"" using 1:68 title "Low" with filledcurves x1 lc "blue"
