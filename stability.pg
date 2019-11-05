@@ -61,5 +61,5 @@ set style fill transparent solid 0.3
 
 plot "final3.csv" using 1:7 title "  RH5" lw 2 lt 1 lc "yellow" axis x1y2, \
 "" using 1:15 title "  RH7" lw 2 lt 1 lc "orange" axis x1y2, \
-"" using 1:22 title "  RH8" lw 2 lt 1 lc "red" axis x1y2, \
-"" using 1:29 title "  RH1" lw 2 lt 1 lc "brown" axis x1y2
+"" using 1:23 title "  RH8" lw 2 lt 1 lc "red" axis x1y2, \
+"" using 1:30 title "  RH1" lw 2 lt 1 lc "brown" axis x1y2

@@ -92,7 +92,7 @@ mean_yW dt 2 lc rgb "dark-orange" lw 1 notitle axes x1y2
 ##### Second plot
 
 set autoscale y
-set ytics 1
+set ytics 10
 
 set style fill transparent solid 0.7
 
