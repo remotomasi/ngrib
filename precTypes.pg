@@ -67,7 +67,7 @@ set bmargin 0.6
 set tmargin 2
 unset ytics
 #set autoscale y2
-set y2tics 20
+set y2tics 30
 set y2range [min_yM5:max_yM5]
 set y2label 'm'
 set grid y2tics lt 0 lw 1 lc rgb "#008800"
@@ -100,7 +100,7 @@ unset xtics #font ", 10"
 
 unset ytics
 #set autoscale y2
-set y2tics 10
+set y2tics 30
 set y2range [min_y85:max_y85]
 set y2label 'm'
 set grid y2tics lt 0 lw 1 lc rgb "#008800"
@@ -132,7 +132,7 @@ unset xtics #font ", 10"
 
 unset ytics
 #set autoscale y2
-set y2tics 10 
+set y2tics 20 
 set y2range [min_yM7:max_yM7]
 set y2label 'm'
 set grid y2tics lt 0 lw 1 lc rgb "#008800"
@@ -164,7 +164,7 @@ unset xtics #font ", 10"
 
 unset ytics
 #set autoscale y2
-set y2tics 5
+set y2tics 10
 set y2range [min_yM87:max_yM87]
 set y2label 'm'
 set grid y2tics lt 0 lw 1 lc rgb "#008800"
@@ -201,7 +201,7 @@ set xtics font ", 8"
 
 unset ytics
 #set autoscale y2
-set y2tics 10
+set y2tics 5
 set y2range [min_yM8:max_yM8]
 set y2label 'm'
 set grid y2tics lt 0 lw 1 lc rgb "#008800"
