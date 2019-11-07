@@ -73,14 +73,16 @@ set grid
 set style data lines
 
 #set label 4 '5520' at graph 1.08, second 5520 front tc rgb "green"
-set label 8 '5760' at screen 0.04, second 5760 front tc rgb "grey"
-set label 9 '5720' at screen 0.04, second 5720 front tc rgb "grey"
+#set label 8 '5760' at screen 0.04, second 5760 front tc rgb "grey"
+#set label 9 '5720' at screen 0.04, second 5720 front tc rgb "grey"
 set label sprintf("< %4.4g",max_y500) at second max_pos_y500, second max_y500 left tc rgb "red"
 set label sprintf("< %4.4g",min_y500) at second min_pos_y500, second min_y500 left tc rgb "red"
 plot "final3.csv" using 1:5 title "500" lw 2 lt 2 lc "blue" axis x1y2, \
-5720 dt 3 lc rgb "red" lw 2 notitle axis x1y2, \
-5760 dt 3 lc rgb "red" lw 2 notitle axis x1y2, \
+"" u 1:(abs($5-5760)<50?5760:1/0) dt 2 lc rgb "red" lw 2 notitle axis x1y2, \
+"" u 1:(abs($5-5720)<50?5720:1/0) dt 2 lc rgb "red" lw 2 notitle axis x1y2, \
 "" u 1:(abs($5-5520)<50?5520:1/0) dt 2 lc rgb "green" lw 2 notitle axis x1y2
+#5720 dt 3 lc rgb "red" lw 2 notitle axis x1y2, \
+#5760 dt 3 lc rgb "red" lw 2 notitle axis x1y2, \
 #"" u 1:(max_yPR>1?1:1/0) dt 2 lc rgb "blue" lw 1 notitle
 
 

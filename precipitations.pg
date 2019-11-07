@@ -20,6 +20,8 @@ stats [time(0):time(0) + 5*24*60*60] 'final3.csv' u (timecolumn(1)):52
 max_yTP = STATS_max_y
 tot_yTP = STATS_sum_y
 
+## 1 ##
+
 set datafile separator " "
 set xdata time
 set timefmt "%Y-%m-%d %H"
@@ -29,13 +31,14 @@ set xlabel "Time"
 set xtics font ", 10"
 
 set autoscale y
-#set autoscale yfixmin
-#set ytics 0.05
+set ytics 5
 #set yrange [0:12]
-set ylabel 'mm/h - mm'
+set ylabel 'mm/h - mm' offset  2, 0 textcolor rgb "red"
 set y2tics 10
 set y2range [0:100]
+set y2tics offset -1,0
 set y2label '% Chance'
+set y2label offset -4,0
 
 set title "Weather Forecast GFS Model - NOAA (Rain-Frozen/Freezing-Snow) RUN:" . run . "z"
 set key lmargin
@@ -48,17 +51,16 @@ set style data lines
 set style fill transparent solid 0.7
 #set style histogram clustered gap 0.0
 
+set multiplot
+set lmargin screen 0.2
+
 set label sprintf("PrecTot = %3.3g mm",tot_yTP) at graph 0.9,0.97 center font "Arial,10" tc rgb "purple"
 plot "final3.csv" using 1:51 w boxes lc rgb "blue" title "PrMM/h" axes x1y1, \
 "" using 1:52 w boxes lc rgb "purple" title "TotPr" axes x1y1, \
 "" using 1:50 lc rgb "brown" lw 2 title "CPrMM/h" axes x1y1, \
 "" using 1:53 lc rgb "orange" lw 2 title "CPrTot" axes x1y1, \
 "" using 1:47 lc rgb "red" lw 2 title "FP%" axes x1y2, \
-"" using 1:58 lc rgb "grey" lw 2 title "F01" axes x1y1, \
-"" using 1:59 lc rgb "green" lw 2 title "R01" axes x1y1, \
-"" using 1:56 lc rgb "yellow" lw 2 title "S01" axes x1y1, \
 "" using 1:40 lc rgb "olive" lw 2 title "SDepth" axes x1y1, \
-"" using 1:57 lc rgb "black" lw 2 title "IceP01" axes x1y1, \
 "" u 1:(max_yPR>1?1:1/0) dt 2 lc rgb "blue" lw 1 notitle, \
 "" u 1:(max_yPR>2.5?2.5:1/0) dt 2 lc rgb "blue" lw 1 notitle, \
 "" u 1:(max_yPR>10?10:1/0) dt 2 lc rgb "blue" lw 1 notitle, \
@@ -71,3 +73,23 @@ plot "final3.csv" using 1:51 w boxes lc rgb "blue" title "PrMM/h" axes x1y1, \
 #, \
 #10 lc rgb "#5F9EA0" lw 2 notitle
 #using 1:17 w boxes lc rgb "blue" fs solid border -1 title "PrMM/h" axes x1y1, \
+
+## 2 ##
+
+set autoscale y
+set ytics 1
+
+set style fill transparent solid 0.2
+
+set ytics offset  -3.9, 0
+set ylabel "Rain/Snow/Frozen/Ice" offset  -2, 0 textcolor rgb "purple"
+
+set key c 
+
+set label sprintf("PrecTot = %3.3g mm",tot_yTP) at graph 0.9,0.97 center font "Arial,10" tc rgb "purple"
+plot "final3.csv" using 1:58 lc rgb "grey" lw 2 title "F01" axes x1y1, \
+"" using 1:59 lc rgb "green" lw 1 title "R01" axes x1y1, \
+"" using 1:56 lc rgb "yellow" lw 2 title "S01" axes x1y1, \
+"" using 1:57 lc rgb "black" lw 2 title "IceP01" axes x1y1
+
+unset multiplot
