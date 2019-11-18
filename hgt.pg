@@ -108,8 +108,8 @@ set grid
 
 set style data lines
 
-set label 4 sprintf("< %4.4g",min_yZ) at second min_pos_yZ, second min_yZ front tc rgb "blue"
-set label 5 sprintf("< %4.4g",max_yZ) at second max_pos_yZ, second max_yZ front tc rgb "blue"
+set label 1 sprintf("< %4.4g",min_yZ) at second min_pos_yZ, second min_yZ front tc rgb "blue"
+set label 2 sprintf("< %4.4g",max_yZ) at second max_pos_yZ, second max_yZ front tc rgb "blue"
 plot "final3.csv" using 1:77 title "0 C" lw 2 lt 2 lc "red" axis x1y2
 
 ## 3 ##
@@ -137,7 +137,7 @@ set style data lines
 
 unset title
 
-set label 3 sprintf("< %4.4g",max_y700) at second max_pos_y700, second max_y700 front tc rgb "dark-orange"
+set label 1 sprintf("< %4.4g",max_y700) at second max_pos_y700, second max_y700 front tc rgb "dark-orange"
 set label 2 sprintf("< %4.4g",min_y700) at second min_pos_y700, second min_y700 front tc rgb "dark-orange"
 plot "final3.csv" using 1:13 title "700" lw 2 lt 2 lc "green" axis x1y2
 
@@ -169,8 +169,8 @@ set key font ",10"
 set style data lines
 
 set label 1 '1490' at graph 1.08, second 1490 front tc rgb "dark-green"
-set label 6 sprintf("< %4.4g",min_y850) at second min_pos_y850, second min_y850 front tc rgb "dark-green"
-set label 7 sprintf("< %4.4g",max_y850) at second max_pos_y850, second max_y850 front tc rgb "dark-green"
+set label 2 sprintf("< %4.4g",min_y850) at second min_pos_y850, second min_y850 front tc rgb "dark-green"
+set label 3 sprintf("< %4.4g",max_y850) at second max_pos_y850, second max_y850 front tc rgb "dark-green"
 plot "final3.csv" using 1:21 title "850" lw 2 lt 2 lc "orange" axis x1y2, \
 1490 dt 3 lc rgb "dark-green" lw 2 notitle axis x1y2
 #, \
