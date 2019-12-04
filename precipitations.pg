@@ -64,7 +64,7 @@ plot "final3.csv" using 1:51 w boxes lc rgb "blue" title "PrMM/h" axes x1y1, \
 "" u 1:(max_yPR>1?1:1/0) dt 2 lc rgb "blue" lw 1 notitle, \
 "" u 1:(max_yPR>2.5?2.5:1/0) dt 2 lc rgb "blue" lw 1 notitle, \
 "" u 1:(max_yPR>10?10:1/0) dt 2 lc rgb "blue" lw 1 notitle, \
-"" u 1:(max_yTP>16.7?16.7:1/0) dt 2 lc rgb "yellow" lw 1 notitle, \
+"" u 1:(max_yTP>16.7?16.7:1/0) dt 2 lc rgb "orange" lw 1 notitle, \
 "" u 1:(max_yTP>33.3?33.3:1/0) dt 2 lc rgb "red" lw 1 notitle, \
 1 dt 2 lc rgb "#112233" lw 1 notitle
 
