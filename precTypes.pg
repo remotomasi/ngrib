@@ -63,11 +63,13 @@ unset xtics #font ", 10"
 
 ## 1 ##
 
+tics = floor((max_yM5 - min_yM5) / 5)
+
 set bmargin 0.6
 set tmargin 2
 unset ytics
 #set autoscale y2
-set y2tics 30
+set y2tics tics
 set y2range [min_yM5:max_yM5]
 set y2label 'm'
 set grid y2tics lt 0 lw 1 lc rgb "#008800"
@@ -92,6 +94,8 @@ plot "final3.csv" using 1:86 title "1000-500" lw 2 lt 2 lc "orange" axis x1y2, \
 
 ## 2 ##
 
+tics = floor((max_y85 - min_y85) / 5)
+
 unset label
 set bmargin 0.6
 set tmargin 0.2
@@ -100,7 +104,7 @@ unset xtics #font ", 10"
 
 unset ytics
 #set autoscale y2
-set y2tics 30
+set y2tics tics
 set y2range [min_y85:max_y85]
 set y2label 'm'
 set grid y2tics lt 0 lw 1 lc rgb "#008800"
@@ -124,6 +128,8 @@ plot "final3.csv" using 1:88 title " 850-500" lw 2 lt 2 lc "blue" axis x1y2, \
 
 ## 3 ##
 
+tics = floor((max_yM7 - min_yM7) / 6)
+
 unset label
 set bmargin 0.6
 set tmargin 0.2
@@ -132,7 +138,7 @@ unset xtics #font ", 10"
 
 unset ytics
 #set autoscale y2
-set y2tics 20 
+set y2tics tics
 set y2range [min_yM7:max_yM7]
 set y2label 'm'
 set grid y2tics lt 0 lw 1 lc rgb "#008800"
@@ -156,6 +162,8 @@ plot "final3.csv" using 1:85 title "1000-700" lw 2 lt 2 lc "red" axis x1y2, \
 
 ## 4 ##
 
+tics = floor((max_yM87 - min_yM87) / 6)
+
 unset label
 set bmargin 0.6
 set tmargin 0.2
@@ -164,7 +172,7 @@ unset xtics #font ", 10"
 
 unset ytics
 #set autoscale y2
-set y2tics 10
+set y2tics tics
 set y2range [min_yM87:max_yM87]
 set y2label 'm'
 set grid y2tics lt 0 lw 1 lc rgb "#008800"
@@ -188,6 +196,8 @@ plot "final3.csv" using 1:87 title " 850-700" lw 2 lt 2 lc "green" axis x1y2, \
 
 ## 5 ##
 
+tics = floor((max_yM8 - min_yM8) / 4)
+
 unset label
 set tmargin 0.2
 unset bmargin
@@ -201,7 +211,7 @@ set xtics font ", 8"
 
 unset ytics
 #set autoscale y2
-set y2tics 5
+set y2tics tics
 set y2range [min_yM8:max_yM8]
 set y2label 'm'
 set grid y2tics lt 0 lw 1 lc rgb "#008800"

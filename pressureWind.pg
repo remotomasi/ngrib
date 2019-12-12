@@ -40,12 +40,12 @@ set xtics font ", 10"
 
 set autoscale y
 set autoscale y2
-set ylabel "hPa"
+set ylabel "hPa" textcolor rgb "purple"
 #set ytics 5
 #set yrange [990:1040]
 set y2tics 10
 #set y2range [0:100]
-set y2label 'Km/h'
+set y2label 'Km/h' textcolor rgb "orange"
 
 set title "Weather Forecast GFS Model - NOAA (Pressure-Wind) RUN:" . run . "z"
 set key lmargin

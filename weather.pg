@@ -23,6 +23,11 @@ max_yDP = STATS_max_y
 max_pos_yDP = STATS_pos_max_y
 
 # Retrieve statistical properties for Wind velocity
+stats data using 1:80
+min_yP = STATS_min_y
+max_yP = STATS_max_y
+
+# Retrieve statistical properties for Wind velocity
 stats data using 1:81
 max_yW = STATS_max_y
 max_pos_yW = STATS_pos_min_y
@@ -111,8 +116,10 @@ plot "final3.csv" using 1:51 w boxes lc rgb "blue" title "PrMM/h" axes x1y1, \
 
 ##### Third plot
 
+tics = floor((max_yP - min_yP) / 10)
+
 set autoscale y
-set ytics 1
+set ytics tics
 
 set style data lines
 

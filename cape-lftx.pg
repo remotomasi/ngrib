@@ -47,7 +47,7 @@ set autoscale y2
 set ylabel 'J/Kg'
 set y2tics 1
 #set y2range [-6:15]
-set y2label '°K'
+set y2label '°K' textcolor rgb "purple"
 
 set title "Weather Forecast GFS Model - NOAA (Cape-LiftedIndex-Cin) RUN:" . run . "z"
 set key lmargin
