@@ -60,7 +60,7 @@ plot "final3.csv" using 1:51 w boxes lc rgb "blue" title "PrMM/h" axes x1y1, \
 "" using 1:50 lc rgb "brown" lw 2 title "CPrMM/h" axes x1y1, \
 "" using 1:53 lc rgb "orange" lw 2 title "CPrTot" axes x1y1, \
 "" using 1:47 lc rgb "red" lw 2 title "FP%" axes x1y2, \
-"" using 1:40 lc rgb "olive" lw 2 title "SDepth" axes x1y1, \
+"" using 1:($40*100) lc rgb "olive" lw 2 title "SDepth" axes x1y1, \
 "" u 1:(max_yPR>1?1:1/0) dt 2 lc rgb "blue" lw 1 notitle, \
 "" u 1:(max_yPR>2.5?2.5:1/0) dt 2 lc rgb "blue" lw 1 notitle, \
 "" u 1:(max_yPR>10?10:1/0) dt 2 lc rgb "blue" lw 1 notitle, \
