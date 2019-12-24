@@ -152,7 +152,7 @@ set style data lines
 
 # 2800 is the snow/rain line --> 2840 (Centrometeo)
 
-#set label 3 '2800' at graph 1.08, second 2800 front tc rgb "red"
+set label 3 '2800' at graph 1.08, second 2800 front tc rgb "red"
 set label sprintf("< %4.4g",max_yM7) at second max_pos_yM7, second max_yM7 left tc rgb "green"
 set label sprintf("< %4.4g",min_yM7) at second min_pos_yM7, second min_yM7 left tc rgb "green"
 #set label sprintf("1000-700min = %4.4g m",min_yM7) at graph 0.4,0.94 left font "Arial,10" tc rgb "red"
