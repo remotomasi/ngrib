@@ -25,7 +25,7 @@ echo -e "</font></table></body></html>" >> sw.html
 
 # Transform the html into an image
 now=$(date +%d%m%Y_%H%M)
-xvfb-run --server-args="-screen 0, 1024x768x24" cutycapt --url=file://$PWD/sw.html --out=/$PWD/imageFiles/finalSW_$now.png
+xvfb-run --server-args="-screen 0, 1024x768x24" cutycapt --url=file://$PWD/sw.html --out=/$PWD/imageFiles/finalSWL_$now.png
 
 # remove useless files
 rm swImages1.csv swImages.csv
