@@ -22,10 +22,14 @@ min_pos_yDP = STATS_pos_min_y
 max_yDP = STATS_max_y
 max_pos_yDP = STATS_pos_max_y
 
-# Retrieve statistical properties for Wind velocity
+# Retrieve statistical properties for Pressure
 stats data using 1:80
-min_yP = STATS_min_y
+set timefmt "%Y-%m-%d %H:%M"
+stats [time(0):*] 'final3.csv' u (timecolumn(1)):80
 max_yP = STATS_max_y
+max_pos_yP = STATS_pos_max_y
+min_yP = STATS_min_y
+min_pos_yP = STATS_pos_min_y
 
 # Retrieve statistical properties for Wind velocity
 stats data using 1:81
@@ -116,7 +120,7 @@ plot "final3.csv" using 1:51 w boxes lc rgb "blue" title "PrMM/h" axes x1y1, \
 
 ##### Third plot
 
-tics = floor((max_yP - min_yP) / 10)
+tics = floor((max_yP - min_yP) / 3)
 
 set autoscale y
 set ytics tics
