@@ -200,3 +200,9 @@ fi
 # move data files into data folder
 mv *.csv data
 mv *.html data
+
+# generate of simple forecasts
+./simpleWeather.sh
+
+# snow levels
+./snowLine.sh 
