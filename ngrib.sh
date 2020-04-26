@@ -201,8 +201,8 @@ fi
 mv *.csv data
 mv *.html data
 
+# snow levels
+./snowLine.sh
+ 
 # generate of simple forecasts
 ./simpleWeather.sh
-
-# snow levels
-./snowLine.sh 

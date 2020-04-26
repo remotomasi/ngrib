@@ -160,10 +160,13 @@ do
 
     echo
     mean_value_decimal $d 7
-    echo "Pioggia media: " ${arrf[0]} " mm/h"
-    echo "Pioggia max: " ${arrf[1]} " mm/h"
+    if (( ${arrf[1]} > 0 ))
+        then 
+            echo "Pioggia media: " ${arrf[0]} " mm/h"
+            echo "Pioggia max: " ${arrf[1]} " mm/h"
+    fi
     if (( ${arrf[1]} == 0 ))
-        then echo "Nessun fenomeno"
+        then echo "Nessun fenomeno piovoso"
     elif (( ${arrf[1]} > 0 && ${arrf[1]} <= 1 ))
         then echo "Pioviggine"
     elif (( ${arrf[1]} > 1 && ${arrf[1]} <= 2 ))
