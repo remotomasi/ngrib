@@ -160,24 +160,24 @@ do
 
     echo
     mean_value_decimal $d 7
-    if (( ${arrf[1]} > 0 ))
+    if (( $(echo "${arrf[1]} > 0" | bc -l) ))
         then 
             echo "Pioggia media: " ${arrf[0]} " mm/h"
             echo "Pioggia max: " ${arrf[1]} " mm/h"
     fi
-    if (( ${arrf[1]} == 0 ))
+    if (( $(echo "${arrf[1]} == 0" | bc -l) ))
         then echo "Nessun fenomeno piovoso"
-    elif (( ${arrf[1]} > 0 && ${arrf[1]} <= 1 ))
+    elif (( $(echo "${arrf[1]} > 0 && ${arrf[1]} <= 1" | bc -l) ))
         then echo "Pioviggine"
-    elif (( ${arrf[1]} > 1 && ${arrf[1]} <= 2 ))
+    elif (( $(echo "${arrf[1]} > 1 && ${arrf[1]} <= 2" | bc -l) ))
         then echo "Brezza vivace o tesa"
-    elif (( ${arrf[1]} > 2 && ${arrf[1]} <= 6 ))
+    elif (( $(echo "${arrf[1]} > 2 && ${arrf[1]} <= 6" | bc -l) ))
         then echo "Pioggia moderata"
-    elif (( ${arrf[1]} > 6 && ${arrf[1]} <= 10 ))
+    elif (( $(echo "${arrf[1]} > 6 && ${arrf[1]} <= 10" | bc -l) ))
         then echo "Rovescio"
-    elif (( ${arrf[1]} > 10 && ${arrf[1]} <= 30 ))
+    elif (( $(echo "${arrf[1]} > 10 && ${arrf[1]} <= 30" | bc -l) ))
         then echo "Tempesta"
-    elif (( ${arrf[1]} > 30 ))
+    elif (( $(echo "${arrf[1]} > 30" | bc -l) ))
         then echo "Nubifragio"
     fi
     echo
