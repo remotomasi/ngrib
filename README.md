@@ -4,9 +4,9 @@ Download of weather data directly from NOAA using bash.
 ### Prerequisites
 
 To execute the program you need to install wgrib2 for Linux users.
-For Windows users I added wgrib2.exe and needed .dll files. Another requirements is the installation of *gnuplot*, *imagemagick*, *xvfb* and *cutycapt*:
+For Windows users I added wgrib2.exe and needed .dll files. Other softwares needed to be installed like *gnuplot*, *imagemagick*, *xvfb*, *cutycapt* and *dc*:
 ```gnuplot
-$ sudo apt-get install gnuplot && imagemagick && xvfb
+$ sudo apt-get install gnuplot && imagemagick && xvfb && dc
 ```
 
 ## Usage (Optional)
