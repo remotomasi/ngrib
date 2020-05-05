@@ -119,7 +119,7 @@ do
     echo
 
     echo "Cielo:"
-    if (( $TCDCB > $TCDCM ))
+    if (( $TCDCB >= $TCDCM ))
         then
         if (( $TCDCB < 5 ))
             then echo "Sereno"
@@ -137,7 +137,7 @@ do
     if (( $TCDCB < $TCDCM ))
         then
         if (( $TCDCM < 5 ))
-            then echo "Sereno"
+            then echo ""
         elif (( $TCDCM >= 5 )) && (( $TCDCM < 30 ))
             then echo "Poco nuvoloso"
         elif (( $TCDCM >= 50 )) && (( $TCDCM < 80 ))
@@ -150,7 +150,7 @@ do
     if (( $TCDCB < $TCDCM )) && (( $TCDCM < $TCDCA))
         then
         if (( $TCDCA < 30 ))
-            then echo "Sereno"
+            then echo ""
         elif (( $TCDCA >= 30 )) && (( $TCDCA < 70 ))
             then echo "Leggermente velato"
         elif (( $TCDCA >= 70 ))
