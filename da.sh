@@ -137,7 +137,7 @@ do
     if (( $TCDCB < $TCDCM ))
         then
         if (( $TCDCM < 5 ))
-            then echo ""
+            then echo "Sereno"
         elif (( $TCDCM >= 5 )) && (( $TCDCM < 30 ))
             then echo "Poco nuvoloso"
         elif (( $TCDCM >= 50 )) && (( $TCDCM < 80 ))
