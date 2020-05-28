@@ -170,7 +170,7 @@ do
     elif (( $(echo "${arrf[1]} > 0 && ${arrf[1]} <= 1" | bc -l) ))
         then echo "Pioviggine"
     elif (( $(echo "${arrf[1]} > 1 && ${arrf[1]} <= 2" | bc -l) ))
-        then echo "Brezza vivace o tesa"
+        then echo "Pioggia debole"
     elif (( $(echo "${arrf[1]} > 2 && ${arrf[1]} <= 6" | bc -l) ))
         then echo "Pioggia moderata"
     elif (( $(echo "${arrf[1]} > 6 && ${arrf[1]} <= 10" | bc -l) ))
