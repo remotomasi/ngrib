@@ -1,5 +1,5 @@
 # ngrib
-Download of weather data directly from NOAA using bash.
+Download and plot of weather data directly from NOAA using bash.
 
 ### Prerequisites
 
