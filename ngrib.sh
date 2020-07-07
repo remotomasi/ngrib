@@ -30,9 +30,9 @@ hh=""
 if ([ "$o" -ge 0 ] && [ "$o" -lt 8 ] || [ "$o" -ge 23 ]) # && [ "$m" -ge 15 ])
 	then hh="18"
 		today=$(date +%Y%m%d -d "yesterday")
-elif [ "$o" -ge 8 ] && [ "$o" -lt 11 ]
+elif [ "$o" -ge 8 ] && [ "$o" -lt 12 ]
 	then hh="00"
-elif [ "$o" -ge 11 ] && [ "$o" -lt 17 ]
+elif [ "$o" -ge 12 ] && [ "$o" -lt 17 ]
 	then hh="06"
 elif [ "$o" -ge 17 ]
 	then hh="12"
@@ -57,7 +57,7 @@ if [[ $unameOut == *"Ubuntu"* ]]
 		command="wgrib2"
 elif [[ $unameOut == *"Microsoft"* ]]
 	then
-		command="wgrib2.exe" 
+		command="wgrib2.exe"
 fi
 
 # curl VERSION
@@ -169,8 +169,8 @@ cat final.txt | tr '|' ' ' | tr ',' ' ' | tr '"' ' ' | cut -d' ' -f2- > final2.c
 sed -i -e 's/  / /g;s/:00:00/ /g;s/  / /g' final2.csv
 awk '{if (NR>=3&&NR<46) print $0, NR }' final2.csv > final3.csv	# added the number of the line at the end of each of them
 
-if [ -d graphs ]   # control if the imageFiles folder exists 
-then 
+if [ -d graphs ]   # control if the imageFiles folder exists
+then
     echo "..creating folder"
 else
     $(mkdir graphs)
@@ -203,6 +203,6 @@ mv *.html data
 
 # snow levels
 ./snowLine.sh
- 
+
 # generate of simple forecasts
 ./simpleWeather.sh

@@ -51,8 +51,8 @@ do
         echo $TCDCB
     }
 
-    if (( $d > 0 )); then db=$(( $d - 1 )); else db=0; fi 
-    
+    if (( $d > 0 )); then db=$(( $d - 1 )); else db=0; fi
+
     # Temperature
     TEMP=$(mean_value $d 3)
     TEMP1=$(mean_value $db 3)
@@ -78,22 +78,22 @@ do
     WPA=$(bc <<< "scale=0; sqrt($WP1*$WP1+$WP2*$WP2)")
     WPB=$(bc <<< "scale=0; sqrt($WP3*$WP3+$WP4*$WP4)")
 
-    # Previsioni 
+    # Previsioni
     echo
     echo "Per giorno " $(date +%d-%m-%Y --date="$d day")
     echo "----------------------------"
     echo
     echo "Temperature medie: " $TEMP " °C"
     if (( $TEMP < $TEMP1 ))
-        then echo "In calo"
+        then echo "In calo di $(( $TEMP1 - $TEMP )) °C"
     elif (( $TEMP > $TEMP1 ))
-        then echo "In rialzo"
+        then echo "In rialzo di $(( $TEMP - $TEMP1)) °C"
     elif (( $TEMP == $TEMP1 ))
         then echo "Senza variazioni"
     fi
     echo
 
-    echo "Vento (vel. media): " $WPB " km/h " $WPBA 
+    echo "Vento (vel. media): " $WPB " km/h " $WPBA
     if (( $WPB <= 19 ))
         then echo "Calmo, leggero o brezza"
     elif (( $WPB > 19 && $WPB <= 38 ))
@@ -110,9 +110,9 @@ do
         then echo "Uragano"
     fi
     if (( $WPB < $WPA ))
-        then echo "In attenuazione"
+        then echo "In attenuazione di $(( $WPA - $WPB )) km/h"
     elif (( $WPB > $WPA ))
-        then echo "In aumento"
+        then echo "In aumento di $(( $WPB - $WPA )) km/h"
     elif (( $WPB == $WPA ))
         then echo "Senza variazioni"
     fi
@@ -132,7 +132,7 @@ do
         elif (( $TCDCB >= 80 ))
             then echo "Coperto"
         fi
-    fi 
+    fi
 
     if (( $TCDCB < $TCDCM ))
         then
@@ -161,7 +161,7 @@ do
     echo
     mean_value_decimal $d 7
     if (( $(echo "${arrf[1]} > 0" | bc -l) ))
-        then 
+        then
             echo "Pioggia media: " ${arrf[0]} " mm/h"
             echo "Pioggia max: " ${arrf[1]} " mm/h"
     fi
