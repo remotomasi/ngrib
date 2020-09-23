@@ -147,7 +147,7 @@ do
         then WDDE="S"
     elif (( $WDD > 295 && $WDD <= 335 ))
         then WDDE="SE"
-    elif (( $WDD = "no" ))
+    elif (( $WP3 = 0 && $WP4 = 0 ))
         then WDDE="No direction"
     fi
     echo "Vento (direzione): " $WDDE "(" $WDD "°) "
