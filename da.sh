@@ -8,7 +8,7 @@ do
     echo "Inserisci il giorno (0=oggi, 1=domani, 2=dopodomani, 3 or >3=esci)"
     read d
 
-    if [ ${#d} -ne 1 ] || [ "$d" -gt 2 ] || [ echo $d | grep -Ev ^[0-3] ] || [ echo $d | grep -E ^[a-z] ]
+    if ! [[ "$d" =~ ^[0-9]+$ ]] || [[ "$d" -lt 0 ]] || [[ "$d" -gt 2 ]] || [[ ! -z "$(echo $d | grep -Ev '^[0-3]')" ]] || [[ ! -z "$(echo $d | grep -E '^[a-z]')" ]]
         then break
     fi
 
@@ -20,8 +20,9 @@ do
         ./simpleWeather.sh
     fi
 
-    clear
+    clear   # pulisco il monitor
 
+    # funzione di calcolo della media sui 4 valori in base ai parametri del giorno e della colonna
     mean_value() {
         VAR=$(cat sw.csv | grep $(date +%Y-%m-%d --date="$1 day") | tr ',' '\t' | cut -d$'\t' -f$2 | tail -4)
         arr=( $VAR )
@@ -31,6 +32,7 @@ do
         echo $MEAN
     }
 
+    # funzione di calcolo della media con 2 decimali sui 4 valori in base ai parametri del giorno e della colonna
     mean_value_decimal() {
         VAR=$(cat sw.csv | grep $(date +%Y-%m-%d --date="$1 day") | tr ',' '\t' | cut -d$'\t' -f$2 | tail -4)
         arr=( $VAR )
@@ -42,6 +44,7 @@ do
         #echo $arrf
     }
 
+    # funzione di calcolo della media intera sui 4 valori in base ai parametri del giorno e della colonna
     mean_value_int() {
         VAR=$(cat sw.csv | grep $(date +%Y-%m-%d --date="$d day") | tr ',' '\t' | cut -d$'\t' -f$2 | tail -4)
         arr=( $VAR )
@@ -51,6 +54,7 @@ do
         echo $TCDCB
     }
 
+    # in base al giorno scelto decido se inserire anche il giorno prima
     if (( $d > 0 )); then db=$(( $d - 1 )); else db=0; fi
 
     # Temperature
@@ -62,14 +66,6 @@ do
     TCDCM=$(mean_value_int $d 9)
     TCDCA=$(mean_value_int $d 10)
 
-    #echo $TOT "-" $TEMP "- " $TEMP1 "-" $TCDCB "-" $TCDCM "-" $TCDCA
-
-    #VAR=$(cat sw.csv | grep $(date +%Y-%m-%d --date="$d day") | tr ',' '\t' | cut -d$'\t' -f7 | tail -4)
-    #arr=( $VAR )
-    #R=$(dc <<< '[+]sa[z2!>az2!>b]sb'"${arr[*]//-/_}lbxp")
-    #P=$(echo "scale=2; ${R}/${#arr[@]}" | bc)
-    #PM=$(echo "${arr[*]}" | tr ' ' '\n' | sort -nr | head -n1)
-
     # Vento
     WP1=$(mean_value $db 5)
     WP2=$(mean_value $db 6)
@@ -77,6 +73,21 @@ do
     WP4=$(mean_value $d 6)
     WPA=$(bc <<< "scale=0; sqrt($WP1*$WP1+$WP2*$WP2)")
     WPB=$(bc <<< "scale=0; sqrt($WP3*$WP3+$WP4*$WP4)")
+
+    if (( $(echo "$WP3 == 0" |bc -l) ))
+      then WP3=0.01
+    fi
+
+    # funzione di calcolo dell'arcotangente2 (per la direzione del vento)
+    awk 'BEGIN {
+       PI = 3.14159265
+       x = '$WP3'
+       y ='$WP4'
+       result = atan2 (y,x) * 180 / PI + 180;
+       printf "%i", result
+    }' > WDD
+
+    WDD=$(cat WDD)
 
     # Previsioni
     echo
@@ -93,6 +104,7 @@ do
     fi
     echo
 
+    # Vento: potenza
     echo "Vento (vel. media): " $WPB " km/h " $WPBA
     if (( $WPB <= 19 ))
         then echo "Calmo, leggero o brezza"
@@ -116,8 +128,33 @@ do
     elif (( $WPB == $WPA ))
         then echo "Senza variazioni"
     fi
+
+    WDDE=''
+    # Vento: direzione
+    if (( $WDD > 335 || $WDD <= 25 ))
+        then WDDE="E"
+    elif (( $WDD > 25 && $WDD <= 65 ))
+        then WDDE="NE"
+    elif (( $WDD > 65 && $WDD <= 115 ))
+        then WDDE="N"
+    elif (( $WDD > 115 && $WDD <= 155 ))
+        then WDDE="NW"
+    elif (( $WDD > 155 && $WDD <= 205 ))
+        then WDDE="W"
+    elif (( $WDD > 205 && $WDD <= 245 ))
+        then WDDE="SW"
+    elif (( $WDD > 245 && $WDD <= 295 ))
+        then WDDE="S"
+    elif (( $WDD > 295 && $WDD <= 335 ))
+        then WDDE="SE"
+    elif (( $WDD = "no" ))
+        then WDDE="No direction"
+    fi
+    echo "Vento (direzione): " $WDDE "(" $WDD "°) "
+    rm WDD
     echo
 
+    # Nuvolosita'
     echo "Cielo:"
     if (( $TCDCB >= $TCDCM ))
         then
@@ -158,6 +195,7 @@ do
         fi
     fi
 
+    # Pioggia
     echo
     mean_value_decimal $d 7
     if (( $(echo "${arrf[1]} > 0" | bc -l) ))
