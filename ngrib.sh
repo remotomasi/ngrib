@@ -187,7 +187,7 @@ gnuplot -e "run=$run" ./precTypes.pg > graphs/precTypes.png
 gnuplot -e "run=$run" ./health.pg > graphs/health.png
 gnuplot -e "run=$run" ./stability.pg > graphs/stability.png
 
-convert \( graphs/clouds.png graphs/health.png graphs/precipitations.png  -append \) \( graphs/temperatures.png graphs/hgt.png graphs/precTypes.png -append \) \( graphs/weather.png graphs/pressureWind.png graphs/cape-lftx.png  -append \) +append graphs/weatherForecastFinal.png
+convert \( graphs/clouds.png graphs/health.png graphs/precipitations.png  -append \) \( graphs/temperatures.png graphs/hgt.png graphs/precTypes.png -append \) \( graphs/weather.png graphs/pressureWind.png graphs/cape-lftx.png  -append \) \( graphs/stability.png -append \) +append graphs/weatherForecastFinal.png
 
 # clean last created files
 rm final2.csv
