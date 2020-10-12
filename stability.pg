@@ -4,6 +4,25 @@ set terminal pngcairo truecolor
 set termoption dashed
 set term pngcairo size 1024,600 #800 pixels by 600 pixels
 
+data = 'final3.csv'
+# Retrieve statistical properties for VVEL7
+stats data using 1:17
+set timefmt "%Y-%m-%d %H:%M"
+stats [time(0):time(0) + 5*24*60*60] 'final3.csv' u (timecolumn(1)):17
+max_yVVEL7 = STATS_max_y
+max_pos_yVVEL7 = STATS_pos_max_y
+min_yVVEL7 = STATS_min_y
+min_pos_yVVEL7 = STATS_pos_min_y
+
+# Retrieve statistical properties for VVEL5
+stats data using 1:9
+set timefmt "%Y-%m-%d %H:%M"
+stats [time(0):time(0) + 5*24*60*60] 'final3.csv' u (timecolumn(1)):9
+max_yVVEL5 = STATS_max_y
+max_pos_yVVEL5 = STATS_pos_max_y
+min_yVVEL5 = STATS_min_y
+min_pos_yVVEL5 = STATS_pos_min_y
+
 set multiplot layout 2,1 scale 1,1
 
 ## 1 ##
@@ -16,9 +35,17 @@ set format x "h%H\n%d/%m\n%a"
 set xlabel "Time"
 set xtics font ", 10"
 
+maxval = max_yVVEL5*36
+minval = min_yVVEL5*36
+if (abs(max_yVVEL7) > abs(max_yVVEL5)) maxval = max_yVVEL7*36
+if (abs(min_yVVEL7) > abs(min_yVVEL5)) minval = min_yVVEL7*36
+
+print maxval
+
 unset ytics
-set y2tics 20
-set autoscale y2
+set y2tics floor(maxval/2)
+set y2range [minval:maxval]
+#set autoscale y2
 set y2label 'hPa/h'
 
 set title "Weather Forecast GFS Model - NOAA (500hPa VVEL/700hPa VVEL) RUN:" . run . "z"
@@ -30,6 +57,8 @@ set grid
 set style data lines
 set style fill transparent solid 0.3
 
+#set label sprintf("< %4.4g",max_yVVEL5*36) at second max_pos_yVVEL5, second max_yVVEL5*36 left tc rgb "blue"
+#set label sprintf("< %4.4g",max_yVVEL7*36) at second max_pos_yVVEL7, second max_yVVEL7*36 left tc rgb "dark-yellow"
 plot "final3.csv" using 1:($17*36) title "VVEL7" lw 2 lt 1 lc "dark-blue" axis x1y2, \
 "" using 1:($9*36) title "VVEL5" lw 2 lt 1 lc "dark-yellow" axis x1y2, \
 0 dt 3 lc rgb "dark-green" lw 2 notitle axis x1y2
