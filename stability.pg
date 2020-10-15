@@ -41,7 +41,6 @@ if (abs(max_yVVEL7) > abs(max_yVVEL5)) maxval = max_yVVEL7*36
 if (abs(min_yVVEL7) > abs(min_yVVEL5)) minval = min_yVVEL7*36
 
 maxamp = maxval - minval
-if (abs(minval) > maxmax) maxmax = abs(minval)
 
 unset ytics
 set y2tics floor(maxamp/5)
