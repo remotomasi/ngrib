@@ -32,9 +32,9 @@ if ([ "$o" -ge 0 ] && [ "$o" -lt 8 ] || [ "$o" -ge 23 ]) # && [ "$m" -ge 15 ])
 		today=$(date +%Y%m%d -d "yesterday")
 elif [ "$o" -ge 8 ] && [ "$o" -lt 12 ]
 	then hh="00"
-elif [ "$o" -ge 12 ] && [ "$o" -lt 17 ]
+elif [ "$o" -ge 12 ] && [ "$o" -lt 18 ]
 	then hh="06"
-elif [ "$o" -ge 17 ]
+elif [ "$o" -ge 18 ]
 	then hh="12"
 fi
 
