@@ -9,7 +9,7 @@ For Windows users I added wgrib2.exe and needed .dll files. Other softwares need
 $ sudo apt-get install gnuplot && imagemagick && xvfb && dc
 ```
 
-## Usage (Optional)
+## Usage
 you have to insert you coordinates after the bash program name, i.e.:
 ```bash
 $ ./ngrib.sh 45.35 22.74
