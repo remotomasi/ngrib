@@ -40,7 +40,13 @@ set y2tics offset -1,0
 set y2label '% Chance' textcolor rgb "red"
 set y2label offset -4,0
 
-set title "Weather Forecast GFS Model - NOAA (Rain-Frozen/Freezing-Snow) RUN:" . run . "z"
+run(n) = sprintf("%d",n)
+coord(n) = sprintf("%g",n)
+
+run(n) = sprintf("%d",n)
+coord(n) = sprintf("%g",n)
+
+set title "Weather Forecast GFS Model - NOAA (Rain-Frozen/Freezing-Snow) RUN:".run(run)."z - "."Lat: ".coord(lat)." - "."Lon: ".coord(lon)
 set key lmargin
 set key font ",10"
 set grid

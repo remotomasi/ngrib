@@ -47,7 +47,10 @@ set y2tics 10
 #set y2range [0:100]
 set y2label 'Km/h' textcolor rgb "orange"
 
-set title "Weather Forecast GFS Model - NOAA (Pressure-Wind) RUN:" . run . "z"
+run(n) = sprintf("%d",n)
+coord(n) = sprintf("%g",n)
+
+set title "Weather Forecast GFS Model - NOAA (Pressure-Wind) RUN:".run(run)."z - "."Lat: ".coord(lat)." - "."Lon: ".coord(lon)
 set key lmargin
 set grid
 set size 1, 1 # ratio 1:1

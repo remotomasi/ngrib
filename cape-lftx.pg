@@ -49,7 +49,10 @@ set y2tics 1
 #set y2range [-6:15]
 set y2label '°K' textcolor rgb "purple"
 
-set title "Weather Forecast GFS Model - NOAA (Cape-LiftedIndex-Cin) RUN:" . run . "z"
+run(n) = sprintf("%d",n)
+coord(n) = sprintf("%g",n)
+
+set title "Weather Forecast GFS Model - NOAA (Cape-LiftedIndex-Cin) RUN:".run(run)."z -"."Lat: ".coord(lat)." - "."Lon: ".coord(lon)
 set key lmargin
 set key font ",10"
 set grid

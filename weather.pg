@@ -55,7 +55,11 @@ set y2tics offset -1,0
 set y2label '% - Km/h' textcolor rgb "cyan"
 set y2label offset -4,0
 
-set title "Weather Forecast GFS Model - NOAA RUN:" . run . "z"
+run(n) = sprintf("%d",n)
+coord(n) = sprintf("%g",n)
+
+set title "Weather Forecast GFS Model - NOAA RUN:".run(run)."z - "."Lat: ".coord(lat)." - "."Lon: ".coord(lon)
+#"Coord: lat:".lat." lon:".lon." "
 set key lmargin
 set key font ",10"
 set grid

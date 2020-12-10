@@ -200,16 +200,16 @@ else
     $(mkdir graphs)
 fi
 
-gnuplot -e "run=$run" ./weather.pg > graphs/weather.png
-gnuplot -e "run=$run" ./pressureWind.pg > graphs/pressureWind.png
-gnuplot -e "run=$run" ./precipitations.pg > graphs/precipitations.png
-gnuplot -e "run=$run" ./clouds.pg > graphs/clouds.png
-gnuplot -e "run=$run" ./hgt.pg > graphs/hgt.png
-gnuplot -e "run=$run" ./temperatures.pg > graphs/temperatures.png
-gnuplot -e "run=$run" ./cape-lftx.pg > graphs/cape-lftx.png
-gnuplot -e "run=$run" ./precTypes.pg > graphs/precTypes.png
-gnuplot -e "run=$run" ./health.pg > graphs/health.png
-gnuplot -e "run=$run" ./stability.pg > graphs/stability.png
+gnuplot -e "run=$run;lat=$lat;lon=$lon" ./weather.pg > graphs/weather.png
+gnuplot -e "run=$run;lat=$lat;lon=$lon" ./pressureWind.pg > graphs/pressureWind.png
+gnuplot -e "run=$run;lat=$lat;lon=$lon" ./precipitations.pg > graphs/precipitations.png
+gnuplot -e "run=$run;lat=$lat;lon=$lon" ./clouds.pg > graphs/clouds.png
+gnuplot -e "run=$run;lat=$lat;lon=$lon" ./hgt.pg > graphs/hgt.png
+gnuplot -e "run=$run;lat=$lat;lon=$lon" ./temperatures.pg > graphs/temperatures.png
+gnuplot -e "run=$run;lat=$lat;lon=$lon" ./cape-lftx.pg > graphs/cape-lftx.png
+gnuplot -e "run=$run;lat=$lat;lon=$lon" ./precTypes.pg > graphs/precTypes.png
+gnuplot -e "run=$run;lat=$lat;lon=$lon" ./health.pg > graphs/health.png
+gnuplot -e "run=$run;lat=$lat;lon=$lon" ./stability.pg > graphs/stability.png
 
 convert \( graphs/clouds.png graphs/health.png graphs/precipitations.png  -append \) \( graphs/temperatures.png graphs/hgt.png graphs/precTypes.png -append \) \( graphs/weather.png graphs/pressureWind.png graphs/cape-lftx.png  -append \) \( graphs/stability.png -append \) +append graphs/weatherForecastFinal.png
 

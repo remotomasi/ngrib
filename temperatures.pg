@@ -71,7 +71,10 @@ set y2tics 5
 #set y2range [-50:50]
 set y2label '°C'
 
-set title "Weather Forecast GFS Model - NOAA (Temperatures) RUN:" . run . "z"
+run(n) = sprintf("%d",n)
+coord(n) = sprintf("%g",n)
+
+set title "Weather Forecast GFS Model - NOAA (Temperatures) RUN:".run(run)."z - "."Lat: ".coord(lat)." - "."Lon: ".coord(lon)
 set key lmargin
 set key font ",10"
 set grid
