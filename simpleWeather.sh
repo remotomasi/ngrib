@@ -1,6 +1,6 @@
 #!/bin/bash
 
-cat final.txt | cut -d',' -f1,41,43,44,45,50,39,67,68,69 | sed '/03:00/d;/09:00/d;/15:00/d;/21:00/d' > sw.csv
+cat final.txt | cut -d',' -f1,41,43,44,45,50,39,67,68,69,58,59 | sed '/03:00/d;/09:00/d;/15:00/d;/21:00/d' > sw.csv
 sed -i -e '/03:00/d;/09:00/d;/15:00/d;/21:00/d' sw.csv
 #sed '/00:00/d;/03:00/d;/15:00/d;/21:00/d' final.html > finalImages2.html
 #sed '1d;2d;3d;27d;28d' finalImages2.html > finalImages3.html
@@ -14,32 +14,32 @@ sed -i -e '/03:00/d;/09:00/d;/15:00/d;/21:00/d' sw.csv
 awk 'BEGIN{FS=OFS=","}
 function windDirection(x) {
 	if ((x > 335) || (x <= 25)) {
-		print $1,int($3),int($4),int((sqrt($5*$5+$6*$6))),"N",$7,$8,$9,$10,$2*100
+		print $1,int($3),int($4),int((sqrt($5*$5+$6*$6))),"N",$7,$8,$9,$2*100,$10,$11,$12
     }
 	else if	((x > 25) && (x <= 65)) {
-		print $1,int($3),int($4),int((sqrt($5*$5+$6*$6))),"NE",$7,$8,$9,$10,$2*10
+		print $1,int($3),int($4),int((sqrt($5*$5+$6*$6))),"NE",$7,$8,$9,$2*100,$10,$11,$12
     }
 	else if ((x > 65) && (x <= 115)) {
-		print $1,int($3),int($4),int((sqrt($5*$5+$6*$6))),"E",$7,$8,$9,$10,$2*100
+		print $1,int($3),int($4),int((sqrt($5*$5+$6*$6))),"E",$7,$8,$9,$2*100,$10,$11,$12
     }
 	else if ((x > 115) && (x <= 155)) {
-		print $1,int($3),int($4),int((sqrt($5*$5+$6*$6))),"SE",$7,$8,$9,$10,$2*100
+		print $1,int($3),int($4),int((sqrt($5*$5+$6*$6))),"SE",$7,$8,$9,$2*100,$10,$11,$12
     }
 	else if ((x > 155) && (x <= 205)) {
-		print $1,int($3),int($4),int((sqrt($5*$5+$6*$6))),"S",$7,$8,$9,$10,$2*100
+		print $1,int($3),int($4),int((sqrt($5*$5+$6*$6))),"S",$7,$8,$9,$2*100,$10,$11,$12
     }
 	else if ((x > 205) && (x <= 245)) {
-		print $1,int($3),int($4),int((sqrt($5*$5+$6*$6))),"SE",$7,$8,$9,$10,$2*100
+		print $1,int($3),int($4),int((sqrt($5*$5+$6*$6))),"SE",$7,$8,$9,$2*100,$10,$11,$12
     }
 	else if ((x > 245) && (x <= 295)) {
-		print $1,int($3),int($4),int((sqrt($5*$5+$6*$6))),"W",$7,$8,$9,$10,$2*100
+		print $1,int($3),int($4),int((sqrt($5*$5+$6*$6))),"W",$7,$8,$9,$2*100,$10,$11,$12
     }
 	else if ((x > 295) && (x <= 335)) {
-		print $1,int($3),int($4),int((sqrt($5*$5+$6*$6))),"NW",$7,$8,$9,$10,$2*100
+		print $1,int($3),int($4),int((sqrt($5*$5+$6*$6))),"NW",$7,$8,$9,$2*100,$10,$11,$12
     }
 }
 {if (NR>=3) print windDirection((atan2($5,$6)*57.3+180)) }'  sw.csv > swImages1.csv		# added function that transform direction from degree to a capital letter
-awk 'BEGIN{FS=OFS=","}{if (NR<3) print $1,$3,$4,$5,$6,$7,$8,$9,$10,$2 }' sw.csv > swImages.csv
+awk 'BEGIN{FS=OFS=","}{if (NR<3) print $1,$3,$4,$5,$6,$7,$8,$9,$2,$10,$11,$12 }' sw.csv > swImages.csv
 
 cat swImages1.csv >> swImages.csv
 
@@ -61,6 +61,8 @@ sed -i -e 's/surface/Superficie/g' sw.html
 sed -i -e 's/low_cloud/Bassa/g' sw.html
 sed -i -e 's/middle_cloud/Media/g' sw.html
 sed -i -e 's/high_cloud/Alta/g' sw.html
+sed -i -e 's/CRAIN/Prob.Pioggia/g' sw.html
+sed -i -e 's/CSNOW/Prob.Neve/g' sw.html
 
 # restoration of some title: 100 -> TCDC // 100 -> high_cloud
 sed -i -e 's/TCDC <\/td><td>100</TCDC <\/td><td> TCDC </g' sw.html
@@ -82,7 +84,7 @@ sed -i -e 's/>NW</><img src="icons\/nw.png" class="center" height="20" width="20
 
 # Titles
 h=()
-for l in {4..12..1}
+for l in {4..14..1}
     do h+=($l)
 done
 
@@ -93,7 +95,7 @@ done
 
 # Temperatures
 h=()
-for l in {26..299..13}
+for l in {30..345..15}
     do h+=($l)
 done
 
@@ -133,7 +135,7 @@ done
 
 # Humidity
 h=()
-for l in {27..300..13}
+for l in {31..346..15}
     do h+=($l)
 done
 
@@ -155,7 +157,7 @@ done
 
 # Wind power
 h=()
-for l in {28..301..13}
+for l in {32..347..15}
     do h+=($l)
 done
 
@@ -202,7 +204,7 @@ done
 
 # Precipitations rate
 h=()
-for l in {30..303..13}
+for l in {34..349..15}
     do h+=($l)
 done
 
@@ -222,9 +224,57 @@ do
     fi
 done
 
+# Rain prob
+h=()
+for l in {35..350..15}
+    do h+=($l)
+done
+
+for i in "${h[@]}"
+do
+    val=$(cat sw.html | grep "id=$(echo $i)>" | awk -F[=\>] '{print $3}' | awk -F[=\<] '{print $1}')
+    if (( $(echo "$val == 0" |bc -l) ))
+        then sed -i -e "s/id=$(echo $i)\>/id=$(echo $i) style=\"background-color: White; color: black\"/g" sw.html
+    elif (( $(echo "$val > 0" |bc -l) ))
+        then sed -i -e "s/id=$(echo $i)\>/id=$(echo $i) style=\"background-color: Yellow; color: black\"/g" sw.html
+    fi
+done
+
+# Snow
+h=()
+for l in {36..351..15}
+    do h+=($l)
+done
+
+for i in "${h[@]}"
+do
+    val=$(cat sw.html | grep "id=$(echo $i)>" | awk -F[=\>] '{print $3}' | awk -F[=\<] '{print $1}')
+    if (( $(echo "$val == 0" |bc -l) ))
+        then sed -i -e "s/id=$(echo $i)\>/id=$(echo $i) style=\"background-color: White; color: black\"/g" sw.html
+    elif (( $(echo "$val > 0" |bc -l) ))
+        then sed -i -e "s/id=$(echo $i)\>/id=$(echo $i) style=\"background-color: Yellow; color: black\"/g" sw.html
+    fi
+done
+
+# Snow
+h=()
+for l in {37..352..15}
+    do h+=($l)
+done
+
+for i in "${h[@]}"
+do
+    val=$(cat sw.html | grep "id=$(echo $i)>" | awk -F[=\>] '{print $3}' | awk -F[=\<] '{print $1}')
+    if (( $(echo "$val == 0" |bc -l) ))
+        then sed -i -e "s/id=$(echo $i)\>/id=$(echo $i) style=\"background-color: White; color: black\"/g" sw.html
+    elif (( $(echo "$val > 0" |bc -l) ))
+        then sed -i -e "s/id=$(echo $i)\>/id=$(echo $i) style=\"background-color: Yellow; color: black\"/g" sw.html
+    fi
+done
+
 # Cloud cover low
 h=()
-for l in {31..304..13}
+for l in {38..353..15}
     do h+=($l)
 done
 
@@ -248,7 +298,7 @@ done
 
 # Cloud cover middle
 h=()
-for l in {32..305..13}
+for l in {39..354..15}
     do h+=($l)
 done
 
@@ -272,7 +322,7 @@ done
 
 # Cloud cover high
 h=()
-for l in {33..306..13}
+for l in {40..355..15}
     do h+=($l)
 done
 
@@ -294,25 +344,9 @@ do
     fi
 done
 
-# Snow
-h=()
-for l in {34..307..13}
-    do h+=($l)
-done
-
-for i in "${h[@]}"
-do
-    val=$(cat sw.html | grep "id=$(echo $i)>" | awk -F[=\>] '{print $3}' | awk -F[=\<] '{print $1}')
-    if (( $(echo "$val == 0" |bc -l) ))
-        then sed -i -e "s/id=$(echo $i)\>/id=$(echo $i) style=\"background-color: White; color: black\"/g" sw.html
-    elif (( $(echo "$val > 0" |bc -l) ))
-        then sed -i -e "s/id=$(echo $i)\>/id=$(echo $i) style=\"background-color: Yellow; color: black\"/g" sw.html
-    fi
-done
-
 # Transform the html into an image
 now=$(date +%d%m%Y_%H%M)
 xvfb-run --server-args="-screen 0, 1024x768x24" cutycapt --url=file://$PWD/sw.html --out=/$PWD/imageFiles/finalSW_$now.png
 
 # remove useless files
-rm swImages1.csv swImages.csv
+#rm swImages1.csv swImages.csv

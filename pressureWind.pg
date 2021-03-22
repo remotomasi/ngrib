@@ -67,7 +67,7 @@ plot "final3.csv" using 1:80 title "Pres", \
 "" u 90:(10):(0.05*$81*cos(90-$82)):(0.05*$81*sin(90-$82)) with vectors nohead lw 2 lc rgb "dark-green" title "Wind" axes x2y2, \
 "" u 90:(10) w p lt 2 pt 7 ps 1.5 notitle axes x2y2, \
 "" u 1:81 title "WSpd" axes x1y2, \
-"" u 1:4 title "GUST" dt 3 lc rgb "red" lw 1 axes x1y2, \
+"" u 1:($4>0?$4:1/0) title "GUST" dt 3 lc rgb "red" lw 1 axes x1y2, \
 "" u 1:(max_yW>=118?118:1/0) dt 2 lc rgb "orange" lw 1 axes x1y2 notitle, \
 "" u 1:(max_yW>=103 && max_yW<=117?103:1/0) dt 2 lc rgb "orange" lw 1 axes x1y2 notitle, \
 "" u 1:(max_yW>=89 && max_yW<=102?89:1/0) dt 2 lc rgb "orange" lw 1 axes x1y2 notitle, \
