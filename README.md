@@ -12,7 +12,7 @@ $ sudo apt-get install gnuplot && imagemagick && xvfb && dc && cutycapt
 ## Usage
 you have to insert you coordinates after the bash program name, i.e.:
 ```bash
-$ ./ngrib.sh 45.35 22.74
+$ ./ngrib.sh 45.3 22.7
 ```
 
 
