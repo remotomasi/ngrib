@@ -6,45 +6,45 @@ set term pngcairo size 1024,600 #800 pixels by 600 pixels
 
 data = 'final3.csv'
 # Retrieve statistical properties for 1000-850
-stats data using 1:84
+stats data using 1:81
 set timefmt "%Y-%m-%d %H:%M"
-stats [time(0):time(0) + 5*24*60*60] 'final3.csv' u (timecolumn(1)):84
+stats [time(0):time(0) + 5*24*60*60] 'final3.csv' u (timecolumn(1)):81
 max_yM8 = STATS_max_y
 max_pos_yM8 = STATS_pos_max_y
 min_yM8 = STATS_min_y
 min_pos_yM8 = STATS_pos_min_y
 
 # Retrieve statistical properties for 1000-700
-stats data using 1:85
+stats data using 1:82
 set timefmt "%Y-%m-%d %H:%M"
-stats [time(0):time(0) + 5*24*60*60] 'final3.csv' u (timecolumn(1)):85
+stats [time(0):time(0) + 5*24*60*60] 'final3.csv' u (timecolumn(1)):82
 min_yM7 = STATS_min_y
 min_pos_yM7 = STATS_pos_min_y
 max_yM7 = STATS_max_y
 max_pos_yM7 = STATS_pos_max_y
 
 # Retrieve statistical properties for 1000-500
-stats data using 1:86
+stats data using 1:83
 set timefmt "%Y-%m-%d %H:%M"
-stats [time(0):time(0) + 5*24*60*60] 'final3.csv' u (timecolumn(1)):86
+stats [time(0):time(0) + 5*24*60*60] 'final3.csv' u (timecolumn(1)):83
 min_yM5 = STATS_min_y
 min_pos_yM5 = STATS_pos_min_y
 max_yM5 = STATS_max_y
 max_pos_yM5 = STATS_pos_max_y
 
 # Retrieve statistical properties for 850-700
-stats data using 1:87
+stats data using 1:84
 set timefmt "%Y-%m-%d %H:%M"
-stats [time(0):time(0) + 5*24*60*60] 'final3.csv' u (timecolumn(1)):87
+stats [time(0):time(0) + 5*24*60*60] 'final3.csv' u (timecolumn(1)):84
 min_yM87 = STATS_min_y
 max_yM87 = STATS_max_y
 min_pos_yM87 = STATS_pos_min_y
 max_pos_yM87 = STATS_pos_max_y
 
 # Retrieve statistical properties for 850-500
-stats data using 1:88
+stats data using 1:85
 set timefmt "%Y-%m-%d %H:%M"
-stats [time(0):time(0) + 5*24*60*60] 'final3.csv' u (timecolumn(1)):88
+stats [time(0):time(0) + 5*24*60*60] 'final3.csv' u (timecolumn(1)):85
 min_y85 = STATS_min_y
 max_y85 = STATS_max_y
 min_pos_y85 = STATS_pos_min_y
@@ -91,7 +91,7 @@ set label 5 '5225' at graph 1.08, second 5225 front tc rgb "orange"
 set label sprintf("< %4.4g",max_yM5) at second max_pos_yM5, second max_yM5 left tc rgb "blue"
 set label sprintf("< %4.4g",min_yM5) at second min_pos_yM5, second min_yM5 left tc rgb "blue"
 #set label sprintf("1000-500min = %4.4g m",min_yM5) at graph 0.6,0.97 left font "Arial,10" tc rgb "orange"
-plot "final3.csv" using 1:86 title "1000-500" lw 2 lt 2 lc "orange" axis x1y2, \
+plot "final3.csv" using 1:83 title "1000-500" lw 2 lt 2 lc "orange" axis x1y2, \
 5225 dt 2 lc "orange" lw 1 notitle axis x1y2
 
 
@@ -125,7 +125,7 @@ set label 4 '4050' at graph 1.08, second 4050 front tc rgb "blue"
 set label sprintf("< %4.4g",max_y85) at second max_pos_y85, second max_y85 left tc rgb "orange"
 set label sprintf("< %4.4g",min_y85) at second min_pos_y85, second min_y85 left tc rgb "orange"
 #set label sprintf("850-500min = %4.4g m",min_y85) at graph 0.8,0.97 left font "Arial,10" tc rgb "blue"
-plot "final3.csv" using 1:88 title " 850-500" lw 2 lt 2 lc "blue" axis x1y2, \
+plot "final3.csv" using 1:85 title " 850-500" lw 2 lt 2 lc "blue" axis x1y2, \
 4050 dt 2 lc "blue" lw 1 notitle axis x1y2
 
 
@@ -159,7 +159,7 @@ set label 3 '2800' at graph 1.08, second 2800 front tc rgb "red"
 set label sprintf("< %4.4g",max_yM7) at second max_pos_yM7, second max_yM7 left tc rgb "green"
 set label sprintf("< %4.4g",min_yM7) at second min_pos_yM7, second min_yM7 left tc rgb "green"
 #set label sprintf("1000-700min = %4.4g m",min_yM7) at graph 0.4,0.94 left font "Arial,10" tc rgb "red"
-plot "final3.csv" using 1:85 title "1000-700" lw 2 lt 2 lc "red" axis x1y2, \
+plot "final3.csv" using 1:82 title "1000-700" lw 2 lt 2 lc "red" axis x1y2, \
 "" u 1:((min_yM7-2800)<50?2800:1/0) dt 2 lc "red" lw 1 notitle axis x1y2
 
 
@@ -193,7 +193,7 @@ set label 2 '1520' at graph 1.08, second 1520 front tc rgb "green"
 set label sprintf("< %4.4g",max_yM87) at second max_pos_yM87, second max_yM87 left tc rgb "red"
 set label sprintf("< %4.4g",min_yM87) at second min_pos_yM87, second min_yM87 left tc rgb "red"
 #set label sprintf("850-700min = %4.4g m",min_yM87) at graph 0.6,0.94 left font "Arial,10" tc rgb "green"
-plot "final3.csv" using 1:87 title " 850-700" lw 2 lt 2 lc "green" axis x1y2, \
+plot "final3.csv" using 1:84 title " 850-700" lw 2 lt 2 lc "green" axis x1y2, \
 "" u 1:((min_yM87-1520)<30?1520:1/0) dt 2 lc "green" lw 1 notitle axis x1y2
 
 
@@ -233,7 +233,7 @@ set label 1 '1281' at graph 1.08, second 1281 front tc rgb "dark-grey"
 #set label sprintf("1000-850min = %4.4g m",min_yM8) at graph 0.4,0.97 left font "Arial,10" tc rgb "dark-grey"
 set label sprintf("< %4.4g",max_yM8) at second max_pos_yM8, second max_yM8 left tc rgb "dark-orange"
 set label sprintf("< %4.4g",min_yM8) at second min_pos_yM8, second min_yM8 left tc rgb "dark-orange"
-plot "final3.csv" using 1:84 title "1000-850" lw 2 lt 2 lc "grey" axis x1y2, \
+plot "final3.csv" using 1:81 title "1000-850" lw 2 lt 2 lc "grey" axis x1y2, \
 "" u 1:((min_yM8-1281)<50?1281:1/0) dt 2 lc "dark-grey" lw 1 notitle axis x1y2
 
 unset multiplot

@@ -6,17 +6,17 @@ set term pngcairo size 1024,600 # 800 pixels by 600 pixels
 
 data = 'final3.csv'
 # Retrieve statistical properties for Precipitations
-stats data using 1:49
+stats data using 1:48
 set timefmt "%Y-%m-%d %H:%M"
-stats [time(0):time(0) + 5*24*60*60] 'final3.csv' u (timecolumn(1)):49
+stats [time(0):time(0) + 5*24*60*60] 'final3.csv' u (timecolumn(1)):48
 max_yPR = STATS_max_y
 tot_yPR = STATS_sum_y
 
 data = 'final3.csv'
 # Retrieve statistical properties for Total Precipitations
-stats data using 1:52
+stats data using 1:53
 set timefmt "%Y-%m-%d %H:%M"
-stats [time(0):time(0) + 5*24*60*60] 'final3.csv' u (timecolumn(1)):52
+stats [time(0):time(0) + 5*24*60*60] 'final3.csv' u (timecolumn(1)):53
 max_yTP = STATS_max_y
 tot_yTP = STATS_sum_y
 
@@ -61,12 +61,12 @@ set multiplot
 set lmargin screen 0.2
 
 set label sprintf("PrecTot = %3.3g mm",tot_yTP) at graph 0.9,0.97 center font "Arial,10" tc rgb "purple"
-plot "final3.csv" using 1:51 w boxes lc rgb "blue" title "PrMM/h" axes x1y1, \
-"" using 1:52 w boxes lc rgb "purple" title "TotPr" axes x1y1, \
-"" using 1:50 lc rgb "brown" lw 2 title "CPrMM/h" axes x1y1, \
-"" using 1:53 lc rgb "orange" lw 2 title "CPrTot" axes x1y1, \
-"" using 1:47 lc rgb "red" lw 2 title "FP%" axes x1y2, \
-"" using 1:($40*100) lc rgb "olive" lw 2 title "SDepth" axes x1y1, \
+plot "final3.csv" using 1:52 w boxes lc rgb "blue" title "PrMM/h" axes x1y1, \
+"" using 1:53 w boxes lc rgb "purple" title "TotPr" axes x1y1, \
+"" using 1:51 lc rgb "brown" lw 2 title "CPrMM/h" axes x1y1, \
+"" using 1:54 lc rgb "orange" lw 2 title "CPrTot" axes x1y1, \
+"" using 1:48 lc rgb "red" lw 2 title "FP%" axes x1y2, \
+"" using 1:($41*100) lc rgb "olive" lw 2 title "SDepth" axes x1y1, \
 "" u 1:(max_yPR>1?1:1/0) dt 2 lc rgb "blue" lw 1 notitle, \
 "" u 1:(max_yPR>2.5?2.5:1/0) dt 2 lc rgb "blue" lw 1 notitle, \
 "" u 1:(max_yPR>10?10:1/0) dt 2 lc rgb "blue" lw 1 notitle, \
@@ -93,9 +93,9 @@ set ylabel "Rain/Snow/Frozen/Ice" offset  -2, 0 textcolor rgb "dark-blue"
 set key c
 
 set label sprintf("PrecTot = %3.3g mm",tot_yTP) at graph 0.9,0.97 center font "Arial,10" tc rgb "purple"
-plot "final3.csv" using 1:58 with linespoints ls 5 lc rgb "grey" lw 1 title "F01" axes x1y1, \
-"" using 1:59 with linespoints ls 7 lc rgb "green" lw 1 title "R01" axes x1y1, \
-"" using 1:56 with linespoints ls 3 lc rgb "yellow" lw 1 title "S01" axes x1y1, \
-"" using 1:57 with linespoints ls 8 lc rgb "light-blue" lw 1 title "IceP01" axes x1y1
+plot "final3.csv" using 1:59 with linespoints ls 5 lc rgb "grey" lw 1 title "F01" axes x1y1, \
+"" using 1:60 with linespoints ls 7 lc rgb "green" lw 1 title "R01" axes x1y1, \
+"" using 1:57 with linespoints ls 3 lc rgb "yellow" lw 1 title "S01" axes x1y1, \
+"" using 1:58 with linespoints ls 8 lc rgb "light-blue" lw 1 title "IceP01" axes x1y1
 
 unset multiplot

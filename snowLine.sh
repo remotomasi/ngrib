@@ -1,6 +1,6 @@
 #!/bin/bash
 
-cat final.txt | cut -d',' -f1,41,21,13,76,35,20,12,4,55  > sw.csv #,21,13,76,35,20,12,4,55
+cat final.txt | cut -d',' -f1,5,13,14,21,22,36,42,56,74  > sw.csv #,21,13,76,35,20,12,4,55
 #sed -i -e '/03:00/d;/09:00/d;/15:00/d;/21:00/d' sw.csv
 #sed '/00:00/d;/03:00/d;/15:00/d;/21:00/d' final.html > finalImages2.html
 #sed '1d;2d;3d;27d;28d' finalImages2.html > finalImages3.html

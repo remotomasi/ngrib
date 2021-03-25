@@ -36,7 +36,7 @@ set size 1, 1 # ratio 1:1
 set style data lines
 set style fill transparent solid 0.3
 
-plot "final3.csv" using 1:(100-$70) title "High" with filledcurves x2 lc "yellow", \
-"" using 1:(($69)/2+50):((100-($69)/2)-50) title "Mid" with filledcurves above x2, \
-"" using 1:(($69)/2+50):((100-($69)/2)-50) notitle with filledcurves below x2, \
-"" using 1:68 title "Low" with filledcurves x1 lc "blue"
+plot "final3.csv" using 1:(100-$9) title "High" with filledcurves x2 lc "yellow", \
+"" using 1:(($17)/2+50):((100-($17)/2)-50) title "Mid" with filledcurves above x2, \
+"" using 1:(($17)/2+50):((100-($17)/2)-50) notitle with filledcurves below x2, \
+"" using 1:25 title "Low" with filledcurves x1 lc "blue"

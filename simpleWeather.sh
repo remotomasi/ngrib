@@ -1,6 +1,6 @@
 #!/bin/bash
 
-cat final.txt | cut -d',' -f1,41,43,44,45,50,39,67,68,69,58,59 | sed '/03:00/d;/09:00/d;/15:00/d;/21:00/d' > sw.csv
+cat final.txt | cut -d',' -f1,44,42,45,56,46,49,59,40,24,16,8 | sed '/03:00/d;/09:00/d;/15:00/d;/21:00/d' > sw.csv
 sed -i -e '/03:00/d;/09:00/d;/15:00/d;/21:00/d' sw.csv
 #sed '/00:00/d;/03:00/d;/15:00/d;/21:00/d' final.html > finalImages2.html
 #sed '1d;2d;3d;27d;28d' finalImages2.html > finalImages3.html
@@ -14,32 +14,32 @@ sed -i -e '/03:00/d;/09:00/d;/15:00/d;/21:00/d' sw.csv
 awk 'BEGIN{FS=OFS=","}
 function windDirection(x) {
 	if ((x > 335) || (x <= 25)) {
-		print $1,int($3),int($4),int((sqrt($5*$5+$6*$6))),"N",$7,$8,$9,$2*100,$10,$11,$12
+		print $1,int($6),int($7),int((sqrt($8*$8+$9*$9))),"N",$10,$11,$12,$5*100,$4,$3,$2
     }
 	else if	((x > 25) && (x <= 65)) {
-		print $1,int($3),int($4),int((sqrt($5*$5+$6*$6))),"NE",$7,$8,$9,$2*100,$10,$11,$12
+		print $1,int($6),int($7),int((sqrt($8*$8+$9*$9))),"NE",$10,$11,$12,$5*100,$4,$3,$2
     }
 	else if ((x > 65) && (x <= 115)) {
-		print $1,int($3),int($4),int((sqrt($5*$5+$6*$6))),"E",$7,$8,$9,$2*100,$10,$11,$12
+		print $1,int($6),int($7),int((sqrt($8*$8+$9*$9))),"E",$10,$11,$12,$5*100,$4,$3,$2
     }
 	else if ((x > 115) && (x <= 155)) {
-		print $1,int($3),int($4),int((sqrt($5*$5+$6*$6))),"SE",$7,$8,$9,$2*100,$10,$11,$12
+		print $1,int($6),int($7),int((sqrt($8*$8+$9*$9))),"SE",$10,$11,$12,$5*100,$4,$3,$2
     }
 	else if ((x > 155) && (x <= 205)) {
-		print $1,int($3),int($4),int((sqrt($5*$5+$6*$6))),"S",$7,$8,$9,$2*100,$10,$11,$12
+		print $1,int($6),int($7),int((sqrt($8*$8+$9*$9))),"S",$10,$11,$12,$5*100,$4,$3,$2
     }
 	else if ((x > 205) && (x <= 245)) {
-		print $1,int($3),int($4),int((sqrt($5*$5+$6*$6))),"SE",$7,$8,$9,$2*100,$10,$11,$12
+		print $1,int($6),int($7),int((sqrt($8*$8+$9*$9))),"SE",$10,$11,$12,$5*100,$4,$3,$2
     }
 	else if ((x > 245) && (x <= 295)) {
-		print $1,int($3),int($4),int((sqrt($5*$5+$6*$6))),"W",$7,$8,$9,$2*100,$10,$11,$12
+		print $1,int($6),int($7),int((sqrt($8*$8+$9*$9))),"W",$10,$11,$12,$5*100,$4,$3,$2
     }
 	else if ((x > 295) && (x <= 335)) {
-		print $1,int($3),int($4),int((sqrt($5*$5+$6*$6))),"NW",$7,$8,$9,$2*100,$10,$11,$12
+		print $1,int($6),int($7),int((sqrt($8*$8+$9*$9))),"NW",$10,$11,$12,$5*100,$4,$3,$2
     }
 }
 {if (NR>=3) print windDirection((atan2($5,$6)*57.3+180)) }'  sw.csv > swImages1.csv		# added function that transform direction from degree to a capital letter
-awk 'BEGIN{FS=OFS=","}{if (NR<3) print $1,$3,$4,$5,$6,$7,$8,$9,$2,$10,$11,$12 }' sw.csv > swImages.csv
+awk 'BEGIN{FS=OFS=","}{if (NR<3) print $1,$6,$7,$8,$9,$10,$12,$11,$5,$4,$3,$2 }' sw.csv > swImages.csv
 
 cat swImages1.csv >> swImages.csv
 
