@@ -32,7 +32,7 @@ min_yP = STATS_min_y
 min_pos_yP = STATS_pos_min_y
 
 # Retrieve statistical properties for Wind velocity
-stats data using 1:78
+stats data using 1:83
 max_yW = STATS_max_y
 max_pos_yW = STATS_pos_min_y
 mean_yW = STATS_mean_y
@@ -87,13 +87,13 @@ plot 'final3.csv' u 1:($43):($44) with filledcurves above x1 lc "red" notitle, \
 "" u 1:43 lc "red" lw 2 axes x1y1 ti "Temp", \
 "" u 1:44 lc "green" lw 2 axes x1y1 ti "DP", \
 "" u 1:45 lc "dark-blue" title "Hum" axes x1y2, \
-"" u 87:(20):(0.05*$78*cos(90-$79)):(0.05*$78*sin(90-$79)) with vectors nohead lw 2 lc rgb "dark-green" title "WDir" axes x2y1, \
-"" u 87:(20) w p lt 2 pt 7 ps 1.5 notitle axes x2y1, \
+"" u 92:(20):(0.05*$83*cos(90-$84)):(0.05*$83*sin(90-$84)) with vectors nohead lw 2 lc rgb "dark-green" title "WDir" axes x2y1, \
+"" u 92:(20) w p lt 2 pt 7 ps 1.5 notitle axes x2y1, \
 "" u 1:41 w boxes lc rgb "olive" fs solid border -1 title "SDepth" axes x1y1, \
-"" u 1:($86>=0 && $45>=70?$86:1/0):(-$86<=0 && $45>=70?-$86:1/0) w filledcurves above x2 lc "dark-yellow" title "Mist", \
-"" u 1:($86>=0 && $45>=70?$86:1/0):(-$86<=0 && $45>=70?-$86:1/0) w filledcurves below x2 notitle, \
+"" u 1:($91>=0 && $45>=70?$91:1/0):(-$91<=0 && $45>=70?-$91:1/0) w filledcurves above x2 lc "dark-yellow" title "Mist", \
+"" u 1:($91>=0 && $45>=70?$91:1/0):(-$91<=0 && $45>=70?-$91:1/0) w filledcurves below x2 notitle, \
 2.5 dt 2 lc rgb "dark-yellow" lw 1 axes x1y1 notitle, \
-"" u 1:78 title "WSpd" lw 2 lc "cyan" axes x1y2, \
+"" u 1:83 title "WSpd" lw 2 lc "cyan" axes x1y2, \
 "" u 1:(max_yW>=118?118:1/0) dt 2 lc rgb "cyan" lw 1 axes x1y2 notitle, \
 "" u 1:(max_yW>=103 && max_yW<=117?103:1/0) dt 2 lc rgb "cyan" lw 1 axes x1y2 notitle, \
 "" u 1:(max_yW>=89 && max_yW<=102?89:1/0) dt 2 lc rgb "cyan" lw 1 axes x1y2 notitle, \
@@ -152,10 +152,10 @@ set key default
 set key font ",10"
 set key inside horiz
 set key box; set key top left
-plot "final3.csv" using 1:(100-$9) title "High" with filledcurves x2 lc "yellow", \
-"" using 1:(($17)/2+50):((100-($17)/2)-50) title "Mid" with filledcurves above x2 lc "green", \
-"" using 1:(($17)/2+50):((100-($17)/2)-50) notitle with filledcurves below x2 lc "green", \
-"" using 1:25 title "Low" with filledcurves x1 lc "blue"
+plot "final3.csv" using 1:(100-$73) title "High" with filledcurves x2 lc "yellow", \
+"" using 1:(($71)/2+50):((100-($71)/2)-50) title "Mid" with filledcurves above x2 lc "green", \
+"" using 1:(($71)/2+50):((100-($71)/2)-50) notitle with filledcurves below x2 lc "green", \
+"" using 1:69 title "Low" with filledcurves x1 lc "blue"
 #replot
 unset multiplot
 

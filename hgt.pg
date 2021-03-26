@@ -6,9 +6,9 @@ set term pngcairo size 1024,600 #800 pixels by 600 pixels
 
 data = 'final3.csv'
 # Retrieve statistical properties for 0° level
-stats data using 1:75
+stats data using 1:81
 set timefmt "%Y-%m-%d %H:%M"
-stats [time(0):time(0) + 5*24*60*60] 'final3.csv' u (timecolumn(1)):75
+stats [time(0):time(0) + 5*24*60*60] 'final3.csv' u (timecolumn(1)):81
 max_yZ = STATS_max_y
 min_yZ = STATS_min_y
 max_pos_yZ = STATS_pos_max_y
@@ -119,7 +119,7 @@ set style data lines
 
 set label 1 sprintf("< %4.4g",min_yZ) at second min_pos_yZ, second min_yZ front tc rgb "blue"
 set label 2 sprintf("< %4.4g",max_yZ) at second max_pos_yZ, second max_yZ front tc rgb "blue"
-plot "final3.csv" using 1:75 title "0 C" lw 2 lt 2 lc "red" axis x1y2
+plot "final3.csv" using 1:81 title "0 C" lw 2 lt 2 lc "red" axis x1y2
 
 ## 3 ##
 
