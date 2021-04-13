@@ -64,7 +64,7 @@ set label sprintf("< %4.4g",max_yG) at first max_pos_yG, second max_yG left tc r
 set label sprintf("< %4.5g",max_yP) at first max_pos_yP, first max_yP left tc rgb "purple"
 set label sprintf("< %4.5g",min_yP) at first min_pos_yP, first min_yP left tc rgb "purple"
 plot "final3.csv" using 1:3 title "Pres", \
-"" u 92:(10):(0.05*$83*cos(90-$84)):(0.05*$83*sin(90-$84)) with vectors lw 2 lc rgb "dark-green" title "Wind" axes x2y2, \
+"" u 92:(10):(0.05*$83*cos(-90-$84)):(0.05*$83*sin(-90-$84)) with vectors lw 2 lc rgb "dark-green" title "Wind" axes x2y2, \
 "" u 92:(10) w p lt 2 pt 7 ps 1.5 notitle axes x2y2, \
 "" u 1:83 title "WSpd" axes x1y2, \
 "" u 1:($5>0?$5:1/0) title "GUST" dt 3 lc rgb "red" lw 1 axes x1y2, \
