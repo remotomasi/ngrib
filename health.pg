@@ -71,7 +71,7 @@ set label 6 '20' at screen 0.155, first 20 front tc rgb "dark-orange"
 set label 7 '15' at screen 0.155, first 15 front tc rgb "dark-yellow"
 set label 8 '10' at screen 0.155, first 10 front tc rgb "dark-green"
 set label 9 '5' at screen 0.155, first 5 front tc rgb "dark-blue"
-plot "final3.csv" using 1:43 lc "green" lw 2 axes x1y1 notitle, \
+plot "final3.csv" using 1:44 lc "green" lw 2 axes x1y1 notitle, \
 24 dt 2 lc rgb "dark-red" lw 1 title "Oppressive" axis x1y1, \
 20 dt 2 lc rgb "dark-orange" lw 1 title "Muggy" axis x1y1, \
 15 dt 1 lc rgb "dark-yellow" lw 2 title "Ucomfortable" axis x1y1, \

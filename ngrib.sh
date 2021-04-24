@@ -27,9 +27,9 @@ hh=""
 if ([ "$o" -ge 0 ] && [ "$o" -lt 8 ] || [ "$o" -ge 23 ]) # && [ "$m" -ge 15 ])
 	then hh="18"
 		today=$(date +%Y%m%d -d "yesterday")
-elif [ "$o" -ge 8 ] && [ "$o" -lt 11 ]
+elif [ "$o" -ge 8 ] && [ "$o" -lt 12 ]
 	then hh="00"
-elif [ "$o" -ge 11 ] && [ "$o" -lt 18 ]
+elif [ "$o" -ge 12 ] && [ "$o" -lt 18 ]
 	then hh="06"
 elif [ "$o" -ge 18 ]
 	then hh="12"
@@ -155,7 +155,7 @@ function windDirection(x) {
 		print $1,$2/100,$3,$4*3.6,$5,$6-273.15,$7,$8,$9*3.6,$10*3.6,$11,$12,$13,$14-273.15,$15,$16,$17*3.6,$18*3.6,$19,$20,$21,$22-273.15,$23,$24,$25*3.6,$26*3.6,$27,$28,$29-273.15,$30,$31,$32,$33*3.6,$34*3.6,$35,$36,$37,$38-273.15,$39,$40,$41-273.15,$42-273.15,$43-273.15,$44,$45*3.6,$46*3.6,$47,$48*3600,$49*3600,$50*3600,$51*3600,$52,$53,$54,$55,$56,$57,$58,$59,$60,$61,$62,$63,$64,$65,$66,$67,$68,$69/100,$70,$71,$72,$73*3.6,$74,$75,$76,$77,$78,$79,$80,$81,(sqrt($45*$45+$46*$46))*3.6,(atan2($45,$46)*57.3+180),"NW"                  #North (Tramontana)
 	}
 }
-{if (NR>=3&&NR<=46) print windDirection((atan2($44,$45)*57.3+180)) }' p6d.csv > p6f.csv			# added function that transform direction from degree to a capital letter
+{if (NR>=3&&NR<=46) print windDirection((atan2($45,$46)*57.3+180)) }' p6d.csv > p6f.csv			# added function that transform direction from degree to a capital letter
 
 sed -i '/^$/d' p6f.csv						# delete void lines
 cat p6f.csv >> p6e.csv
