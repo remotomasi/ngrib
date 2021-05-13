@@ -52,7 +52,7 @@ unameOut="$(uname -a)"
 if [[ $unameOut == *"Ubuntu"* ]]
 	then
 		command="wgrib2"
-elif [[ $unameOut == *"Microsoft"* ]]
+elif [[ $unameOut == *"Microsoft"* ]] || [[ $unameOut == *"microsoft"* ]]
 	then
 		command="wgrib2.exe"
 fi
