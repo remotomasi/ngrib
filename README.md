@@ -1,3 +1,5 @@
+![GitHub repo size](https://img.shields.io/github/repo-size/remotomasi/ngrib)
+
 # ngrib
 Download and plot of weather data directly from NOAA using bash.
 
