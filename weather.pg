@@ -5,39 +5,42 @@ set termoption dashed
 set term pngcairo size 1024,600 #800 pixels by 600 pixels
 set angle degrees
 
-data = 'final3.csv'
+# Retrieve statistical properties for Wind velocity
+data = 'data.csv'
+set datafile separator ","
+stats data using ($101):($102)
+set timefmt "%Y-%m-%d %H:%M"
+stats [time(0):*] 'data.csv' u (timecolumn(1)):(sqrt($101*$101+$102*$102)*3.6)
+max_yW = STATS_max_y
+max_pos_yW = STATS_pos_max_y
+mean_yW = STATS_mean_y
+
 # Retrieve statistical properties for Temperature
-stats data using 1:43
+stats data using 1:98
+set timefmt "%Y-%m-%d %H:%M"
+stats [time(0):time(0) + 5*24*60*60] 'data.csv' u (timecolumn(1)):($98-273.15)
 max_yT = STATS_max_y
 mean_yT = STATS_mean_y
 min_yT = STATS_min_y
 
-data = 'final3.csv'
 # Retrieve statistical properties for DP
-stats data using 1:44
+stats data using 1:99
 set timefmt "%Y-%m-%d %H:%M"
-stats [time(0):time(0) + 5*24*60*60] 'final3.csv' u (timecolumn(1)):44
+stats [time(0):time(0) + 5*24*60*60] 'data.csv' u (timecolumn(1)):($99-273.15)
 min_yDP = STATS_min_y
 min_pos_yDP = STATS_pos_min_y
 max_yDP = STATS_max_y
 max_pos_yDP = STATS_pos_max_y
 
 # Retrieve statistical properties for Pressure
-stats data using 1:3
+stats data using 1:2
 set timefmt "%Y-%m-%d %H:%M"
-stats [time(0):*] 'final3.csv' u (timecolumn(1)):3
-max_yP = STATS_max_y
+stats [time(0):*] 'data.csv' u (timecolumn(1)):2
+max_yP = STATS_max_y/100
 max_pos_yP = STATS_pos_max_y
-min_yP = STATS_min_y
+min_yP = STATS_min_y/100
 min_pos_yP = STATS_pos_min_y
 
-# Retrieve statistical properties for Wind velocity
-stats data using 1:83
-max_yW = STATS_max_y
-max_pos_yW = STATS_pos_min_y
-mean_yW = STATS_mean_y
-
-set datafile separator " "
 set xdata time
 set timefmt "%Y-%m-%d %H"
 set xrange [time(0):time(0) + 5*24*60*60]
@@ -80,20 +83,16 @@ set label sprintf("Tmean = %3.3g °C",mean_yT) at graph 0.9,0.94 center font "Ar
 set label sprintf("Tmin = %3.3g °C",min_yT) at graph 0.9,0.91 center font "Arial,10" tc rgb "red"
 set label sprintf("Wmax = %3.3g Km/h",max_yW) at graph 0.7,0.97 center font "Arial,10" tc rgb "dark-cyan"
 set label sprintf("Wmean = %3.3g Km/h",mean_yW) at graph 0.45, second mean_yW left font "Arial,10" tc rgb "dark-orange"
-#set label sprintf("< %4.4g",min_yW) at first min_pos_yW, first min_yW left tc rgb "black"
-set label sprintf("< %4.4g",max_yW) at first max_pos_yW, first max_yW left tc rgb "black"
-plot 'final3.csv' u 1:($43):($44) with filledcurves above x1 lc "red" notitle, \
-"" u 1:($43):($44) with filledcurves below x1 notitle, \
-"" u 1:43 lc "red" lw 2 axes x1y1 ti "Temp", \
-"" u 1:44 lc "green" lw 2 axes x1y1 ti "DP", \
-"" u 1:45 lc "dark-blue" title "Hum" axes x1y2, \
-"" u 92:(20):(0.05*$83*cos(-90-$84)):(0.05*$83*sin(-90-$84)) with vectors lw 2 lc rgb "dark-green" title "WDir" axes x2y1, \
-"" u 92:(20) w p lt 2 pt 7 ps 1.5 notitle axes x2y1, \
-"" u 1:41 w boxes lc rgb "olive" fs solid border -1 title "SDepth" axes x1y1, \
-"" u 1:($91>=0 && $45>=70?$91:1/0):(-$91<=0 && $45>=70?-$91:1/0) w filledcurves above x2 lc "dark-yellow" title "Mist", \
-"" u 1:($91>=0 && $45>=70?$91:1/0):(-$91<=0 && $45>=70?-$91:1/0) w filledcurves below x2 notitle, \
+set label sprintf("< %3.4g",max_yW) at first max_pos_yW, second max_yW left tc rgb "black"
+plot 'data.csv' u 1:($98-273.15):($99-273.15) title "" with filledcurves above y1=50 lc "red", \
+"" u 1:($98-273.15) lc "red" lw 2 axes x1y1 ti "Temp", \
+"" u 1:($99-273.15) lc "green" lw 2 axes x1y1 ti "DP", \
+"" u 1:100 lc "dark-blue" title "Hum" axes x1y2, \
+"" u 134:(10):(0.08*sqrt($101*$101+$102*$102)*3.6*cos(-90-(atan2($101,$102)+180))):(0.08*sqrt($101*$101+$102*$102)*3.6*sin(-90-(atan2($101,$102)+180))) with vectors lw 2 lc rgb "dark-green" title "Wind" axes x2y2, \
+"" u 134:(10) w p lt 2 pt 7 ps 1.5 notitle axes x2y2, \
+"" u 1:(($98-$99)<=2.5 && $100>=70?($98-$99):1/0):(-($98-$99)>=-2.5 && $100>=70?-($98-$99):1/0) w filledcurves above y=5 lc "dark-yellow" title "Mist", \
 2.5 dt 2 lc rgb "dark-yellow" lw 1 axes x1y1 notitle, \
-"" u 1:83 title "WSpd" lw 2 lc "cyan" axes x1y2, \
+"" u 1:(sqrt($101*$101+$102*$102)*3.6) title "WSpd" lw 2 lc "cyan" axes x1y2, \
 "" u 1:(max_yW>=118?118:1/0) dt 2 lc rgb "cyan" lw 1 axes x1y2 notitle, \
 "" u 1:(max_yW>=103 && max_yW<=117?103:1/0) dt 2 lc rgb "cyan" lw 1 axes x1y2 notitle, \
 "" u 1:(max_yW>=89 && max_yW<=102?89:1/0) dt 2 lc rgb "cyan" lw 1 axes x1y2 notitle, \
@@ -113,18 +112,19 @@ set ytics offset  -3.9, 0
 set ylabel "Rain/Snow" offset  -2, 0 textcolor rgb "purple"
 
 set key c 
-plot "final3.csv" using 1:52 w boxes lc rgb "blue" title "PrMM/h" axes x1y1, \
-"" using 1:53 w boxes lc rgb "purple" title "TotPr" axes x1y1, \
-"" using 1:51 lc rgb "brown" lw 2 title "CPrMM/h" axes x1y1, \
-"" using 1:54 lc rgb "orange" lw 2 title "CPrTot" axes x1y1, \
-"" using 1:60 lc rgb "green" lw 2 title "R01" axes x1y1, \
-"" using 1:57 lc rgb "yellow" lw 2 title "S01" axes x1y1, \
-"" using 1:41 lc rgb "olive" lw 2 title "SDepth" axes x1y1
+plot "data.csv" using 1:($105*3600) w boxes lc rgb "blue" title "PrMM/h" axes x1y1, \
+"" using 1:108 w boxes lc rgb "purple" title "TotPr" axes x1y1, \
+"" using 1:($104*3600) lc rgb "brown" lw 2 title "CPrMM/h" axes x1y1, \
+"" using 1:110 lc rgb "orange" lw 2 title "CPrTot" axes x1y1, \
+"" using 1:115 lc rgb "green" lw 2 title "R01" axes x1y1, \
+"" using 1:112 lc rgb "yellow" lw 2 title "S01" axes x1y1, \
+"" u 1:($96*100) w boxes lc rgb "olive" fs solid border -1 title "SDepth" axes x1y1, \
 
 
 ##### Third plot
 
-tics = floor((max_yP - min_yP) / 3)
+if (max_yP >= min_yP) {tics = ceil((max_yP - min_yP) / 3)}
+if (max_yP <= min_yP) {tics = cdil((min_yP - max_yP) / 3)}
 
 set autoscale y
 set ytics tics
@@ -135,7 +135,7 @@ set ytics offset  81.2, 0
 set ylabel "hPa" offset  88.6, 0 textcolor rgb "purple"
 
 set key b 
-plot "final3.csv" using 1:3 dt 1 lw 1 lc rgb "purple" title "Pres"
+plot "data.csv" using 1:($2/100) dt 1 lw 1 lc rgb "purple" title "Pres"
 
 
 ##### Fourth plot
@@ -152,10 +152,9 @@ set key default
 set key font ",10"
 set key inside horiz
 set key box; set key top left
-plot "final3.csv" using 1:(100-$73) title "High" with filledcurves x2 lc "yellow", \
-"" using 1:(($71)/2+50):((100-($71)/2)-50) title "Mid" with filledcurves above x2 lc "green", \
-"" using 1:(($71)/2+50):((100-($71)/2)-50) notitle with filledcurves below x2 lc "green", \
-"" using 1:69 title "Low" with filledcurves x1 lc "blue"
+plot "data.csv" using 1:(100-$129) title "High" with filledcurves x2 lc "yellow", \
+"" using 1:(($127)/2+50):((100-($127)/2)-50) title "Mid" with filledcurves above y1=50 lc "green", \
+"" using 1:125 title "Low" with filledcurves x1 lc "blue"
 #replot
 unset multiplot
 

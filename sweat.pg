@@ -1,0 +1,102 @@
+#!/usr/bin/gnuplot -persist
+reset
+set terminal pngcairo truecolor
+set termoption dashed
+set term pngcairo size 1024,600 #800 pixels by 600 pixels
+set angle degrees
+
+# Retrieve statistical properties for T500
+data = 'data.csv'
+set datafile separator ","
+stats data using 30
+set timefmt "%Y-%m-%d %H:%M"
+stats [time(0):*] 'data.csv' u (timecolumn(1)):30
+max_yT5 = STATS_max_y
+max_pos_yT5 = STATS_pos_max_y
+mean_yT5 = STATS_mean_y
+
+# Retrieve statistical properties for RH500
+data = 'data.csv'
+set datafile separator ","
+stats data using 31
+set timefmt "%Y-%m-%d %H:%M"
+stats [time(0):*] 'data.csv' u (timecolumn(1)):31
+max_yR5 = STATS_max_y
+max_pos_yR5 = STATS_pos_max_y
+mean_yR5 = STATS_mean_y
+
+# Retrieve statistical properties for T700
+stats data using 46
+set timefmt "%Y-%m-%d %H:%M"
+stats [time(0):*] 'data.csv' u (timecolumn(1)):46
+max_yT7 = STATS_max_y
+max_pos_yT7 = STATS_pos_max_y
+mean_yT7 = STATS_mean_y
+
+# Retrieve statistical properties for RH700
+stats data using 47
+set timefmt "%Y-%m-%d %H:%M"
+stats [time(0):*] 'data.csv' u (timecolumn(1)):47
+max_yR7 = STATS_max_y
+max_pos_yR7 = STATS_pos_max_y
+mean_yR7 = STATS_mean_y
+
+# Retrieve statistical properties for T850
+stats data using 54
+set timefmt "%Y-%m-%d %H:%M"
+stats [time(0):*] 'data.csv' u (timecolumn(1)):54
+max_yT8 = STATS_max_y
+max_pos_yT8 = STATS_pos_max_y
+mean_yT8 = STATS_mean_y
+
+# Retrieve statistical properties for RH850
+stats data using 55
+set timefmt "%Y-%m-%d %H:%M"
+stats [time(0):*] 'data.csv' u (timecolumn(1)):55
+max_yR8 = STATS_max_y
+max_pos_yR8 = STATS_pos_max_y
+mean_yR8 = STATS_mean_y
+
+# Retrieve statistical properties for wind at 850hPa
+stats data using ($58):($59)
+set timefmt "%Y-%m-%d %H:%M"
+stats [time(0):*] 'data.csv' u (timecolumn(1)):(sqrt($58*$58+$59*$59)*3.6*0.54)
+max_yW8 = STATS_max_y
+max_pos_yW8 = STATS_pos_max_y
+mean_yW8 = STATS_mean_y
+
+# Retrieve statistical properties for wind at 850hPa
+stats data using ($34):($35)
+set timefmt "%Y-%m-%d %H:%M"
+stats [time(0):*] 'data.csv' u (timecolumn(1)):(sqrt($34*$34+$35*$35)*3.6*0.54)
+max_yW5 = STATS_max_y
+max_pos_yW5 = STATS_pos_max_y
+mean_yW5 = STATS_mean_y
+
+set xdata time
+set timefmt "%Y-%m-%d %H"
+set xrange [time(0):time(0) + 5*24*60*60]
+set format x "h%H\n%d/%m\n%a"
+set xlabel "Time"
+set xtics font ", 10"
+
+set autoscale y
+#set autoscale y2
+set ylabel "" offset  2, 0 textcolor rgb "dark-green"
+set y2tics 50
+
+run(n) = sprintf("%d",n)
+coord(n) = sprintf("%g",n)
+
+set title "Weather Forecast GFS Model - NOAA (SWEAT) RUN:".run(run)."z - "."Lat: ".coord(lat)." - "."Lon: ".coord(lon)
+set key lmargin
+set grid
+set size 1, 1 # ratio 1:1
+
+set style data lines
+
+#set label sprintf("Wmean = %4.4g Km/h",mean_yW) at graph 0.45, second mean_yW left font "Arial,10" tc rgb "dark-orange"
+plot "data.csv" using 1:( ((12*(-430.22+237.7*log(($55*6.11*10**((7.5*($54-273.15))/(237.7+($54-273.15))))/100))/(-log($55*6.11*10**((7.5*($54-273.15))/(237.7+($54-273.15)))/100)+19.08))>0?(12*(-430.22+237.7*log(($55*6.11*10**((7.5*($54-273.15))/(237.7+($54-273.15))))/100))/(-log($55*6.11*10**((7.5*($54-273.15))/(237.7+($54-273.15)))/100)+19.08)):0 ) +( (20*(($54-273.15)+(-430.22+237.7*log(($55*6.11*10**((7.5*($54-273.15))/(237.7+($54-273.15))))/100))/(-log($55*6.11*10**((7.5*($54-273.15))/(237.7+($54-273.15)))/100)+19.08)-2*($30-273.15)-49)>0)? 20*(($54-273.15)+(-430.22+237.7*log(($55*6.11*10**((7.5*($54-273.15))/(237.7+($54-273.15))))/100))/(-log($55*6.11*10**((7.5*($54-273.15))/(237.7+($54-273.15)))/100)+19.08)-2*($30-273.15)-49):0 ) +2*(sqrt($58*$58+$59*$59)*3.6*0.54)+(sqrt($34*$34+$35*$35)*3.6*0.54) +((atan2($58,$59)*53.7>=130 && atan2($58,$59)*53.7<=250 && atan2($34,$35)*53.7>=210 && atan2($34,$35)*53.7<=310 && (atan2($34,$35)*53.7-atan2($58,$59)*53.7)>0 && (sqrt($34*$34+$35*$35)*3.6*0.54)>=15 && (sqrt($58*$58+$59*$59)*3.6*0.54)>=15 )?125*(sin(atan2($34,$35)-atan2($58,$59))+0.2):0)) dt 1 lc rgb "blue" title "SWEAT", \
+"" u 1:(250) dt 2 lc rgb "dark-yellow" lw 1 title "Low Tornado Prob.", \
+"" u 1:(350) dt 2 lc rgb "orange" lw 1 title "Middle/High prob.", \
+"" u 1:(400) dt 2 lc rgb "dark-orange" lw 1 title "High prob."

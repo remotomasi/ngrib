@@ -4,7 +4,7 @@ set terminal pngcairo truecolor
 set termoption dashed
 set term pngcairo size 1024,600 #800 pixels by 600 pixels
 
-set datafile separator " "
+set datafile separator ","
 set xdata time
 set timefmt "%Y-%m-%d %H"
 set xrange [time(0):time(0) + 5*24*60*60]
@@ -27,7 +27,7 @@ set ylabel '%'
 run(n) = sprintf("%d",n)
 coord(n) = sprintf("%g",n)
 
-set title "Weather Forecast GFS Model - NOAA (Clouds/700hPa VVEL) RUN:".run(run)."z - "."Lat: ".coord(lat)." - "."Lon: ".coord(lon)
+set title "Weather Forecast GFS Model - NOAA (Clouds) RUN:".run(run)."z - "."Lat: ".coord(lat)." - "."Lon: ".coord(lon)
 set key lmargin
 set key font ",10"
 set grid
@@ -36,7 +36,6 @@ set size 1, 1 # ratio 1:1
 set style data lines
 set style fill transparent solid 0.3
 
-plot "final3.csv" using 1:(100-$73) title "High" with filledcurves x2 lc "yellow", \
-"" using 1:(($71)/2+50):((100-($71)/2)-50) title "Mid" with filledcurves above x2, \
-"" using 1:(($71)/2+50):((100-($71)/2)-50) notitle with filledcurves below x2, \
-"" using 1:69 title "Low" with filledcurves x1 lc "blue"
+plot "data.csv" using 1:(100-$129) title "High" with filledcurves x2 lc "yellow", \
+"" using 1:(($127)/2+50):((100-($127/2)-50)) title "Mid" with filledcurves above y1=50 lc "green", \
+"" using 1:125 title "Low" with filledcurves x1 lc "blue"

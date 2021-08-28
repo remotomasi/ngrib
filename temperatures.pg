@@ -4,53 +4,53 @@ set terminal pngcairo truecolor
 set termoption dashed
 set term pngcairo size 1024,600 #800 pixels by 600 pixels
 
-data = 'final3.csv'
+data = 'data.csv'
+set datafile separator ","
 # Retrieve statistical properties for Temperature
-stats data using 1:43
+stats data using 1:98
 set timefmt "%Y-%m-%d %H:%M"
-stats [time(0):time(0) + 5*24*60*60] 'final3.csv' u (timecolumn(1)):43
+stats [time(0):time(0) + 5*24*60*60] 'data.csv' u (timecolumn(1)):($98-273.15)
 min_yT = STATS_min_y
 min_pos_yT = STATS_pos_min_y
 max_yT = STATS_max_y
 max_pos_yT = STATS_pos_max_y
 
 # Retrieve statistical properties for T1000
-stats data using 1:30
+stats data using 1:86
 set timefmt "%Y-%m-%d %H:%M"
-stats [time(0):time(0) + 5*24*60*60] 'final3.csv' u (timecolumn(1)):30
+stats [time(0):time(0) + 5*24*60*60] 'data.csv' u (timecolumn(1)):($86-273.15)
 min_yT1 = STATS_min_y
 min_pos_yT1 = STATS_pos_min_y
 max_yT1 = STATS_max_y
 max_pos_yT1 = STATS_pos_max_y
 
 # Retrieve statistical properties for T850
-stats data using 1:23
+stats data using 1:54
 set timefmt "%Y-%m-%d %H:%M"
-stats [time(0):time(0) + 5*24*60*60] 'final3.csv' u (timecolumn(1)):23
+stats [time(0):time(0) + 5*24*60*60] 'data.csv' u (timecolumn(1)):($54-273.15)
 min_yT8 = STATS_min_y
 min_pos_yT8 = STATS_pos_min_y
 max_yT8 = STATS_max_y
 max_pos_yT8 = STATS_pos_max_y
 
 # Retrieve statistical properties for T700
-stats data using 1:15
+stats data using 1:46
 set timefmt "%Y-%m-%d %H:%M"
-stats [time(0):time(0) + 5*24*60*60] 'final3.csv' u (timecolumn(1)):15
+stats [time(0):time(0) + 5*24*60*60] 'data.csv' u (timecolumn(1)):($46-273.15)
 min_yT7 = STATS_min_y
 min_pos_yT7 = STATS_pos_min_y
 max_yT7 = STATS_max_y
 max_pos_yT7 = STATS_pos_max_y
 
 # Retrieve statistical properties for T500
-stats data using 1:7
+stats data using 1:30
 set timefmt "%Y-%m-%d %H:%M"
-stats [time(0):time(0) + 5*24*60*60] 'final3.csv' u (timecolumn(1)):7
+stats [time(0):time(0) + 5*24*60*60] 'data.csv' u (timecolumn(1)):($30-273.15)
 min_yT5 = STATS_min_y
 min_pos_yT5 = STATS_pos_min_y
 max_yT5 = STATS_max_y
 max_pos_yT5 = STATS_pos_max_y
 
-set datafile separator " "
 set xdata time
 set timefmt "%Y-%m-%d %H"
 set xrange [time(0):time(0) + 5*24*60*60]
@@ -94,12 +94,12 @@ set label sprintf("< %4.4g",min_yT7) at first min_pos_yT7, first min_yT7 left tc
 set label sprintf("< %4.4g",max_yT7) at first max_pos_yT7, first max_yT7 left tc rgb "orange"
 set label sprintf("< %4.4g",min_yT5) at first min_pos_yT5, first min_yT5 left tc rgb "red"
 set label sprintf("< %4.4g",max_yT5) at first max_pos_yT5, first max_yT5 left tc rgb "red"
-plot "final3.csv" using 1:7 title "500" lw 2 lt 2 lc "blue", \
-"" using 1:15 title "700" lw 2 lt 2 lc "green", \
-"" using 1:23 title "850" lw 2 lt 2 lc "orange", \
-"" using 1:30 title "1000" lw 2 lt 2 lc "grey", \
-"" using 1:43 title "2m" lw 2 lt 2 lc "red", \
-"" using 1:(($30-$23)>=12?($30-$43):1/0) title "Inst" with linespoints ls 7 lc "purple", \
+plot "data.csv" using 1:($30-273.15) title "500" lw 2 lt 2 lc "blue", \
+"" using 1:($46-273.15) title "700" lw 2 lt 2 lc "green", \
+"" using 1:($54-273.15) title "850" lw 2 lt 2 lc "orange", \
+"" using 1:($86-273.15) title "1000" lw 2 lt 2 lc "grey", \
+"" using 1:($98-273.15) title "2m" lw 2 lt 2 lc "red", \
+"" using 1:(($86-$54)>=12?($86-$54):1/0) title "Inst" with linespoints ls 7 lc "purple", \
 -12 dt 2 lc rgb "green" lw 1 notitle, \
 -8 dt 2 lc rgb "orange" lw 1 notitle, \
 2 dt 2 lc rgb "red" lw 1 notitle, \

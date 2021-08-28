@@ -5,18 +5,19 @@ set terminal pngcairo truecolor
 set termoption dashed
 set term pngcairo size 1024,600 #800 pixels by 600 pixels
 
-data = 'final3.csv'
+data = 'data.csv'
+set datafile separator ","
 # Retrieve statistical properties for LFTX
-stats data using 1:66
+stats data using 1:121
 set timefmt "%Y-%m-%d %H:%M"
-stats [time(0):time(0) + 5*24*60*60] 'final3.csv' u (timecolumn(1)):66
+stats [time(0):time(0) + 5*24*60*60] 'data.csv' u (timecolumn(1)):121
 min_yL = STATS_min_y
 min_pos_yL = STATS_pos_min_y
 
 # Retrieve statistical properties for CAPE
-stats data using 1:67
+stats data using 1:122
 set timefmt "%Y-%m-%d %H:%M"
-stats [time(0):time(0) + 5*24*60*60] 'final3.csv' u (timecolumn(1)):67
+stats [time(0):time(0) + 5*24*60*60] 'data.csv' u (timecolumn(1)):122
 max_yCP = STATS_max_y
 max_pos_yCP = STATS_pos_max_y
 
@@ -24,7 +25,6 @@ max_pos_yCP = STATS_pos_max_y
 stats data using 1:68
 max_yC = STATS_max_y
 
-set datafile separator " "
 set xdata time
 set timefmt "%Y-%m-%d %H"
 set xrange [time(0):time(0) + 5*24*60*60]
@@ -67,20 +67,20 @@ set style fill transparent solid 0.7 noborder
 set label 1 sprintf("  < %4.4g J/Kg",max_yCP) at first max_pos_yCP, first max_yCP left tc rgb "orange"
 set label 3 sprintf("< %4.4g °K",min_yL) at first min_pos_yL, second min_yL left tc rgb "purple"
 
-plot "final3.csv" using 1:67 w boxes lc rgb "orange" fs transparent solid 0.3 border -1 title "CAPE" axes x1y1, \
+plot "data.csv" using 1:122 w boxes lc rgb "orange" fs transparent solid 0.3 border -1 title "CAPE" axes x1y1, \
 "" u 1:(max_yCP) lc rgb "orange" dt 3 lw 2 notitle axes x1y1, \
 "" u 1:(max_yCP>=500?500:1/0) lc rgb "orange" dt 2 lw 1 notitle, \
 "" u 1:(max_yCP>=1000?1000:1/0) lc rgb "orange" dt 2 lw 1 notitle axes x1y1, \
 "" u 1:(max_yCP>=2000?2000:1/0) lc rgb "orange" dt 2 lw 1 notitle axes x1y1, \
-"" u 1:66 lc "purple" title "LFTX" axes x1y2, \
+"" u 1:121 lc "purple" title "LFTX" axes x1y2, \
 "" u 1:(min_yL) lc rgb "purple" dt 3 lw 2 notitle axes x1y2, \
 "" u 1:(min_yL<=-2?-2:1/0) lc rgb "purple" dt 2 lw 1 notitle axes x1y2, \
 "" u 1:(min_yL<=-4?-4:1/0) lc rgb "purple" dt 2 lw 1 notitle axes x1y2, \
 "" u 1:(min_yL<=-6?-6:1/0) lc rgb "purple" dt 2 lw 1 notitle axes x1y2, \
 0 dt 1 lc rgb "black" lw 1 axes x1y2 notitle, \
-"" u 1:(0):($66) with filledcurves above x1 lc rgb "purple" notitle axes x1y2, \
+"" u 1:(0):($121) with filledcurves above y2=0 lc rgb "purple" notitle axes x1y2, \
 "" u 1:(max_yC>=75?75:1/0) lc rgb "red" dt 2 lw 1 notitle axes x1y1, \
-"" u 1:68 lc "red" title "CIN" axes x1y1
+"" u 1:123 lc "red" title "CIN" axes x1y1
 
 #"" u 1:(min_yL) with linespoints ls 1 lc rgb "purple" lw 2 notitle axes x1y2, \
 #set label sprintf("CAPEmax = %4.4g J/Kg",max_yCP) at graph 0.8,0.97 left font "Arial,10" tc rgb "orange"
