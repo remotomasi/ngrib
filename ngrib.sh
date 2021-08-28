@@ -63,7 +63,7 @@ fi
 # wget VERSION
 #incipit="https://ftpprd.ncep.noaa.gov/data/nccf/com/gfs/prod/gfs."
 #wget "$incipit$today/${hh}/filter_gfs_0p25_1hr.pl?file=gfs.t${hh}z.pgrb2.0p25.anl&lev_0C_isotherm=on&lev_1000_mb=on&lev_10_m_above_ground=on&lev_2_m_above_ground=on&lev_500_mb=on&lev_700_mb=on&lev_850_mb=on&lev_high_cloud_layer=on&lev_low_cloud_layer=on&lev_mean_sea_level=on&lev_middle_cloud_layer=on&lev_surface=on&lev_tropopause=on&var_ABSV=on&var_ACPCP=on&var_APCP=on&var_CAPE=on&var_CFRZR=on&var_CICEP=on&var_CIN=on&var_CPOFP=on&var_CPRAT=on&var_CRAIN=on&var_CSNOW=on&var_DPT=on&var_GUST=on&var_HGT=on&var_ICEC=on&var_LFTX=on&var_PEVPR=on&var_PRATE=on&var_PRES=on&var_PRMSL=on&var_RH=on&var_SNOD=on&var_SUNSD=on&var_TCDC=on&var_TMP=on&var_UGRD=on&var_VGRD=on&var_VIS=on&var_VVEL=on&var_VWSH=on&subregion=&leftlon=$lon2&rightlon=$lon1&toplat=$lat1&bottomlat=$lat2&dir=%2Fgfs.${today}%2F${hh}"  2>/dev/null -O - > anlFile
-wget "https://nomads.ncep.noaa.gov/cgi-bin/filter_gfs_0p25_1hr.pl?file=gfs.t${hh}z.pgrb2.0p25.anl&lev_0C_isotherm=on&lev_1000_mb=on&lev_10_m_above_ground=on&lev_2_m_above_ground=on&lev_500_mb=on&lev_700_mb=on&lev_850_mb=on&lev_high_cloud_layer=on&lev_low_cloud_layer=on&lev_mean_sea_level=on&lev_middle_cloud_layer=on&lev_surface=on&lev_tropopause=on&var_ABSV=on&var_ACPCP=on&var_APCP=on&var_CAPE=on&var_CFRZR=on&var_CICEP=on&var_CIN=on&var_CPOFP=on&var_CPRAT=on&var_CRAIN=on&var_CSNOW=on&var_DPT=on&var_GUST=on&var_HGT=on&var_ICEC=on&var_LFTX=on&var_PEVPR=on&var_PRATE=on&var_PRES=on&var_PRMSL=on&var_RH=on&var_SNOD=on&var_SUNSD=on&var_TCDC=on&var_TMP=on&var_UGRD=on&var_VGRD=on&var_VIS=on&var_VVEL=on&var_VWSH=on&var_LCDC=on&var_MCDC=on&var_HCDC=on&subregion=&leftlon=$lon2&rightlon=$lon1&toplat=$lat1&bottomlat=$lat2&dir=%2Fgfs.${today}%2F${hh}%2Fatmos"  2>/dev/null -O - > anlFile
+wget "https://nomads.ncep.noaa.gov/cgi-bin/filter_gfs_0p25_1hr.pl?file=gfs.t${hh}z.pgrb2.0p25.anl&lev_0C_isotherm=on&lev_1000_mb=on&lev_10_m_above_ground=on&lev_200_mb=on&lev_2_m_above_ground=on&lev_300_mb=on&lev_400_mb=on&lev_500_mb=on&lev_600_mb=on&lev_700_mb=on&lev_850_mb=on&lev_925_mb=on&lev_950_mb=on&lev_975_mb=on&lev_mean_sea_level=on&var_ABSV=on&var_ACPCP=on&var_APCP=on&var_CAPE=on&var_CFRZR=on&var_CICEP=on&var_CIN=on&var_CPOFP=on&var_CPRAT=on&var_CRAIN=on&var_CSNOW=on&var_DPT=on&var_GUST=on&var_HCDC=on&var_HGT=on&var_HINDEX=on&var_ICEC=on&var_LCDC=on&var_LFTX=on&var_MCDC=on&var_PEVPR=on&var_POT=on&var_PRATE=on&var_PRMSL=on&var_RH=on&var_SNOD=on&var_SUNSD=on&var_TCDC=on&var_TMP=on&var_UGRD=on&var_VGRD=on&var_VIS=on&var_VVEL=on&var_VWSH=on&var_HLCY=on&lev_high_cloud_layer=on&lev_low_cloud_layer=on&lev_middle_cloud_layer=on&lev_3000-0_m_above_ground=on&subregion=&leftlon=$lon2&rightlon=$lon1&toplat=$lat1&bottomlat=$lat2&dir=%2Fgfs.${today}%2F${hh}%2Fatmos"  2>/dev/null -O - > anlFile
 run="$(./$command anlFile | head -n 1  | cut -d'=' -f2 | cut -c9-10)"
 
 # main function divided into 4 in parallel
@@ -72,7 +72,7 @@ for i in ${h[@]:0:11};
 	do
 		#wget "http://nomads.ncep.noaa.gov/cgi-bin/filter_gfs_0p25.pl?file=gfs.t${hh}z.pgrb2.0p25.f${i}&lev_0C_isotherm=on&lev_1000_mb=on&lev_10_m_above_ground=on&lev_2_m_above_ground=on&lev_500_mb=on&lev_700_mb=on&lev_850_mb=on&lev_high_cloud_layer=on&lev_low_cloud_layer=on&lev_mean_sea_level=on&lev_middle_cloud_layer=on&lev_surface=on&lev_tropopause=on&var_ABSV=on&var_ACPCP=on&var_APCP=on&var_CAPE=on&var_CFRZR=on&var_CICEP=on&var_CIN=on&var_CPOFP=on&var_CPRAT=on&var_CRAIN=on&var_CSNOW=on&var_DPT=on&var_GUST=on&var_HGT=on&var_ICEC=on&var_LFTX=on&var_PEVPR=on&var_PRATE=on&var_PRES=on&var_PRMSL=on&var_RH=on&var_SNOD=on&var_SUNSD=on&var_TCDC=on&var_TMP=on&var_UGRD=on&var_VGRD=on&var_VIS=on&var_VVEL=on&var_VWSH=on&subregion=&leftlon=$lon&rightlon=$lon&toplat=$lat&bottomlat=$lat&dir=%2Fgfs.${today}${hh}"  2>/dev/null -O - > pro$i
 		#wget "$incipit$today/${hh}/filter_gfs_0p25_1hr.pl?file=gfs.t${hh}z.pgrb2.0p25.f${i}&lev_0C_isotherm=on&lev_1000_mb=on&lev_10_m_above_ground=on&lev_2_m_above_ground=on&lev_500_mb=on&lev_700_mb=on&lev_850_mb=on&lev_high_cloud_layer=on&lev_low_cloud_layer=on&lev_mean_sea_level=on&lev_middle_cloud_layer=on&lev_surface=on&lev_tropopause=on&var_ABSV=on&var_ACPCP=on&var_APCP=on&var_CAPE=on&var_CFRZR=on&var_CICEP=on&var_CIN=on&var_CPOFP=on&var_CPRAT=on&var_CRAIN=on&var_CSNOW=on&var_DPT=on&var_GUST=on&var_HGT=on&var_ICEC=on&var_LFTX=on&var_PEVPR=on&var_PRATE=on&var_PRES=on&var_PRMSL=on&var_RH=on&var_SNOD=on&var_SUNSD=on&var_TCDC=on&var_TMP=on&var_UGRD=on&var_VGRD=on&var_VIS=on&var_VVEL=on&var_VWSH=on&subregion=&leftlon=$lon2&rightlon=$lon1&toplat=$lat1&bottomlat=$lat2&dir=%2Fgfs.${today}%2F${hh}"  2>/dev/null -O - > pro$i
-		wget "https://nomads.ncep.noaa.gov/cgi-bin/filter_gfs_0p25.pl?file=gfs.t${hh}z.pgrb2.0p25.f${i}&lev_0C_isotherm=on&lev_1000_mb=on&lev_10_m_above_ground=on&lev_2_m_above_ground=on&lev_500_mb=on&lev_700_mb=on&lev_850_mb=on&lev_high_cloud_layer=on&lev_low_cloud_layer=on&lev_mean_sea_level=on&lev_middle_cloud_layer=on&lev_surface=on&lev_tropopause=on&var_ABSV=on&var_ACPCP=on&var_APCP=on&var_CAPE=on&var_CFRZR=on&var_CICEP=on&var_CIN=on&var_CPOFP=on&var_CPRAT=on&var_CRAIN=on&var_CSNOW=on&var_DPT=on&var_GUST=on&var_HGT=on&var_ICEC=on&var_LFTX=on&var_PEVPR=on&var_PRATE=on&var_PRES=on&var_PRMSL=on&var_RH=on&var_SNOD=on&var_SUNSD=on&var_TCDC=on&var_TMP=on&var_UGRD=on&var_VGRD=on&var_VIS=on&var_VVEL=on&var_VWSH=on&var_LCDC=on&var_MCDC=on&var_HCDC=on&subregion=&leftlon=$lon2&rightlon=$lon1&toplat=$lat1&bottomlat=$lat2&dir=%2Fgfs.${today}%2F${hh}%2Fatmos"  2>/dev/null -O - > pro$i
+		wget "https://nomads.ncep.noaa.gov/cgi-bin/filter_gfs_0p25.pl?file=gfs.t${hh}z.pgrb2.0p25.f${i}&lev_0C_isotherm=on&lev_1000_mb=on&lev_10_m_above_ground=on&lev_200_mb=on&lev_2_m_above_ground=on&lev_300_mb=on&lev_400_mb=on&lev_500_mb=on&lev_600_mb=on&lev_700_mb=on&lev_850_mb=on&lev_925_mb=on&lev_950_mb=on&lev_975_mb=on&lev_mean_sea_level=on&lev_surface=on&var_ABSV=on&var_ACPCP=on&var_APCP=on&var_CAPE=on&var_CFRZR=on&var_CICEP=on&var_CIN=on&var_CPOFP=on&var_CPRAT=on&var_CRAIN=on&var_CSNOW=on&var_DPT=on&var_GUST=on&var_HCDC=on&var_HGT=on&var_HINDEX=on&var_ICEC=on&var_LCDC=on&var_LFTX=on&var_MCDC=on&var_PEVPR=on&var_POT=on&var_PRATE=on&var_PRMSL=on&var_RH=on&var_SNOD=on&var_SUNSD=on&var_TCDC=on&var_TMP=on&var_UGRD=on&var_VGRD=on&var_VIS=on&var_VVEL=on&var_VWSH=on&var_HLCY=on&lev_high_cloud_layer=on&lev_low_cloud_layer=on&lev_middle_cloud_layer=on&lev_3000-0_m_above_ground=on&subregion=&leftlon=$lon2&rightlon=$lon1&toplat=$lat1&bottomlat=$lat2&dir=%2Fgfs.${today}%2F${hh}%2Fatmos"  2>/dev/null -O - > pro$i
 		./$command pro$i -csv csv$i.csv		# obtain infos from gribs to csvs
 		cat csv$i.csv >> final.csv			# merge of csvs
 done &
@@ -80,7 +80,7 @@ done &
 # 2° function
 for i in ${h[@]:11:11};
 	do
-		wget "https://nomads.ncep.noaa.gov/cgi-bin/filter_gfs_0p25.pl?file=gfs.t${hh}z.pgrb2.0p25.f${i}&lev_0C_isotherm=on&lev_1000_mb=on&lev_10_m_above_ground=on&lev_2_m_above_ground=on&lev_500_mb=on&lev_700_mb=on&lev_850_mb=on&lev_high_cloud_layer=on&lev_low_cloud_layer=on&lev_mean_sea_level=on&lev_middle_cloud_layer=on&lev_surface=on&lev_tropopause=on&var_ABSV=on&var_ACPCP=on&var_APCP=on&var_CAPE=on&var_CFRZR=on&var_CICEP=on&var_CIN=on&var_CPOFP=on&var_CPRAT=on&var_CRAIN=on&var_CSNOW=on&var_DPT=on&var_GUST=on&var_HGT=on&var_ICEC=on&var_LFTX=on&var_PEVPR=on&var_PRATE=on&var_PRES=on&var_PRMSL=on&var_RH=on&var_SNOD=on&var_SUNSD=on&var_TCDC=on&var_TMP=on&var_UGRD=on&var_VGRD=on&var_VIS=on&var_VVEL=on&var_VWSH=on&var_LCDC=on&var_MCDC=on&var_HCDC=on&subregion=&leftlon=$lon2&rightlon=$lon1&toplat=$lat1&bottomlat=$lat2&dir=%2Fgfs.${today}%2F${hh}%2Fatmos"  2>/dev/null -O - > pro$i
+		wget "https://nomads.ncep.noaa.gov/cgi-bin/filter_gfs_0p25.pl?file=gfs.t${hh}z.pgrb2.0p25.f${i}&lev_0C_isotherm=on&lev_1000_mb=on&lev_10_m_above_ground=on&lev_200_mb=on&lev_2_m_above_ground=on&lev_300_mb=on&lev_400_mb=on&lev_500_mb=on&lev_600_mb=on&lev_700_mb=on&lev_850_mb=on&lev_925_mb=on&lev_950_mb=on&lev_975_mb=on&lev_mean_sea_level=on&lev_surface=on&var_ABSV=on&var_ACPCP=on&var_APCP=on&var_CAPE=on&var_CFRZR=on&var_CICEP=on&var_CIN=on&var_CPOFP=on&var_CPRAT=on&var_CRAIN=on&var_CSNOW=on&var_DPT=on&var_GUST=on&var_HCDC=on&var_HGT=on&var_HINDEX=on&var_ICEC=on&var_LCDC=on&var_LFTX=on&var_MCDC=on&var_PEVPR=on&var_POT=on&var_PRATE=on&var_PRMSL=on&var_RH=on&var_SNOD=on&var_SUNSD=on&var_TCDC=on&var_TMP=on&var_UGRD=on&var_VGRD=on&var_VIS=on&var_VVEL=on&var_VWSH=on&var_HLCY=on&lev_high_cloud_layer=on&lev_low_cloud_layer=on&lev_middle_cloud_layer=on&lev_3000-0_m_above_ground=on&subregion=&leftlon=$lon2&rightlon=$lon1&toplat=$lat1&bottomlat=$lat2&dir=%2Fgfs.${today}%2F${hh}%2Fatmos"  2>/dev/null -O - > pro$i
 		./$command pro$i -csv csv$i.csv		# obtain infos from gribs to csvs
 		cat csv$i.csv >> final.csv			# merge of csvs
 done &
@@ -88,7 +88,7 @@ done &
 # 3° function
 for i in ${h[@]:22:11};
 	do
-		wget "https://nomads.ncep.noaa.gov/cgi-bin/filter_gfs_0p25.pl?file=gfs.t${hh}z.pgrb2.0p25.f${i}&lev_0C_isotherm=on&lev_1000_mb=on&lev_10_m_above_ground=on&lev_2_m_above_ground=on&lev_500_mb=on&lev_700_mb=on&lev_850_mb=on&lev_high_cloud_layer=on&lev_low_cloud_layer=on&lev_mean_sea_level=on&lev_middle_cloud_layer=on&lev_surface=on&lev_tropopause=on&var_ABSV=on&var_ACPCP=on&var_APCP=on&var_CAPE=on&var_CFRZR=on&var_CICEP=on&var_CIN=on&var_CPOFP=on&var_CPRAT=on&var_CRAIN=on&var_CSNOW=on&var_DPT=on&var_GUST=on&var_HGT=on&var_ICEC=on&var_LFTX=on&var_PEVPR=on&var_PRATE=on&var_PRES=on&var_PRMSL=on&var_RH=on&var_SNOD=on&var_SUNSD=on&var_TCDC=on&var_TMP=on&var_UGRD=on&var_VGRD=on&var_VIS=on&var_VVEL=on&var_VWSH=on&var_LCDC=on&var_MCDC=on&var_HCDC=on&subregion=&leftlon=$lon2&rightlon=$lon1&toplat=$lat1&bottomlat=$lat2&dir=%2Fgfs.${today}%2F${hh}%2Fatmos"  2>/dev/null -O - > pro$i
+		wget "https://nomads.ncep.noaa.gov/cgi-bin/filter_gfs_0p25.pl?file=gfs.t${hh}z.pgrb2.0p25.f${i}&lev_0C_isotherm=on&lev_1000_mb=on&lev_10_m_above_ground=on&lev_200_mb=on&lev_2_m_above_ground=on&lev_300_mb=on&lev_400_mb=on&lev_500_mb=on&lev_600_mb=on&lev_700_mb=on&lev_850_mb=on&lev_925_mb=on&lev_950_mb=on&lev_975_mb=on&lev_mean_sea_level=on&lev_surface=on&var_ABSV=on&var_ACPCP=on&var_APCP=on&var_CAPE=on&var_CFRZR=on&var_CICEP=on&var_CIN=on&var_CPOFP=on&var_CPRAT=on&var_CRAIN=on&var_CSNOW=on&var_DPT=on&var_GUST=on&var_HCDC=on&var_HGT=on&var_HINDEX=on&var_ICEC=on&var_LCDC=on&var_LFTX=on&var_MCDC=on&var_PEVPR=on&var_POT=on&var_PRATE=on&var_PRMSL=on&var_RH=on&var_SNOD=on&var_SUNSD=on&var_TCDC=on&var_TMP=on&var_UGRD=on&var_VGRD=on&var_VIS=on&var_VVEL=on&var_VWSH=on&var_HLCY=on&lev_high_cloud_layer=on&lev_low_cloud_layer=on&lev_middle_cloud_layer=on&lev_3000-0_m_above_ground=on&subregion=&leftlon=$lon2&rightlon=$lon1&toplat=$lat1&bottomlat=$lat2&dir=%2Fgfs.${today}%2F${hh}%2Fatmos"  2>/dev/null -O - > pro$i
 		./$command pro$i -csv csv$i.csv		# obtain infos from gribs to csvs
 		cat csv$i.csv >> final.csv			# merge of csvs
 done &
@@ -96,107 +96,54 @@ done &
 # 4° function
 for i in ${h[@]:33:12};
 	do
-		wget "https://nomads.ncep.noaa.gov/cgi-bin/filter_gfs_0p25.pl?file=gfs.t${hh}z.pgrb2.0p25.f${i}&lev_0C_isotherm=on&lev_1000_mb=on&lev_10_m_above_ground=on&lev_2_m_above_ground=on&lev_500_mb=on&lev_700_mb=on&lev_850_mb=on&lev_high_cloud_layer=on&lev_low_cloud_layer=on&lev_mean_sea_level=on&lev_middle_cloud_layer=on&lev_surface=on&lev_tropopause=on&var_ABSV=on&var_ACPCP=on&var_APCP=on&var_CAPE=on&var_CFRZR=on&var_CICEP=on&var_CIN=on&var_CPOFP=on&var_CPRAT=on&var_CRAIN=on&var_CSNOW=on&var_DPT=on&var_GUST=on&var_HGT=on&var_ICEC=on&var_LFTX=on&var_PEVPR=on&var_PRATE=on&var_PRES=on&var_PRMSL=on&var_RH=on&var_SNOD=on&var_SUNSD=on&var_TCDC=on&var_TMP=on&var_UGRD=on&var_VGRD=on&var_VIS=on&var_VVEL=on&var_VWSH=on&var_LCDC=on&var_MCDC=on&var_HCDC=on&subregion=&leftlon=$lon2&rightlon=$lon1&toplat=$lat1&bottomlat=$lat2&dir=%2Fgfs.${today}%2F${hh}%2Fatmos"  2>/dev/null -O - > pro$i
+		wget "https://nomads.ncep.noaa.gov/cgi-bin/filter_gfs_0p25.pl?file=gfs.t${hh}z.pgrb2.0p25.f${i}&lev_0C_isotherm=on&lev_1000_mb=on&lev_10_m_above_ground=on&lev_200_mb=on&lev_2_m_above_ground=on&lev_300_mb=on&lev_400_mb=on&lev_500_mb=on&lev_600_mb=on&lev_700_mb=on&lev_850_mb=on&lev_925_mb=on&lev_950_mb=on&lev_975_mb=on&lev_mean_sea_level=on&lev_surface=on&var_ABSV=on&var_ACPCP=on&var_APCP=on&var_CAPE=on&var_CFRZR=on&var_CICEP=on&var_CIN=on&var_CPOFP=on&var_CPRAT=on&var_CRAIN=on&var_CSNOW=on&var_DPT=on&var_GUST=on&var_HCDC=on&var_HGT=on&var_HINDEX=on&var_ICEC=on&var_LCDC=on&var_LFTX=on&var_MCDC=on&var_PEVPR=on&var_POT=on&var_PRATE=on&var_PRMSL=on&var_RH=on&var_SNOD=on&var_SUNSD=on&var_TCDC=on&var_TMP=on&var_UGRD=on&var_VGRD=on&var_VIS=on&var_VVEL=on&var_VWSH=on&var_HLCY=on&lev_high_cloud_layer=on&lev_low_cloud_layer=on&lev_middle_cloud_layer=on&lev_3000-0_m_above_ground=on&subregion=&leftlon=$lon2&rightlon=$lon1&toplat=$lat1&bottomlat=$lat2&dir=%2Fgfs.${today}%2F${hh}%2Fatmos"  2>/dev/null -O - > pro$i
 		./$command pro$i -csv csv$i.csv		# obtain infos from gribs to csvs
 		cat csv$i.csv >> final.csv			# merge of csvs
 done &
 
+
 wait # wait until the previous functions ended
 
-echo $today $run > test.txt # insert last data and run to compare this info and know if they are updates
+for i in ${h[*]}; do cut -d',' -f7 csv$i.csv | paste -s; done | tail -n +2 > values.csv # p 	# union of the values of all the grib files
+for i in ${h[*]}; do cut -d',' -f2 csv$i.csv | head -1; done | tail -n +2 > date.csv	# p1		# obtain date $1umn
 
-for i in ${h[*]}; do cut -d',' -f7 csv$i.csv | paste -s; done  | tail -n +2 > p.csv 	# union of the values of all the grib files
-for i in ${h[*]}; do cut -d',' -f2 csv$i.csv | head -1; done | tail -n +2 > p1.csv		# obtain date $1umn
+echo ',' > a.csv							# adding a comma in p2.csv temporary file
+cut -d',' -f3 csv003.csv >> a.csv			# adding labels + sublabels to p2.csv: labels complete!
+echo ',' > b.csv							# adding a comma in p2b.csv temporary file
+cut -d',' -f4 csv003.csv >> b.csv			# atmosphere labels
+paste a.csv b.csv > c.csv					# labels
+#cat p2b.csv | paste -s >> p2c.csv			# labels + atmosphere labels	# p2c.csv
+cat c.csv | tr ' ' '_'  | tr '\n' ',' | tr '"' ' ' | tr '\t' '-' | cut -c 4- | tr '\t'  ',' > d.csv			# transform spaces to _ (to obtain one word") p2d.csv
+paste -d',' date.csv values.csv > e.csv						# adding date to datas
+cat e.csv | tr '\t' ',' >> d.csv							# adding values to the head
 
-echo ',' > p2.csv							# adding a comma in p2.csv temporary file
-cut -d',' -f3 csv003.csv >> p2.csv			# adding labels + sublabels to p2.csv: labels complete!
-echo ',' > p2b.csv							# adding a comma in p2b.csv temporary file
-cut -d',' -f4 csv003.csv >> p2b.csv			# atmosphere labels
-cat p2.csv | paste -s > p2c.csv				# labels
-cat p2b.csv | paste -s >> p2c.csv			# labels + atmosphere labels
-cat p2c.csv | tr ' ' '_' > p2d.csv			# transform spaces to _ (to obtain one word")
-paste -d',' p1.csv p.csv > p5.csv			# adding date to datas
+# deleting double quotes from the date >> deleting the last part of the time format ":00" and spaces before and after comma
+cat d.csv | tr '"' ' ' | sed -i -e 's/, /,/g;s/ ,/,/g;s/:00:00/:00/g' d.csv 
 
-awk 'BEGIN{FS=OFS=";"}{if (NR>=3&&NR<=46) print $1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17,$18,$19,$20,$21,$22,$23,$24,$25,$26,$27,$28,$29,$30,$31,$32,$33,$34,$35,$36,$37,$38,$39,$40,$41,$42,$43,$44,$45,$46,$47,$48,$49,$50,$51,$52,$53,$54,$55,$56,$57,$58,$59,$60,$61,$62,$63,$64,$65,$66,$67,$68,$69,$70,$71,$72,$73,$74,$75,$76,$77,$78,$79,$80,$81,$82 }' p5.csv
-cut -d',' -f2 p2d.csv > p3.csv				# taking the 2nd column after the comma
-cat p5.csv >> p3.csv						# adding labels + (date + datas)
-cat p3.csv | tr '\t' ',' > p6.csv			# convert tabs and commas into semicolon
+# adding a comma and a progressive number at the end of each line and substitute ',,' with ',' where found 
+sed 's/$/,/' d.csv | awk '{if (NR>=1&&NR<46) print $0, NR }' | sed 's/,,/,/g' > final.csv
 
-#cat p6.csv | cut -d',' -f6,7,8,9,13,14,15,16,20,21,22,23,25,26,27,28,29,32,33,34,58,60,61,62,65 --complement > p6d.csv
-#cat p6.csv | cut -d',' -f6,7,8,9,10,13,14,15,16,17,18,19,22,23,24,25,26,27,28,29,30,31,32,33,34,70,71,72,73,74,75,77 --complement > p6d.csv
-cat p6.csv > p6d.csv
+# awk '{if (NR>=2&&NR<46) print $0, NR }' d.csv > final.csv	# added count numbers as last column
 
-awk 'BEGIN{FS=OFS=","}{if (NR>=1&&NR<=2) print $1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17,$18,$19,$20,$21,$22,$23,$24,$25,$26,$27,$28,$29,$30,$31,$32,$33,$34,$35,$36,$37,$38,$39,$40,$41,$42,$43,$44,$45,$46,$47,$48,$49,$50,$51,$52,$53,$54,$55,$56,$57,$58,$59,$60,$61,$62,$63,$64,$65,$66,$67,$68,$69,$70,$71,$72,$73,$74,$75,$76,$77,$78,$79,$80,$81,$82 }' p6d.csv > p6e.csv
-
-awk 'BEGIN{FS=OFS=","}
-function windDirection(x) {
-	if ((x > 335) || (x <= 25)) {
-		print $1,$2/100,$3,$4*3.6,$5,$6-273.15,$7,$8,$9*3.6,$10*3.6,$11,$12,$13,$14-273.15,$15,$16,$17*3.6,$18*3.6,$19,$20,$21,$22-273.15,$23,$24,$25*3.6,$26*3.6,$27,$28,$29-273.15,$30,$31,$32,$33*3.6,$34*3.6,$35,$36,$37,$38-273.15,$39,$40,$41-273.15,$42-273.15,$43-273.15,$44,$45*3.6,$46*3.6,$47,$48*3600,$49*3600,$50*3600,$51*3600,$52,$53,$54,$55,$56,$57,$58,$59,$60,$61,$62,$63,$64,$65,$66,$67,$68,$69/100,$70,$71,$72,$73*3.6,$74,$75,$76,$77,$78,$79,$80,$81,(sqrt($45*$45+$46*$46))*3.6,(atan2($45,$46)*57.3+180),"N"                   #North (Tramontana)
-	}
-	else if	((x > 25) && (x <= 65)) {
-		print $1,$2/100,$3,$4*3.6,$5,$6-273.15,$7,$8,$9*3.6,$10*3.6,$11,$12,$13,$14-273.15,$15,$16,$17*3.6,$18*3.6,$19,$20,$21,$22-273.15,$23,$24,$25*3.6,$26*3.6,$27,$28,$29-273.15,$30,$31,$32,$33*3.6,$34*3.6,$35,$36,$37,$38-273.15,$39,$40,$41-273.15,$42-273.15,$43-273.15,$44,$45*3.6,$46*3.6,$47,$48*3600,$49*3600,$50*3600,$51*3600,$52,$53,$54,$55,$56,$57,$58,$59,$60,$61,$62,$63,$64,$65,$66,$67,$68,$69/100,$70,$71,$72,$73*3.6,$74,$75,$76,$77,$78,$79,$80,$81,(sqrt($45*$45+$46*$46))*3.6,(atan2($45,$46)*57.3+180),"NE"                  #North (Tramontana)
-	}
-	else if ((x > 65) && (x <= 115)) {
-		print $1,$2/100,$3,$4*3.6,$5,$6-273.15,$7,$8,$9*3.6,$10*3.6,$11,$12,$13,$14-273.15,$15,$16,$17*3.6,$18*3.6,$19,$20,$21,$22-273.15,$23,$24,$25*3.6,$26*3.6,$27,$28,$29-273.15,$30,$31,$32,$33*3.6,$34*3.6,$35,$36,$37,$38-273.15,$39,$40,$41-273.15,$42-273.15,$43-273.15,$44,$45*3.6,$46*3.6,$47,$48*3600,$49*3600,$50*3600,$51*3600,$52,$53,$54,$55,$56,$57,$58,$59,$60,$61,$62,$63,$64,$65,$66,$67,$68,$69/100,$70,$71,$72,$73*3.6,$74,$75,$76,$77,$78,$79,$80,$81,(sqrt($45*$45+$46*$46))*3.6,(atan2($45,$46)*57.3+180),"E"                   #North (Tramontana)
-	}
-	else if ((x > 115) && (x <= 155)) {
-		print $1,$2/100,$3,$4*3.6,$5,$6-273.15,$7,$8,$9*3.6,$10*3.6,$11,$12,$13,$14-273.15,$15,$16,$17*3.6,$18*3.6,$19,$20,$21,$22-273.15,$23,$24,$25*3.6,$26*3.6,$27,$28,$29-273.15,$30,$31,$32,$33*3.6,$34*3.6,$35,$36,$37,$38-273.15,$39,$40,$41-273.15,$42-273.15,$43-273.15,$44,$45*3.6,$46*3.6,$47,$48*3600,$49*3600,$50*3600,$51*3600,$52,$53,$54,$55,$56,$57,$58,$59,$60,$61,$62,$63,$64,$65,$66,$67,$68,$69/100,$70,$71,$72,$73*3.6,$74,$75,$76,$77,$78,$79,$80,$81,(sqrt($45*$45+$46*$46))*3.6,(atan2($45,$46)*57.3+180),"SE"                  #North (Tramontana)
-	}
-	else if ((x > 155) && (x <= 205)) {
-		print $1,$2/100,$3,$4*3.6,$5,$6-273.15,$7,$8,$9*3.6,$10*3.6,$11,$12,$13,$14-273.15,$15,$16,$17*3.6,$18*3.6,$19,$20,$21,$22-273.15,$23,$24,$25*3.6,$26*3.6,$27,$28,$29-273.15,$30,$31,$32,$33*3.6,$34*3.6,$35,$36,$37,$38-273.15,$39,$40,$41-273.15,$42-273.15,$43-273.15,$44,$45*3.6,$46*3.6,$47,$48*3600,$49*3600,$50*3600,$51*3600,$52,$53,$54,$55,$56,$57,$58,$59,$60,$61,$62,$63,$64,$65,$66,$67,$68,$69/100,$70,$71,$72,$73*3.6,$74,$75,$76,$77,$78,$79,$80,$81,(sqrt($45*$45+$46*$46))*3.6,(atan2($45,$46)*57.3+180),"S"                   #North (Tramontana)
-	}
-	else if ((x > 205) && (x <= 245)) {
-		print $1,$2/100,$3,$4*3.6,$5,$6-273.15,$7,$8,$9*3.6,$10*3.6,$11,$12,$13,$14-273.15,$15,$16,$17*3.6,$18*3.6,$19,$20,$21,$22-273.15,$23,$24,$25*3.6,$26*3.6,$27,$28,$29-273.15,$30,$31,$32,$33*3.6,$34*3.6,$35,$36,$37,$38-273.15,$39,$40,$41-273.15,$42-273.15,$43-273.15,$44,$45*3.6,$46*3.6,$47,$48*3600,$49*3600,$50*3600,$51*3600,$52,$53,$54,$55,$56,$57,$58,$59,$60,$61,$62,$63,$64,$65,$66,$67,$68,$69/100,$70,$71,$72,$73*3.6,$74,$75,$76,$77,$78,$79,$80,$81,(sqrt($45*$45+$46*$46))*3.6,(atan2($45,$46)*57.3+180),"SW"                  #North (Tramontana)
-	}
-	else if ((x > 245) && (x <= 295)) {
-		print $1,$2/100,$3,$4*3.6,$5,$6-273.15,$7,$8,$9*3.6,$10*3.6,$11,$12,$13,$14-273.15,$15,$16,$17*3.6,$18*3.6,$19,$20,$21,$22-273.15,$23,$24,$25*3.6,$26*3.6,$27,$28,$29-273.15,$30,$31,$32,$33*3.6,$34*3.6,$35,$36,$37,$38-273.15,$39,$40,$41-273.15,$42-273.15,$43-273.15,$44,$45*3.6,$46*3.6,$47,$48*3600,$49*3600,$50*3600,$51*3600,$52,$53,$54,$55,$56,$57,$58,$59,$60,$61,$62,$63,$64,$65,$66,$67,$68,$69/100,$70,$71,$72,$73*3.6,$74,$75,$76,$77,$78,$79,$80,$81,(sqrt($45*$45+$46*$46))*3.6,(atan2($45,$46)*57.3+180),"W"                   #North (Tramontana)
-	}
-	else if ((x > 295) && (x <= 335)) {
-		print $1,$2/100,$3,$4*3.6,$5,$6-273.15,$7,$8,$9*3.6,$10*3.6,$11,$12,$13,$14-273.15,$15,$16,$17*3.6,$18*3.6,$19,$20,$21,$22-273.15,$23,$24,$25*3.6,$26*3.6,$27,$28,$29-273.15,$30,$31,$32,$33*3.6,$34*3.6,$35,$36,$37,$38-273.15,$39,$40,$41-273.15,$42-273.15,$43-273.15,$44,$45*3.6,$46*3.6,$47,$48*3600,$49*3600,$50*3600,$51*3600,$52,$53,$54,$55,$56,$57,$58,$59,$60,$61,$62,$63,$64,$65,$66,$67,$68,$69/100,$70,$71,$72,$73*3.6,$74,$75,$76,$77,$78,$79,$80,$81,(sqrt($45*$45+$46*$46))*3.6,(atan2($45,$46)*57.3+180),"NW"                  #North (Tramontana)
-	}
-}
-{if (NR>=3&&NR<=46) print windDirection((atan2($45,$46)*57.3+180)) }' p6d.csv > p6f.csv			# added function that transform direction from degree to a capital letter
-
-sed -i '/^$/d' p6f.csv						# delete void lines
-cat p6f.csv >> p6e.csv
-
-sed -i -e 's/2_m_above_ground/2m/g;s/10_m_above_ground/10m/g;s/low_cloud_layer/low_cloud/g' p6e.csv
-sed -i -e 's/middle_cloud_layer/middle_cloud/g;s/high_cloud_layer/high_cloud/g' p6e.csv
-sed -i -e 's/mean_sea_level/mean_sea/g;s/:00:00/:00/g' p6e.csv
-
-#awk 'BEGIN{FS=OFS=","}{ print $1,$17,$18,$19,$20,$21,$43,$44,$45,$3,$35,$36,$37,$42,$23,$24,$25,$26,$30,$29,$28,$22,$27,$15,$32,$33,$38,$4,$7,$10,$14,$40,$41,$5,$8,$11,$6,$9,$12,$13,$2,$16,$39,$31,$10-$14,$7-$14,$4-$14,$7-$10,$4-$10,2.5-($17-$18),$34 }' p6e.csv > final.csv
-#awk 'BEGIN{FS=OFS=","}{ print $1,$18,$22,$23,$24,$25,$54,$55,$56,$3,$42,$43,$44,$53,$27,$28,$29,$33,$30,$37,$36,$36,$38,$19,$40,$33,$45,$4,$8,$10,$15,$50,$51,$5,$8,$11,$7,$11,$12,$13,$3,$20,$46,$39,$10-$14,$8-$15,$4-$15,$8-$10,$4-$10,2.5-($18-$22),$41 }' p6e.csv > final.csv
-awk 'BEGIN{FS=OFS=","}{ print $1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17,$18,$19,$20,$21,$22,$23,$24,$25,$26,$27,$28,$29,$30,$31,$32,$33,$34,$35,$36,$37,$38,$39,$40,$41,$42,$43,$44,$45,$46,$47,$48,$49,$50,$51,$52,$53,$54,$55,$56,$57,$58,$59,$60,$61,$62,$63,$64,$65,$66,$67,$68,$69,$70,$71,$72,$73,$74,$75,$76,$77,$78,$79,$80,$81,$82,$83,$84,$85,$21-$36,$13-$36,$5-$36,$13-$21,$5-$21,2.5-($42-$43) }' p6e.csv > final.csv
-
-cat final.csv | tr '"' ' ' > final.txt
-
+# transforming the foinal.csv into an html file
 echo -e "<html><body><table style='font-family:"Arial", Courier, monospace; font-size:60%; white-space:nowrap; overflow: hidden; border-collapse: collapse;' border='1'>" > final.html
     while read INPUT ; do
             echo "<tr><td>${INPUT//,/</td><td>}</td></tr>" >> final.html;
-    done < final.txt ;
+    done < final.csv ;
 echo -e "</font></table></body></html>" >> final.html
 
-
-# restoration of some title: 100 -> TCDC // 100 -> high_cloud
-sed -i -e 's/TCDC <\/td><td>100<\/td><td> PRMSL/TCDC <\/td><td> TCDC <\/td><td> PRMSL/g' final.html
-sed -i -e 's/middle_cloud <\/td><td>100<\/td><td> mean_sea/middle_cloud <\/td><td> high_cloud <\/td><td> mean_sea/g' final.html
-
 # cleaning of some files
-if [ -e "final.csv" ]; then rm final.csv; fi	# remove final.csv
+# if [ -e "final.csv" ]; then rm final.csv; fi	# remove final.csv
 for i in ${h[*]};								# remove all pro*.csv and csv*.csv files
 	do
 		$(if [ -e "pro$i" ]; then rm pro$i; fi)
 		$(if [ -e "csv$i.csv" ]; then rm csv$i.csv; fi)
 done
 
-rm p*.csv	# remove all p*.csv
+tail -n +2 final.csv > data.csv	# obtaining data.csv containing only data without the first line (head)
 
-# graphic part
-cat final.txt | tr '|' ' ' | tr ',' ' ' | tr '"' ' ' | cut -d' ' -f2- > final2.csv
-sed -i -e 's/  / /g;s/:00:00/ /g;s/  / /g' final2.csv
-awk '{if (NR>=3&&NR<46) print $0, NR }' final2.csv > final3.csv	# added the number of the line at the end of each of them
-
-if [ -d graphs ]   # control if the imageFiles folder exists
+# control if the imageFiles folder already exists
+if [ -d graphs ]   
 then
     echo "..creating folder"
 else
@@ -213,27 +160,15 @@ gnuplot -e "run=$run;lat=$lat;lon=$lon" ./cape-lftx.pg > graphs/cape-lftx.png
 gnuplot -e "run=$run;lat=$lat;lon=$lon" ./precTypes.pg > graphs/precTypes.png
 gnuplot -e "run=$run;lat=$lat;lon=$lon" ./health.pg > graphs/health.png
 gnuplot -e "run=$run;lat=$lat;lon=$lon" ./stability.pg > graphs/stability.png
+gnuplot -e "run=$run;lat=$lat;lon=$lon" ./sweat.pg > graphs/sweat.png
+gnuplot -e "run=$run;lat=$lat;lon=$lon" ./kindex.pg > graphs/kindex.png
 
-convert \( graphs/clouds.png graphs/health.png graphs/precipitations.png  -append \) \( graphs/temperatures.png graphs/hgt.png graphs/precTypes.png -append \) \( graphs/weather.png graphs/pressureWind.png graphs/cape-lftx.png  -append \) \( graphs/stability.png -append \) +append graphs/weatherForecastFinal.png
+convert \( graphs/weather.png graphs/health.png graphs/pressureWind.png  -append \) \( graphs/temperatures.png graphs/hgt.png graphs/precTypes.png -append \) \( graphs/cape-lftx.png graphs/kindex.png graphs/sweat.png  -append \) \( graphs/stability.png graphs/clouds.png graphs/precipitations.png -append \) +append graphs/weatherForecastFinal.png
 
-# clean last created files
-rm final2.csv
-rm anlFile
+# cp final.csv table2/final2.csv
 
-if [[ ! -e data ]]; then	# control if the data folder not exists
-    $(mkdir data)
-fi
+python3 convertXLSX.py
+python3 saveFile.py
+python3 my.py
 
-# move data files into data folder
-mv *.csv data
-mv *.html data
-
-# snow levels
 ./snowLine.sh
-
-# generator of simple forecasts
-./simpleWeather.sh
-
-# create files for d3.js
-#cat data/head.csv > data/headf.csv
-cat data/final3.csv >> data/headf.csv

@@ -1,7 +1,13 @@
 #!/bin/bash
 
-cat final.txt | cut -d',' -f1,44,42,45,56,46,49,59,40,68,70,72 | sed '/03:00/d;/09:00/d;/15:00/d;/21:00/d' > sw.csv
-sed -i -e '/03:00/d;/09:00/d;/15:00/d;/21:00/d' sw.csv
+#cat final.txt | cut -d',' -f1,44,42,45,56,46,49,59,40,68,70,72 | sed '/03:00/d;/09:00/d;/15:00/d;/21:00/d' > sw.csv
+cat final.csv | csvcut -c "","TMP - 2_m_above_ground","RH - 2_m_above_ground","UGRD - 10_m_above_ground","VGRD - 10_m_above_ground","PRATE - surface","CRAIN - surface","SNOD - surface","CSNOW - surface","LCDC - low_cloud_layer","MCDC - middle_cloud_layer","HCDC - high_cloud_layer" | sed '/03:00/d;/09:00/d;/15:00/d;/21:00/d' > sw.csv
+
+#cat final.txt | cut -d',' -f1,44,42,45,56,46,49,59,40,68,70,72 | sed '/03:00/d;/09:00/d;/15:00/d;/21:00/d' > sw.csv
+
+#cat final.csv | cut -d',' -f1,44,42,45,56,46,49,59,40,68,70,72 | sed '/03:00/d;/09:00/d;/15:00/d;/21:00/d' > sw2.csv
+#sed -i -e '/03:00/d;/09:00/d;/15:00/d;/21:00/d' sw.csv
+
 #sed '/00:00/d;/03:00/d;/15:00/d;/21:00/d' final.html > finalImages2.html
 #sed '1d;2d;3d;27d;28d' finalImages2.html > finalImages3.html
 #sed 's/<\/td><td>/|/g' finalImages3.html > finalImages4.html
@@ -14,32 +20,32 @@ sed -i -e '/03:00/d;/09:00/d;/15:00/d;/21:00/d' sw.csv
 awk 'BEGIN{FS=OFS=","}
 function windDirection(x) {
 	if ((x > 335) || (x <= 25)) {
-		print $1,int($3),int($4),int((sqrt($5*$5+$6*$6))),"N",$7,$9,$2,$8*100,$10,$11,$12
+		print $1,int($2-273.15),int($3),int((sqrt($4*$4+$5*$5))),"N",$6*3600,$7,$8*100,$9,$10,$11,$12
     }
 	else if	((x > 25) && (x <= 65)) {
-		print $1,int($3),int($4),int((sqrt($5*$5+$6*$6))),"NE",$7,$9,$2,$8*100,$10,$11,$12
+		print $1,int($2-273.15),int($3),int((sqrt($4*$4+$5*$5))),"NE",$6*3600,$7,$8*100,$9,$10,$11,$12
     }
 	else if ((x > 65) && (x <= 115)) {
-		print $1,int($3),int($4),int((sqrt($5*$5+$6*$6))),"E",$7,$9,$2,$8*100,$10,$11,$12
+		print $1,int($2-273.15),int($3),int((sqrt($4*$4+$5*$5))),"E",$6*3600,$7,$8*100,$9,$10,$11,$12
     }
 	else if ((x > 115) && (x <= 155)) {
-		print $1,int($3),int($4),int((sqrt($5*$5+$6*$6))),"SE",$7,$9,$2,$8*100,$10,$11,$12
+		print $1,int($2-273.15),int($3),int((sqrt($4*$4+$5*$5))),"SE",$6*3600,$7,$8*100,$9,$10,$11,$12
     }
 	else if ((x > 155) && (x <= 205)) {
-		print $1,int($3),int($4),int((sqrt($5*$5+$6*$6))),"S",$7,$9,$2,$8*100,$10,$11,$12
+		print $1,int($2-273.15),int($3),int((sqrt($4*$4+$5*$5))),"S",$6*3600,$7,$8*100,$9,$10,$11,$12
     }
 	else if ((x > 205) && (x <= 245)) {
-		print $1,int($3),int($4),int((sqrt($5*$5+$6*$6))),"SW",$7,$9,$2,$8*100,$10,$11,$12
+		print $1,int($2-273.15),int($3),int((sqrt($4*$4+$5*$5))),"SW",$6*3600,$7,$8*100,$9,$10,$11,$12
     }
 	else if ((x > 245) && (x <= 295)) {
-		print $1,int($3),int($4),int((sqrt($5*$5+$6*$6))),"W",$7,$9,$2,$8*100,$10,$11,$12
+		print $1,int($2-273.15),int($3),int((sqrt($4*$4+$5*$5))),"W",$6*3600,$7,$8*100,$9,$10,$11,$12
     }
 	else if ((x > 295) && (x <= 335)) {
-		print $1,int($3),int($4),int((sqrt($5*$5+$6*$6))),"NW",$7,$9,$2,$8*100,$10,$11,$12
+		print $1,int($2-273.15),int($3),int((sqrt($4*$4+$5*$5))),"NW",$6*3600,$7,$8*100,$9,$10,$11,$12
     }
 }
-{if (NR>=3) print windDirection((atan2($5,$6)*57.3+180)) }'  sw.csv > swImages1.csv		# added function that transform direction from degree to a capital letter
-awk 'BEGIN{FS=OFS=","}{if (NR<3) print $1,$3,$4,$5,$6,$7,$9,$2,$8,$10,$11,$12 }' sw.csv > swImages.csv
+{if (NR>=2) print windDirection((atan2($4,$5)*57.3+180)) }'  sw.csv > swImages1.csv		# added function that transform direction from degree to a capital letter
+awk 'BEGIN{FS=OFS=","}{if (NR<2) print $1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12 }' sw.csv > swImages.csv
 
 cat swImages1.csv >> swImages.csv
 
@@ -50,25 +56,25 @@ echo -e "<html><head><link rel="stylesheet" href="graphic.css"></head><body><tab
 echo -e "</font></table></body></html>" >> sw.html
 
 # substitution of Labels
-sed -i -e 's/UGRD/Vento(Km\/h)/g' sw.html
-sed -i -e 's/VGRD/Vento Dir./g' sw.html
-sed -i -e 's/TMP/Temp.(deg)/g' sw.html
-sed -i -e 's/RH/Umidita(%)/g' sw.html
-sed -i -e 's/PRATE/Pioggia(mm\/h)/g' sw.html
-sed -i -e 's/LCDC/Nuvolosita(%)/g' sw.html
-sed -i -e 's/MCDC/Nuvolosita(%)/g' sw.html
-sed -i -e 's/HCDC/Nuvolosita(%)/g' sw.html
-sed -i -e 's/SNOD/Neve(cm)/g' sw.html
-sed -i -e 's/surface/Superficie/g' sw.html
+sed -i -e 's/UGRD - 10_m_above_ground/Vento(Km\/h)/g' sw.html
+sed -i -e 's/VGRD - 10_m_above_ground/Vento Dir./g' sw.html
+sed -i -e 's/TMP - 2_m_above_ground/Temp.(deg)/g' sw.html
+sed -i -e 's/RH - 2_m_above_ground/Umidita(%)/g' sw.html
+sed -i -e 's/PRATE - surface/Pioggia(mm\/h)/g' sw.html
+sed -i -e 's/LCDC - low_cloud_layer/Nuvolosita(%)/g' sw.html
+sed -i -e 's/MCDC - middle_cloud_layer/Nuvolosita(%)/g' sw.html
+sed -i -e 's/HCDC - high_cloud_layer/Nuvolosita(%)/g' sw.html
+sed -i -e 's/SNOD - surface/Neve(cm)/g' sw.html
+#sed -i -e 's/surface/Superficie/g' sw.html
 sed -i -e 's/low_cloud/Bassa/g' sw.html
 sed -i -e 's/middle_cloud/Media/g' sw.html
 sed -i -e 's/high_cloud/Alta/g' sw.html
-sed -i -e 's/CRAIN/Prob.Pioggia/g' sw.html
-sed -i -e 's/CSNOW/Prob.Neve/g' sw.html
+sed -i -e 's/CRAIN - surface/Prob.Pioggia/g' sw.html
+sed -i -e 's/CSNOW - surface/Prob.Neve/g' sw.html
 
 # restoration of some title: 100 -> TCDC // 100 -> high_cloud
-sed -i -e 's/TCDC <\/td><td>100</TCDC <\/td><td> TCDC </g' sw.html
-sed -i -e 's/middle_cloud <\/td><td>100</middle_cloud <\/td><td> high_cloud </g' sw.html
+#sed -i -e 's/TCDC <\/td><td>100</TCDC <\/td><td> TCDC </g' sw.html
+#sed -i -e 's/middle_cloud <\/td><td>100</middle_cloud <\/td><td> high_cloud </g' sw.html
 
 # enumeration of the id tags
 awk '{gsub("<td>","\n<td>"); print}' sw.html > swMiddle.html
