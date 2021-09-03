@@ -165,10 +165,6 @@ gnuplot -e "run=$run;lat=$lat;lon=$lon" ./kindex.pg > graphs/kindex.png
 
 convert \( graphs/weather.png graphs/health.png graphs/pressureWind.png  -append \) \( graphs/temperatures.png graphs/hgt.png graphs/precTypes.png -append \) \( graphs/cape-lftx.png graphs/kindex.png graphs/sweat.png  -append \) \( graphs/stability.png graphs/clouds.png graphs/precipitations.png -append \) +append graphs/weatherForecastFinal.png
 
-# cp final.csv table2/final2.csv
-
 python3 convertXLSX.py
 python3 saveFile.py
 python3 my.py
-
-./snowLine.sh
