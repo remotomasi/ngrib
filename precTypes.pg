@@ -165,7 +165,7 @@ plot "data.csv" using 1:($45-$93) title "1000-700" lw 2 lt 2 lc "red" axis x1y2,
 
 ## 4 ##
 
-tics = floor((max_yM87 - min_yM87) / 6)
+tics = floor((max_yM87 - min_yM87) / 5)
 
 unset label
 set bmargin 0.6
