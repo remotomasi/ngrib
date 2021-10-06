@@ -168,3 +168,10 @@ convert \( graphs/weather.png graphs/health.png graphs/pressureWind.png  -append
 python3 convertXLSX.py
 python3 saveFile.py
 python3 my.py
+
+# convert simpleWeatherSimply.xlsx to pdf
+unoconv simpleWeatherSimply.xlsx
+# alternative way --> soffice --headless --convert-to pdf simpleWeatherSimply.xlsx
+
+# convert simpleWeatherSimply.pdf to png
+gs -sDEVICE=pngalpha -o simpleWeatherSimply.png -r144 simpleWeatherSimply.pdf
