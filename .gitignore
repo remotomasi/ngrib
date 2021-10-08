@@ -11,5 +11,5 @@ imageFiles
 anlFile
 data
 final.xlsx
-simpleWeather.xlsx
+*.xlsx
 simpleWeatherSimply.pdf
