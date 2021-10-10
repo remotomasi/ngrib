@@ -84,10 +84,10 @@ set label sprintf("< %4.4g",max_y500) at second max_pos_y500, second max_y500 le
 set label sprintf("< %4.4g",min_y500) at second min_pos_y500, second min_y500 left tc rgb "red"
 set label 1 '5520' at graph 1.08, second 5520 front tc rgb "green"
 plot "data.csv" using 1:29 title "500" lw 2 lt 2 lc "blue" axis x1y2, \
-"" u 1:(min_y500<5720 || max_y500>57&0?5760:1/0) dt 2 lc rgb "red" lw 1 notitle axis x1y2, \
-"" u 1:(min_y500<5720 || max_y500>57&0?5720:1/0) dt 2 lc rgb "red" lw 1 notitle axis x1y2, \
-"" u 1:(abs($29-5520)<50?5520:1/0) dt 2 lc rgb "green" lw 2 notitle axis x1y2, \
-"" u 1:((min_y500-5520)<50?5520:1/0) dt 2 lc "green" lw 1 notitle axis x1y2
+"" u 1:(min_y500<5720 && max_y500>5760?5760:1/0) dt 2 lc rgb "red" lw 1 notitle axis x1y2, \
+"" u 1:(min_y500<5720 && max_y500>5720?5720:1/0) dt 2 lc rgb "red" lw 1 notitle axis x1y2, \
+"" u 1:(min_y500<5760 && max_y500>5760?5760:1/0) dt 2 lc rgb "red" lw 1 notitle axis x1y2, \
+"" u 1:(abs(min_y500-5520)<30?5520:1/0) dt 2 lc "green" lw 1 notitle axis x1y2
 #5720 dt 3 lc rgb "red" lw 2 notitle axis x1y2, \
 #5760 dt 3 lc rgb "red" lw 2 notitle axis x1y2, \
 #"" u 1:(max_yPR>1?1:1/0) dt 2 lc rgb "blue" lw 1 notitle
