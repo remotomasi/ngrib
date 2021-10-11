@@ -108,7 +108,7 @@ unset ytics
 set autoscale y2
 set y2tics 5
 set y2label ''
-set y2range [15:45]
+set y2range [15:60]
 set grid y2tics lt 0 lw 1 lc rgb "#008800"
 
 run(n) = sprintf("%d",n)
@@ -212,9 +212,9 @@ set lmargin screen 0.2
 #set label sprintf("Wmean = %4.4g Km/h",mean_yW) at graph 0.45, second mean_yW left font "Arial,10" tc rgb "dark-orange"
 
 plot "data.csv" using 1:130 dt 1 lc rgb "dark-grey" lw 1 title "SREH" axes x1y2, \
-"" u 1:(min_ySREH>=100?150:1/0) dt 2 lc rgb "dark-yellow" lw 1 title "Supercells" axes x1y2, \
-"" u 1:(min_ySREH>=249?299:1/0) dt 2 lc rgb "dark-orange" lw 1 title "Prob. tornado" axes x1y2, \
-"" u 1:(min_ySREH>=399?449:1/0) dt 2 lc rgb "red" lw 1 title "Tornado (F2/F3)" axes x1y2, \
+"" u 1:(max_ySREH>=100?150:1/0) dt 2 lc rgb "dark-yellow" lw 1 title "Supercells" axes x1y2, \
+"" u 1:(max_ySREH>=249?299:1/0) dt 2 lc rgb "dark-orange" lw 1 title "Prob. tornado" axes x1y2, \
+"" u 1:(max_ySREH>=399?449:1/0) dt 2 lc rgb "red" lw 1 title "Tornado (F2/F3)" axes x1y2, \
 "" u 1:((($31+$47+$55)/3)>=65?(($31+$47+$55)/3):1/0) dt 1 lc rgb "orange" lw 1 title "Hum-index" axes x1y2, \
 65 dt 4 lc rgb "dark-green" lw 1 title "65" axis x1y2
 
@@ -251,10 +251,10 @@ set lmargin screen 0.2
 #set label sprintf("Wmean = %4.4g Km/h",mean_yW) at graph 0.45, second mean_yW left font "Arial,10" tc rgb "dark-orange"
 
 plot "data.csv" using 1:($122*$130/160000) dt 1 lc rgb "dark-green" lw 2 title "EHI" axis x1y2, \
-"" u 1:(($122*$130/160000)>=0.5?1:1/0) dt 2 lc rgb "yellow" lw 1 title "Improb." axes x1y2, \
-"" u 1:(($122*$130/160000)>=1.5?2:2/0) dt 2 lc rgb "dark-orange" lw 1 title "Prob." axes x1y2, \
-"" u 1:(($122*$130/160000)>=1.9?2.4:2.4/0) dt 2 lc rgb "red" lw 1 title "+Prob." axes x1y2, \
-"" u 1:(($122*$130/160000)>=2.5?2.9:2.9/0) dt 2 lc rgb "brown" lw 1 title "F2/F3" axes x1y2, \
-"" u 1:(($122*$130/160000)>=3.5?3.9:3.9/0) dt 2 lc rgb "dark-red" lw 1 title "F4/F5" axes x1y2
+"" u 1:(max_yEHI>=0.5?1:1/0) dt 2 lc rgb "yellow" lw 1 title "Improb." axes x1y2, \
+"" u 1:(max_yEHI>=1.5?2:2/0) dt 2 lc rgb "dark-orange" lw 1 title "Prob." axes x1y2, \
+"" u 1:(max_yEHI>=1.9?2.4:2.4/0) dt 2 lc rgb "red" lw 1 title "+Prob." axes x1y2, \
+"" u 1:(max_yEHI>=2.5?2.9:2.9/0) dt 2 lc rgb "brown" lw 1 title "F2/F3" axes x1y2, \
+"" u 1:(max_yEHI>=3.5?3.9:3.9/0) dt 2 lc rgb "dark-red" lw 1 title "F4/F5" axes x1y2
 
 unset multiplot
