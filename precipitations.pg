@@ -7,9 +7,9 @@ set term pngcairo size 1024,600 # 800 pixels by 600 pixels
 data = 'data.csv'
 set datafile separator ","
 # Retrieve statistical properties for Precipitations
-stats data using 1:103
+stats data using 1:105
 set timefmt "%Y-%m-%d %H:%M"
-stats [time(0):time(0) + 5*24*60*60] 'data.csv' u (timecolumn(1)):103
+stats [time(0):time(0) + 5*24*60*60] 'data.csv' u (timecolumn(1)):105
 max_yPR = STATS_max_y
 tot_yPR = STATS_sum_y
 
@@ -67,12 +67,14 @@ plot "data.csv" using 1:($105*3600) w boxes lc rgb "blue" title "PrMM/h" axes x1
 "" using 1:110 lc rgb "orange" lw 2 title "CPrTot" axes x1y1, \
 "" using 1:(($103>0)?$103:1/0) lc rgb "red" lw 2 title "FP%" axes x1y2, \
 "" using 1:($96*100) lc rgb "olive" lw 2 title "SDepth" axes x1y1, \
-"" u 1:(max_yPR>1?1:1/0) dt 2 lc rgb "blue" lw 1 notitle, \
-"" u 1:(max_yPR>2.5?2.5:1/0) dt 2 lc rgb "blue" lw 1 notitle, \
-"" u 1:(max_yPR>10?10:1/0) dt 2 lc rgb "blue" lw 1 notitle, \
-"" u 1:(max_yTP>16.7?16.7:1/0) dt 2 lc rgb "orange" lw 1 notitle, \
-"" u 1:(max_yTP>33.3?33.3:1/0) dt 2 lc rgb "red" lw 1 notitle, \
-1 dt 2 lc rgb "#112233" lw 1 notitle
+"" u 1:(max_yPR*3600+0.5>1?1:1/0) dt 2 lc rgb "grey" lw 1 notitle, \
+"" u 1:(max_yPR*3600+0.5>2.5?2.5:1/0) dt 2 lc rgb "dark-yellow" lw 1 notitle, \
+"" u 1:(max_yPR*3600+0.5>5?5:1/0) dt 2 lc rgb "orange" lw 1 notitle, \
+"" u 1:(max_yPR*3600+0.5>10?10:1/0) dt 2 lc rgb "dark-orange" lw 1 notitle, \
+"" u 1:(max_yPR*3600+0.5>16.7?16.7:1/0) dt 2 lc rgb "red" lw 1 notitle, \
+"" u 1:(max_yPR*3600+0.5>33.3?33.3:1/0) dt 2 lc rgb "brown" lw 1 notitle
+#, \
+#1 dt 2 lc rgb "#112233" lw 1 notitle
 
 #1 lc rgb "#5F9EA0" lw 2 notitle, \
 #2.5 lc rgb "#5F9EA0" lw 2 notitle
