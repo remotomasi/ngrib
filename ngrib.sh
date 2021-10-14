@@ -169,9 +169,24 @@ python3 convertXLSX.py
 python3 saveFile.py
 python3 my.py
 
+# delete previous pdf and pgn versions
+if [ -f simpleWeatherSimply.pdf ] 
+then
+	rm simpleWeatherSimply.pdf 
+fi
+
+if [ -f simpleWeatherSimply.png ]
+then
+	rm simpleWeatherSimply.png
+fi
+
 # convert simpleWeatherSimply.xlsx to pdf
-unoconv simpleWeatherSimply.xlsx
+# alternative way --> unoconv simpleWeatherSimply.xlsx
 # alternative way --> soffice --headless --convert-to pdf simpleWeatherSimply.xlsx
+if [ -f /usr/local/bin/libreoffice7.2 ]
+then
+	libreoffice7.2 --headless --convert-to pdf:calc_pdf_Export --outdir . simpleWeather.xlsx
+fi
 
 # convert simpleWeatherSimply.pdf to png
 gs -sDEVICE=pngalpha -o simpleWeatherSimply.png -r144 simpleWeatherSimply.pdf
