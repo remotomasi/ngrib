@@ -60,6 +60,16 @@ mean_yR8 = STATS_mean_y
 # Retrieve statistical properties for TT
 stats data using 55
 set timefmt "%Y-%m-%d %H:%M"
+stats [time(0):*] 'data.csv' u (timecolumn(1)):(($54-273.15)+(-430.22+237.7*log(($55*6.11*10**((7.5*($54-273.15))/(237.7+($54-273.15))))/100))/(-log($55*6.11*10**((7.5*($54-273.15))/(237.7+($54-273.15)))/100)+19.08)-($30-273.15)-($46-273.15)+(-430.22+237.7*log(($47*6.11*10**((7.5*($46-273.15))/(237.7+($46-273.15))))/100))/(-log($47*6.11*10**((7.5*($46-273.15))/(237.7+($56-273.15)))/100)+19.08))
+max_yK = STATS_max_y
+max_pos_yK = STATS_pos_max_y
+min_yK = STATS_min_y
+min_pos_yK = STATS_pos_min_y
+mean_yK = STATS_mean_y
+
+# Retrieve statistical properties for TT
+stats data using 55
+set timefmt "%Y-%m-%d %H:%M"
 stats [time(0):*] 'data.csv' u (timecolumn(1)):(($54-273.15)+(-430.22+237.7*log(($55*6.11*10**((7.5*($54-273.15))/(237.7+($54-273.15))))/100))/(-log($55*6.11*10**((7.5*($54-273.15))/(237.7+($54-273.15)))/100)+19.08)-2*($30-273.15))
 max_yTT = STATS_max_y
 max_pos_yTT = STATS_pos_max_y
@@ -108,7 +118,7 @@ unset ytics
 set autoscale y2
 set y2tics 5
 set y2label ''
-set y2range [15:60]
+set y2range [15:max_yK]
 set grid y2tics lt 0 lw 1 lc rgb "#008800"
 
 run(n) = sprintf("%d",n)
