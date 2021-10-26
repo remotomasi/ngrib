@@ -169,7 +169,7 @@ python3 convertXLSX.py
 python3 saveFile.py
 python3 my.py
 
-# delete previous pdf and pgn versions
+# delete previous pdf, png and xlsx versions
 if [ -f simpleWeatherSimply.pdf ] 
 then
 	rm simpleWeatherSimply.pdf 
@@ -178,6 +178,11 @@ fi
 if [ -f simpleWeatherSimply.png ]
 then
 	rm simpleWeatherSimply.png
+fi
+
+if [ -f simpleWeatherSimply.xlsx ]
+then
+	rm simpleWeatherSimply.xlsx
 fi
 
 # convert simpleWeatherSimply.xlsx to pdf
