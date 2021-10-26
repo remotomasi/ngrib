@@ -185,7 +185,7 @@ fi
 # alternative way --> soffice --headless --convert-to pdf simpleWeatherSimply.xlsx
 if [ -f /usr/local/bin/libreoffice7.2 ]
 then
-	libreoffice7.2 --headless --convert-to pdf:calc_pdf_Export --outdir . simpleWeather.xlsx
+	libreoffice7.2 --headless --convert-to pdf:calc_pdf_Export --outdir . simpleWeatherSimply.xlsx
 fi
 
 # convert simpleWeatherSimply.pdf to png
