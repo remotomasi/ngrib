@@ -165,9 +165,14 @@ gnuplot -e "run=$run;lat=$lat;lon=$lon" ./kindex.pg > graphs/kindex.png
 
 convert \( graphs/weather.png graphs/health.png graphs/pressureWind.png  -append \) \( graphs/temperatures.png graphs/hgt.png graphs/precTypes.png -append \) \( graphs/cape-lftx.png graphs/kindex.png graphs/sweat.png  -append \) \( graphs/stability.png graphs/clouds.png graphs/precipitations.png -append \) +append graphs/weatherForecastFinal.png
 
+# not simple weather
 python3 convertXLSX.py
 python3 saveFile.py
 python3 my.py
+
+# simple weather
+python3 saveSimpleFile.py
+# python3 mySimply.py
 
 # delete previous pdf, png and xlsx versions
 if [ -f simpleWeatherSimply.pdf ] 
@@ -178,11 +183,6 @@ fi
 if [ -f simpleWeatherSimply.png ]
 then
 	rm simpleWeatherSimply.png
-fi
-
-if [ -f simpleWeatherSimply.xlsx ]
-then
-	rm simpleWeatherSimply.xlsx
 fi
 
 # convert simpleWeatherSimply.xlsx to pdf
