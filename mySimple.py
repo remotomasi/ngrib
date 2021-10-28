@@ -82,7 +82,7 @@ veryDarkGreenFill = PatternFill(start_color='FF00FF00',
 
 
 # writing titles
-ws.column_dimensions['A'].width = 15
+ws.column_dimensions['A'].width = 14
 ws.cell(row = 1, column = 2).value = "Temp (°C)"
 ws.column_dimensions['B'].width = 10
 ws.cell(row = 1, column = 3).value = "Umidita' (%)"
