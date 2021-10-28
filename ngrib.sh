@@ -125,7 +125,7 @@ sed 's/$/,/' d.csv | awk '{if (NR>=1&&NR<46) print $0, NR }' | sed 's/,,/,/g' > 
 
 # awk '{if (NR>=2&&NR<46) print $0, NR }' d.csv > final.csv	# added count numbers as last column
 
-# transforming the foinal.csv into an html file
+# transforming the final.csv into an html file
 echo -e "<html><body><table style='font-family:"Arial", Courier, monospace; font-size:60%; white-space:nowrap; overflow: hidden; border-collapse: collapse;' border='1'>" > final.html
     while read INPUT ; do
             echo "<tr><td>${INPUT//,/</td><td>}</td></tr>" >> final.html;
@@ -172,7 +172,7 @@ python3 my.py
 
 # simple weather
 python3 saveSimpleFile.py
-# python3 mySimply.py
+python3 mySimple.py
 
 # delete previous pdf, png and xlsx versions
 if [ -f simpleWeatherSimply.pdf ] 
@@ -191,7 +191,10 @@ fi
 if [ -f /usr/local/bin/libreoffice7.2 ]
 then
 	libreoffice7.2 --headless --convert-to pdf:calc_pdf_Export --outdir . simpleWeatherSimply.xlsx
+	# convert simpleWeatherSimply.pdf to png
+	gs -sDEVICE=pngalpha -o simpleWeatherSimply.png -r144 simpleWeatherSimply.pdf
 fi
 
-# convert simpleWeatherSimply.pdf to png
-gs -sDEVICE=pngalpha -o simpleWeatherSimply.png -r144 simpleWeatherSimply.pdf
+
+# transforming the simpleWeatherSimply.xlsx into a csv file
+#ssconvert simpleWeatherSimply.xlsx simpleWeatherSimply.csv

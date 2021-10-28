@@ -105,13 +105,13 @@ for j in range (2, 10):
     if ws.cell(row = 1, column = j): ws.cell(row = 1, column = j).font = Font(color = 'FFFFFFFF', bold = True)
     if ws.cell(row = 1, column = j): ws.cell(row = 1, column = j).fill = PatternFill(start_color = 'FF0000FF', end_color = 'FF0000FF', fill_type = 'solid')
 
-# Pioggia
+# Temperatura
 for x in range(2, 46, 1):
     cell = 'B' + str(x)
     if float(ws[cell].value) >= 273.15: ws[cell].value = float(ws[cell].value) - 273.15
     if float(ws[cell].value) <= 0: ws[cell].fill = blueFill
-    if float(ws[cell].value) > 0 and float(ws[cell].value) <= 10: ws[cell].fill = cyanFill
-    if float(ws[cell].value) >= 11 and float(ws[cell].value) <= 13: ws[cell].fill = grayFill
+    if float(ws[cell].value) > 0 and float(ws[cell].value) <= 10: ws[cell].fill = blueFill
+    if float(ws[cell].value) >= 11 and float(ws[cell].value) <= 13: ws[cell].fill = cyanFill
     if float(ws[cell].value) > 13 and float(ws[cell].value) <= 22: ws[cell].fill = greenFill
     if float(ws[cell].value) > 22 and float(ws[cell].value) <= 30: ws[cell].fill = yellowFill
     if float(ws[cell].value) > 30 and float(ws[cell].value) <= 35: ws[cell].fill = orangeFill
@@ -199,14 +199,22 @@ for x in range(2, 46, 1):
 # rain possiblity
 for x in range(2, 46, 1):
     cell = 'F' + str(x)
-    if float(ws[cell].value) == 1: ws[cell].fill = greenFill
-    else: ws[cell].fill = whiteFill
+    if float(ws[cell].value) == 1: 
+        ws[cell].fill = greenFill
+        ws[cell] = ""
+    else: 
+        ws[cell].fill = whiteFill
+        ws[cell] = ""
 
 # snow possibility
 for x in range(2, 46, 1):
     cell = 'G' + str(x)
-    if float(ws[cell].value) == 1: ws[cell].fill = greenFill
-    else: ws[cell].fill = whiteFill
+    if float(ws[cell].value) == 1: 
+        ws[cell].fill = greenFill
+        ws[cell] = ""
+    else: 
+        ws[cell].fill = whiteFill
+        ws[cell] = ""
 
 # nuvole basse
 for x in range(2, 46, 1):
