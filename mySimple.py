@@ -4,6 +4,7 @@ from openpyxl.styles import PatternFill
 from openpyxl.styles import Font
 from openpyxl.styles import Border, Side
 from openpyxl.drawing.image import Image
+import subprocess
 
 wb = load_workbook("simpleWeatherSimply.xlsx")
 
@@ -67,22 +68,49 @@ veryGrayFill = PatternFill(start_color='FF505050',
 veryDarkGrayFill = PatternFill(start_color='FF303030',
                fgColor = 'FFFFFF',
                fill_type='solid')
+blackFill = PatternFill(start_color='FF000000',
+               fgColor = 'FFFFFF',
+               fill_type='solid')
 vvdgf = Font(color='FFFFFFFF')
 
 
+verylightGreenFill = PatternFill(start_color='FFCCDDCC',
+               end_color='FFCCDDCC',
+               fill_type='solid')
 lightGreenFill = PatternFill(start_color='FFCCFFCC',
                end_color='FFCCFFCC',
                fill_type='solid')
-darkGreenFill = PatternFill(start_color='FF66FF66',
+almostGreenFill = PatternFill(start_color='FF66FF66',
                end_color='FF66FF66',
                fill_type='solid')
-veryDarkGreenFill = PatternFill(start_color='FF00FF00',
-               end_color='FF00FF00',
+darkGreenFill = PatternFill(start_color='FF00DD00',
+               end_color='FF00DD00',
+               fill_type='solid')
+darkGreenFill2 = PatternFill(start_color='FF00CC00',
+               end_color='FF00CC00',
+               fill_type='solid')
+darkGreenFill3 = PatternFill(start_color='FF00AA00',
+               end_color='FF00AA00',
+               fill_type='solid')
+darkGreenFill4 = PatternFill(start_color='FF008800',
+               end_color='FF008800',
+               fill_type='solid')
+darkGreenFill5 = PatternFill(start_color='FF006600',
+               end_color='FF006600',
+               fill_type='solid')
+darkGreenFill6 = PatternFill(start_color='FF004400',
+               end_color='FF004400',
+               fill_type='solid')
+darkGreenFill7 = PatternFill(start_color='FF002200',
+               end_color='FF002200',
+               fill_type='solid')
+darkGreenFill8 = PatternFill(start_color='FF001100',
+               end_color='FF001100',
                fill_type='solid')
 
 
 # writing titles
-ws.column_dimensions['A'].width = 14
+ws.column_dimensions['A'].width = 21
 ws.cell(row = 1, column = 2).value = "Temp (°C)"
 ws.column_dimensions['B'].width = 10
 ws.cell(row = 1, column = 3).value = "Umidita' (%)"
@@ -99,6 +127,14 @@ ws.cell(row = 1, column = 8).value = "Nuvole basse"
 ws.column_dimensions['H'].width = 13
 ws.cell(row = 1, column = 9).value = "Nuvole medie"
 ws.column_dimensions['I'].width = 13
+
+# formatting date adding the day name
+for x in range(2, 46, 1):
+    cell = 'A' + str(x)
+    dayt = subprocess.run(['date', '--date=' + ws[cell].value + ''], capture_output=True, text=True)
+    dayDate = ws[cell].value
+    day = print(dayt.stdout[0:3])
+    ws[cell].value = ws[cell].value + ' ' + dayt.stdout[0:3]
 
 # formatting titles
 for j in range (2, 10):
@@ -137,11 +173,31 @@ for x in range(2, 46, 1):
 # wind power
 for x in range(2, 46, 1):
     cell = 'D' + str(x)
-    if float(ws[cell].value) >= 0 and float(ws[cell].value) <= 10: ws[cell].fill = whiteFill
-    if float(ws[cell].value) >= 10 and float(ws[cell].value) <= 20: ws[cell].fill = lightGreenFill
-    if float(ws[cell].value) > 20 and float(ws[cell].value) < 50: ws[cell].fill = greenFill
-    if float(ws[cell].value) >= 50 and float(ws[cell].value) < 80: ws[cell].fill = darkGreenFill
-    if float(ws[cell].value) >= 80: ws[cell].fill = veryDarkGreenFill
+    if float(ws[cell].value) >= 0 and float(ws[cell].value) <= 1: ws[cell].fill = whiteFill
+    if float(ws[cell].value) >= 2 and float(ws[cell].value) <= 5: ws[cell].fill = lightGreenFill
+    if float(ws[cell].value) >= 6 and float(ws[cell].value) <= 11: ws[cell].fill = almostGreenFill
+    if float(ws[cell].value) >= 12 and float(ws[cell].value) <= 19: ws[cell].fill = greenFill
+    if float(ws[cell].value) >= 20 and float(ws[cell].value) <= 28: ws[cell].fill = darkGreenFill
+    if float(ws[cell].value) >= 29 and float(ws[cell].value) <= 38: ws[cell].fill = darkGreenFill2
+    if float(ws[cell].value) >= 39 and float(ws[cell].value) <= 49: 
+        ws[cell].fill = darkGreenFill3
+        ws[cell].font = vvdgf
+    if float(ws[cell].value) >= 50 and float(ws[cell].value) <= 61: 
+        ws[cell].fill = darkGreenFill4
+        ws[cell].font = vvdgf
+    if float(ws[cell].value) >= 62 and float(ws[cell].value) <= 74: 
+        ws[cell].fill = darkGreenFill5
+        ws[cell].font = vvdgf
+    if float(ws[cell].value) >= 75 and float(ws[cell].value) <= 88: 
+        ws[cell].fill = darkGreenFill6
+        ws[cell].font = vvdgf
+    if float(ws[cell].value) >= 89 and float(ws[cell].value) <= 102: 
+        ws[cell].fill = darkGreenFill7
+        ws[cell].font = vvdgf
+    if float(ws[cell].value) >= 103 and float(ws[cell].value) <= 117: 
+        ws[cell].fill = darkGrayFill8
+        ws[cell].font = vvdgf
+    if float(ws[cell].value) >= 118: ws[cell].fill = blackFill
 
 # delete all the images in the workbook
 ws._images = []
@@ -200,7 +256,7 @@ for x in range(2, 46, 1):
 for x in range(2, 46, 1):
     cell = 'F' + str(x)
     if float(ws[cell].value) == 1: 
-        ws[cell].fill = greenFill
+        ws[cell].fill = cyanFill
         ws[cell] = ""
     else: 
         ws[cell].fill = whiteFill

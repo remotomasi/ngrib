@@ -114,8 +114,8 @@ cut -d',' -f4 csv003.csv >> b.csv			# atmosphere labels
 paste a.csv b.csv > c.csv					# labels
 #cat p2b.csv | paste -s >> p2c.csv			# labels + atmosphere labels	# p2c.csv
 cat c.csv | tr ' ' '_'  | tr '\n' ',' | tr '"' ' ' | tr '\t' '-' | cut -c 4- | tr '\t'  ',' > d.csv			# transform spaces to _ (to obtain one word") p2d.csv
-paste -d',' date.csv values.csv > e.csv						# adding date to datas
-cat e.csv | tr '\t' ',' >> d.csv							# adding values to the head
+paste -d',' date.csv values.csv > e.csv		# adding date to datas
+cat e.csv | tr '\t' ',' >> d.csv			# adding values to the head
 
 # deleting double quotes from the date >> deleting the last part of the time format ":00" and spaces before and after comma
 cat d.csv | tr '"' ' ' | sed -i -e 's/, /,/g;s/ ,/,/g;s/:00:00/:00/g' d.csv 

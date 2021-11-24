@@ -4,6 +4,7 @@ from openpyxl.styles import PatternFill
 from openpyxl.styles import Font
 from openpyxl.styles import Border, Side
 from openpyxl.drawing.image import Image
+import subprocess
 
 wb = load_workbook("simpleWeather.xlsx")
 
@@ -95,11 +96,20 @@ ws.cell(row = 1, column = 11).value = "LOW"
 ws.cell(row = 1, column = 12).value = "MIDDLE"
 ws.cell(row = 1, column = 13).value = "HIGH"
 
+# formatting date adding the day name
+for x in range(2, 46, 1):
+    cell = 'A' + str(x)
+    dayt = subprocess.run(['date', '--date=' + ws[cell].value + ''], capture_output=True, text=True)
+    dayDate = ws[cell].value
+    day = print(dayt.stdout[0:3])
+    ws[cell].value = ws[cell].value + ' ' + dayt.stdout[0:3]
+
 # formatting titles
 for j in range (2, 14):
     if ws.cell(row = 1, column = j): ws.cell(row = 1, column = j).font = Font(color = 'FFFFFFFF', bold = True)
     if ws.cell(row = 1, column = j): ws.cell(row = 1, column = j).fill = PatternFill(start_color = 'FF0000FF', end_color = 'FF0000FF', fill_type = 'solid')
 
+# Temperatura
 for x in range(2, 46, 1):
     cell = 'B' + str(x)
     if float(ws[cell].value) >= 273.15: ws[cell].value = float(ws[cell].value) - 273.15
@@ -117,6 +127,7 @@ for x in range(2, 46, 1):
         ws[cell].fill = darkBrownFill
         ws[cell].font = vvdgf
 
+# Umidita'
 for x in range(2, 46, 1):
     cell = 'C' + str(x)
     if float(ws[cell].value) >= 273.15: ws[cell].value = float(ws[cell].value) - 273.15
@@ -128,6 +139,7 @@ for x in range(2, 46, 1):
     if float(ws[cell].value) >= 24 and float(ws[cell].value) < 30: ws[cell].fill = brownFill
     if float(ws[cell].value) >= 30: ws[cell].fill = darkBrownFill
 
+# wind power
 for x in range(2, 46, 1):
     cell = 'D' + str(x)
     if float(ws[cell].value) >= 0 and float(ws[cell].value) <= 25: ws[cell].fill = orangeFill
