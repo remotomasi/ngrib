@@ -123,7 +123,7 @@ set label 2 sprintf("< %4.4g",max_yZ) at second max_pos_yZ, second max_yZ front 
 plot "data.csv" using 1:131 title "0 C" lw 2 lt 2 lc "red" axis x1y2
 
 
-## 2b ##
+## 3 ##
 
 #tics = floor((max_yZ - min_yZ) / 5)
 
@@ -133,10 +133,9 @@ set tmargin 0.2
 unset xlabel
 unset xtics #font ", 10"
 
-#unset ytics
-#set autoscale y2
-set y2tics 100
+unset ytics
 set autoscale y2
+#set y2tics 500
 set y2label 'm'
 set grid y2tics lt 0 lw 1 lc rgb "#008800"
 unset title
@@ -153,13 +152,10 @@ A = 19.0785
 B = 4098.025
 C = 237.3
 C1 = 18 / 28.96
-plot "data.csv" using 1:(10*(273.2 + ($98 - 273.15) + 2480 * ((exp(A       - B        / (($99 - 273.15) + C    ))) / ($2/100  - (exp(A       - B        / (($99 - 273.15) + C    )))) * C1           / 1) * ((1000 / $2/100)**0.29)-273.15 -12)/0.12) title "SnL" lw 2 lt 2 lc "dark-blue" axis x1y2
-# (10*(273.2 + ($98 - 273.15) + 2480 * ((exp(A       - B        / (($99 - 273.15) + C    ))) / ($2/100  - (exp(A       - B        / (($99 - 273.15) + C    )))) * C1           / 1) * ((1000 / $2/100)**0.29)-273.15 -12)/0.12) title "SnL" lw 2 lt 2 lc "dark-blue" axis x1y2
-#                       (10*(273.2 + 11.8           + 2480 * ((exp(19.0785 - 4098.025 / (9.976          + 237.3))) / (1003.58 - (exp(19.0785 - 4098.025 / (9.976          + 237.3)))) * (18 / 28.96) / 1) * ((1000 / 1003.58) ^0.29)-273.15 -12)/0.12)                         
-# (273.2 + 13.4 +           2480 * ((exp(19.0785 - 4098.025 / (3.8            + 237.3))) / (1018.1 - (exp(19.0785 - 4098.025 / (3.4            + 237.3))) * 18 / 28.96) / 1) * ((1000 / 1018.1)^ 0.29)
-#10 * (Theta-E - 12) / 0,12
+plot "data.csv" u 1:(10*(273.2 + ($98 - 273.15) + 2480 * ((exp(A - B / (($99 - 273.15) + C))) / ($2/100 - (exp(A - B / (($99 - 273.15) + C)))) * C1 / 1) + ((1000 / $2/100)**0.29) -273.15) - 12) / 0.12 title "QNe" lw 2 lt 2 lc "dark-cyan" axis x1y2
 
-## 3 ##
+
+## 4 ##
 
 tics = floor((max_y700 - min_y700) / 5)
 
@@ -190,7 +186,7 @@ set label 1 sprintf("< %4.4g",max_y700) at second max_pos_y700, second max_y700 
 set label 2 sprintf("< %4.4g",min_y700) at second min_pos_y700, second min_y700 front tc rgb "dark-orange"
 plot "data.csv" using 1:45 title "700" lw 2 lt 2 lc "green" axis x1y2
 
-## 4 ##
+## 5 ##
 
 tics = floor((max_y850 - min_y850) / 5)
 
