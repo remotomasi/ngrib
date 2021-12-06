@@ -57,7 +57,7 @@ max_yR8 = STATS_max_y
 max_pos_yR8 = STATS_pos_max_y
 mean_yR8 = STATS_mean_y
 
-# Retrieve statistical properties for TT
+# Retrieve statistical properties for K
 stats data using 55
 set timefmt "%Y-%m-%d %H:%M"
 stats [time(0):*] 'data.csv' u (timecolumn(1)):(($54-273.15)+(-430.22+237.7*log(($55*6.11*10**((7.5*($54-273.15))/(237.7+($54-273.15))))/100))/(-log($55*6.11*10**((7.5*($54-273.15))/(237.7+($54-273.15)))/100)+19.08)-($30-273.15)-($46-273.15)+(-430.22+237.7*log(($47*6.11*10**((7.5*($46-273.15))/(237.7+($46-273.15))))/100))/(-log($47*6.11*10**((7.5*($46-273.15))/(237.7+($56-273.15)))/100)+19.08))
@@ -116,7 +116,9 @@ set tmargin 2.0
 
 unset ytics
 set autoscale y2
-set y2tics 5
+set format y2 "%.0f";
+kTics=(max_yK-min_yK)/10
+set y2tics kTics
 set y2label ''
 set y2range [15:max_yK]
 set grid y2tics lt 0 lw 1 lc rgb "#008800"
