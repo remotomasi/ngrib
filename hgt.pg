@@ -42,7 +42,7 @@ min_y500 = STATS_min_y
 max_pos_y500 = STATS_pos_max_y
 min_pos_y500 = STATS_pos_min_y
 
-## 1 ##
+## 1 ## 500hPa
 
 set multiplot layout 5,1
 #set tmargin 0
@@ -94,7 +94,7 @@ plot "data.csv" using 1:29 title "500" lw 2 lt 2 lc "blue" axis x1y2, \
 #"" u 1:(max_yPR>1?1:1/0) dt 2 lc rgb "blue" lw 1 notitle
 
 
-## 2 ##
+## 2 ## 0° 
 
 tics = floor((max_yZ - min_yZ) / 5)
 
@@ -123,9 +123,9 @@ set label 2 sprintf("< %4.4g",max_yZ) at second max_pos_yZ, second max_yZ front 
 plot "data.csv" using 1:131 title "0 C" lw 2 lt 2 lc "red" axis x1y2
 
 
-## 3 ##
+## 3 ## Snow Line
 
-#tics = floor((max_yZ - min_yZ) / 5)
+tics = floor(max_yZ / 6)
 
 unset label
 set bmargin 0.6
@@ -136,7 +136,7 @@ unset xtics #font ", 10"
 unset ytics
 set autoscale y2
 #set y2range [-5:0]
-set y2tics 500
+set y2tics tics
 set y2label 'm'
 set grid y2tics lt 0 lw 1 lc rgb "#008800"
 unset title
@@ -165,7 +165,7 @@ C1 = 18 / 28.96
 plot "data.csv" using 1:(( ((273.2 + ($54-273.15) + 2480 * ( (exp(A - B / (( ((($55/100)**(0.125))*(112+0.9*($54-273.15))+0.1*($54-273.15)-112) ) + C))) / (850 - (exp(A - B / (( ((($55/100)**(0.125))*(112+0.9*($54-273.15))+0.1*($54-273.15)-112) ) + C)))) * C1) /1) * ((1.176)**(0.29)) -273.15) -12)/0.12*10 )  title "QNe" lw 2 lt 2 lc "dark-cyan" axis x1y2
 
 
-## 4 ##
+## 4 ## 700hPa
 
 tics = floor((max_y700 - min_y700) / 5)
 
@@ -196,9 +196,9 @@ set label 1 sprintf("< %4.4g",max_y700) at second max_pos_y700, second max_y700 
 set label 2 sprintf("< %4.4g",min_y700) at second min_pos_y700, second min_y700 front tc rgb "dark-orange"
 plot "data.csv" using 1:45 title "700" lw 2 lt 2 lc "green" axis x1y2
 
-## 5 ##
+## 5 ## 850hPa
 
-tics = floor((max_y850 - min_y850) / 5)
+tics = floor((max_y850 - min_y850) / 4)
 
 #unset label
 set tmargin 0.2
