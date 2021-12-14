@@ -15,6 +15,19 @@ min_yZ = STATS_min_y
 max_pos_yZ = STATS_pos_max_y
 min_pos_yZ = STATS_pos_min_y
 
+# Retrieve statistical properties for Snow Line
+A = 19.0785
+B = 4098.025
+C = 237.3
+C1 = 18 / 28.96
+stats data using 1:131
+set timefmt "%Y-%m-%d %H:%M"
+stats [time(0):time(0) + 5*24*60*60] 'data.csv' u (timecolumn(1)):(( ((273.2 + ($54-273.15) + 2480 * ( (exp(A - B / (( ((($55/100)**(0.125))*(112+0.9*($54-273.15))+0.1*($54-273.15)-112) ) + C))) / (850 - (exp(A - B / (( ((($55/100)**(0.125))*(112+0.9*($54-273.15))+0.1*($54-273.15)-112) ) + C)))) * C1) /1) * ((1.176)**(0.29)) -273.15) -12)/0.12*10 )
+max_ySN = STATS_max_y
+min_ySN = STATS_min_y
+max_pos_ySN = STATS_pos_max_y
+min_pos_ySN = STATS_pos_min_y
+
 # Retrieve statistical properties for 700 Hgt
 stats data using 1:45
 set timefmt "%Y-%m-%d %H:%M"
@@ -125,7 +138,7 @@ plot "data.csv" using 1:131 title "0 C" lw 2 lt 2 lc "red" axis x1y2
 
 ## 3 ## Snow Line
 
-tics = floor(max_yZ / 6)
+tics = floor(max_yZ / 8)
 
 unset label
 set bmargin 0.6
@@ -149,10 +162,6 @@ set style data lines
 
 #set label 1 sprintf("< %4.4g",min_yZ) at second min_pos_yZ, second min_yZ front tc rgb "blue"
 #set label 2 sprintf("< %4.4g",max_yZ) at second max_pos_yZ, second max_yZ front tc rgb "blue"
-A = 19.0785
-B = 4098.025
-C = 237.3
-C1 = 18 / 28.96
 
 # V = Math.Exp(A - B / (D + C))
 # X = V / (P - V) * C1
@@ -162,6 +171,7 @@ C1 = 18 / 28.96
 # THETAEC = THETAE - 273.15
 # D = ((($55/100)**(0.125))*(112+0.9*($54-273.15))+0.1*($54-273.15)-112)
 
+set label 5 sprintf("< %4.4g",min_ySN) at second min_pos_ySN, second min_ySN front tc rgb "dark-green"
 plot "data.csv" using 1:(( ((273.2 + ($54-273.15) + 2480 * ( (exp(A - B / (( ((($55/100)**(0.125))*(112+0.9*($54-273.15))+0.1*($54-273.15)-112) ) + C))) / (850 - (exp(A - B / (( ((($55/100)**(0.125))*(112+0.9*($54-273.15))+0.1*($54-273.15)-112) ) + C)))) * C1) /1) * ((1.176)**(0.29)) -273.15) -12)/0.12*10 )  title "QNe" lw 2 lt 2 lc "dark-cyan" axis x1y2
 
 
