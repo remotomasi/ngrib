@@ -6,7 +6,7 @@ Download and plot of weather data directly from NOAA using bash.
 ### Prerequisites
 
 To execute the program you need to install wgrib2 for Linux users.
-For Windows users I added wgrib2.exe and needed .dll files. Other softwares needed to be installed like *gnuplot*, *imagemagick*, *xvfb*, *cutycapt* and *dc*:
+  For Windows users I added wgrib2.exe and needed .dll files. Other softwares needed to be installed like *gnuplot*:
 ```gnuplot
 $ sudo apt-get install gnuplot
 ```
@@ -14,7 +14,7 @@ $ sudo apt-get install gnuplot
 * If you want to obtain Excel representations of data you need to install _Python 3_
 
 
-* If you want to obtain a pdf representation of data you need to install libreoffice7.2 and ghostscript
+* If you want to obtain a pdf representation of data you need to install libreoffice7.2 and ghostscript:
 ```ghostscript
 $ sudo apt-get install ghostscript
 ```
