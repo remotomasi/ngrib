@@ -11,11 +11,11 @@ For Windows users I added wgrib2.exe and needed .dll files. Other softwares need
 $ sudo apt-get install gnuplot
 ```
 
-**If you want to obtain Excel representations of data you need to install
+* If you want to obtain Excel representations of data you need to install
 ```python3
 ```
 
-**If you want to obtain a pdf representation of data you need to install libreoffice7.2 and ghostscript
+* If you want to obtain a pdf representation of data you need to install libreoffice7.2 and ghostscript
 ```ghostscript
 $ sudo apt-get install ghostscript
 ```
