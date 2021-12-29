@@ -83,6 +83,7 @@ veryDarkGreenFill = PatternFill(start_color='FF00FF00',
 
 
 # writing titles
+ws.cell(row = 1, column = 1).value = "DATE"
 ws.cell(row = 1, column = 2).value = "TMP"
 ws.cell(row = 1, column = 3).value = "DPT"
 ws.cell(row = 1, column = 4).value = "RH"
