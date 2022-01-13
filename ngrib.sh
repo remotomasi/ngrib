@@ -107,7 +107,7 @@ wait # wait until the previous functions ended
 for i in ${h[*]}; do cut -d',' -f7 csv$i.csv | paste -s; done | tail -n +2 > values.csv # p 	# union of the values of all the grib files
 for i in ${h[*]}; do cut -d',' -f2 csv$i.csv | head -1; done | tail -n +2 > date.csv	# p1		# obtain date $1umn
 
-echo ',' > a.csv							# adding a comma in p2.csv temporary file
+echo '"DATE"' > a.csv							# adding a comma in p2.csv temporary file
 cut -d',' -f3 csv003.csv >> a.csv			# adding labels + sublabels to p2.csv: labels complete!
 echo ',' > b.csv							# adding a comma in p2b.csv temporary file
 cut -d',' -f4 csv003.csv >> b.csv			# atmosphere labels
