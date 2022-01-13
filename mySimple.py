@@ -111,7 +111,7 @@ darkGreenFill8 = PatternFill(start_color='FF001100',
 
 # writing titles
 ws.column_dimensions['A'].width = 21
-ws.cell(row = 1, column = 1).value = "Data"
+ws.cell(row = 1, column = 1).value = "Date"
 ws.column_dimensions['A'].width = 21
 ws.cell(row = 1, column = 2).value = "Temp (°C)"
 ws.column_dimensions['B'].width = 10
