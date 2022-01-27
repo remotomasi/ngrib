@@ -142,10 +142,10 @@ done
 
 tail -n +2 final.csv > data.csv	# obtaining data.csv containing only data without the first line (head)
 
-# control if the imageFiles folder already exists
+# check if the imageFiles folder already exists
 if [ -d graphs ]   
 then
-    echo "..creating folder"
+    echo "..creating graphs folder"
 else
     $(mkdir graphs)
 fi
@@ -195,6 +195,13 @@ then
 	gs -sDEVICE=pngalpha -o simpleWeatherSimply.png -r144 simpleWeatherSimply.pdf
 fi
 
+# check if the data folder already exists
+if [ -d data ]   
+then
+    echo "..creating data folder"
+else
+    $(mkdir data)
+fi
+# move data files in data folder
+mv -t data final.xlsx simpleWeather.xlsx simpleWeatherSimply.xlsx
 
-# transforming the simpleWeatherSimply.xlsx into a csv file
-#ssconvert simpleWeatherSimply.xlsx simpleWeatherSimply.csv
