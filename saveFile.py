@@ -9,7 +9,7 @@ wb1 = xl.load_workbook(filename)
 ws1 = wb1.worksheets[0]
 
 # opening the destination excel file 
-filename1 ="simpleWeather.xlsx"
+filename1 ="data/simpleWeather.xlsx"
 wb2 = xl.load_workbook(filename1)
 ws2 = wb2.active
 

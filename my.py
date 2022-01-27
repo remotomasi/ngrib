@@ -6,7 +6,7 @@ from openpyxl.styles import Border, Side
 from openpyxl.drawing.image import Image
 import subprocess
 
-wb = load_workbook("simpleWeather.xlsx")
+wb = load_workbook("data/simpleWeather.xlsx")
 
 ws = wb.active
 
