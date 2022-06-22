@@ -117,7 +117,7 @@ set tmargin 2.0
 unset ytics
 set autoscale y2
 set format y2 "%.0f";
-kTics=(max_yK-min_yK)/10
+kTics=(max_yK-min_yK)/6
 set y2tics kTics
 set y2label ''
 set y2range [15:max_yK]
