@@ -44,7 +44,7 @@ set autoscale y
 set autoscale y2
 #set ytics 500
 #set yrange [0:3000]
-set ylabel 'J/Kg'
+set ylabel 'J/Kg' textcolor rgb "orange"
 set y2tics 1
 #set y2range [-6:15]
 set y2label '°K' textcolor rgb "purple"

@@ -15,7 +15,7 @@ set xtics font ", 10"
 
 set ytics 10
 set autoscale y
-set ylabel '°C' offset  5.2, 0 textcolor rgb "red"
+set ylabel '°C' offset  4.9, 0 textcolor rgb "red"
 
 run(n) = sprintf("%d",n)
 coord(n) = sprintf("%g",n)
@@ -30,10 +30,10 @@ set style data lines
 
 # Heat Index: T must be > 24°C and < 52°C
 # Heat Index: H must be > 4%
-set label 1 '54' at screen 0.16, first 54 front tc rgb "red"
-set label 2 '41' at screen 0.16, first 41 front tc rgb "orange"
-set label 3 '33' at screen 0.16, first 33 front tc rgb "dark-yellow"
-set label 4 '27' at screen 0.16, first 27 front tc rgb "cyan"
+set label 1 '54' at screen 0.17, first 54 front tc rgb "red"
+set label 2 '41' at screen 0.17, first 41 front tc rgb "orange"
+set label 3 '33' at screen 0.17, first 33 front tc rgb "dark-yellow"
+set label 4 '27' at screen 0.17, first 27 front tc rgb "cyan"
 plot "data.csv" using 1:(-8.78469475556 + 1.61139411*($98-273.15) + 2.33854883889*$100 - 0.14611605*($98-273.15)*$100 - 0.012308094*($98-273.15)*($98-273.15) - 0.0164248277778*$100*$100 + 0.002211732*($98-273.15)*($98-273.15)*$100 + 0.00072546*($98-273.15)*$100*$100 - 0.000003582*($98-273.15)*($98-273.15)*$100*$100<27?(0.5 * (($98-273.15) + 61.0 + ((($98-273.15)-68.0)*1.2) + ($100*0.094))):1/0) notitle with points pt 7 lc "green", \
 "" using 1:((($98-273.15)>26) && $100>4 && (-8.78469475556 + 1.61139411*($98-273.15) + 2.33854883889*$100 - 0.14611605*($98-273.15)*$100 - 0.012308094*($98-273.15)*($98-273.15) - 0.0164248277778*$100*$100 + 0.002211732*($98-273.15)*($98-273.15)*$100 + 0.00072546*($98-273.15)*$100*$100 - 0.000003582*($98-273.15)*($98-273.15)*$100*$100>=27)?((-8.78469475556 + 1.61139411*($98-273.15) + 2.33854883889*$100 - 0.14611605*($98-273.15)*$100 - 0.012308094*($98-273.15)*($98-273.15) - 0.0164248277778*$100*$100 + 0.002211732*($98-273.15)*($98-273.15)*$100 + 0.00072546*($98-273.15)*$100*$100 - 0.000003582*($98-273.15)*($98-273.15)*$100*$100)):1/0) notitle with points pt 7 lc "red", \
 "" using 1:(((($98-273.15)>26 && ($98-273.15)<45 && $100<13) && (-8.78469475556 + 1.61139411*($98-273.15) + 2.33854883889*$100 - 0.14611605*($98-273.15)*$100 - 0.012308094*($98-273.15)*($98-273.15) - 0.0164248277778*$100*$100 + 0.002211732*($98-273.15)*($98-273.15)*$100 + 0.00072546*($98-273.15)*$100*$100 - 0.000003582*($98-273.15)*($98-273.15)*$100*$100>=27))?((-8.78469475556 + 1.61139411*($98-273.15) + 2.33854883889*$100 - 0.14611605*($98-273.15)*$100 - 0.012308094*($98-273.15)*($98-273.15) - 0.0164248277778*$100*$100 + 0.002211732*($98-273.15)*($98-273.15)*$100 + 0.00072546*($98-273.15)*$100*$100 - 0.000003582*($98-273.15)*($98-273.15)*$100*$100 - ((13-$100)/4)*sqrt((17-abs(($98-273.15)-95))/17))):1/0) notitle with points pt 7 lc "red", \
@@ -58,7 +58,7 @@ set xtics font ", 10"
 
 set ytics 10
 set autoscale y
-set ylabel '°C' offset  5.2, 0 textcolor rgb "red"
+set ylabel '°C' offset  4.9, 0 textcolor rgb "red"
 
 set title "Weather Forecast GFS Model - NOAA (Dew Point) RUN:" . run . "z"
 set key lmargin
@@ -66,11 +66,11 @@ set key font ",10"
 set grid
 
 set style data lines
-set label 5 '24' at screen 0.155, first 24 front tc rgb "dark-red"
-set label 6 '20' at screen 0.155, first 20 front tc rgb "dark-orange"
-set label 7 '15' at screen 0.155, first 15 front tc rgb "dark-yellow"
-set label 8 '10' at screen 0.155, first 10 front tc rgb "dark-green"
-set label 9 '5' at screen 0.155, first 5 front tc rgb "dark-blue"
+set label 5 '24' at screen 0.162, first 24 front tc rgb "dark-red"
+set label 6 '20' at screen 0.162, first 20 front tc rgb "dark-orange"
+set label 7 '15' at screen 0.162, first 15 front tc rgb "dark-yellow"
+set label 8 '10' at screen 0.162, first 10 front tc rgb "dark-green"
+set label 9 '5' at screen 0.162, first 5 front tc rgb "dark-blue"
 plot "data.csv" using 1:($99-273.15) lc "green" lw 2 axes x1y1 notitle, \
 24 dt 2 lc rgb "dark-red" lw 1 title "Oppressive" axis x1y1, \
 20 dt 2 lc rgb "dark-orange" lw 1 title "Muggy" axis x1y1, \
