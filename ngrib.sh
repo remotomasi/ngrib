@@ -1,10 +1,22 @@
 #!/bin/bash
 #################################################################################
-#	BASH program to download and parse grib2 files and generate a final csv file
+#	BASH program to download and parse grib2 files for weather forecasts
 #	Thanks to NOAA - http://nomads.ncep.noaa.gov
 #
 #	by Remo Tomasi
 #################################################################################
+
+set -o errexit # when a command fails, bash exits instead of continuing with the rest of the script
+
+if [[ "${1-}" =~ ^-*h(elp)?$ ]]; then
+    echo 'Usage: ./ngrib.sh latitude longitude
+(i.e.: ./ngrib.sh 60.75 21.34)
+This is an awesome bash script to download and parse grib2 files for weather forecasts.
+
+'
+    exit
+fi
+
 
 #echo -e "Insert latitude and longitude separated by spaces (i.e.: 60.75 21.34)"
 #read lat lon
