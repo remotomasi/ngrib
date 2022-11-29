@@ -13,6 +13,10 @@ $ sudo apt-get install gnuplot
 
 * If you want to obtain Excel representations of data you need to install _Python 3_
 
+* For working with the images you need to install **imagemagick**:
+```imagemagick
+$ sudo apt-get install imagemagick
+```
 
 * If you want to obtain a pdf representation of data you need to install libreoffice7.2 and ghostscript:
 ```ghostscript
