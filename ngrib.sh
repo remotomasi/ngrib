@@ -219,3 +219,6 @@ mv -t data final.xlsx simpleWeather.xlsx simpleWeatherSimply.xlsx
 
 # copy final.csv in the data folder
 cp final.csv data	
+# check if python3 is installed and if so execute the forecasting.py script
+type -P python3 >/dev/null 2>&1 && python3 forecasting.py
+
