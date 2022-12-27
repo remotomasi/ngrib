@@ -38,8 +38,9 @@ $ sudo apt-get install datamash
 $ sudo apt-get install vsckit
 ```
 And start the following sh file:
+```start weather.sh
 $ ./weather.sh
-
+```
 
 ## Author
 
