@@ -29,6 +29,14 @@ You have to insert you coordinates after the bash program name, i.e.:
 $ ./ngrib.sh 45.3 22.7
 ```
 
+## _Text Weather Forecast_
+At the end of the download if you want to see a summary of the weatehr forecast in text format on command line you need to install
+```datamash
+$ sudo apt-get install datamash
+```vsckit
+$ sudo apt-get install vsckit
+And start the following sh file:
+$ ./weather.sh
 
 ## Author
 
