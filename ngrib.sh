@@ -217,3 +217,5 @@ fi
 # move data files in data folder
 mv -t data final.xlsx simpleWeather.xlsx simpleWeatherSimply.xlsx
 
+# copy final.csv in the data folder
+cp final.csv data	
