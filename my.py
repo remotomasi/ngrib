@@ -153,57 +153,63 @@ for x in range(2, 46, 1):
 
 # wind power
 for x in range(2, 46, 1):
-    cell = 'E' + str(x)
-    if float(ws[cell].value) >= 0 and float(ws[cell].value) <= 10: ws[cell].fill = whiteFill
-    if float(ws[cell].value) >= 10 and float(ws[cell].value) <= 20: ws[cell].fill = lightGreenFill
-    if float(ws[cell].value) > 20 and float(ws[cell].value) < 50: ws[cell].fill = greenFill
-    if float(ws[cell].value) >= 50 and float(ws[cell].value) < 80: ws[cell].fill = darkGreenFill
-    if float(ws[cell].value) >= 80: ws[cell].fill = veryDarkGreenFill
+    cell = 'E' + str(x)    
+    if isinstance(ws[cell].value, float):
+        if float(ws[cell].value) >= 0 and float(ws[cell].value) <= 10: ws[cell].fill = whiteFill
+        if float(ws[cell].value) >= 10 and float(ws[cell].value) <= 20: ws[cell].fill = lightGreenFill
+        if float(ws[cell].value) > 20 and float(ws[cell].value) < 50: ws[cell].fill = greenFill
+        if float(ws[cell].value) >= 50 and float(ws[cell].value) < 80: ws[cell].fill = darkGreenFill
+        if float(ws[cell].value) >= 80: ws[cell].fill = veryDarkGreenFill
+    else:
+        ws[cell].value = 0.0;
 
 # delete all the images in the workbook
 ws._images = []
 for x in range(2, 46, 1):
     cell = 'F' + str(x)
-    if float(ws[cell].value) >= 335 or float(ws[cell].value) <= 25: 
-        img = Image('icons/n.png')
-        img.height = 20
-        img.width = 20
-        ws.add_image(img, cell)
-    if float(ws[cell].value) > 25 and float(ws[cell].value) <= 65: 
-        img = Image('icons/ne.png')
-        img.height = 20
-        img.width = 20
-        ws.add_image(img, cell)
-    if float(ws[cell].value) > 65 and float(ws[cell].value) <= 115: 
-        img = Image('icons/e.png')
-        img.height = 20
-        img.width = 20
-        ws.add_image(img, cell)
-    if int(ws[cell].value) > 115 and int(ws[cell].value) <= 155: 
-        img = Image('icons/se.png')
-        img.height = 20
-        img.width = 20
-        ws.add_image(img, cell)
-    if float(ws[cell].value) > 155 and float(ws[cell].value) <= 205: 
-        img = Image('icons/s.png')
-        img.height = 20
-        img.width = 20
-        ws.add_image(img, cell)
-    if float(ws[cell].value) > 205 and float(ws[cell].value) <= 245: 
-        img = Image('icons/sw.png')
-        img.height = 20
-        img.width = 20
-        ws.add_image(img, cell)
-    if float(ws[cell].value) > 245 and float(ws[cell].value) <= 295: 
-        img = Image('icons/w.png')
-        img.height = 20
-        img.width = 20
-        ws.add_image(img, cell)
-    if float(ws[cell].value) > 295 and float(ws[cell].value) < 335: 
-        img = Image('icons/nw.png')
-        img.height = 20
-        img.width = 20
-        ws.add_image(img, cell)
+    if isinstance(ws[cell].value, float):
+        if float(ws[cell].value) >= 335 or float(ws[cell].value) <= 25: 
+            img = Image('icons/n.png')
+            img.height = 20
+            img.width = 20
+            ws.add_image(img, cell)
+        if float(ws[cell].value) > 25 and float(ws[cell].value) <= 65: 
+            img = Image('icons/ne.png')
+            img.height = 20
+            img.width = 20
+            ws.add_image(img, cell)
+        if float(ws[cell].value) > 65 and float(ws[cell].value) <= 115: 
+            img = Image('icons/e.png')
+            img.height = 20
+            img.width = 20
+            ws.add_image(img, cell)
+        if int(ws[cell].value) > 115 and int(ws[cell].value) <= 155: 
+            img = Image('icons/se.png')
+            img.height = 20
+            img.width = 20
+            ws.add_image(img, cell)
+        if float(ws[cell].value) > 155 and float(ws[cell].value) <= 205: 
+            img = Image('icons/s.png')
+            img.height = 20
+            img.width = 20
+            ws.add_image(img, cell)
+        if float(ws[cell].value) > 205 and float(ws[cell].value) <= 245: 
+            img = Image('icons/sw.png')
+            img.height = 20
+            img.width = 20
+            ws.add_image(img, cell)
+        if float(ws[cell].value) > 245 and float(ws[cell].value) <= 295: 
+            img = Image('icons/w.png')
+            img.height = 20
+            img.width = 20
+            ws.add_image(img, cell)
+        if float(ws[cell].value) > 295 and float(ws[cell].value) < 335: 
+            img = Image('icons/nw.png')
+            img.height = 20
+            img.width = 20
+            ws.add_image(img, cell)
+    else:
+        ws[cell].value = 0.0;
 
 # rain rate
 for x in range(2, 46, 1):

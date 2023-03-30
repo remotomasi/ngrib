@@ -42,8 +42,11 @@ for i in range (1, mr + 1):
         ws2.cell(row = i, column = j-95).value = c.value
 
         # writing the wind power to destination excel file
-        if i > 1 and j == 101: ws2.cell(row = i, column = 13).value = int(math.sqrt(float(c.value) * float(c.value) + float(ws1.cell(row = i, column = 102).value) * float(ws1.cell(row = i, column = 102).value))*3.6)
-        if i > 1 and j == 101: ws2.cell(row = i, column = 14).value = int(math.atan2(float(c.value), float(ws1.cell(row = i, column = 102).value))*57.3 + 180)
+        if isinstance(c.value, float):
+            if i > 1 and j == 101: ws2.cell(row = i, column = 13).value = int(math.sqrt(float(c.value) * float(c.value) + float(ws1.cell(row = i, column = 102).value) * float(ws1.cell(row = i, column = 102).value))*3.6)
+            if i > 1 and j == 101: ws2.cell(row = i, column = 14).value = int(math.atan2(float(c.value), float(ws1.cell(row = i, column = 102).value))*57.3 + 180)
+        else:
+            c.value = 0.0;
 
 # PRATE
 for i in range (1, mr + 1):
