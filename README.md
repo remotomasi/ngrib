@@ -52,7 +52,6 @@ sudo apt-get install datamash
 ```vsckit
 sudo apt-get install vsckit
 ```
-```
 ```csvkit
 sudo apt-get install csvkit
 ```
