@@ -25,7 +25,7 @@ sudo apt-get install libgfortran5
 
 * For working with the images you need to install **imagemagick**:
 ```imagemagick
-$ sudo apt-get install imagemagick
+sudo apt-get install imagemagick
 ```
 
 * If you want to obtain a pdf representation of data you need to install libreoffice7.2 and ghostscript:
