@@ -21,7 +21,12 @@ Then you need to install _libgfortran_ for Linux users
 sudo apt-get install libgfortran5
 ```
 
-* If you want to obtain Excel representations of data you need to install _Python 3_
+* If you want to obtain Excel representations of data you need to install _Python 3_ and pip (python-pip) to avoid error like _No module named 'xlsxwriter'_ and other errors I suggest to launch:
+```excel
+sudo apt-get install python3-pip
+sudo apt-get install python3-xlsxwriter
+sudo apt-get install python3-openpyxl
+```
 
 * For working with the images you need to install **imagemagick**:
 ```imagemagick
