@@ -55,3 +55,7 @@ And start the following sh file:
 ## Author
 
 * **Remo Tomasi** - *Idea and initial work* - [remotomasi](https://github.com/remotomasi)
+*  [[params.social]]
+    icon = "linkedin"
+    icon_pack = "fa"
+    link = "https://www.linkedin.com/in/remotomasi/"
