@@ -116,6 +116,7 @@ plot "data.csv" using 1:($105*3600) w boxes lc rgb "blue" title "PrMM/h" axes x1
 "" using 1:108 w boxes lc rgb "purple" title "TotPr" axes x1y1, \
 "" using 1:($104*3600) lc rgb "brown" lw 2 title "CPrMM/h" axes x1y1, \
 "" using 1:110 lc rgb "orange" lw 2 title "CPrTot" axes x1y1, \
+"" using 1:119 lc rgb "dark-green" lw 2 title "R201" axes x1y1, \
 "" using 1:115 lc rgb "green" lw 2 title "R01" axes x1y1, \
 "" using 1:112 lc rgb "yellow" lw 2 title "S01" axes x1y1, \
 "" u 1:($96*100) w boxes lc rgb "olive" fs solid border -1 title "SDepth" axes x1y1, \

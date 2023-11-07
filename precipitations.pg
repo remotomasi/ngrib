@@ -96,6 +96,7 @@ set key c
 
 set label sprintf("PrecTot = %3.3g mm",tot_yTP) at graph 0.9,0.97 center font "Arial,10" tc rgb "purple"
 plot "data.csv" using 1:114 with linespoints ls 5 lc rgb "grey" lw 1 title "F01" axes x1y1, \
+"" using 1:119 with linespoints ls 7 lc rgb "dark-green" lw 1 title "R201" axes x1y1, \
 "" using 1:115 with linespoints ls 7 lc rgb "green" lw 1 title "R01" axes x1y1, \
 "" using 1:112 with linespoints ls 3 lc rgb "yellow" lw 1 title "S01" axes x1y1, \
 "" using 1:113 with linespoints ls 8 lc rgb "light-blue" lw 1 title "IceP01" axes x1y1
