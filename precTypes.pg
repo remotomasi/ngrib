@@ -64,7 +64,7 @@ unset xtics #font ", 10"
 ## 1 ##
 
 tics = floor((max_yM5 - min_yM5) / 5)
-
+unset label
 set bmargin 0.6
 set tmargin 2
 unset ytics

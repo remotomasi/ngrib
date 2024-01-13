@@ -4,14 +4,13 @@ set terminal pngcairo truecolor
 set termoption dashed
 set term pngcairo size 1024,600 #800 pixels by 600 pixels
 
-set multiplot layout 2,1
+set multiplot layout 3,1
 set datafile separator ","
 set xdata time
 set timefmt "%Y-%m-%d %H"
 set xrange [time(0):time(0) + 5*24*60*60]
-set format x "h%H\n%d/%m\n%a"
-set xlabel "Time"
-set xtics font ", 10"
+unset xlabel
+unset xtics
 
 set ytics 10
 set autoscale y
@@ -20,9 +19,9 @@ set ylabel '°C' offset  4.9, 0 textcolor rgb "red"
 run(n) = sprintf("%d",n)
 coord(n) = sprintf("%g",n)
 
-set title "Weather Forecast GFS Model - NOAA (Heat Index) RUN:".run(run)."z - "."Lat: ".coord(lat)." - "."Lon: ".coord(lon)
+set title "Weather Forecast GFS Model - NOAA RUN:".run(run)."z - "."Lat: ".coord(lat)." - "."Lon: ".coord(lon)
 set key lmargin
-set key font ",10"
+set key font ",8"
 set grid
 #set size 1, 1 # ratio 1:1
 
@@ -30,11 +29,11 @@ set style data lines
 
 # Heat Index: T must be > 24°C and < 52°C
 # Heat Index: H must be > 4%
-set label 1 '54' at screen 0.17, first 54 front tc rgb "red"
-set label 2 '41' at screen 0.17, first 41 front tc rgb "orange"
-set label 3 '33' at screen 0.17, first 33 front tc rgb "dark-yellow"
-set label 4 '27' at screen 0.17, first 27 front tc rgb "cyan"
-plot "data.csv" using 1:(-8.78469475556 + 1.61139411*($98-273.15) + 2.33854883889*$100 - 0.14611605*($98-273.15)*$100 - 0.012308094*($98-273.15)*($98-273.15) - 0.0164248277778*$100*$100 + 0.002211732*($98-273.15)*($98-273.15)*$100 + 0.00072546*($98-273.15)*$100*$100 - 0.000003582*($98-273.15)*($98-273.15)*$100*$100<27?(0.5 * (($98-273.15) + 61.0 + ((($98-273.15)-68.0)*1.2) + ($100*0.094))):1/0) notitle with points pt 7 lc "green", \
+set label 1 '54' at screen 0.97, first 54 front tc rgb "red"
+set label 2 '41' at screen 0.97, first 41 front tc rgb "orange"
+set label 3 '33' at screen 0.97, first 33 front tc rgb "dark-yellow"
+set label 4 '27' at screen 0.97, first 27 front tc rgb "cyan"
+plot "data.csv" using 1:(-8.78469475556 + 1.61139411*($98-273.15) + 2.33854883889*$100 - 0.14611605*($98-273.15)*$100 - 0.012308094*($98-273.15)*($98-273.15) - 0.0164248277778*$100*$100 + 0.002211732*($98-273.15)*($98-273.15)*$100 + 0.00072546*($98-273.15)*$100*$100 - 0.000003582*($98-273.15)*($98-273.15)*$100*$100<27?(0.5 * (($98-273.15) + 61.0 + ((($98-273.15)-68.0)*1.2) + ($100*0.094))):1/0) title "Heat Index" with points pt 7 lc "green", \
 "" using 1:((($98-273.15)>26) && $100>4 && (-8.78469475556 + 1.61139411*($98-273.15) + 2.33854883889*$100 - 0.14611605*($98-273.15)*$100 - 0.012308094*($98-273.15)*($98-273.15) - 0.0164248277778*$100*$100 + 0.002211732*($98-273.15)*($98-273.15)*$100 + 0.00072546*($98-273.15)*$100*$100 - 0.000003582*($98-273.15)*($98-273.15)*$100*$100>=27)?((-8.78469475556 + 1.61139411*($98-273.15) + 2.33854883889*$100 - 0.14611605*($98-273.15)*$100 - 0.012308094*($98-273.15)*($98-273.15) - 0.0164248277778*$100*$100 + 0.002211732*($98-273.15)*($98-273.15)*$100 + 0.00072546*($98-273.15)*$100*$100 - 0.000003582*($98-273.15)*($98-273.15)*$100*$100)):1/0) notitle with points pt 7 lc "red", \
 "" using 1:(((($98-273.15)>26 && ($98-273.15)<45 && $100<13) && (-8.78469475556 + 1.61139411*($98-273.15) + 2.33854883889*$100 - 0.14611605*($98-273.15)*$100 - 0.012308094*($98-273.15)*($98-273.15) - 0.0164248277778*$100*$100 + 0.002211732*($98-273.15)*($98-273.15)*$100 + 0.00072546*($98-273.15)*$100*$100 - 0.000003582*($98-273.15)*($98-273.15)*$100*$100>=27))?((-8.78469475556 + 1.61139411*($98-273.15) + 2.33854883889*$100 - 0.14611605*($98-273.15)*$100 - 0.012308094*($98-273.15)*($98-273.15) - 0.0164248277778*$100*$100 + 0.002211732*($98-273.15)*($98-273.15)*$100 + 0.00072546*($98-273.15)*$100*$100 - 0.000003582*($98-273.15)*($98-273.15)*$100*$100 - ((13-$100)/4)*sqrt((17-abs(($98-273.15)-95))/17))):1/0) notitle with points pt 7 lc "red", \
 "" using 1:(((($98-273.15)>26 && ($98-273.15)<31 && $100>85) && (-8.78469475556 + 1.61139411*($98-273.15) + 2.33854883889*$100 - 0.14611605*($98-273.15)*$100 - 0.012308094*($98-273.15)*($98-273.15) - 0.0164248277778*$100*$100 + 0.002211732*($98-273.15)*($98-273.15)*$100 + 0.00072546*($98-273.15)*$100*$100 - 0.000003582*($98-273.15)*($98-273.15)*$100*$100>=27))?((-8.78469475556 + 1.61139411*($98-273.15) + 2.33854883889*$100 - 0.14611605*($98-273.15)*$100 - 0.012308094*($98-273.15)*($98-273.15) - 0.0164248277778*$100*$100 + 0.002211732*($98-273.15)*($98-273.15)*$100 + 0.00072546*($98-273.15)*$100*$100 - 0.000003582*($98-273.15)*($98-273.15)*$100*$100 + ((($100-85)/10) * ((87-($98-273.15))/5)))):1/0) notitle with points pt 7 lc "red", \
@@ -45,33 +44,59 @@ plot "data.csv" using 1:(-8.78469475556 + 1.61139411*($98-273.15) + 2.3385488388
 27 dt 1 lc rgb "dark-green" lw 1 title "No discomf."
 
 
-## 2 ##
+## 2 Wind chill ##
 
 unset label
 set datafile separator ","
 set xdata time
 set timefmt "%Y-%m-%d %H"
 set xrange [time(0):time(0) + 5*24*60*60]
-set format x "h%H\n%d/%m\n%a"
-set xlabel "Time"
-set xtics font ", 10"
+unset xlabel
+unset title
+set xtics font ", 8"
+
+set ytics 5
+set autoscale y
+set ylabel '°C' offset  4.9, 0 textcolor rgb "red"
+
+set key lmargin
+set key font ",7"
+set grid
+
+set style data lines
+# set label 10 '10' at screen 0.162, first 10 front tc rgb "dark-red"
+plot "data.csv" using 1:(13.12+0.6215*($98-273.15)-11.37*(sqrt($101*$101+$102*$102)*3.6)**0.16+0.3965*($98-273.15)*(sqrt($101*$101+$102*$102)*3.6)**0.16) lc "cyan" lw 2 axes x1y1 title "Wind Chill", \
+"" using 1:(((13.12+0.6215*($98-273.15)-11.37*(sqrt($101*$101+$102*$102)*3.6)**0.16+0.3965*($98-273.15)*(sqrt($101*$101+$102*$102)*3.6)**0.16) <= -18)?(13.12+0.6215*($98-273.15)-11.37*(sqrt($101*$101+$102*$102)*3.6)**0.16+0.3965*($98-273.15)*(sqrt($101*$101+$102*$102)*3.6)**0.16):1/0) dt 2 lc rgb "dark-blue" lw 1 title "Freeze (<30min)", \
+4.4 dt 2 lc rgb "grey" lw 1 title "WC limit"
+# 24 dt 2 lc rgb "dark-red" lw 1 title "ressive" axis x1y1
+
+## 3 ##
+
+unset label
+set datafile separator ","
+set xdata time
+set timefmt "%Y-%m-%d %H"
+set xrange [time(0):time(0) + 5*24*60*60]
+set format x "h%H %d/%m\n%a"
+set xlabel # "Time"
+set xtics font ", 8"
 
 set ytics 10
 set autoscale y
 set ylabel '°C' offset  4.9, 0 textcolor rgb "red"
 
-set title "Weather Forecast GFS Model - NOAA (Dew Point) RUN:" . run . "z"
+set title "Weather Forecast GFS Model - NOAA RUN:" . run . "z"
 set key lmargin
-set key font ",10"
+set key font ",8"
 set grid
 
 set style data lines
-set label 5 '24' at screen 0.162, first 24 front tc rgb "dark-red"
-set label 6 '20' at screen 0.162, first 20 front tc rgb "dark-orange"
-set label 7 '15' at screen 0.162, first 15 front tc rgb "dark-yellow"
-set label 8 '10' at screen 0.162, first 10 front tc rgb "dark-green"
-set label 9 '5' at screen 0.162, first 5 front tc rgb "dark-blue"
-plot "data.csv" using 1:($99-273.15) lc "green" lw 2 axes x1y1 notitle, \
+set label 5 '24' at screen 0.97, first 24 front tc rgb "dark-red"
+set label 6 '20' at screen 0.97, first 20 front tc rgb "dark-orange"
+set label 7 '15' at screen 0.97, first 15 front tc rgb "dark-yellow"
+set label 8 '10' at screen 0.97, first 10 front tc rgb "dark-green"
+set label 9 '5' at screen 0.97, first 5 front tc rgb "dark-blue"
+plot "data.csv" using 1:($99-273.15) lc "green" lw 2 axes x1y1 title "Dew Point", \
 24 dt 2 lc rgb "dark-red" lw 1 title "Oppressive" axis x1y1, \
 20 dt 2 lc rgb "dark-orange" lw 1 title "Muggy" axis x1y1, \
 15 dt 1 lc rgb "dark-yellow" lw 2 title "Ucomfortable" axis x1y1, \

@@ -74,6 +74,7 @@ unset xtics #font ", 10"
 tics = floor((max_y500 - min_y500) / 3)
 
 unset ytics
+unset label
 set autoscale y2
 set y2range [min_y500:max_y500]
 set y2tics tics
@@ -183,7 +184,7 @@ plot "data.csv" using 1:(( ((273.2 + ($54-273.15) + 2480 * ( (exp(A - B / (( (((
 
 tics = floor((max_y700 - min_y700) / 5)
 
-#unset label
+unset label
 set bmargin 0.6
 set tmargin 0.2
 set datafile separator ","
@@ -214,7 +215,7 @@ plot "data.csv" using 1:45 title "700" lw 2 lt 2 lc "green" axis x1y2
 
 tics = floor((max_y850 - min_y850) / 4)
 
-#unset label
+unset label
 set tmargin 0.2
 unset bmargin
 set xdata time
