@@ -31,7 +31,7 @@ set xlabel "Time"
 set xtics font ", 10"
 
 set autoscale y
-set ytics 5
+set ytics 2.5
 #set yrange [0:12]
 set ylabel 'mm/h - mm' offset  2, 0 textcolor rgb "purple"
 set y2tics 10
