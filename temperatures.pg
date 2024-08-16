@@ -86,6 +86,7 @@ set label 1 '2' at graph 1.06, first 2 front tc rgb "red"
 set label 2 '-8' at graph 1.06, first -8 front tc rgb "orange"
 set label 3 '-12' at graph 1.06, first -12 front tc rgb "green"
 set label 4 '-37' at graph 1.06, first -37 front tc rgb "blue"
+set style fill transparent solid 0.5 noborder
 set label sprintf("< %4.4g",min_yT) at first min_pos_yT, first min_yT left tc rgb "blue"
 set label sprintf("< %4.4g",max_yT) at first max_pos_yT, first max_yT left tc rgb "blue"
 set label sprintf("< %4.4g",min_yT8) at first min_pos_yT8, first min_yT8 left tc rgb "green"
@@ -97,6 +98,7 @@ set label sprintf("< %4.4g",max_yT5) at first max_pos_yT5, first max_yT5 left tc
 plot "data.csv" using 1:($30-273.15) title "500" lw 2 lt 2 lc "blue", \
 "" using 1:($46-273.15) title "700" lw 2 lt 2 lc "green", \
 "" using 1:($54-273.15) title "850" lw 2 lt 2 lc "orange", \
+"" using 1:($54-273.15):(20) title "" with filledcurves above lc "red", \
 "" using 1:($86-273.15) title "1000" lw 2 lt 2 lc "grey", \
 "" using 1:($98-273.15) title "2m" lw 2 lt 2 lc "red", \
 "" using 1:(($86-$54)>=12?($86-$54):1/0) title "Inst" with linespoints ls 7 lc "purple", \
