@@ -128,7 +128,7 @@ coord(n) = sprintf("%g",n)
 
 set title "Weather Forecast GFS Model - NOAA (K-Index) RUN:".run(run)."z - "."Lat: ".coord(lat)." - "."Lon: ".coord(lon)
 set key lmargin
-set key font ",8"
+set key font ",7"
 set grid
 set style data lines
 
@@ -203,8 +203,6 @@ unset xlabel
 unset xtics #font ", 10"
 
 unset label
-set bmargin 0.6
-set tmargin 0.2
 
 unset ylabel
 set y2range [0:max_ySREH]
@@ -219,14 +217,16 @@ set key font ",8"
 set grid
 set style data lines
 
-set lmargin screen 0.2
+set bmargin 0.6
+set tmargin 0.2
+set rmargin 7
 
 #set label sprintf("Wmean = %4.4g Km/h",mean_yW) at graph 0.45, second mean_yW left font "Arial,10" tc rgb "dark-orange"
 
 plot "data.csv" using 1:130 dt 1 lc rgb "dark-grey" lw 1 title "SREH" axes x1y2, \
 "" u 1:(max_ySREH>=100?150:1/0) dt 2 lc rgb "yellow" lw 1 title "Supercells" axes x1y2, \
-"" u 1:(max_ySREH>=249?299:1/0) dt 2 lc rgb "red" lw 1 title "Prob. tornado" axes x1y2, \
-"" u 1:(max_ySREH>=399?449:1/0) dt 2 lc rgb "dark-orange" lw 1 title "Tornado (F2/F3)" axes x1y2, \
+"" u 1:(max_ySREH>=249?299:1/0) dt 2 lc rgb "red" lw 1 title "Prob. torn." axes x1y2, \
+"" u 1:(max_ySREH>=399?449:1/0) dt 2 lc rgb "dark-orange" lw 1 title "F2/F3" axes x1y2, \
 "" u 1:((($31+$47+$55)/3)>=65?(($31+$47+$55)/3):1/0) dt 1 lc rgb "orange" lw 1 title "Hum-index" axes x1y2, \
 65 dt 4 lc rgb "dark-green" lw 1 title "65" axis x1y2
 
@@ -254,7 +254,7 @@ coord(n) = sprintf("%g",n)
 
 unset title
 set key lmargin
-set key font ",8"
+set key font ",7"
 set grid lt 0 lw 1 lc rgb "#008800"
 set style data lines
 
