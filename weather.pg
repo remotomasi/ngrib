@@ -1,5 +1,6 @@
 #!/usr/bin/gnuplot -persist
 reset
+
 set terminal pngcairo truecolor
 set termoption dashed
 set term pngcairo size 1024,600 #800 pixels by 600 pixels

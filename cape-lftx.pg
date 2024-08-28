@@ -49,7 +49,7 @@ set autoscale y
 set autoscale y2
 #set ytics 500
 #set yrange [0:3000]
-set ylabel 'J/Kg' textcolor rgb "orange"
+set ylabel 'J/Kg' offset 2.2, 0 textcolor rgb "orange"
 set y2tics 1
 #set y2range [-6:15]
 set y2label '°K' textcolor rgb "purple"
@@ -69,9 +69,11 @@ set style line 1 linecolor rgb '#0060ad' linetype 1 linewidth 2 pointtype 7 poin
 set boxwidth 0.95 relative
 set style fill transparent solid 0.7 noborder
 
+set multiplot
+set lmargin screen 0.2
+
 set label 1 sprintf("  < %4.4g J/Kg",max_yCP) at first max_pos_yCP, first max_yCP left tc rgb "orange"
-set label 2 sprintf("< %3.3g J/Kg",max_yCIN) at first max_pos_yCIN, first max_yCIN left tc rgb "red"
-set label 3 sprintf("< %4.4g °K",min_yL) at first min_pos_yL, second min_yL left tc rgb "purple"
+set label 3 sprintf("< %4.4g °K",min_yL) at first min_pos_yL, second min_yL left tc rgb "dark-blue"
 
 # CIN multiplied by -1 since it is a negative area
 plot "final.csv" using 1:'CAPE - surface' w boxes lc rgb "orange" fs transparent solid 0.3 border -1 title "CAPE" axes x1y1, \
@@ -85,12 +87,38 @@ plot "final.csv" using 1:'CAPE - surface' w boxes lc rgb "orange" fs transparent
 "" u 1:(min_yL<=-4?-4:1/0) lc rgb "purple" dt 2 lw 1 notitle axes x1y2, \
 "" u 1:(min_yL<=-6?-6:1/0) lc rgb "purple" dt 2 lw 1 notitle axes x1y2, \
 0 dt 1 lc rgb "black" lw 1 axes x1y2 notitle, \
-"" u 1:(0):'LFTX - surface' with filledcurves above y2=0 lc rgb "purple" notitle axes x1y2, \
+"" u 1:(0):'LFTX - surface' with filledcurves above y2=0 lc rgb "purple" notitle axes x1y2 #, \
+#"" u 1:((-1)*$123):(50) title "" with filledcurves below lc "red", \
+#"" u 1:((-1)*$123) lc "red" title "CIN" axes x1y1, \
+#"" u 1:(0) lc rgb "brown" dt 3 lw 1 notitle axes x1y1, \
+#"" u 1:(max_yCIN<=50?50:1/0) lc rgb "light-red" dt 2 lw 1 notitle axes x1y1, \
+#"" u 1:(max_yCIN<=100?100:1/0) lc rgb "brown" dt 2 lw 1 notitle axes x1y1
+
+
+### Second plot
+
+unset ylabel
+unset y2label
+unset ytics
+unset y2tics
+set ytics 50
+set yrange [0:300]
+set ytics offset  -5, 0
+set ylabel "CIN" offset  -3, 0 textcolor rgb "red"
+set rmargin screen 0.912
+
+unset label 3
+
+set label 2 sprintf("< %3.3g J/Kg",max_yCIN) at first max_pos_yCIN, first max_yCIN left tc rgb "red"
+
+plot "final.csv" using 1:((-1)*$123) lc "red" notitle "CIN" axes x1y1, \
 "" u 1:((-1)*$123):(50) title "" with filledcurves below lc "red", \
-"" u 1:((-1)*$123) lc "red" title "CIN" axes x1y1, \
-"" u 1:(0) lc rgb "brown" dt 3 lw 1 notitle axes x1y1, \
-"" u 1:(max_yCIN<=50?50:1/0) lc rgb "light-red" dt 2 lw 1 notitle axes x1y1, \
-"" u 1:(max_yCIN<=100?100:1/0) lc rgb "brown" dt 2 lw 1 notitle axes x1y1
+"" u 1:(0) lc rgb "brown" dt 3 lw 1 notitle, \
+"" u 1:(max_yCIN<=50?50:1/0) lc rgb "light-red" dt 2 lw 1 notitle, \
+"" u 1:(max_yCIN<=100?100:1/0) lc rgb "brown" dt 2 lw 1 notitle
+
+unset multiplot
+
 
 #"" u 1:(min_yL) with linespoints ls 1 lc rgb "purple" lw 2 notitle axes x1y2, \
 #set label sprintf("CAPEmax = %4.4g J/Kg",max_yCP) at graph 0.8,0.97 left font "Arial,10" tc rgb "orange"
