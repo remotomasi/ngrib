@@ -89,12 +89,7 @@ plot "final.csv" using 1:'CAPE - surface' w boxes lc rgb "orange" fs transparent
 "" u 1:(min_yL<=-4?-4:1/0) lc rgb "purple" dt 2 lw 1 notitle axes x1y2, \
 "" u 1:(min_yL<=-6?-6:1/0) lc rgb "purple" dt 2 lw 1 notitle axes x1y2, \
 0 dt 1 lc rgb "black" lw 1 axes x1y2 notitle, \
-"" u 1:(0):'LFTX - surface' with filledcurves above y2=0 lc rgb "purple" notitle axes x1y2 #, \
-#"" u 1:((-1)*$123):(50) title "" with filledcurves below lc "red", \
-#"" u 1:((-1)*$123) lc "red" title "CIN" axes x1y1, \
-#"" u 1:(0) lc rgb "brown" dt 3 lw 1 notitle axes x1y1, \
-#"" u 1:(max_yCIN<=50?50:1/0) lc rgb "light-red" dt 2 lw 1 notitle axes x1y1, \
-#"" u 1:(max_yCIN<=100?100:1/0) lc rgb "brown" dt 2 lw 1 notitle axes x1y1
+"" u 1:(0):'LFTX - surface' with filledcurves above y2=0 lc rgb "purple" notitle axes x1y2 
 
 
 ### Second plot
@@ -121,7 +116,3 @@ plot "final.csv" using 1:((-1)*$123) lc "red" notitle "CIN" axes x1y1, \
 
 unset multiplot
 
-
-#"" u 1:(min_yL) with linespoints ls 1 lc rgb "purple" lw 2 notitle axes x1y2, \
-#set label sprintf("CAPEmax = %4.4g J/Kg",max_yCP) at graph 0.8,0.97 left font "Arial,10" tc rgb "orange"
-#set label sprintf("LFTXmin = %4.4g °K",min_yL) at graph 0.8,0.94 left font "Arial,10" tc rgb "purple"

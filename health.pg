@@ -54,36 +54,10 @@ plot "data.csv" using 1:(c1 + c2*($98-273.15) + c3*$100 + c4*($98-273.15)*$100 +
 27 dt 1 lc rgb "dark-green" lw 1 title "No discomf."
 
 
-## 2 Wind chill ##
+## 2 Dew Point ##
 
 unset label
-set datafile separator ","
-set xdata time
-set timefmt "%Y-%m-%d %H"
-set format x "h%H %d/%m\n%a"
-set xrange [time(0):time(0) + 5*24*60*60]
-unset xlabel
 unset title
-set xtics font ", 8"
-
-set ytics 5
-set autoscale y
-set ylabel '°C' offset  4.9, 0 textcolor rgb "red"
-
-set key lmargin
-set key font ",7"
-set grid
-
-set style data lines
-# set label 10 '10' at screen 0.162, first 10 front tc rgb "dark-red"
-plot "data.csv" using 1:(13.12+0.6215*($98-273.15)-11.37*(sqrt($101*$101+$102*$102)*3.6)**0.16+0.3965*($98-273.15)*(sqrt($101*$101+$102*$102)*3.6)**0.16) lc "cyan" lw 2 axes x1y1 title "Wind Chill", \
-"" using 1:(((13.12+0.6215*($98-273.15)-11.37*(sqrt($101*$101+$102*$102)*3.6)**0.16+0.3965*($98-273.15)*(sqrt($101*$101+$102*$102)*3.6)**0.16) <= -18)?(13.12+0.6215*($98-273.15)-11.37*(sqrt($101*$101+$102*$102)*3.6)**0.16+0.3965*($98-273.15)*(sqrt($101*$101+$102*$102)*3.6)**0.16):1/0) dt 2 lc rgb "dark-blue" lw 1 title "Freeze (<30min)", \
-4.4 dt 2 lc rgb "grey" lw 1 title "WC limit"
-# 24 dt 2 lc rgb "dark-red" lw 1 title "ressive" axis x1y1
-
-## 3 ##
-
-unset label
 set datafile separator ","
 set xdata time
 set timefmt "%Y-%m-%d %H"
@@ -110,8 +84,36 @@ set label 9 '5' at screen 0.97, first 5 front tc rgb "dark-blue"
 plot "data.csv" using 1:($99-273.15) lc "green" lw 2 axes x1y1 title "Dew Point", \
 24 dt 2 lc rgb "dark-red" lw 1 title "Oppressive" axis x1y1, \
 20 dt 2 lc rgb "dark-orange" lw 1 title "Muggy" axis x1y1, \
-15 dt 1 lc rgb "dark-yellow" lw 2 title "Ucomfortable" axis x1y1, \
+15 dt 1 lc rgb "dark-yellow" lw 2 title " Ucomfortable" axis x1y1, \
 10 dt 2 lc rgb "dark-green" lw 1 title "Comfortable" axis x1y1, \
 5 dt 2 lc rgb "dark-blue" lw 1 title "Dry" axis x1y1
+
+
+## 3 Wind chill ##
+
+unset label
+set datafile separator ","
+set xdata time
+set timefmt "%Y-%m-%d %H"
+set format x "h%H %d/%m\n%a"
+set xrange [time(0):time(0) + 5*24*60*60]
+unset xlabel
+unset title
+set xtics font ", 8"
+
+set ytics 5
+set autoscale y
+set ylabel '°C' offset  4.9, 0 textcolor rgb "red"
+
+set key lmargin
+set key font ",7"
+set grid
+
+set style data lines
+# set label 10 '10' at screen 0.162, first 10 front tc rgb "dark-red"
+plot "data.csv" using 1:(13.12+0.6215*($98-273.15)-11.37*(sqrt($101*$101+$102*$102)*3.6)**0.16+0.3965*($98-273.15)*(sqrt($101*$101+$102*$102)*3.6)**0.16) lc "cyan" lw 2 axes x1y1 title "Wind Chill", \
+"" using 1:(((13.12+0.6215*($98-273.15)-11.37*(sqrt($101*$101+$102*$102)*3.6)**0.16+0.3965*($98-273.15)*(sqrt($101*$101+$102*$102)*3.6)**0.16) <= -18)?(13.12+0.6215*($98-273.15)-11.37*(sqrt($101*$101+$102*$102)*3.6)**0.16+0.3965*($98-273.15)*(sqrt($101*$101+$102*$102)*3.6)**0.16):1/0) dt 2 lc rgb "dark-blue" lw 1 title "Freeze (<30min)", \
+4.4 dt 2 lc rgb "grey" lw 1 title "WC limit"
+# 24 dt 2 lc rgb "dark-red" lw 1 title "ressive" axis x1y1
 
 unset multiplot
