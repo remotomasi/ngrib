@@ -154,9 +154,9 @@ set key default
 set key font ",10"
 set key inside horiz
 set key box; set key top left
-plot "data.csv" using 1:(100-$129) title "High" with filledcurves x2 lc "yellow", \
-"" using 1:(($127)/2+50):((100-($127)/2)-50) title "Mid" with filledcurves above y1=50 lc "green", \
-"" using 1:125 title "Low" with filledcurves x1 lc "blue"
+plot "data.csv" using 1:(100-$129) title "High" with filledcurves x2 lc "light-grey", \
+"" using 1:(($127)/2+50):((100-($127)/2)-50) title "Mid" with filledcurves above y1=50 lc "grey70", \
+"" using 1:125 title "Low" with filledcurves x1 lc "grey20"
 #replot
 unset multiplot
 

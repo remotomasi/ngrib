@@ -51,8 +51,10 @@ set autoscale y2
 #set yrange [0:3000]
 set ylabel 'J/Kg' offset 2.2, 0 textcolor rgb "orange"
 set y2tics 1
+set y2tics offset -1,0
 #set y2range [-6:15]
 set y2label '°K' textcolor rgb "purple"
+set y2label offset -4,0
 
 run(n) = sprintf("%d",n)
 coord(n) = sprintf("%g",n)
@@ -105,7 +107,7 @@ set ytics 50
 set yrange [0:300]
 set ytics offset  -5, 0
 set ylabel "CIN" offset  -3, 0 textcolor rgb "red"
-set rmargin screen 0.912
+set rmargin screen 0.9119 # 0.912
 
 unset label 3
 
