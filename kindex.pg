@@ -132,7 +132,7 @@ set key font ",7"
 set grid
 set style data lines
 
-set lmargin screen 0.2
+set lmargin screen 0.15
 
 #set label sprintf("Wmean = %4.4g Km/h",mean_yW) at graph 0.45, second mean_yW left font "Arial,10" tc rgb "dark-orange"
 plot "data.csv" using 1:(($54-273.15)+(-430.22+237.7*log(($55*6.11*10**((7.5*($54-273.15))/(237.7+($54-273.15))))/100))/(-log($55*6.11*10**((7.5*($54-273.15))/(237.7+($54-273.15)))/100)+19.08)-($30-273.15)-($46-273.15)+(-430.22+237.7*log(($47*6.11*10**((7.5*($46-273.15))/(237.7+($46-273.15))))/100))/(-log($47*6.11*10**((7.5*($46-273.15))/(237.7+($56-273.15)))/100)+19.08)) dt 1 lc rgb "green" title "K-index" axes x1y2, \
@@ -179,7 +179,7 @@ set key font ",8"
 set grid
 set style data lines
 
-set lmargin screen 0.2
+set lmargin screen 0.15
 
 #set label sprintf("Wmean = %4.4g Km/h",mean_yW) at graph 0.45, second mean_yW left font "Arial,10" tc rgb "dark-orange"
 
@@ -220,6 +220,7 @@ set style data lines
 set bmargin 0.6
 set tmargin 0.2
 set rmargin 7
+set lmargin screen 0.15
 
 #set label sprintf("Wmean = %4.4g Km/h",mean_yW) at graph 0.45, second mean_yW left font "Arial,10" tc rgb "dark-orange"
 
@@ -258,7 +259,7 @@ set key font ",7"
 set grid lt 0 lw 1 lc rgb "#008800"
 set style data lines
 
-set lmargin screen 0.2
+set lmargin screen 0.15
 
 #set label sprintf("Wmean = %4.4g Km/h",mean_yW) at graph 0.45, second mean_yW left font "Arial,10" tc rgb "dark-orange"
 

@@ -101,6 +101,9 @@ for i in range (2, mr + 1):
         # reading cell value from source excel file
         c = ws2.cell(row = i, column = j)
 
+        if c.value is None:
+            c.value = 0
+
         # writing the wind power to destination excel file
         ws2.cell(row = i, column = j).value = int(float(c.value) - 273.15)
 
@@ -110,6 +113,9 @@ for i in range (2, mr + 1):
         # reading cell value from source excel file
         c = ws2.cell(row = i, column = j)
 
+        if c.value is None:
+            c.value = 0
+        
         # writing the wind power to destination excel file
         ws2.cell(row = i, column = j).value = int(float(c.value))
 

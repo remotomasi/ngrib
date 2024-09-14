@@ -82,10 +82,10 @@ set size 1, 1 # ratio 1:1
 
 set style data lines
 
-set label 1 '2' at graph 1.06, first 2 front tc rgb "red"
-set label 2 '-8' at graph 1.06, first -8 front tc rgb "orange"
-set label 3 '-12' at graph 1.06, first -12 front tc rgb "green"
-set label 4 '-37' at graph 1.06, first -37 front tc rgb "blue"
+set label 1 '2' at graph 1.05, first 2 front tc rgb "red"
+set label 2 '-8' at graph 1.05, first -8 front tc rgb "orange"
+set label 3 '-12' at graph 1.05, first -12 front tc rgb "green"
+set label 4 '-37' at graph 1.05, first -37 front tc rgb "blue"
 set style fill transparent solid 0.5 noborder
 set label sprintf("< %4.4g",min_yT) at first min_pos_yT, first min_yT left tc rgb "blue"
 set label sprintf("< %4.4g",max_yT) at first max_pos_yT, first max_yT left tc rgb "blue"

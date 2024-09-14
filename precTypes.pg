@@ -71,7 +71,7 @@ unset ytics
 #set autoscale y2
 set y2tics tics
 set y2range [min_yM5:max_yM5]
-set y2label 'm'
+set y2label 'm' offset  -98.0
 set grid y2tics lt 0 lw 1 lc rgb "#008800"
 
 run(n) = sprintf("%d",n)

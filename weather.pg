@@ -56,8 +56,7 @@ set ylabel '°C' offset  2, 0 textcolor rgb "red"
 set y2tics 10
 set y2range [0:100]
 set y2tics offset -1,0
-set y2label '% - Km/h' textcolor rgb "cyan"
-set y2label offset -4,0
+set y2label '% - Km/h' offset -1, 0 textcolor rgb "cyan"
 
 run(n) = sprintf("%d",n)
 coord(n) = sprintf("%g",n)
@@ -134,7 +133,7 @@ set ytics tics
 set style data lines
 
 set ytics offset  81.2, 0
-set ylabel "hPa" offset  88.6, 0 textcolor rgb "purple"
+set ylabel "hPa" offset  91, 0 textcolor rgb "purple"
 
 set key b 
 plot "data.csv" using 1:($2/100) dt 1 lw 1 lc rgb "purple" title "Pres"

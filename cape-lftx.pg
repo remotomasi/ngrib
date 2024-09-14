@@ -73,6 +73,7 @@ set style fill transparent solid 0.7 noborder
 
 set multiplot
 set lmargin screen 0.2
+set rmargin screen 0.94 
 
 set label 1 sprintf("  < %4.4g J/Kg",max_yCP) at first max_pos_yCP, first max_yCP left tc rgb "orange"
 set label 3 sprintf("< %4.4g °K",min_yL) at first min_pos_yL, second min_yL left tc rgb "dark-blue"
@@ -102,7 +103,7 @@ set ytics 50
 set yrange [0:300]
 set ytics offset  -5, 0
 set ylabel "CIN" offset  -3, 0 textcolor rgb "red"
-set rmargin screen 0.9018 # 0.912
+set rmargin screen 0.94 
 
 unset label 3
 
