@@ -62,8 +62,8 @@ set style fill transparent solid 0.3
 
 #set label sprintf("< %4.4g",max_yVVEL5*36) at second max_pos_yVVEL5, second max_yVVEL5*36 left tc rgb "blue"
 #set label sprintf("< %4.4g",max_yVVEL7*36) at second max_pos_yVVEL7, second max_yVVEL7*36 left tc rgb "dark-yellow"
-plot "data.csv" using 1:($49*36) title "VVEL7" lw 2 lt 1 lc "dark-blue" axis x1y2, \
-"" using 1:($33*36) title "VVEL5" lw 2 lt 1 lc "dark-yellow" axis x1y2, \
+plot "data.csv" using 1:($49*36) title "VVEL7" smooth csplines lw 2 lt 1 lc "dark-blue" axis x1y2, \
+"" using 1:($33*36) title "VVEL5" smooth csplines lw 2 lt 1 lc "dark-yellow" axis x1y2, \
 0 dt 3 lc rgb "dark-green" lw 2 notitle axis x1y2
 
 
@@ -90,7 +90,7 @@ set grid
 set style data lines
 set style fill transparent solid 0.3
 
-plot "data.csv" using 1:31 title "  RH5" lw 2 lt 1 lc "yellow" axis x1y2, \
-"" using 1:47 title "  RH7" lw 2 lt 1 lc "orange" axis x1y2, \
-"" using 1:55 title "  RH8" lw 2 lt 1 lc "red" axis x1y2, \
-"" using 1:87 title "  RH1" lw 2 lt 1 lc "brown" axis x1y2
+plot "data.csv" using 1:31 title "  RH5" smooth csplines lw 2 lt 1 lc "yellow" axis x1y2, \
+"" using 1:47 title "  RH7" smooth csplines lw 2 lt 1 lc "orange" axis x1y2, \
+"" using 1:55 title "  RH8" smooth csplines lw 2 lt 1 lc "red" axis x1y2, \
+"" using 1:87 title "  RH1" smooth csplines lw 2 lt 1 lc "brown" axis x1y2

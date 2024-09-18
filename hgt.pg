@@ -98,7 +98,7 @@ set style data lines
 set label sprintf("< %4.4g",max_y500) at second max_pos_y500, second max_y500 left tc rgb "red"
 set label sprintf("< %4.4g",min_y500) at second min_pos_y500, second min_y500 left tc rgb "red"
 set label 1 '5520' at graph 1.08, second 5520 front tc rgb "green"
-plot "data.csv" using 1:29 title "500" lw 2 lt 2 lc "blue" axis x1y2, \
+plot "data.csv" using 1:29 smooth csplines title "500" lw 2 lt 2 lc "blue" axis x1y2, \
 "" u 1:(min_y500<5720 && max_y500>5760?5760:1/0) dt 2 lc rgb "red" lw 1 notitle axis x1y2, \
 "" u 1:(min_y500<5720 && max_y500>5720?5720:1/0) dt 2 lc rgb "red" lw 1 notitle axis x1y2, \
 "" u 1:(min_y500<5760 && max_y500>5760?5760:1/0) dt 2 lc rgb "red" lw 1 notitle axis x1y2, \
@@ -134,7 +134,7 @@ set style data lines
 
 set label 1 sprintf("< %4.4g",min_yZ) at second min_pos_yZ, second min_yZ front tc rgb "blue"
 set label 2 sprintf("< %4.4g",max_yZ) at second max_pos_yZ, second max_yZ front tc rgb "blue"
-plot "data.csv" using 1:131 title "0 C" lw 2 lt 2 lc "red" axis x1y2
+plot "data.csv" using 1:131 title "0 C" smooth csplines lw 2 lt 2 lc "red" axis x1y2
 
 
 ## 3 ## Snow Line
@@ -175,8 +175,8 @@ set style data lines
 
 set label 5 sprintf("< %4.4g",min_ySN) at second min_pos_ySN, second min_ySN front tc rgb "dark-green"
 set label 6 sprintf("< %4.4g",max_ySN) at second max_pos_ySN, second max_ySN front tc rgb "dark-green"
-plot "data.csv" using 1:(( ((273.2 + ($54-273.15) + 2480 * ( (exp(A - B / (( ((($55/100)**(0.125))*(112+0.9*($54-273.15))+0.1*($54-273.15)-112) ) + C))) / (850 - (exp(A - B / (( ((($55/100)**(0.125))*(112+0.9*($54-273.15))+0.1*($54-273.15)-112) ) + C)))) * C1) /1) * ((1.176)**(0.29)) -273.15) -12)/0.12*10 )  title "QNe" lw 2 lt 2 lc "dark-cyan" axis x1y2, \
-"" u 1:(( ((273.2 + ($54-273.15) + 2480 * ( (exp(A - B / (( ((($55/100)**(0.125))*(112+0.9*($54-273.15))+0.1*($54-273.15)-112) ) + C))) / (850 - (exp(A - B / (( ((($55/100)**(0.125))*(112+0.9*($54-273.15))+0.1*($54-273.15)-112) ) + C)))) * C1) /1) * ((1.176)**(0.29)) -273.15) -12)/0.12*10 <=0?0:1/0) dt 3 lc rgb "black" lw 1 notitle axis x1y2
+plot "data.csv" using 1:(( ((273.2 + ($54-273.15) + 2480 * ( (exp(A - B / (( ((($55/100)**(0.125))*(112+0.9*($54-273.15))+0.1*($54-273.15)-112) ) + C))) / (850 - (exp(A - B / (( ((($55/100)**(0.125))*(112+0.9*($54-273.15))+0.1*($54-273.15)-112) ) + C)))) * C1) /1) * ((1.176)**(0.29)) -273.15) -12)/0.12*10 ) title "QNe" smooth csplines lw 2 lt 2 lc "dark-cyan" axis x1y2, \
+"" u 1:(( ((273.2 + ($54-273.15) + 2480 * ( (exp(A - B / (( ((($55/100)**(0.125))*(112+0.9*($54-273.15))+0.1*($54-273.15)-112) ) + C))) / (850 - (exp(A - B / (( ((($55/100)**(0.125))*(112+0.9*($54-273.15))+0.1*($54-273.15)-112) ) + C)))) * C1) /1) * ((1.176)**(0.29)) -273.15) -12)/0.12*10 <=0?0:1/0) smooth csplines dt 3 lc rgb "black" lw 1 notitle axis x1y2
 # 0 dt 3 lc rgb "black" lw 1 notitle axis x1y2
 
 
@@ -209,7 +209,7 @@ unset title
 
 set label 1 sprintf("< %4.4g",max_y700) at second max_pos_y700, second max_y700 front tc rgb "dark-orange"
 set label 2 sprintf("< %4.4g",min_y700) at second min_pos_y700, second min_y700 front tc rgb "dark-orange"
-plot "data.csv" using 1:45 title "700" lw 2 lt 2 lc "green" axis x1y2
+plot "data.csv" using 1:45 title "700" smooth csplines lw 2 lt 2 lc "green" axis x1y2
 
 ## 5 ## 850hPa
 
@@ -242,7 +242,7 @@ set style data lines
 set label 1 '1490' at graph 1.08, second 1490 front tc rgb "dark-green"
 set label 2 sprintf("< %4.4g",min_y850) at second min_pos_y850, second min_y850 front tc rgb "dark-green"
 set label 3 sprintf("< %4.4g",max_y850) at second max_pos_y850, second max_y850 front tc rgb "dark-green"
-plot "data.csv" using 1:53 title "850" lw 2 lt 2 lc "orange" axis x1y2, \
+plot "data.csv" using 1:53 title "850" smooth csplines lw 2 lt 2 lc "orange" axis x1y2, \
 1490 dt 3 lc rgb "dark-green" lw 2 notitle axis x1y2
 #, \
 #"" using 1:36 title "1000" lw 2 lt 2 lc "grey" axis x1y1

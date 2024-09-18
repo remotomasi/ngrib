@@ -95,12 +95,12 @@ set label sprintf("< %4.4g",min_yT7) at first min_pos_yT7, first min_yT7 left tc
 set label sprintf("< %4.4g",max_yT7) at first max_pos_yT7, first max_yT7 left tc rgb "orange"
 set label sprintf("< %4.4g",min_yT5) at first min_pos_yT5, first min_yT5 left tc rgb "red"
 set label sprintf("< %4.4g",max_yT5) at first max_pos_yT5, first max_yT5 left tc rgb "red"
-plot "data.csv" using 1:($30-273.15) title "500" lw 2 lt 2 lc "blue", \
-"" using 1:($46-273.15) title "700" lw 2 lt 2 lc "green", \
-"" using 1:($54-273.15) title "850" lw 2 lt 2 lc "orange", \
+plot "data.csv" using 1:($30-273.15) title "500" smooth csplines lw 2 lt 2 lc "blue", \
+"" using 1:($46-273.15) title "700" smooth csplines lw 2 lt 2 lc "green", \
+"" using 1:($54-273.15) title "850" smooth csplines lw 2 lt 2 lc "orange", \
 "" using 1:($54-273.15):(20) title "" with filledcurves above lc "red", \
-"" using 1:($86-273.15) title "1000" lw 2 lt 2 lc "grey", \
-"" using 1:($98-273.15) title "2m" lw 2 lt 2 lc "red", \
+"" using 1:($86-273.15) title "1000" smooth csplines lw 2 lt 2 lc "grey", \
+"" using 1:($98-273.15) title "2m" smooth csplines lw 2 lt 2 lc "red", \
 "" using 1:(($86-$54)>=12?($86-$54):1/0) title "Inst" with linespoints ls 7 lc "purple", \
 -12 dt 2 lc rgb "green" lw 1 notitle, \
 -8 dt 2 lc rgb "orange" lw 1 notitle, \

@@ -81,7 +81,7 @@ set label 6 '20' at screen 0.975, first 20 front tc rgb "dark-orange"
 set label 7 '15' at screen 0.975, first 15 front tc rgb "dark-yellow"
 set label 8 '10' at screen 0.975, first 10 front tc rgb "dark-green"
 set label 9 '5' at screen 0.975, first 5 front tc rgb "dark-blue"
-plot "data.csv" using 1:($99-273.15) lc "green" lw 2 axes x1y1 title "Dew Point", \
+plot "data.csv" using 1:($99-273.15) smooth csplines lc "green" lw 2 axes x1y1 title "Dew Point", \
 24 dt 2 lc rgb "dark-red" lw 1 title "Oppressive" axis x1y1, \
 20 dt 2 lc rgb "dark-orange" lw 1 title "Muggy" axis x1y1, \
 15 dt 1 lc rgb "dark-yellow" lw 2 title " Ucomfortable" axis x1y1, \
@@ -111,8 +111,8 @@ set grid
 
 set style data lines
 # set label 10 '10' at screen 0.162, first 10 front tc rgb "dark-red"
-plot "data.csv" using 1:(13.12+0.6215*($98-273.15)-11.37*(sqrt($101*$101+$102*$102)*3.6)**0.16+0.3965*($98-273.15)*(sqrt($101*$101+$102*$102)*3.6)**0.16) lc "cyan" lw 2 axes x1y1 title "Wind Chill", \
-"" using 1:(((13.12+0.6215*($98-273.15)-11.37*(sqrt($101*$101+$102*$102)*3.6)**0.16+0.3965*($98-273.15)*(sqrt($101*$101+$102*$102)*3.6)**0.16) <= -18)?(13.12+0.6215*($98-273.15)-11.37*(sqrt($101*$101+$102*$102)*3.6)**0.16+0.3965*($98-273.15)*(sqrt($101*$101+$102*$102)*3.6)**0.16):1/0) dt 2 lc rgb "dark-blue" lw 1 title "Freeze (<30min)", \
+plot "data.csv" using 1:(13.12+0.6215*($98-273.15)-11.37*(sqrt($101*$101+$102*$102)*3.6)**0.16+0.3965*($98-273.15)*(sqrt($101*$101+$102*$102)*3.6)**0.16) smooth csplines lc "cyan" lw 2 axes x1y1 title "Wind Chill", \
+"" using 1:(((13.12+0.6215*($98-273.15)-11.37*(sqrt($101*$101+$102*$102)*3.6)**0.16+0.3965*($98-273.15)*(sqrt($101*$101+$102*$102)*3.6)**0.16) <= -18)?(13.12+0.6215*($98-273.15)-11.37*(sqrt($101*$101+$102*$102)*3.6)**0.16+0.3965*($98-273.15)*(sqrt($101*$101+$102*$102)*3.6)**0.16):1/0) smooth csplines dt 2 lc rgb "dark-blue" lw 1 title "Freeze (<30min)", \
 4.4 dt 2 lc rgb "grey" lw 1 title "WC limit"
 # 24 dt 2 lc rgb "dark-red" lw 1 title "ressive" axis x1y1
 

@@ -91,7 +91,7 @@ set label 5 '5225' at graph 1.08, second 5225 front tc rgb "orange"
 set label sprintf("< %4.4g",max_yM5) at second max_pos_yM5, second max_yM5 left tc rgb "blue"
 set label sprintf("< %4.4g",min_yM5) at second min_pos_yM5, second min_yM5 left tc rgb "blue"
 #set label sprintf("1000-500min = %4.4g m",min_yM5) at graph 0.6,0.97 left font "Arial,10" tc rgb "orange"
-plot "data.csv" using 1:($29-$93) title "1000-500" lw 2 lt 2 lc "orange" axis x1y2, \
+plot "data.csv" using 1:($29-$93) title "1000-500" smooth csplines lw 2 lt 2 lc "orange" axis x1y2, \
 5225 dt 2 lc "orange" lw 1 notitle axis x1y2
 
 
@@ -125,7 +125,7 @@ set label 4 '4050' at graph 1.08, second 4050 front tc rgb "blue"
 set label sprintf("< %4.4g",max_y85) at second max_pos_y85, second max_y85 left tc rgb "orange"
 set label sprintf("< %4.4g",min_y85) at second min_pos_y85, second min_y85 left tc rgb "orange"
 #set label sprintf("850-500min = %4.4g m",min_y85) at graph 0.8,0.97 left font "Arial,10" tc rgb "blue"
-plot "data.csv" using 1:($29-$53) title " 850-500" lw 2 lt 2 lc "blue" axis x1y2, \
+plot "data.csv" using 1:($29-$53) title " 850-500" smooth csplines lw 2 lt 2 lc "blue" axis x1y2, \
 4050 dt 2 lc "blue" lw 1 notitle axis x1y2
 
 
@@ -159,13 +159,13 @@ set label 3 '2800' at graph 1.08, second 2800 front tc rgb "red"
 set label sprintf("< %4.4g",max_yM7) at second max_pos_yM7, second max_yM7 left tc rgb "green"
 set label sprintf("< %4.4g",min_yM7) at second min_pos_yM7, second min_yM7 left tc rgb "green"
 #set label sprintf("1000-700min = %4.4g m",min_yM7) at graph 0.4,0.94 left font "Arial,10" tc rgb "red"
-plot "data.csv" using 1:($45-$93) title "1000-700" lw 2 lt 2 lc "red" axis x1y2, \
+plot "data.csv" using 1:($45-$93) title "1000-700" smooth csplines lw 2 lt 2 lc "red" axis x1y2, \
 "" u 1:((min_yM7-2800)<50?2800:1/0) dt 2 lc "red" lw 1 notitle axis x1y2
 
 
 ## 4 ##
 
-tics = floor((max_yM87 - min_yM87) / 5)
+tics = floor((max_yM87 - min_yM87) / 4)
 
 unset label
 set bmargin 0.6
@@ -193,13 +193,13 @@ set label 2 '1520' at graph 1.08, second 1520 front tc rgb "green"
 set label sprintf("< %4.4g",max_yM87) at second max_pos_yM87, second max_yM87 left tc rgb "red"
 set label sprintf("< %4.4g",min_yM87) at second min_pos_yM87, second min_yM87 left tc rgb "red"
 #set label sprintf("850-700min = %4.4g m",min_yM87) at graph 0.6,0.94 left font "Arial,10" tc rgb "green"
-plot "data.csv" using 1:($45-$53) title " 850-700" lw 2 lt 2 lc "green" axis x1y2, \
+plot "data.csv" using 1:($45-$53) title " 850-700" smooth csplines lw 2 lt 2 lc "green" axis x1y2, \
 "" u 1:((min_yM87-1520)<30?1520:1/0) dt 2 lc "green" lw 1 notitle axis x1y2
 
 
 ## 5 ##
 
-tics = floor((max_yM8 - min_yM8) / 4)
+tics = floor((max_yM8 - min_yM8) / 3)
 
 unset label
 set tmargin 0.2
@@ -232,7 +232,7 @@ set label 1 '1281' at graph 1.08, second 1281 front tc rgb "dark-grey"
 #set label sprintf("1000-850min = %4.4g m",min_yM8) at graph 0.4,0.97 left font "Arial,10" tc rgb "dark-grey"
 set label sprintf("< %4.4g",max_yM8) at second max_pos_yM8, second max_yM8 left tc rgb "dark-orange"
 set label sprintf("< %4.4g",min_yM8) at second min_pos_yM8, second min_yM8 left tc rgb "dark-orange"
-plot "data.csv" using 1:($53-$93) title "1000-850" lw 2 lt 2 lc "grey" axis x1y2, \
+plot "data.csv" using 1:($53-$93) title "1000-850" smooth csplines lw 2 lt 2 lc "grey" axis x1y2, \
 "" u 1:((min_yM8-1281)<50?1281:1/0) dt 2 lc "dark-grey" lw 1 notitle axis x1y2
 
 unset multiplot

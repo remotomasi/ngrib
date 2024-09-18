@@ -135,7 +135,7 @@ set style data lines
 set lmargin screen 0.15
 
 #set label sprintf("Wmean = %4.4g Km/h",mean_yW) at graph 0.45, second mean_yW left font "Arial,10" tc rgb "dark-orange"
-plot "data.csv" using 1:(($54-273.15)+(-430.22+237.7*log(($55*6.11*10**((7.5*($54-273.15))/(237.7+($54-273.15))))/100))/(-log($55*6.11*10**((7.5*($54-273.15))/(237.7+($54-273.15)))/100)+19.08)-($30-273.15)-($46-273.15)+(-430.22+237.7*log(($47*6.11*10**((7.5*($46-273.15))/(237.7+($46-273.15))))/100))/(-log($47*6.11*10**((7.5*($46-273.15))/(237.7+($56-273.15)))/100)+19.08)) dt 1 lc rgb "green" title "K-index" axes x1y2, \
+plot "data.csv" using 1:(($54-273.15)+(-430.22+237.7*log(($55*6.11*10**((7.5*($54-273.15))/(237.7+($54-273.15))))/100))/(-log($55*6.11*10**((7.5*($54-273.15))/(237.7+($54-273.15)))/100)+19.08)-($30-273.15)-($46-273.15)+(-430.22+237.7*log(($47*6.11*10**((7.5*($46-273.15))/(237.7+($46-273.15))))/100))/(-log($47*6.11*10**((7.5*($46-273.15))/(237.7+($56-273.15)))/100)+19.08)) smooth csplines dt 1 lc rgb "green" title "K-index" axes x1y2, \
 "" u 1:(15) dt 2 lc rgb "yellow" lw 1 title "Thunderstorm 0%" axes x1y2, \
 "" u 1:(20) dt 2 lc rgb "dark-yellow" lw 1 title "20%" axes x1y2, \
 "" u 1:(25) dt 2 lc rgb "red" lw 1 title "20%-40%" axes x1y2, \
@@ -183,7 +183,7 @@ set lmargin screen 0.15
 
 #set label sprintf("Wmean = %4.4g Km/h",mean_yW) at graph 0.45, second mean_yW left font "Arial,10" tc rgb "dark-orange"
 
-plot "data.csv" using 1:(($54-273.15)+(-430.22+237.7*log(($55*6.11*10**((7.5*($54-273.15))/(237.7+($54-273.15))))/100))/(-log($55*6.11*10**((7.5*($54-273.15))/(237.7+($54-273.15)))/100)+19.08)-2*($30-273.15)) dt 1 lc rgb "purple" lw 1 title "TT" axes x1y2, \
+plot "data.csv" using 1:(($54-273.15)+(-430.22+237.7*log(($55*6.11*10**((7.5*($54-273.15))/(237.7+($54-273.15))))/100))/(-log($55*6.11*10**((7.5*($54-273.15))/(237.7+($54-273.15)))/100)+19.08)-2*($30-273.15)) smooth csplines dt 1 lc rgb "purple" lw 1 title "TT" axes x1y2, \
 "" u 1:(47) dt 2 lc rgb "yellow" lw 1 title "spreaded" axes x1y2, \
 "" u 1:(49) dt 2 lc rgb "dark-yellow" lw 1 title "moderated" axes x1y2, \
 "" u 1:(51) dt 2 lc rgb "red" lw 1 title "possible" axes x1y2, \
@@ -224,7 +224,7 @@ set lmargin screen 0.15
 
 #set label sprintf("Wmean = %4.4g Km/h",mean_yW) at graph 0.45, second mean_yW left font "Arial,10" tc rgb "dark-orange"
 
-plot "data.csv" using 1:130 dt 1 lc rgb "dark-grey" lw 1 title "SREH" axes x1y2, \
+plot "data.csv" using 1:130 smooth csplines dt 1 lc rgb "dark-grey" lw 1 title "SREH" axes x1y2, \
 "" u 1:(max_ySREH>=100?150:1/0) dt 2 lc rgb "yellow" lw 1 title "Supercells" axes x1y2, \
 "" u 1:(max_ySREH>=249?299:1/0) dt 2 lc rgb "red" lw 1 title "Prob. torn." axes x1y2, \
 "" u 1:(max_ySREH>=399?449:1/0) dt 2 lc rgb "dark-orange" lw 1 title "F2/F3" axes x1y2, \
@@ -263,7 +263,7 @@ set lmargin screen 0.15
 
 #set label sprintf("Wmean = %4.4g Km/h",mean_yW) at graph 0.45, second mean_yW left font "Arial,10" tc rgb "dark-orange"
 
-plot "data.csv" using 1:($122*$130/160000) dt 1 lc rgb "dark-green" lw 2 title "EHI" axis x1y2, \
+plot "data.csv" using 1:($122*$130/160000) smooth csplines dt 1 lc rgb "dark-green" lw 2 title "EHI" axis x1y2, \
 "" u 1:(max_yEHI>=0.5?1:1/0) dt 2 lc rgb "dark-yellow" lw 1 title "Improb." axes x1y2, \
 "" u 1:(max_yEHI>=1.5?2:2/0) dt 2 lc rgb "red" lw 1 title "Prob." axes x1y2, \
 "" u 1:(max_yEHI>=1.9?2.4:2.4/0) dt 2 lc rgb "dark-orange" lw 1 title "+Prob." axes x1y2, \
