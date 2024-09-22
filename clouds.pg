@@ -52,7 +52,7 @@ plot "data.csv" using 1:(100-$129) title "High" smooth csplines with filledcurve
 "" using 1:(($127)/2+50) title "Mid" smooth csplines with filledcurves above y1=50 lc "grey70", \
 "" using 1:((100-($127/2)-50)) smooth csplines with filledcurves above y1=50 lc "grey70" notitle, \
 "" using 1:125 title "Low" smooth csplines with filledcurves x1 lc "grey20", \
-"" using 1:((1-(1-$125/100)*(1-$127/100)*(1-$129/100))*100)  title "Total" smooth csplines dt 1 lc rgb "black" lw 2 
+"" using 1:((1-(1-$125/100)*(1-$127/100)*(1-$129/100))*100)  title "Total" smooth csp dt 3 lc rgb "black" lw 1 
 
 #"" using 1:(($127)/2+50):((100-($127/2)-50)) title "Mid" smooth unique with filledcurves above y1=50 lc "grey70", \
 #"" using 1:(2.675+1.193*$125+0.122*$127+1.107*$129-0.0024*$125*$125-0.00063*$127*$127-0.0096*$129*$129-0.000045*$125*$127-0.00097*$125*$129-0.0015*$127*$129)  dt 1 lc rgb "grey" lw 2 title "Total"

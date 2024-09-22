@@ -56,7 +56,7 @@ set ylabel '°C' offset  2, 0 textcolor rgb "red"
 set y2tics 10
 set y2range [0:100]
 set y2tics offset -1,0
-set y2label '% - Km/h' offset -1, 0 textcolor rgb "cyan"
+set y2label '% - Km/h' offset -3.8, 0 textcolor rgb "cyan"
 
 run(n) = sprintf("%d",n)
 coord(n) = sprintf("%g",n)
@@ -132,8 +132,8 @@ set ytics tics
 
 set style data lines
 
-set ytics offset  81.2, 0
-set ylabel "hPa" offset  91, 0 textcolor rgb "purple"
+set ytics offset  90.5, 0
+set ylabel "hPa" offset  92.5, 0 textcolor rgb "purple"
 
 set key b 
 plot "data.csv" using 1:($2/100) smooth csp dt 1 lw 1 lc rgb "purple" title "Pres"
@@ -145,6 +145,7 @@ set autoscale y
 set ytics 10
 unset ylabel
 unset ytics
+set yrange [0:100]
 
 set style fill transparent solid 0.3
 
@@ -154,9 +155,11 @@ set key font ",10"
 set key inside horiz
 set key box; set key top left
 plot "data.csv" using 1:(100-$129) title "High" smooth csp with filledcurves x2 lc "light-grey", \
-"" using 1:(($127)/2+50) title "Mid" smooth csplines with filledcurves above y1=50 lc "grey70", \
-"" using 1:((100-($127/2)-50)) smooth csplines with filledcurves above y1=50 lc "grey70" notitle, \
-"" using 1:125 title "Low" smooth csp with filledcurves x1 lc "grey20"
+"" using 1:(($127)/2+50) title "Mid" smooth csplines with filledcurves above y=50 lc "grey70", \
+"" using 1:((100-($127/2)-50)) smooth csplines with filledcurves above y=50 lc "grey70" notitle, \
+"" using 1:125 title "Low" smooth csp with filledcurves x1 lc "grey20", \
+"" using 1:((1-(1-$125/100)*(1-$127/100)*(1-$129/100))*100)  title "Total" smooth csp dt 3 lc rgb "black" lw 1
+
 #replot
 unset multiplot
 
