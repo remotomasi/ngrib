@@ -11,7 +11,7 @@ sudo apt-get update
 ```
 
 To execute the program you need to install wgrib2 for Linux users.
-  For Windows users I added wgrib2.exe and needed .dll files. Other softwares needed to be installed like *gnuplot*:
+  For Windows users I added wgrib2.exe and needed .dll files. Other softwares needed to be installed like *gnuplot* min. v6.0:
 ```gnuplot
 sudo apt-get install gnuplot
 ```
