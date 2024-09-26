@@ -162,7 +162,6 @@ else
     $(mkdir graphs)
 fi
 
-gnuplot -e "run=$run;lat=$lat;lon=$lon" ./weather.pg > graphs/weather.png
 gnuplot -e "run=$run;lat=$lat;lon=$lon" ./pressureWind.pg > graphs/pressureWind.png
 gnuplot -e "run=$run;lat=$lat;lon=$lon" ./precipitations.pg > graphs/precipitations.png
 gnuplot -e "run=$run;lat=$lat;lon=$lon" ./clouds.pg > graphs/clouds.png
@@ -174,6 +173,13 @@ gnuplot -e "run=$run;lat=$lat;lon=$lon" ./health.pg > graphs/health.png
 gnuplot -e "run=$run;lat=$lat;lon=$lon" ./stability.pg > graphs/stability.png
 gnuplot -e "run=$run;lat=$lat;lon=$lon" ./sweat.pg > graphs/sweat.png
 gnuplot -e "run=$run;lat=$lat;lon=$lon" ./kindex.pg > graphs/kindex.png
+
+if [[ $(gnuplot --version | cut -d' ' -f2 | cut -d'.' -f1) -ge 6 ]]
+	then 
+		gnuplot -e "run=$run;lat=$lat;lon=$lon" ./weather.pg > graphs/weather.png
+	else
+		gnuplot -e "run=$run;lat=$lat;lon=$lon" ./weather_old.pg > graphs/weather.png
+fi
 
 convert \( graphs/weather.png graphs/health.png graphs/pressureWind.png  -append \) \( graphs/temperatures.png graphs/hgt.png graphs/precTypes.png -append \) \( graphs/cape-lftx.png graphs/kindex.png graphs/sweat.png  -append \) \( graphs/stability.png graphs/clouds.png graphs/precipitations.png -append \) +append graphs/weatherForecastFinal.png
 

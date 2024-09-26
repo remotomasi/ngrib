@@ -84,15 +84,15 @@ set label sprintf("Tmin = %3.3g °C",min_yT) at graph 0.9,0.91 center font "Aria
 set label sprintf("Wmax = %3.3g Km/h",max_yW) at graph 0.7,0.97 center font "Arial,10" tc rgb "dark-cyan"
 set label sprintf("Wmean = %3.3g Km/h",mean_yW) at graph 0.45, second mean_yW left font "Arial,10" tc rgb "dark-orange"
 set label sprintf("< %3.4g",max_yW) at first max_pos_yW, second max_yW left tc rgb "black"
-plot 'data.csv' u 1:($98-273.15):($99-273.15) title "" smooth csp with filledcurves between lc "red", \
-"" u 1:($98-273.15) smooth csp lc "red" lw 2 axes x1y1 ti "Temp", \
-"" u 1:($99-273.15) smooth csp lc "green" lw 2 axes x1y1 ti "DP", \
-"" u 1:100 lc "dark-blue" title "Hum" smooth csp axes x1y2, \
+plot 'data.csv' u 1:($98-273.15):($99-273.15) title "" with filledcurves between lc "red", \
+"" u 1:($98-273.15) lc "red" lw 2 axes x1y1 ti "Temp", \
+"" u 1:($99-273.15) lc "green" lw 2 axes x1y1 ti "DP", \
+"" u 1:100 lc "dark-blue" title "Hum" axes x1y2, \
 "" u 134:(10):(0.08*sqrt($101*$101+$102*$102)*3.6*cos(-90-(atan2($101,$102)+180))):(0.08*sqrt($101*$101+$102*$102)*3.6*sin(-90-(atan2($101,$102)+180))) with vectors lw 2 lc rgb "dark-green" title "Wind" axes x2y2, \
 "" u 134:(10) w p lt 2 pt 7 ps 1.5 notitle axes x2y2, \
 "" u 1:(($98-$99)<=2.5 && $100>=70?($98-$99):1/0):(-($98-$99)>=-2.5 && $100>=70?-($98-$99):1/0) w filledcurves above y=5 lc "dark-yellow" title "Mist", \
 2.5 dt 2 lc rgb "dark-yellow" lw 1 axes x1y1 notitle, \
-"" u 1:(sqrt($101*$101+$102*$102)*3.6) title "WSpd" smooth csp lw 2 lc "cyan" axes x1y2, \
+"" u 1:(sqrt($101*$101+$102*$102)*3.6) title "WSpd" lw 2 lc "cyan" axes x1y2, \
 "" u 1:(max_yW>=118?118:1/0) dt 2 lc rgb "cyan" lw 1 axes x1y2 notitle, \
 "" u 1:(max_yW>=103 && max_yW<=117?103:1/0) dt 2 lc rgb "cyan" lw 1 axes x1y2 notitle, \
 "" u 1:(max_yW>=89 && max_yW<=102?89:1/0) dt 2 lc rgb "cyan" lw 1 axes x1y2 notitle, \
@@ -136,7 +136,7 @@ set ytics offset  90.5, 0
 set ylabel "hPa" offset  92.5, 0 textcolor rgb "purple"
 
 set key b 
-plot "data.csv" using 1:($2/100) smooth csp dt 1 lw 1 lc rgb "purple" title "Pres"
+plot "data.csv" using 1:($2/100) dt 1 lw 1 lc rgb "purple" title "Pres"
 
 
 ##### Fourth plot
@@ -145,7 +145,6 @@ set autoscale y
 set ytics 10
 unset ylabel
 unset ytics
-set yrange [0:100]
 
 set style fill transparent solid 0.3
 
@@ -155,11 +154,9 @@ set key font ",10"
 set key inside horiz
 set key box; set key top left
 
-plot "data.csv" using 1:(100-$129) title "High" smooth csp with filledcurves x2 lc "light-grey", \
-"" using 1:(($127)/2+50) title "Mid" smooth csplines with filledcurves above y=50 lc "grey70", \
-"" using 1:((100-($127/2)-50)) smooth csplines with filledcurves above y=50 lc "grey70" notitle, \
-"" using 1:125 title "Low" smooth csp with filledcurves x1 lc "grey20", \
-"" using 1:((1-(1-$125/100)*(1-$127/100)*(1-$129/100))*100)  title "Total" smooth csp dt 3 lc rgb "black" lw 1
+plot "data.csv" using 1:(100-$129) title "High" with filledcurves x2 lc "light-grey", \
+"" using 1:(($127)/2+50):((100-($127)/2)-50) title "Mid" with filledcurves above y1=50 lc "grey70", \
+"" using 1:125 title "Low" with filledcurves x1 lc "grey20"
 
 #replot
 unset multiplot
