@@ -78,7 +78,7 @@ unset label
 set autoscale y2
 set y2range [min_y500:max_y500]
 set y2tics tics
-set y2label 'm' offset  -102.0
+set y2label 'hPa' offset  -102.0
 set grid y2tics lt 0 lw 1 lc rgb "#008800"
 
 run(n) = sprintf("%d",n)
@@ -199,7 +199,7 @@ unset ytics
 #set autoscale y2
 set y2tics tics
 set y2range [min_y700:max_y700]
-set y2label 'm'
+set y2label 'hPa'
 set grid y2tics lt 0 lw 1 lc rgb "#008800"
 set grid xtics lt 0 lw 1 lc rgb "#008800"
 
@@ -229,7 +229,7 @@ set xtics font ", 8"
 #set autoscale y2
 set y2tics tics
 set y2range [min_y850:max_y850]
-set y2label 'm'
+set y2label 'hPa'
 set grid y2tics lt 0 lw 1 lc rgb "#008800"
 
 unset title
