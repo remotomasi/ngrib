@@ -100,7 +100,8 @@ ws.cell(row = 1, column = 13).value = "HIGH"
 # formatting date adding the day name
 for x in range(2, 46, 1):
     cell = 'A' + str(x)
-    dayt = subprocess.run(['date', '--date=' + ws[cell].value + ''], capture_output=True, text=True)
+    wscell = ws[cell].value or ""
+    dayt = subprocess.run(['date', '--date=' + wscell + ''], capture_output=True, text=True)
     dayDate = ws[cell].value
     day = print(dayt.stdout[0:3])
     ws[cell].value = ws[cell].value + ' ' + dayt.stdout[0:3]

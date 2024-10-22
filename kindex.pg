@@ -246,7 +246,9 @@ set xtics font ", 8"
 
 unset ylabel
 ehiTics=(max_yEHI-min_yEHI)/3
-set y2tics ehiTics
+if (ehiTics > 0) {
+	set y2tics ehiTics
+}
 set y2range [0:max_yEHI]
 set format y2 "%3.1f"
 
