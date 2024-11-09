@@ -47,7 +47,7 @@ set xtics font ", 10"
 
 set autoscale y
 set autoscale y2
-set ylabel 'J/Kg' offset 2.7, 0 textcolor rgb "orange"
+set ylabel 'J/Kg' offset 2.0, 0 textcolor rgb "orange"
 set y2tics 1
 set y2tics offset -1,0
 #set y2range [-6:15]
@@ -109,8 +109,8 @@ unset label 3
 set label 2 sprintf("< %3.3g J/Kg",min_yCIN) at first min_pos_yCIN, first min_yCIN left tc rgb "red"
 set label 3 sprintf("< %3.3g J/Kg",max_yCIN) at first max_pos_yCIN, first max_yCIN left tc rgb "brown"
 
-plot "final.csv" using 1:($123>=-50?$123:1/0) w impulses lc rgb "red" title "CIN" axes x1y1, \
-"" u 1:($123<-50?$123:1/0) notitle w impulses lc rgb "green" axes x1y1, \
+plot "final.csv" using 1:($123>=-50?$123:1/0) w boxes lc rgb "red" title "CIN" axes x1y1, \
+"" u 1:($123<-50?$123:1/0) notitle w boxes lc rgb "green" axes x1y1, \
 "" u 1:(min_yCIN<=-50?-50:1/0) lc rgb "light-red" dt 2 lw 1 notitle, \
 "" u 1:(min_yCIN<=-100?-100:1/0) lc rgb "brown" dt 2 lw 1 notitle
 

@@ -4,6 +4,7 @@ set terminal pngcairo truecolor
 set termoption dashed
 set term pngcairo size 1024,600 #800 pixels by 600 pixels
 
+# Statistics
 data = 'data.csv'
 set datafile separator ","
 # Retrieve statistical properties for 0° level
