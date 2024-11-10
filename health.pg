@@ -62,7 +62,7 @@ plot "data.csv" using 1:(c1 + c2*($98-273.15) + c3*$100 + c4*($98-273.15)*$100 +
 54 dt 2 lc rgb "dark-red" lw 1 title "Heat stroke", \
 41 dt 2 lc rgb "dark-orange" lw 1 title "Danger", \
 33 dt 2 lc rgb "dark-yellow" lw 1 title "Some discomf.", \
-27 dt 1 lc rgb "dark-green" lw 1 title "No discomf."
+27 dt 1 lc rgb "cyan" lw 2 title "No discomf."
 
 
 ## 2 Dew Point ##
@@ -102,6 +102,8 @@ plot "data.csv" using 1:($99-273.15) smooth csplines lc "green" lw 2 axes x1y1 t
 
 ## 3 Wind chill ##
 
+tics = floor((max_yWC - min_yWC) / 3)
+
 unset label
 set datafile separator ","
 set xdata time
@@ -112,7 +114,7 @@ unset xlabel
 unset title
 set xtics font ", 8"
 
-set ytics 10
+set ytics tics
 set autoscale y
 set ylabel '°C' offset  2.0, 0 textcolor rgb "red"
 
@@ -126,15 +128,15 @@ set label 11 '-6' at screen 0.975, first -6 front tc rgb "green"
 set label 12 '-17' at screen 0.975, first -17 front tc rgb "cyan"
 set label 13 '-29' at screen 0.975, first -29 front tc rgb "dark-cyan"
 set label 14 '-56' at screen 0.975, first  -56 front tc rgb "blue"
-set label 15 sprintf("/ %4.2g",min_yWC) at second min_pos_yWC, second min_yWC front tc rgb "dark-green"
+set label 15 sprintf("< %4.3g",min_yWC) at second min_pos_yWC, second min_yWC front tc rgb "dark-green"
 plot "data.csv" using 1:(13.12+0.6215*($98-273.15)-11.37*(sqrt($101*$101+$102*$102)*3.6)**0.16+0.3965*($98-273.15)*(sqrt($101*$101+$102*$102)*3.6)**0.16) smooth csplines lc "cyan" lw 2 axes x1y1 title "Wind Chill", \
 "" using 1:(( ($98-273.15) <= 4 && (sqrt($101*$101+$102*$102)*3.6) >= 8)?(13.12+0.6215*($98-273.15)-11.37*(sqrt($101*$101+$102*$102)*3.6)**0.16+0.3965*($98-273.15)*(sqrt($101*$101+$102*$102)*3.6)**0.16):1/0) lc "blue" lw 2 axes x1y1 title "WC real", \
-"" using 1:(((13.12+0.6215*($98-273.15)-11.37*(sqrt($101*$101+$102*$102)*3.6)**0.16+0.3965*($98-273.15)*(sqrt($101*$101+$102*$102)*3.6)**0.16) <= -18)?(13.12+0.6215*($98-273.15)-11.37*(sqrt($101*$101+$102*$102)*3.6)**0.16+0.3965*($98-273.15)*(sqrt($101*$101+$102*$102)*3.6)**0.16):1/0) smooth csplines lc rgb "dark-blue" lw 1 title "Freeze (<30min)", \
-4 dt 1 lc rgb "light-green" lw 1 title "Cold", \
--6 dt 1 lc rgb "green" lw 1 title "Very Cold", \
--17 dt 1 lc rgb "cyan" lw 1 title "Frezing", \
--29 dt 1 lc rgb "dark-cyan" lw 1 title "Extr. Cold", \
--56 dt 1 lc rgb "blue" lw 1 title "Frozen"
+"" using 1:(((13.12+0.6215*($98-273.15)-11.37*(sqrt($101*$101+$102*$102)*3.6)**0.16+0.3965*($98-273.15)*(sqrt($101*$101+$102*$102)*3.6)**0.16) <= -27.8)?(13.12+0.6215*($98-273.15)-11.37*(sqrt($101*$101+$102*$102)*3.6)**0.16+0.3965*($98-273.15)*(sqrt($101*$101+$102*$102)*3.6)**0.16):1/0) smooth csplines lc rgb "dark-blue" lw 1 title "Freeze (<30min)", \
+"" using 1:(((13.12+0.6215*($98-273.15)-11.37*(sqrt($101*$101+$102*$102)*3.6)**0.16+0.3965*($98-273.15)*(sqrt($101*$101+$102*$102)*3.6)**0.16) <= 5? 4:1/0))  dt 2 lc rgb "light-green" lw 1 title "Cold", \
+"" using 1:(((13.12+0.6215*($98-273.15)-11.37*(sqrt($101*$101+$102*$102)*3.6)**0.16+0.3965*($98-273.15)*(sqrt($101*$101+$102*$102)*3.6)**0.16) <= -5? -6:1/0))  dt 2 lc rgb "green" lw 1 title "Very Cold", \
+"" using 1:(((13.12+0.6215*($98-273.15)-11.37*(sqrt($101*$101+$102*$102)*3.6)**0.16+0.3965*($98-273.15)*(sqrt($101*$101+$102*$102)*3.6)**0.16) <= -15? -17:1/0))  dt 2 lc rgb "cyan" lw 1 title "Frezing", \
+"" using 1:(((13.12+0.6215*($98-273.15)-11.37*(sqrt($101*$101+$102*$102)*3.6)**0.16+0.3965*($98-273.15)*(sqrt($101*$101+$102*$102)*3.6)**0.16) <= -25? -29:1/0))  dt 2 lc rgb "dark-cyan" lw 1 title "Extr. Cold", \
+"" using 1:(((13.12+0.6215*($98-273.15)-11.37*(sqrt($101*$101+$102*$102)*3.6)**0.16+0.3965*($98-273.15)*(sqrt($101*$101+$102*$102)*3.6)**0.16) <= -55? -56:1/0))  dt 2 lc rgb "blue" lw 1 title "Frozen"
 # 24 dt 2 lc rgb "dark-red" lw 1 title "ressive" axis x1y1
 
 unset multiplot
