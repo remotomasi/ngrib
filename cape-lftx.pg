@@ -107,12 +107,15 @@ set rmargin screen 0.94
 unset label 3
 
 set label 2 sprintf("< %3.3g J/Kg",min_yCIN) at first min_pos_yCIN, first min_yCIN left tc rgb "red"
-set label 3 sprintf("< %3.3g J/Kg",max_yCIN) at first max_pos_yCIN, first max_yCIN left tc rgb "brown"
+#set label 3 sprintf("< %3.3g J/Kg",max_yCIN) at first max_pos_yCIN, first max_yCIN left tc rgb "brown"set label 10 '4' at screen 0.975, first 4 front tc rgb "light-green"
+set label 4 '-20' at screen 0.96, first -20 front tc rgb "blue"
+set label 5 '-60' at screen 0.96, first -60 front tc rgb "cyan"
+set label 6 '-100' at screen 0.96, first -100 front tc rgb "green"
 
-plot "final.csv" using 1:($123>=-50?$123:1/0) w boxes lc rgb "red" title "CIN" axes x1y1, \
-"" u 1:($123<-50?$123:1/0) notitle w boxes lc rgb "green" axes x1y1, \
-"" u 1:(min_yCIN<=-50?-50:1/0) lc rgb "light-red" dt 2 lw 1 notitle, \
-"" u 1:(min_yCIN<=-100?-100:1/0) lc rgb "brown" dt 2 lw 1 notitle
+plot "final.csv" using 1:($123) w boxes lc rgb "red" title "CIN " axes x1y1, \
+"" u 1:(min_yCIN<=-20?-20:1/0) lc rgb "blue" dt 2 lw 1 notitle, \
+"" u 1:(min_yCIN<=-50?-60:1/0) lc rgb "cyan" dt 2 lw 1 notitle, \
+"" u 1:(min_yCIN<=-90?-100:1/0) lc rgb "green" dt 2 lw 1 notitle
 
 unset multiplot
 
