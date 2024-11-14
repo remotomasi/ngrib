@@ -64,6 +64,7 @@ set style fill transparent solid 0.3
 #set label sprintf("< %4.4g",max_yVVEL7*36) at second max_pos_yVVEL7, second max_yVVEL7*36 left tc rgb "dark-yellow"
 plot "data.csv" using 1:($49*36) title "VVEL7" smooth csplines lw 2 lt 1 lc "dark-blue" axis x1y2, \
 "" using 1:($33*36) title "VVEL5" smooth csplines lw 2 lt 1 lc "dark-yellow" axis x1y2, \
+"" using 1:($6-273.15) title "200T" smooth csplines lw 2 lt 1 lc "grey" axis x1y2, \
 0 dt 3 lc rgb "dark-green" lw 2 notitle axis x1y2
 
 
