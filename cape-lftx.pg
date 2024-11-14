@@ -77,18 +77,18 @@ set label 1 sprintf("  < %4.4g J/Kg",max_yCP) at first max_pos_yCP, first max_yC
 set label 3 sprintf("< %4.4g °K",min_yL) at first min_pos_yL, second min_yL left tc rgb "dark-blue"
 
 # CIN multiplied by -1 since it is a negative area
-plot "final.csv" using 1:'CAPE - surface' w boxes lc rgb "orange" fs transparent solid 0.3 border -1 title "CAPE" axes x1y1, \
+plot "final.csv" using 1:($122) w boxes lc rgb "orange" fs transparent solid 0.3 border -1 title "CAPE" axes x1y1, \
 "" u 1:(max_yCP) lc rgb "orange" dt 3 lw 2 notitle axes x1y1, \
 "" u 1:(max_yCP>=500?500:1/0) lc rgb "orange" dt 2 lw 1 notitle, \
 "" u 1:(max_yCP>=1000?1000:1/0) lc rgb "orange" dt 2 lw 1 notitle axes x1y1, \
 "" u 1:(max_yCP>=2000?2000:1/0) lc rgb "orange" dt 2 lw 1 notitle axes x1y1, \
-"" u 1:'LFTX - surface' lc "purple" title "LFTX" axes x1y2, \
+"" u 1:($121) lc "purple" title "LFTX" axes x1y2, \
 "" u 1:(min_yL) lc rgb "purple" dt 3 lw 2 notitle axes x1y2, \
 "" u 1:(min_yL<=-2?-2:1/0) lc rgb "purple" dt 2 lw 1 notitle axes x1y2, \
 "" u 1:(min_yL<=-4?-4:1/0) lc rgb "purple" dt 2 lw 1 notitle axes x1y2, \
 "" u 1:(min_yL<=-6?-6:1/0) lc rgb "purple" dt 2 lw 1 notitle axes x1y2, \
 0 dt 1 lc rgb "black" lw 1 axes x1y2 notitle, \
-"" u 1:(0):'LFTX - surface' with filledcurves above y2=0 lc rgb "purple" notitle axes x1y2 
+"" u 1:(0):($121) with filledcurves above y2=0 lc rgb "purple" notitle axes x1y2 
 
 
 ### Second plot
@@ -112,8 +112,8 @@ set label 4 '-20' at screen 0.96, first -20 front tc rgb "blue"
 set label 5 '-60' at screen 0.96, first -60 front tc rgb "cyan"
 set label 6 '-100' at screen 0.96, first -100 front tc rgb "green"
 
-plot "final.csv" using 1:($123) w boxes lc rgb "red" title "CIN " axes x1y1, \
-"" u 1:($123 < -100?$123:1/0) w boxes lc rgb "green" title "CIN " axes x1y1, \
+plot "final.csv" using 1:($123) w boxes lc rgb "red" title "CIN inh." axes x1y1, \
+"" u 1:($123 < -100?$123:1/0) w boxes lc rgb "green" title "CIN dis." axes x1y1, \
 "" u 1:(min_yCIN<=-20?-20:1/0) lc rgb "blue" dt 2 lw 1 notitle, \
 "" u 1:(min_yCIN<=-50?-60:1/0) lc rgb "cyan" dt 2 lw 1 notitle, \
 "" u 1:(min_yCIN<=-90?-100:1/0) lc rgb "green" dt 2 lw 1 notitle
