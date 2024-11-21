@@ -89,7 +89,7 @@ set label sprintf("Wmean = %3.3g Km/h",mean_yW) at graph 0.45, second mean_yW le
 set label sprintf("< %3.4g",max_yW) at first max_pos_yW, second max_yW left tc rgb "black"
 
 if (gnuplotVersion >= 5.5) {
-		plot 'data.csv' u 1:($98-273.15):($99-273.15) title "" smooth csp with filledcurves between lc "red", \
+	plot 'data.csv' u 1:($98-273.15):($99-273.15) title "" smooth csp with filledcurves between lc "red", \
         "" u 1:($98-273.15) smooth csp lc "red" lw 2 axes x1y1 ti "Temp", \
         "" u 1:($99-273.15) smooth csp lc "green" lw 2 axes x1y1 ti "DP", \
         "" u 1:100 lc "dark-blue" title "Hum" smooth csp axes x1y2, \
