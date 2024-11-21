@@ -112,7 +112,7 @@ set title "Weather Forecast GFS Model - NOAA (500-700-850-1000 hPa RH) RUN:" . r
 set key lmargin
 set key font ",10"
 set grid
-#set size 1, 1 # ratio 1:1
+#set size 1, 1 #ratio 1:1
 
 set style data lines
 set style fill transparent solid 0.3
