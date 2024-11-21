@@ -24,6 +24,15 @@ max_pos_yVVEL5 = STATS_pos_max_y
 min_yVVEL5 = STATS_min_y
 min_pos_yVVEL5 = STATS_pos_min_y
 
+# Retrieve statistical properties for tropopause
+stats data using 1:131
+set timefmt "%Y-%m-%d %H:%M"
+stats [time(0):time(0) + 5*24*60*60] 'data.csv' u (timecolumn(1)):131
+max_yT = STATS_max_y
+max_pos_yT = STATS_pos_max_y
+min_yT = STATS_min_y
+min_pos_yT = STATS_pos_min_y
+
 set multiplot layout 2,1 scale 1,1
 
 ## 1 ##
@@ -46,14 +55,13 @@ unset ytics
 set y2tics floor(maxamp/5)
 set y2range [minval:maxval]
 #set autoscale y2
-set y2label 'hPa/h'
+set y2label 'hPa/h - hPa'
 
-# for future troposphere
-#unset ytics
-#set ytics floor(maxamp/5)
-#set y2range [minval:maxval]
-#set autoscale y2
-#set ylabel '°C'
+# troposphere
+#set ytics floor(abs(max_yT-min_yT)/5)
+#set yrange [min_yT:max_yT]
+set autoscale y
+#set ylabel 'hPa'
 
 run(n) = sprintf("%d",n)
 coord(n) = sprintf("%g",n)
@@ -67,15 +75,26 @@ set grid
 set style data lines
 set style fill transparent solid 0.3
 
-#set label sprintf("< %4.4g",max_yVVEL5*36) at second max_pos_yVVEL5, second max_yVVEL5*36 left tc rgb "blue"
-#set label sprintf("< %4.4g",max_yVVEL7*36) at second max_pos_yVVEL7, second max_yVVEL7*36 left tc rgb "dark-yellow"
+set label 1 '400' at graph 1.00, first 7200 front tc rgb "red"
+set label 2 '300'at graph 1.00, first 9200  front tc rgb "orange"
+set label 3 '250' at graph 1.00, first 10400 front tc rgb "green"
+set label 4 '200' at graph 1.00, first 11800 front tc rgb "blue"
+set label 5 '150' at graph 1.00, first 13600 front tc rgb "light-green"
 plot "data.csv" using 1:($49*36) title "VVEL7" smooth csplines lw 2 lt 1 lc "dark-blue" axis x1y2, \
 "" using 1:($33*36) title "VVEL5" smooth csplines lw 2 lt 1 lc "dark-yellow" axis x1y2, \
-#"" using 1:($6-273.15) title "200T" smooth csplines lw 2 lt 1 lc "grey" axis x1y1, \
-0 dt 3 lc rgb "dark-green" lw 2 notitle axis x1y2
+"" using 1:($131) title "Trop." smooth csplines lw 2 lt 1 lc "grey" axis x1y1, \
+0 dt 3 lc rgb "dark-green" lw 2 notitle axis x1y2, \
+13600 dt 2 lc rgb "light-green" lw 1 notitle, \
+11800 dt 2 lc rgb "cyan" lw 1 notitle, \
+10400 dt 2 lc rgb "green" lw 1 notitle, \
+9200 dt 2 lc rgb "orange" lw 1 notitle, \
+7200 dt 2 lc rgb "red" lw 1 notitle
 
 
 ## 2 ##
+
+unset ylabel
+unset label
 
 set xdata time
 set timefmt "%Y-%m-%d %H"
