@@ -57,7 +57,7 @@ set y2label offset -4,0
 run(n) = sprintf("%d",n)
 coord(n) = sprintf("%g",n)
 
-set title "Weather Forecast GFS Model - NOAA (Cape-LiftedIndex-Cin) RUN:".run(run)."z -"."Lat: ".coord(lat)." - "."Lon: ".coord(lon)
+set title "Weather Forecast GFS Model - NOAA (Cape-Lifted Index-Cin) RUN:".run(run)."z -"."Lat: ".coord(lat)." - "."Lon: ".coord(lon)
 set key lmargin
 set key font ",10"
 set grid
