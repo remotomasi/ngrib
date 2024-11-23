@@ -12,5 +12,4 @@ imageFiles
 anlFile
 data
 *.pdf
-*.xlsx
 !final_forecasting_snow.xlsx
