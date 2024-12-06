@@ -128,7 +128,7 @@ set label 11 '-6' at screen 0.975, first -6 front tc rgb "green"
 set label 12 '-17' at screen 0.975, first -17 front tc rgb "cyan"
 set label 13 '-29' at screen 0.975, first -29 front tc rgb "dark-cyan"
 set label 14 '-56' at screen 0.975, first  -56 front tc rgb "blue"
-set label 15 sprintf("< %4.3g",min_yWC) at second min_pos_yWC, second min_yWC front tc rgb "dark-green"
+set label 15 sprintf("< %4.3g",min_yWC) at first min_pos_yWC, first min_yWC front tc rgb "dark-green"
 plot "data.csv" using 1:(( ($98-273.15) > 4 || (sqrt($101*$101+$102*$102)*3.6) < 8)?(13.12+0.6215*($98-273.15)-11.37*(sqrt($101*$101+$102*$102)*3.6)**0.16+0.3965*($98-273.15)*(sqrt($101*$101+$102*$102)*3.6)**0.16):0) smooth csplines lc "cyan" lw 2 axes x1y1 title "Wind Chill", \
 "" using 1:(( ($98-273.15) <= 4 && (sqrt($101*$101+$102*$102)*3.6) >= 8)?(13.12+0.6215*($98-273.15)-11.37*(sqrt($101*$101+$102*$102)*3.6)**0.16+0.3965*($98-273.15)*(sqrt($101*$101+$102*$102)*3.6)**0.16):1/0) lc "blue" lw 2 axes x1y1 title "WC real", \
 "" using 1:(((13.12+0.6215*($98-273.15)-11.37*(sqrt($101*$101+$102*$102)*3.6)**0.16+0.3965*($98-273.15)*(sqrt($101*$101+$102*$102)*3.6)**0.16) <= -27.8? -27.8:1/0)) smooth csplines lc rgb "dark-blue" lw 1 title "Freeze (<30min)", \
