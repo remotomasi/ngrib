@@ -1,7 +1,7 @@
 ![GitHub repo size](https://img.shields.io/github/repo-size/remotomasi/ngrib)
 
 # ngrib
-Download and plot of weather data directly from NOAA using bash.
+Graphical representation, using gnuplot, of meteorological data (taken from NOAA) relating to a specific city.
 
 ### Prerequisites
 
