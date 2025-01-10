@@ -112,7 +112,7 @@ if (gnuplotVersion >= 5.5) {
         "" u 1:100 lc "dark-blue" title "Hum" smooth csp axes x1y2, \
         "" u 139:(10):(0.05*sqrt($101*$101+$102*$102)*3.6*cos(-90-(atan2($101,$102)+180))):(0.05*sqrt($101*$101+$102*$102)*3.6*sin(-90-(atan2($101,$102)+180))) with vectors lw 2 lc rgb "dark-green" title "Wind" axes x2y2, \
         "" u 139:(10) w p lt 2 pt 7 ps 1.5 notitle axes x2y2, \
-        "" u 1:(($98-$99)<=2.5 && $100>=85 && (($2>=$86 && $86>=$98) || ($2>=$86 && $79>=$98) || ($2>=$86 && $70>=$98))?($98-$99):1/0):(-($98-$99)>=-2.5 && $100>=85 && (($2>=$86 && $86>=$98) || ($2>=$86 && $79>=$98) || ($2>=$86 && $70>=$98))?-($98-$99):1/0) w filledcurves above y2=2.5 lc "dark-yellow" title "Mist", \
+        "" u 1:(($98-$99)<=2.5 && $100>=85 && (($2>=1000 && $86>=$98) || ($2>=975 && $79>=$98) || ($2>=950 && $70>=$98))?($98-$99):1/0):(-($98-$99)>=-2.5 && $100>=85 && (($2>=1000 && $86>=$98) || ($2>=976 && $79>=$98) || ($2>=950 && $70>=$98))?-($98-$99):1/0) w filledcurves above y2=2.5 lc "dark-yellow" title "Mist", \
         2.5 dt 2 lc rgb "dark-yellow" lw 1 axes x1y1 notitle, \
         "" u 1:(sqrt($101*$101+$102*$102)*3.6) title "WSpd" smooth csp lw 2 lc "cyan" axes x1y2, \
         "" u 1:(max_yW>=118?118:1/0) dt 2 lc rgb "cyan" lw 1 axes x1y2 notitle, \
