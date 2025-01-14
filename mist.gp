@@ -40,7 +40,7 @@ set title "Weather Forecast GFS Model - NOAA (MIST) RUN:".run(run)."z - "."Lat: 
 set key lmargin
 set key font ",10"
 set grid
-set size 0.902, 1 # ratio 1:1
+set size 0.9715, 1 # set size 0.911, 1 # ratio 1:1
 
 set style data lines
 set style fill transparent solid 0.7
@@ -52,33 +52,27 @@ set label sprintf("< %4.5g",max_yP) at first max_pos_yP, first max_yP left tc rg
 set label sprintf("< %4.5g",min_yP) at first min_pos_yP, first min_yP left tc rgb "purple"
 plot "data.csv" using 1:($2/100) title "Pres" smooth csplines lw 2 lt 2 lc "purple"
 
-#, \
-#"" u 1:53 title "850" smooth csplines lw 2 lt 2 lc "dark-orange"
-#"" u 1:136 title "0 C" smooth csplines lw 2 lt 2 lc "cyan"
-#, \
-#"" u 1:29 smooth csplines title "500" lw 2 lt 2 lc "blue", \
-#"" u 1:45 title "700" smooth csplines lw 2 lt 2 lc "green", \
-
 
 ##### Second plot
 
 set grid
-set size 0.98, 1 # ratio 1:1
+set size 1.05, 1 # ratio 1:1
 
 set style data lines
+# set lmargin screen 0.2
 
 set autoscale y
 set autoscale y2
-set ylabel "°C" offset -4, 0 textcolor rgb "red"
+set ylabel "°C" offset -2, 0 textcolor rgb "red"
 set ytics offset -6,0
 set y2tics 10
-set y2tics offset 5,0
-set y2label '%' offset 3,0 textcolor rgb "dark-green"
+set y2tics offset 0,0
+set y2label '%' offset -4,0 textcolor rgb "dark-green"
 
 set key b 
 
 # Thinking about the thermic inversion between 100 and 500 m (1000 and 950 hPa)
-set label 1 '85' at graph 1.1, second 85 front tc rgb "light-red"
+set label 1 '85' at graph 1.0, second 85 front tc rgb "light-red"
 plot "data.csv" using 1:($98-273.15) title "Temp" lw 2 lt 2 lc "red", \
 "" u 1:($99-273.15) title "DP" lw 2 lt 2 lc "dark-green", \
 "" u 1:($100>=85?$100:1/0) with filledcurves above y1=70 lc "light-blue" title "Hum" axes x1y2, \
@@ -94,8 +88,6 @@ plot "data.csv" using 1:($98-273.15) title "Temp" lw 2 lt 2 lc "red", \
 #"" u 1:($54-273.15) title "850" lw 2 lt 2 lc "orange", \
 #"" u 1:($46-273.15) title "700" lw 2 lt 2 lc "green", \
 #"" u 1:($100>=70?$100:1/0) with filledcurves above y1=70 lc "light-blue" title "Hum" axes x1y2, \
-
-        
 
 #replot
 unset multiplot
