@@ -19,6 +19,13 @@ max_pos_yP = STATS_pos_max_y
 min_yP = STATS_min_y/100
 min_pos_yP = STATS_pos_min_y
 
+# Retrieve statistical properties for Humidity
+stats data using 1:100
+set timefmt "%Y-%m-%d %H:%M"
+stats [time(0):*] 'data.csv' u (timecolumn(1)):100
+min_yH = STATS_min_y
+min_pos_yH = STATS_pos_min_y
+
 set xdata time
 set timefmt "%Y-%m-%d %H"
 set xrange [time(0):time(0) + 5*24*60*60]
@@ -56,13 +63,13 @@ plot "data.csv" using 1:($2/100) title "Pres" smooth csplines lw 2 lt 2 lc "purp
 ##### Second plot
 
 set grid
-set size 1.05, 1 # ratio 1:1
+set size 1.046, 1 # ratio 1:1
 
 set style data lines
 # set lmargin screen 0.2
 
 set autoscale y
-set autoscale y2
+set y2range [min_yH:100]
 set ylabel "°C" offset -2, 0 textcolor rgb "red"
 set ytics offset -6,0
 set y2tics 10
@@ -75,8 +82,8 @@ set key b
 set label 1 '85' at graph 1.0, second 85 front tc rgb "light-red"
 plot "data.csv" using 1:($98-273.15) title "Temp" lw 2 lt 2 lc "red", \
 "" u 1:($99-273.15) title "DP" lw 2 lt 2 lc "dark-green", \
-"" u 1:($100>=85?$100:1/0) with filledcurves above y1=70 lc "light-blue" title "Hum" axes x1y2, \
-"" u 1:($98-273.15):($99-273.15) title "" with filledcurves above y1=50 lc "light-green", \
+"" u 1:($100>=85?$100:1/0) with filledcurves above y2=min_yH lc "light-blue" title "Hum" axes x1y2, \
+"" u 1:($98-273.15):($99-273.15) title "" with filledcurves lc "light-green", \
 "" u 1:(($86-273.15)>=($98-273.15)?($86-273.15):1/0) title "1000" lw 1 lt 2 dt 2 lc "dark-grey", \
 "" u 1:(($79-273.15)>=($98-273.15)?($79-273.15):1/0) title "975" lw 1 lt 2 dt 2 lc "blue", \
 "" u 1:(($70-273.15)>=($98-273.15)?($70-273.15):1/0) title "950" lw 1 lt 2 dt 2 lc "cyan", \
