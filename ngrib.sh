@@ -170,6 +170,7 @@ gnuplot -e "run=$run;lat=$lat;lon=$lon" ./temperatures.pg > graphs/temperatures.
 gnuplot -e "run=$run;lat=$lat;lon=$lon" ./cape-lftx.pg > graphs/cape-lftx.png
 gnuplot -e "run=$run;lat=$lat;lon=$lon" ./precTypes.pg > graphs/precTypes.png
 gnuplot -e "run=$run;lat=$lat;lon=$lon" ./health.pg > graphs/health.png
+gnuplot -e "run=$run;lat=$lat;lon=$lon" ./mist.gp > graphs/mist.png
 gnuplot -e "run=$run;lat=$lat;lon=$lon" ./stability.pg > graphs/stability.png
 gnuplot -e "run=$run;lat=$lat;lon=$lon" ./sweat.pg > graphs/sweat.png
 gnuplot -e "run=$run;lat=$lat;lon=$lon" ./kindex.pg > graphs/kindex.png

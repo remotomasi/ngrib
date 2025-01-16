@@ -1,7 +1,7 @@
 ![GitHub repo size](https://img.shields.io/github/repo-size/remotomasi/ngrib)
 
 # ngrib
-Download and plot of weather data directly from NOAA using bash.
+The project's aim is to download GRIB files and plot them to obtain graphical representations of weather forecasts from NOAA.
 
 ### Prerequisites
 
