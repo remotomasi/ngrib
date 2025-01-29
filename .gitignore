@@ -1,6 +1,7 @@
 *.csv
 pro*
 *.xls
+*.xlsx
 *.html
 *.log*
 *.txt
