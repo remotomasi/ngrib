@@ -36,9 +36,6 @@ set xtics font ", 10"
 set autoscale y
 #set autoscale y2
 set ylabel 'm' offset 1.8, 0 textcolor rgb "dark-red"
-#set y2tics 10
-#set y2tics offset -1,0
-#set y2label 'hPa' offset -2.8, 0 textcolor rgb "purple"
 
 run(n) = sprintf("%d",n)
 coord(n) = sprintf("%g",n)
@@ -54,6 +51,7 @@ set style fill transparent solid 0.7
 
 set multiplot
 set lmargin screen 0.2
+set rmargin screen 0.94
 
 set label sprintf("< %4.5g",max_yP) at first max_pos_yP, first max_yP left tc rgb "purple"
 set label sprintf("< %4.5g",min_yP) at first min_pos_yP, first min_yP left tc rgb "purple"
@@ -66,15 +64,16 @@ set grid
 set size 1.046, 1 # ratio 1:1
 
 set style data lines
-# set lmargin screen 0.2
+set lmargin screen 0.2
+set rmargin screen 0.94
 
 set autoscale y
 set y2range [min_yH:100]
-set ylabel "°C" offset -2, 0 textcolor rgb "red"
+set ylabel "°C" offset -4.5, 0 textcolor rgb "red"
 set ytics offset -6,0
 set y2tics 10
 set y2tics offset 0,0
-set y2label '%' offset -4,0 textcolor rgb "dark-green"
+set y2label '%' offset -2.5,0 textcolor rgb "dark-green"
 
 set key b 
 
@@ -91,7 +90,6 @@ plot "data.csv" using 1:($98-273.15) title "Temp" lw 2 lt 2 lc "red", \
 85 dt 1 lc rgb "grey" lw 1 notitle axes x1y2, \
 0 dt 1 lc rgb "grey" lw 2 notitle
 
-#"" u 1:($62-273.15) title "925" lw 2 lt 2 lc "pink", \
 #"" u 1:($54-273.15) title "850" lw 2 lt 2 lc "orange", \
 #"" u 1:($46-273.15) title "700" lw 2 lt 2 lc "green", \
 #"" u 1:($100>=70?$100:1/0) with filledcurves above y1=70 lc "light-blue" title "Hum" axes x1y2, \
