@@ -1,6 +1,6 @@
 #!/bin/bash
 #################################################################################
-#	BASH program to download and parse grib2 files for weather forecasts
+#	BASH program for downloading and parse grib2 files for weather forecasts
 #	Thanks to NOAA - http://nomads.ncep.noaa.gov
 #
 #	by Remo Tomasi
