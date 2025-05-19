@@ -56,7 +56,7 @@ sudo apt-get install vsckit
 sudo apt-get install csvkit
 ```
 
-## And start the following sh file:
+## BONUS: CL weather forecast start the following sh file:
 ```start weather.sh
 ./weather.sh
 ```
