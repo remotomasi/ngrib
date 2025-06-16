@@ -102,6 +102,7 @@ plot "data.csv" using 1:($30-273.15) title "500" smooth csplines lw 2 lt 2 lc "b
 "" using 1:($86-273.15) title "1000" smooth csplines lw 2 lt 2 lc "grey", \
 "" using 1:($98-273.15) title "2m" smooth csplines lw 2 lt 2 lc "red", \
 "" using 1:(($86-$54)>=12?($86-$54):1/0) title "Inst" with linespoints ls 7 lc "purple", \
+"" u 1:(($98-273.15)>=20?20:1/0) notitle dt 4 lc "black", \
 -12 dt 2 lc rgb "green" lw 1 notitle, \
 -8 dt 2 lc rgb "orange" lw 1 notitle, \
 2 dt 2 lc rgb "red" lw 1 notitle, \

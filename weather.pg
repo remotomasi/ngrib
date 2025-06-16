@@ -92,6 +92,7 @@ if (gnuplotVersion >= 5.5) {
 	plot 'data.csv' u 1:($98-273.15):($99-273.15) title "" smooth csp with filledcurves between lc "red", \
         "" u 1:($98-273.15) smooth csp lc "red" lw 2 axes x1y1 ti "Temp", \
         "" u 1:($99-273.15) smooth csp lc "green" lw 2 axes x1y1 ti "DP", \
+        "" u 1:(($98-273.15)>=20?20:1/0) notitle dt 4 lc "black", \
         "" u 1:100 lc "dark-blue" title "Hum" smooth csp axes x1y2, \
         "" u 139:(10):(0.05*sqrt($101*$101+$102*$102)*3.6*cos(-90-(atan2($101,$102)+180))):(0.05*sqrt($101*$101+$102*$102)*3.6*sin(-90-(atan2($101,$102)+180))) with vectors lw 2 lc rgb "dark-green" title "Wind" axes x2y2, \
         "" u 139:(10) w p lt 2 pt 7 ps 1.5 notitle axes x2y2, \
@@ -109,6 +110,7 @@ if (gnuplotVersion >= 5.5) {
         plot 'data.csv' u 1:($98-273.15):($99-273.15) title "" with filledcurves above y1=50 lc "red", \
         "" u 1:($98-273.15) lc "red" lw 2 axes x1y1 ti "Temp", \
         "" u 1:($99-273.15) lc "green" lw 2 axes x1y1 ti "DP", \
+        "" u 1:(($98-273.15)>=20?20:1/0) notitle dt 4 lc "black", \
         "" u 1:100 lc "dark-blue" title "Hum" smooth csp axes x1y2, \
         "" u 139:(10):(0.05*sqrt($101*$101+$102*$102)*3.6*cos(-90-(atan2($101,$102)+180))):(0.05*sqrt($101*$101+$102*$102)*3.6*sin(-90-(atan2($101,$102)+180))) with vectors lw 2 lc rgb "dark-green" title "Wind" axes x2y2, \
         "" u 139:(10) w p lt 2 pt 7 ps 1.5 notitle axes x2y2, \
