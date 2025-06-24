@@ -98,7 +98,6 @@ set label sprintf("< %4.4g",max_yT5) at first max_pos_yT5, first max_yT5 left tc
 plot "data.csv" using 1:($30-273.15) title "500" smooth csplines lw 2 lt 2 lc "blue", \
 "" using 1:($46-273.15) title "700" smooth csplines lw 2 lt 2 lc "green", \
 "" using 1:($54-273.15) title "850" smooth csplines lw 2 lt 2 lc "orange", \
-"" using 1:($54-273.15):(20) title "" with filledcurves above lc "red", \
 "" using 1:($86-273.15) title "1000" smooth csplines lw 2 lt 2 lc "grey", \
 "" using 1:($98-273.15) title "2m" smooth csplines lw 2 lt 2 lc "red", \
 "" using 1:(($86-$54)>=12?($86-$54):1/0) title "Inst" with linespoints ls 7 lc "purple", \
@@ -108,3 +107,6 @@ plot "data.csv" using 1:($30-273.15) title "500" smooth csplines lw 2 lt 2 lc "b
 2 dt 2 lc rgb "red" lw 1 notitle, \
 0 dt 1 lc rgb "grey" lw 2 notitle, \
 "" u 1:(abs(min_yT5-37)<5?-37:1/0) dt 2 lc rgb "blue" lw 1 notitle
+
+# Try to find a way to show tropical nights since 8 PM to 7 AM
+#"" using 1:($98-273.15):(20) title "" with filledcurves above lc "red", \

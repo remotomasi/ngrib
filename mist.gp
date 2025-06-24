@@ -35,7 +35,7 @@ set xtics font ", 10"
 
 set autoscale y
 #set autoscale y2
-set ylabel 'm' offset 1.8, 0 textcolor rgb "dark-red"
+set ylabel 'hPa' offset 1.8, 0 textcolor rgb "dark-red"
 
 run(n) = sprintf("%d",n)
 coord(n) = sprintf("%g",n)
