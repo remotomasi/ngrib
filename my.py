@@ -104,7 +104,7 @@ for x in range(2, 46, 1):
     dayt = subprocess.run(['date', '--date=' + wscell + ''], capture_output=True, text=True)
     dayDate = ws[cell].value
     day = print(dayt.stdout[0:3])
-    ws[cell].value = ws[cell].value + ' ' + dayt.stdout[0:3]
+    ws[cell].value = (ws[cell].value or '') + ' ' + dayt.stdout[0:3]
 
 # formatting titles
 for j in range (2, 14):
