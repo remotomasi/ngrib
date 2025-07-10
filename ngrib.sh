@@ -148,8 +148,8 @@ echo -e "</font></table></body></html>" >> final.html
 # if [ -e "final.csv" ]; then rm final.csv; fi	# remove final.csv
 for i in ${h[*]};								# remove all pro*.csv and csv*.csv files
 	do
-		$(if [ -e "pro$i" ]; then rm pro$i; fi)
-		$(if [ -e "csv$i.csv" ]; then rm csv$i.csv; fi)
+		[ -e "pro$i" ] && rm pro$i && echo "pro$i removed"
+		[ -e "csv$i.csv" ] && rm csv$i.csv && echo "csv$i.csv removed"
 done
 
 tail -n +2 final.csv > data.csv	# obtaining data.csv containing only data without the first line (head)
@@ -159,22 +159,29 @@ if [ -d graphs ]
 then
     echo "..creating graphs folder"
 else
-    $(mkdir graphs)
+    mkdir -p graphs
 fi
 
-gnuplot -e "run=$run;lat=$lat;lon=$lon" ./pressureWind.pg > graphs/pressureWind.png
-gnuplot -e "run=$run;lat=$lat;lon=$lon" ./precipitations.pg > graphs/precipitations.png
-gnuplot -e "run=$run;lat=$lat;lon=$lon" ./clouds.pg > graphs/clouds.png
-gnuplot -e "run=$run;lat=$lat;lon=$lon" ./hgt.pg > graphs/hgt.png
-gnuplot -e "run=$run;lat=$lat;lon=$lon" ./temperatures.pg > graphs/temperatures.png
-gnuplot -e "run=$run;lat=$lat;lon=$lon" ./cape-lftx.pg > graphs/cape-lftx.png
-gnuplot -e "run=$run;lat=$lat;lon=$lon" ./precTypes.pg > graphs/precTypes.png
-gnuplot -e "run=$run;lat=$lat;lon=$lon" ./health.pg > graphs/health.png
-gnuplot -e "run=$run;lat=$lat;lon=$lon" ./mist.gp > graphs/mist.png
-gnuplot -e "run=$run;lat=$lat;lon=$lon" ./stability.pg > graphs/stability.png
-gnuplot -e "run=$run;lat=$lat;lon=$lon" ./sweat.pg > graphs/sweat.png
-gnuplot -e "run=$run;lat=$lat;lon=$lon" ./kindex.pg > graphs/kindex.png
-gnuplot -e "run=$run;lat=$lat;lon=$lon" ./weather.pg > graphs/weather.png
+plot_scripts=(
+    pressureWind.pg
+    precipitations.pg
+    clouds.pg
+    hgt.pg
+    temperatures.pg
+    cape-lftx.pg
+    precTypes.pg
+    health.pg
+    mist.gp
+    stability.pg
+    sweat.pg
+    kindex.pg
+    weather.pg
+)
+
+for script in "${plot_scripts[@]}"; do
+    out="graphs/${script%.*}.png"
+    gnuplot -e "run=$run;lat=$lat;lon=$lon" "./$script" > "$out"
+done
 
 convert \( graphs/weather.png graphs/health.png graphs/pressureWind.png  -append \) \( graphs/temperatures.png graphs/hgt.png graphs/precTypes.png -append \) \( graphs/cape-lftx.png graphs/kindex.png graphs/sweat.png  -append \) \( graphs/stability.png graphs/clouds.png graphs/precipitations.png -append \) +append graphs/weatherForecastFinal.png
 
@@ -213,7 +220,7 @@ if [ -d data ]
 then
     echo "..creating data folder"
 else
-    $(mkdir data)
+    mkdir -p data
 fi
 # move data files in data folder
 mv -t data final.xlsx simpleWeather.xlsx simpleWeatherSimply.xlsx
