@@ -215,11 +215,12 @@ for x in range(2, 46, 1):
 # rain rate
 for x in range(2, 46, 1):
     cell = 'G' + str(x)
-    if float(ws[cell].value) == 0 and float(ws[cell].value) <= 10: ws[cell].fill = whiteFill
-    if float(ws[cell].value) > 0 and float(ws[cell].value) < 1: ws[cell].fill = lightGreenFill
-    if float(ws[cell].value) >= 1 : ws[cell].fill = greenFill
-    if float(ws[cell].value) >= 2.5: ws[cell].fill = darkGreenFill
-    if float(ws[cell].value) >= 10: ws[cell].fill = veryDarkGreenFill
+    if  isinstance(ws[cell].value, (int, float)):
+        # if float(ws[cell].value) == 0 and float(ws[cell].value) <= 10: ws[cell].fill = whiteFill
+        if float(ws[cell].value) > 0 and float(ws[cell].value) < 1: ws[cell].fill = lightGreenFill
+        if float(ws[cell].value) >= 1 : ws[cell].fill = greenFill
+        if float(ws[cell].value) >= 2.5: ws[cell].fill = darkGreenFill
+        if float(ws[cell].value) >= 10: ws[cell].fill = veryDarkGreenFill
 
 for x in range(2, 46, 1):
     cell = 'H' + str(x)
