@@ -13,7 +13,6 @@ imageFiles
 anlFile
 data
 *.pdf
-/data/*.xlsx
 #!final_forecasting_snow.xlsx   #If a file matches a pattern, 
 #                               # but also matches a negating 
 #                               # pattern defined later in the file, it will not be ignored
