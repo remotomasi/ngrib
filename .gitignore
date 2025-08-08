@@ -8,10 +8,9 @@ pro*
 *.png
 wbgrib2
 graphs
-data
+data/*
 imageFiles
 anlFile
-data
 *.pdf
 #!final_forecasting_snow.xlsx   #If a file matches a pattern, 
 #                               # but also matches a negating 
