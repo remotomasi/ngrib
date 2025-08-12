@@ -224,12 +224,12 @@ for x in range(2, 46, 1):
 
 for x in range(2, 46, 1):
     cell = 'H' + str(x)
-    if float(ws[cell].value) == 1: ws[cell].fill = greenFill
+    if ws[cell].value and float(ws[cell].value) == 1: ws[cell].fill = greenFill
     else: ws[cell].fill = whiteFill
 
 for x in range(2, 46, 1):
     cell = 'I' + str(x)
-    if float(ws[cell].value) == 1: ws[cell].fill = greenFill
+    if ws[cell].value and float(ws[cell].value) == 1: ws[cell].fill = greenFill
     else: ws[cell].fill = whiteFill
 
 for x in range(2, 46, 1):
