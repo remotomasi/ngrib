@@ -53,7 +53,7 @@ coord(n) = sprintf("%g",n)
 set title "Weather Forecast GFS Model - NOAA (Pressure-Wind) RUN:".run(run)."z - "."Lat: ".coord(lat)." - "."Lon: ".coord(lon)
 set key lmargin
 set grid
-set size 1, 1 # ratio 1:1
+#set size 1, 1 # ratio 1:1
 
 set style data lines
 set bar 0 # disable whiskers on the errorbars
