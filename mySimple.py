@@ -197,7 +197,7 @@ for x in range(2, 46, 1):
         ws[cell].fill = darkGreenFill7
         ws[cell].font = vvdgf
     if float(ws[cell].value) >= 103 and float(ws[cell].value) <= 117: 
-        ws[cell].fill = darkGrayFill8
+        ws[cell].fill = darkGreenFill8
         ws[cell].font = vvdgf
     if float(ws[cell].value) >= 118: ws[cell].fill = blackFill
 
