@@ -52,6 +52,10 @@ for i in range (1, mr + 1):
         # writing the read value to destination excel file
         ws2.cell(row = i, column = j-95).value = c.value
 
+        
+    if c.value is None:
+        c.value = 0.0
+
         # writing the wind power to destination excel file
         if i > 1 and j == 101: ws2.cell(row = i, column = 13).value = int(math.sqrt(float(c.value) * float(c.value) + float(ws1.cell(row = i, column = 102).value) * float(ws1.cell(row = i, column = 102).value))*3.6)
         if i > 1 and j == 101: ws2.cell(row = i, column = 14).value = int(math.atan2(float(c.value), float(ws1.cell(row = i, column = 102).value))*57.3 + 180)

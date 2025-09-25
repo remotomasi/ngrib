@@ -253,31 +253,41 @@ for x in range(2, 46, 1):
 
 for x in range(2, 46, 1):
     cell = 'L' + str(x)
-    if float(ws[cell].value) > 0 and float(ws[cell].value) <= 5: ws[cell].fill = whiteFill
-    if float(ws[cell].value) > 5 and float(ws[cell].value) <= 10: ws[cell].fill = lightSilverFill
-    if float(ws[cell].value) > 10 and float(ws[cell].value) <= 30: ws[cell].fill = silverFill
-    if float(ws[cell].value) > 22 and float(ws[cell].value) <= 30: ws[cell].fill = grayFill
-    if float(ws[cell].value) > 30 and float(ws[cell].value) <= 60: ws[cell].fill = darkGrayFill
-    if float(ws[cell].value) > 60 and float(ws[cell].value) <= 80: 
-        ws[cell].fill = veryGrayFill
-        ws[cell].font = vvdgf
-    if float(ws[cell].value) > 80 and float(ws[cell].value) <= 100: 
-        ws[cell].fill = veryDarkGrayFill
-        ws[cell].font = vvdgf
+    if ws[cell].value is not None:
+        try: 
+            if float(ws[cell].value) > 0 and float(ws[cell].value) <= 5: ws[cell].fill = whiteFill
+            if float(ws[cell].value) > 5 and float(ws[cell].value) <= 10: ws[cell].fill = lightSilverFill
+            if float(ws[cell].value) > 10 and float(ws[cell].value) <= 30: ws[cell].fill = silverFill
+            if float(ws[cell].value) > 22 and float(ws[cell].value) <= 30: ws[cell].fill = grayFill
+            if float(ws[cell].value) > 30 and float(ws[cell].value) <= 60: ws[cell].fill = darkGrayFill
+            if float(ws[cell].value) > 60 and float(ws[cell].value) <= 80: 
+                ws[cell].fill = veryGrayFill
+                ws[cell].font = vvdgf
+            if float(ws[cell].value) > 80 and float(ws[cell].value) <= 100: 
+                ws[cell].fill = veryDarkGrayFill
+                ws[cell].font = vvdgf
+        except ValueError:
+            # ws[cell].value is not a numeric value
+            pass
 
 for x in range(2, 46, 1):
     cell = 'M' + str(x)
-    if float(ws[cell].value) > 0 and float(ws[cell].value) <= 5: ws[cell].fill = whiteFill
-    if float(ws[cell].value) >= 5 and float(ws[cell].value) <= 10: ws[cell].fill = lightSilverFill
-    if float(ws[cell].value) > 10 and float(ws[cell].value) <= 22: ws[cell].fill = silverFill
-    if float(ws[cell].value) > 22 and float(ws[cell].value) <= 30: ws[cell].fill = grayFill
-    if float(ws[cell].value) > 30 and float(ws[cell].value) <= 60: ws[cell].fill = darkGrayFill
-    if float(ws[cell].value) > 60 and float(ws[cell].value) <= 80: 
-        ws[cell].fill = veryGrayFill
-        ws[cell].font = vvdgf
-    if float(ws[cell].value) > 85 and float(ws[cell].value) <= 100: 
-        ws[cell].fill = veryDarkGrayFill
-        ws[cell].font = vvdgf
+    if ws[cell].value is not None:
+        try: 
+            if float(ws[cell].value) > 0 and float(ws[cell].value) <= 5: ws[cell].fill = whiteFill
+            if float(ws[cell].value) >= 5 and float(ws[cell].value) <= 10: ws[cell].fill = lightSilverFill
+            if float(ws[cell].value) > 10 and float(ws[cell].value) <= 22: ws[cell].fill = silverFill
+            if float(ws[cell].value) > 22 and float(ws[cell].value) <= 30: ws[cell].fill = grayFill
+            if float(ws[cell].value) > 30 and float(ws[cell].value) <= 60: ws[cell].fill = darkGrayFill
+            if float(ws[cell].value) > 60 and float(ws[cell].value) <= 80: 
+                ws[cell].fill = veryGrayFill
+                ws[cell].font = vvdgf
+            if float(ws[cell].value) > 85 and float(ws[cell].value) <= 100: 
+                ws[cell].fill = veryDarkGrayFill
+                ws[cell].font = vvdgf
+        except ValueError:
+            # ws[cell].value is not a numeric value
+            pass
 
 # adding thin borders
 for i in range (1, mr + 1):
