@@ -69,7 +69,7 @@ plot "data.csv" using 1:($2/100) title "Pres" smooth csplines, \
 "" u 1:(sqrt($101*$101+$102*$102)*3.6) title "WSpd" smooth csplines axes x1y2, \
 "" u 1:($4>0?($4*3.6):1/0) title "GUST" smooth csplines dt 3 lc rgb "red" lw 1 axes x1y2, \
 "" u 1:(max_yW>=118?118:1/0) dt 2 lc rgb "orange" lw 1 axes x1y2 notitle, \
-"" u 1:(max_yW>=103 && max_yW<=117?103:1/0) dt 2 lc rgb "orange" lw 1 axes x1y2 notitle, \
+"" u 1:(max_yW>=103 && max_yW<=117?103:1/0) dt 2 lc rgb "cyan" lw 1 axes x1y2 notitle, \
 "" u 1:(max_yW>=89 && max_yW<=102?89:1/0) dt 2 lc rgb "orange" lw 1 axes x1y2 notitle, \
 "" u 1:(max_yW>=75 && max_yW<=88?75:1/0) dt 2 lc rgb "orange" lw 1 axes x1y2 notitle, \
 "" u 1:(max_yW>=62 && max_yW<=74?62:1/0) dt 2 lc rgb "orange" lw 1 axes x1y2 notitle, \

@@ -43,7 +43,7 @@ elif [ "$o" -ge 8 ] && [ "$o" -lt 12 ]
 	then hh="00"
 elif [ "$o" -ge 12 ] && [ "$o" -lt 18 ]
 	then hh="06"
-elif [ "$o" -ge 18 ]
+elif [ "$o" -ge 18 ] || [ "$o" -lt 8 ]
 	then hh="12"
 fi
 
