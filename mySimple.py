@@ -133,7 +133,11 @@ ws.column_dimensions['I'].width = 13
 # formatting date adding the day name
 for x in range(2, 46, 1):
     cell = 'A' + str(x)
+    if ws[cell].value is None:
+        ws[cell].value = '0.0'
+    
     dayt = subprocess.run(['date', '--date=' + ws[cell].value + ''], capture_output=True, text=True)
+
     dayDate = ws[cell].value
     day = print(dayt.stdout[0:3])
     ws[cell].value = ws[cell].value + ' ' + dayt.stdout[0:3]
@@ -263,6 +267,10 @@ for x in range(2, 46, 1):
 # rain possiblity
 for x in range(2, 46, 1):
     cell = 'F' + str(x)
+
+    if ws[cell].value is None:
+        ws[cell].value = '0.0'
+
     if float(ws[cell].value) == 1: 
         ws[cell].fill = cyanFill
         ws[cell] = ""
@@ -273,6 +281,10 @@ for x in range(2, 46, 1):
 # snow possibility
 for x in range(2, 46, 1):
     cell = 'G' + str(x)
+
+    if ws[cell].value is None:
+        ws[cell].value = '0.0'
+    
     if float(ws[cell].value) == 1: 
         ws[cell].fill = greenFill
         ws[cell] = ""
@@ -283,6 +295,10 @@ for x in range(2, 46, 1):
 # nuvole basse
 for x in range(2, 46, 1):
     cell = 'H' + str(x)
+
+    if ws[cell].value is None:
+        ws[cell].value = '0.0'
+
     if float(ws[cell].value) > 0 and float(ws[cell].value) <= 5: ws[cell].fill = whiteFill
     if float(ws[cell].value) > 5 and float(ws[cell].value) <= 10: ws[cell].fill = lightSilverFill
     if float(ws[cell].value) > 10 and float(ws[cell].value) <= 30: ws[cell].fill = silverFill
@@ -298,6 +314,10 @@ for x in range(2, 46, 1):
 # nuvole medie
 for x in range(2, 46, 1):
     cell = 'I' + str(x)
+    
+    if ws[cell].value is None:
+        ws[cell].value = '0.0'
+    
     if float(ws[cell].value) > 0 and float(ws[cell].value) <= 5: ws[cell].fill = whiteFill
     if float(ws[cell].value) > 5 and float(ws[cell].value) <= 10: ws[cell].fill = lightSilverFill
     if float(ws[cell].value) > 10 and float(ws[cell].value) <= 30: ws[cell].fill = silverFill
