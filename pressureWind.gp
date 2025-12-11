@@ -1,0 +1,79 @@
+#!/usr/bin/gnuplot -persist
+reset
+set terminal pngcairo truecolor
+set termoption dashed
+set term pngcairo size 1024,600 #800 pixels by 600 pixels
+set angle degrees
+
+# Retrieve statistical properties for Wind velocity
+data = 'data.csv'
+set datafile separator ","
+stats data using ($101):($102)
+set timefmt "%Y-%m-%d %H:%M"
+stats [time(0):*] 'data.csv' u (timecolumn(1)):(sqrt($101*$101+$102*$102)*3.6)
+max_yW = STATS_max_y
+max_pos_yW = STATS_pos_max_y
+mean_yW = STATS_mean_y
+
+# Retrieve statistical properties for GUST
+stats data using 1:4
+set timefmt "%Y-%m-%d %H:%M"
+stats [time(0):*] 'data.csv' u (timecolumn(1)):($4*3.6)
+max_yG = STATS_max_y
+max_pos_yG = STATS_pos_max_y
+
+# Retrieve statistical properties for Pressure
+stats data using 1:2
+set timefmt "%Y-%m-%d %H:%M"
+stats [time(0):*] 'data.csv' u (timecolumn(1)):2
+max_yP = STATS_max_y/100
+max_pos_yP = STATS_pos_max_y
+min_yP = STATS_min_y/100
+min_pos_yP = STATS_pos_min_y
+
+set xdata time
+set timefmt "%Y-%m-%d %H"
+set xrange [time(0):time(0) + 5*24*60*60]
+set format x "h%H\n%d/%m\n%a"
+set xlabel "Time"
+set xtics font ", 10"
+
+set autoscale y
+set autoscale y2
+set ylabel "hPa" textcolor rgb "purple"
+#set ytics 5
+#set yrange [990:1040]
+set y2tics 10
+#set y2range [0:100]
+set y2label 'Km/h' textcolor rgb "orange"
+
+run(n) = sprintf("%d",n)
+coord(n) = sprintf("%g",n)
+
+set title "Weather Forecast GFS Model - NOAA (Pressure-Wind) RUN:".run(run)."z - "."Lat: ".coord(lat)." - "."Lon: ".coord(lon)
+set key lmargin
+set grid
+#set size 1, 1 # ratio 1:1
+
+set style data lines
+set bar 0 # disable whiskers on the errorbars
+
+set label sprintf("Wmean = %4.4g Km/h",mean_yW) at graph 0.45, second mean_yW left font "Arial,10" tc rgb "dark-orange"
+set label sprintf("< %4.4g",max_yW) at first max_pos_yW, second max_yW left tc rgb "orange"
+set label sprintf("< %4.4g",max_yG) at first max_pos_yG, second max_yG left tc rgb "red"
+set label sprintf("< %4.5g",max_yP) at first max_pos_yP, first max_yP left tc rgb "purple"
+set label sprintf("< %4.5g",min_yP) at first min_pos_yP, first min_yP left tc rgb "purple"
+plot "data.csv" using 1:($2/100) title "Pres" smooth csplines, \
+"" u 139:(10):(0.05*sqrt($101*$101+$102*$102)*3.6*cos(-90-(atan2($101,$102)+180))):(0.05*sqrt($101*$101+$102*$102)*3.6*sin(-90-(atan2($101,$102)+180))) with vectors lw 2 lc rgb "dark-green" title "Wind" axes x2y2, \
+"" u 139:(10) w p lt 2 pt 7 ps 1.5 notitle axes x2y2, \
+"" u 1:(sqrt($101*$101+$102*$102)*3.6) title "WSpd" smooth csplines axes x1y2, \
+"" u 1:($4>0?($4*3.6):1/0) title "GUST" smooth csplines dt 3 lc rgb "red" lw 1 axes x1y2, \
+"" u 1:(max_yW>=118?118:1/0) dt 2 lc rgb "orange" lw 1 axes x1y2 notitle, \
+"" u 1:(max_yW>=103 && max_yW<=117?103:1/0) dt 2 lc rgb "cyan" lw 1 axes x1y2 notitle, \
+"" u 1:(max_yW>=89 && max_yW<=102?89:1/0) dt 2 lc rgb "orange" lw 1 axes x1y2 notitle, \
+"" u 1:(max_yW>=75 && max_yW<=88?75:1/0) dt 2 lc rgb "orange" lw 1 axes x1y2 notitle, \
+"" u 1:(max_yW>=62 && max_yW<=74?62:1/0) dt 2 lc rgb "orange" lw 1 axes x1y2 notitle, \
+"" u 1:(max_yW>=50 && max_yW<=61?50:1/0) dt 2 lc rgb "orange" lw 1 axes x1y2 notitle, \
+mean_yW dt 2 lc rgb "dark-orange" lw 1 notitle axes x1y2
+
+

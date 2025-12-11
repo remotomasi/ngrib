@@ -1,0 +1,123 @@
+#!/usr/bin/gnuplot -persist
+reset
+set terminal pngcairo truecolor
+set termoption dashed
+set term pngcairo size 1024,600 #800 pixels by 600 pixels
+
+data = 'data.csv'
+set datafile separator ","
+# Retrieve statistical properties for VVEL7
+stats data using 1:49
+set timefmt "%Y-%m-%d %H:%M"
+stats [time(0):time(0) + 5*24*60*60] 'data.csv' u (timecolumn(1)):49
+max_yVVEL7 = STATS_max_y
+max_pos_yVVEL7 = STATS_pos_max_y
+min_yVVEL7 = STATS_min_y
+min_pos_yVVEL7 = STATS_pos_min_y
+
+# Retrieve statistical properties for VVEL5
+stats data using 1:33
+set timefmt "%Y-%m-%d %H:%M"
+stats [time(0):time(0) + 5*24*60*60] 'data.csv' u (timecolumn(1)):33
+max_yVVEL5 = STATS_max_y
+max_pos_yVVEL5 = STATS_pos_max_y
+min_yVVEL5 = STATS_min_y
+min_pos_yVVEL5 = STATS_pos_min_y
+
+# Retrieve statistical properties for tropopause
+stats data using 1:131
+set timefmt "%Y-%m-%d %H:%M"
+stats [time(0):time(0) + 5*24*60*60] 'data.csv' u (timecolumn(1)):131
+max_yT = STATS_max_y
+max_pos_yT = STATS_pos_max_y
+min_yT = STATS_min_y
+min_pos_yT = STATS_pos_min_y
+
+set multiplot layout 2,1 scale 1,1
+
+## 1 ##
+
+set xdata time
+set timefmt "%Y-%m-%d %H"
+set xrange [time(0):time(0) + 5*24*60*60]
+set format x "h%H\n%d/%m\n%a"
+set xlabel "Time"
+set xtics font ", 10"
+
+maxval = max_yVVEL5*36
+minval = min_yVVEL5*36
+if (abs(max_yVVEL7) > abs(max_yVVEL5)) maxval = max_yVVEL7*36
+if (abs(min_yVVEL7) > abs(min_yVVEL5)) minval = min_yVVEL7*36
+
+maxamp = maxval - minval
+
+unset ytics
+set y2tics floor(maxamp/5)
+set y2range [minval:maxval]
+#set autoscale y2
+set y2label 'hPa/h - hPa'
+
+# troposphere
+#set ytics floor(abs(max_yT-min_yT)/5)
+#set yrange [min_yT:max_yT]
+set autoscale y
+#set ylabel 'hPa'
+
+run(n) = sprintf("%d",n)
+coord(n) = sprintf("%g",n)
+
+set title "Weather Forecast GFS Model - NOAA (500hPa VVEL/700hPa VVEL/Troposphere) RUN:".run(run)."z - "."Lat: ".coord(lat)." - "."Lon: ".coord(lon)
+set key lmargin
+set key font ",10"
+set grid
+#set size 1, 1 # ratio 1:1
+
+set style data lines
+set style fill transparent solid 0.3
+
+set label 1 '400' at graph 1.00, first 7200 front tc rgb "red"
+set label 2 '300'at graph 1.00, first 9200  front tc rgb "orange"
+set label 3 '250' at graph 1.00, first 10400 front tc rgb "green"
+set label 4 '200' at graph 1.00, first 11800 front tc rgb "blue"
+set label 5 '150' at graph 1.00, first 13600 front tc rgb "light-green"
+plot "data.csv" using 1:($49*36) title "VVEL7" smooth csplines lw 2 lt 1 lc "dark-blue" axis x1y2, \
+"" using 1:($33*36) title "VVEL5" smooth csplines lw 2 lt 1 lc "dark-yellow" axis x1y2, \
+"" using 1:($131) title "Trop." smooth csplines lw 2 lt 1 lc "grey" axis x1y1, \
+0 dt 3 lc rgb "dark-green" lw 2 notitle axis x1y2, \
+13600 dt 2 lc rgb "light-green" lw 1 notitle, \
+11800 dt 2 lc rgb "cyan" lw 1 notitle, \
+10400 dt 2 lc rgb "green" lw 1 notitle, \
+9200 dt 2 lc rgb "orange" lw 1 notitle, \
+7200 dt 2 lc rgb "red" lw 1 notitle
+
+
+## 2 ##
+
+unset ylabel
+unset label
+
+set xdata time
+set timefmt "%Y-%m-%d %H"
+set xrange [time(0):time(0) + 5*24*60*60]
+set format x "h%H\n%d/%m\n%a"
+set xlabel "Time"
+set xtics font ", 10"
+
+unset ytics
+set y2tics 20
+set y2range [0:100]
+set y2label '%'
+
+set title "Weather Forecast GFS Model - NOAA (500-700-850-1000 hPa RH) RUN:" . run . "z"
+set key lmargin
+set key font ",10"
+set grid
+#set size 1, 1 #ratio 1:1
+
+set style data lines
+set style fill transparent solid 0.3
+
+plot "data.csv" using 1:31 title "  RH5" smooth csplines lw 2 lt 1 lc "yellow" axis x1y2, \
+"" using 1:47 title "  RH7" smooth csplines lw 2 lt 1 lc "orange" axis x1y2, \
+"" using 1:55 title "  RH8" smooth csplines lw 2 lt 1 lc "red" axis x1y2, \
+"" using 1:87 title "  RH1" smooth csplines lw 2 lt 1 lc "brown" axis x1y2

@@ -1,0 +1,195 @@
+#!/usr/bin/gnuplot -persist
+reset
+
+set terminal pngcairo truecolor
+set termoption dashed
+set term pngcairo size 1024,600 #800 pixels by 600 pixels
+set angle degrees
+
+# Retrieve statistical properties for Wind velocity
+data = 'data.csv'
+set datafile separator ","
+stats data using ($101):($102)
+set timefmt "%Y-%m-%d %H:%M"
+stats [time(0):*] 'data.csv' u (timecolumn(1)):(sqrt($101*$101+$102*$102)*3.6)
+max_yW = STATS_max_y
+max_pos_yW = STATS_pos_max_y
+mean_yW = STATS_mean_y
+
+# Retrieve statistical properties for Temperature
+stats data using 1:98
+set timefmt "%Y-%m-%d %H:%M"
+stats [time(0):time(0) + 5*24*60*60] 'data.csv' u (timecolumn(1)):($98-273.15)
+max_yT = STATS_max_y
+mean_yT = STATS_mean_y
+min_yT = STATS_min_y
+
+# Retrieve statistical properties for DP
+stats data using 1:99
+set timefmt "%Y-%m-%d %H:%M"
+stats [time(0):time(0) + 5*24*60*60] 'data.csv' u (timecolumn(1)):($99-273.15)
+min_yDP = STATS_min_y
+min_pos_yDP = STATS_pos_min_y
+max_yDP = STATS_max_y
+max_pos_yDP = STATS_pos_max_y
+
+# Retrieve statistical properties for Pressure
+stats data using 1:2
+set timefmt "%Y-%m-%d %H:%M"
+stats [time(0):*] 'data.csv' u (timecolumn(1)):2
+max_yP = STATS_max_y/100
+max_pos_yP = STATS_pos_max_y
+min_yP = STATS_min_y/100
+min_pos_yP = STATS_pos_min_y
+
+set xdata time
+set timefmt "%Y-%m-%d %H"
+set xrange [time(0):time(0) + 5*24*60*60]
+set format x "h%H\n%d/%m\n%a"
+set xlabel "Time"
+set xtics font ", 10"
+
+set autoscale y
+set ytics 5
+#set yrange [-10:50]
+set ylabel '°C' offset  2, 0 textcolor rgb "red"
+set y2tics 10
+set y2range [0:100]
+set y2tics offset -1,0
+set y2label '% - Km/h' offset -3.8, 0 textcolor rgb "cyan"
+
+run(n) = sprintf("%d",n)
+coord(n) = sprintf("%g",n)
+
+set title "Weather Forecast GFS Model - NOAA RUN:".run(run)."z - "."Lat: ".coord(lat)." - "."Lon: ".coord(lon)
+#"Coord: lat:".lat." lon:".lon." "
+set key lmargin
+set key font ",10"
+set grid
+set size 1, 1 # ratio 1:1
+
+set style data lines
+#set bars small
+#set boxwidth 0.95 relative
+#fs solid border -1 
+set style fill transparent solid 0.7
+#set style histogram clustered gap 0.0
+
+set multiplot
+set lmargin screen 0.2
+
+# GNUPLOT VERSION - useful for the instruction graph choice
+gnuplotVersion = system("gnuplot --version | cut -d' ' -f2")
+
+set label sprintf("Tmax = %3.3g °C",max_yT) at graph 0.9,0.97 center font "Arial,10" tc rgb "red"
+set label sprintf("Tmean = %3.3g °C",mean_yT) at graph 0.9,0.94 center font "Arial,10" tc rgb "red"
+set label sprintf("Tmin = %3.3g °C",min_yT) at graph 0.9,0.91 center font "Arial,10" tc rgb "red"
+set label sprintf("Wmax = %3.3g Km/h",max_yW) at graph 0.7,0.97 center font "Arial,10" tc rgb "dark-cyan"
+set label sprintf("Wmean = %3.3g Km/h",mean_yW) at graph 0.45, second mean_yW left font "Arial,10" tc rgb "dark-orange"
+set label sprintf("< %3.4g",max_yW) at first max_pos_yW, second max_yW left tc rgb "black"
+
+if (gnuplotVersion >= 5.5) {
+	plot 'data.csv' u 1:($98-273.15):($99-273.15) title "" smooth csp with filledcurves between lc "red", \
+        "" u 1:($98-273.15) smooth csp lc "red" lw 2 axes x1y1 ti "Temp", \
+        "" u 1:($99-273.15) smooth csp lc "green" lw 2 axes x1y1 ti "DP", \
+        "" u 1:(($98-273.15)>=20?20:1/0) notitle dt 4 lc "black", \
+        "" u 1:100 lc "dark-blue" title "Hum" smooth csp axes x1y2, \
+        "" u 139:(10):(0.1*sqrt($101*$101+$102*$102)*3.6*cos(-90-(atan2($101,$102)+180))):(0.1*sqrt($101*$101+$102*$102)*3.6*sin(-90-(atan2($101,$102)+180))) with vectors lw 2 lc rgb "dark-green" title "Wind" axes x2y2, \
+        "" u 139:(10) w p lt 2 pt 7 ps 1.5 notitle axes x2y2, \
+        "" u 1:(($98-$99)<=2.5 && $100>=85 && (($2>=$86 && $86>=$98) || ($2>=$86 && $79>=$98) || ($2>=$86 && $70>=$98))?($98-$99):1/0):(-($98-$99)>=-2.5 && $100>=85 && (($2>=$86 && $86>=$98) || ($2>=$86 && $79>=$98) || ($2>=$86 && $70>=$98))?-($98-$99):1/0) w filledcurves above y2=2.5 lc "dark-yellow" title "Mist", \
+        2.5 dt 2 lc rgb "dark-yellow" lw 1 axes x1y1 notitle, \
+        "" u 1:(sqrt($101*$101+$102*$102)*3.6) title "WSpd" smooth csp lw 2 lc "cyan" axes x1y2, \
+        "" u 1:(max_yW>=118?118:1/0) dt 2 lc rgb "cyan" lw 1 axes x1y2 notitle, \
+        "" u 1:(max_yW>=103 && max_yW<=117?103:1/0) dt 2 lc rgb "cyan" lw 1 axes x1y2 notitle, \
+        "" u 1:(max_yW>=89 && max_yW<=102?89:1/0) dt 2 lc rgb "cyan" lw 1 axes x1y2 notitle, \
+        "" u 1:(max_yW>=75 && max_yW<=88?75:1/0) dt 2 lc rgb "cyan" lw 1 axes x1y2 notitle, \
+        "" u 1:(max_yW>=62 && max_yW<=74?62:1/0) dt 2 lc rgb "cyan" lw 1 axes x1y2 notitle, \
+        "" u 1:(max_yW>=50 && max_yW<=61?50:1/0) dt 2 lc rgb "cyan" lw 1 axes x1y2 notitle, \
+        mean_yW dt 2 lc rgb "dark-orange" lw 1 notitle axes x1y2
+} else { 
+        plot 'data.csv' u 1:($98-273.15):($99-273.15) title "" with filledcurves above y1=50 lc "red", \
+        "" u 1:($98-273.15) lc "red" lw 2 axes x1y1 ti "Temp", \
+        "" u 1:($99-273.15) lc "green" lw 2 axes x1y1 ti "DP", \
+        "" u 1:(($98-273.15)>=20?20:1/0) notitle dt 4 lc "black", \
+        "" u 1:100 lc "dark-blue" title "Hum" smooth csp axes x1y2, \
+        "" u 139:(10):(0.1*sqrt($101*$101+$102*$102)*3.6*cos(-90-(atan2($101,$102)+180))):(0.1*sqrt($101*$101+$102*$102)*3.6*sin(-90-(atan2($101,$102)+180))) with vectors lw 2 lc rgb "dark-green" title "Wind" axes x2y2, \
+        "" u 139:(10) w p lt 2 pt 7 ps 1.5 notitle axes x2y2, \
+        "" u 1:(($98-$99)<=2.5 && $100>=85 && (($2>=1000 && $86>=$98) || ($2>=975 && $79>=$98) || ($2>=950 && $70>=$98))?($98-$99):1/0):(-($98-$99)>=-2.5 && $100>=85 && (($2>=1000 && $86>=$98) || ($2>=976 && $79>=$98) || ($2>=950 && $70>=$98))?-($98-$99):1/0) w filledcurves above y2=2.5 lc "dark-yellow" title "Mist", \
+        2.5 dt 2 lc rgb "dark-yellow" lw 1 axes x1y1 notitle, \
+        "" u 1:(sqrt($101*$101+$102*$102)*3.6) title "WSpd" smooth csp lw 2 lc "cyan" axes x1y2, \
+        "" u 1:(max_yW>=118?118:1/0) dt 2 lc rgb "cyan" lw 1 axes x1y2 notitle, \
+        "" u 1:(max_yW>=103 && max_yW<=117?103:1/0) dt 2 lc rgb "cyan" lw 1 axes x1y2 notitle, \
+        "" u 1:(max_yW>=89 && max_yW<=102?89:1/0) dt 2 lc rgb "cyan" lw 1 axes x1y2 notitle, \
+        "" u 1:(max_yW>=75 && max_yW<=88?75:1/0) dt 2 lc rgb "cyan" lw 1 axes x1y2 notitle, \
+        "" u 1:(max_yW>=62 && max_yW<=74?62:1/0) dt 2 lc rgb "cyan" lw 1 axes x1y2 notitle, \
+        "" u 1:(max_yW>=50 && max_yW<=61?50:1/0) dt 2 lc rgb "cyan" lw 1 axes x1y2 notitle, \
+        mean_yW dt 2 lc rgb "dark-orange" lw 1 notitle axes x1y2
+}
+
+
+##### Second plot
+
+set autoscale y
+set ytics 10
+
+set style fill transparent solid 0.7
+
+set ytics offset  -3.9, 0
+set ylabel "Rain/Snow" offset  -2, 0 textcolor rgb "purple"
+
+set key c 
+plot "data.csv" using 1:($105*3600) w boxes lc rgb "blue" title "PrMM/h" axes x1y1, \
+"" using 1:108 w boxes lc rgb "purple" title "TotPr" axes x1y1, \
+"" using 1:($104*3600) lc rgb "brown" lw 2 title "CPrMM/h" axes x1y1, \
+"" using 1:110 lc rgb "orange" lw 2 title "CPrTot" axes x1y1, \
+"" using 1:119 lc rgb "dark-green" lw 2 title "R201" axes x1y1, \
+"" using 1:115 lc rgb "green" lw 2 title "R01" axes x1y1, \
+"" using 1:112 lc rgb "yellow" lw 2 title "S01" axes x1y1, \
+"" u 1:($96*100) w boxes lc rgb "olive" fs solid border -1 title "SDepth" axes x1y1, \
+
+
+##### Third plot
+
+if (max_yP >= min_yP) {tics = ceil((max_yP - min_yP) / 3)}
+if (max_yP <= min_yP) {tics = cdil((min_yP - max_yP) / 3)}
+
+set autoscale y
+set ytics tics
+
+set style data lines
+
+set ytics offset  90.5, 0
+set ylabel "hPa" offset  92.5, 0 textcolor rgb "purple"
+
+set key b 
+set label sprintf("< %4.5g",max_yP) at first max_pos_yP, first max_yP left tc rgb "purple"
+set label sprintf("< %4.5g",min_yP) at first min_pos_yP, first min_yP left tc rgb "purple"
+plot "data.csv" using 1:($2/100) smooth csp dt 1 lw 1 lc rgb "purple" title "Pres"
+
+
+##### Fourth plot
+
+set autoscale y
+set ytics 10
+unset ylabel
+unset ytics
+set yrange [0:100]
+
+set style fill transparent solid 0.3
+
+#set label "High" at screen 0.1,0.31 tc rgb "dark-yellow"
+set key default
+set key font ",10"
+set key inside horiz
+set key box; set key top left
+
+plot "data.csv" using 1:(100-$129) title "High" smooth csp with filledcurves x2 lc "light-grey", \
+"" using 1:(($127)/2+50) title "Mid" smooth csplines with filledcurves above y=50 lc "grey70", \
+"" using 1:((100-($127/2)-50)) smooth csplines with filledcurves above y=50 lc "grey70" notitle, \
+"" using 1:125 title "Low" smooth csp with filledcurves x1 lc "grey20", \
+"" using 1:((1-(1-$125/100)*(1-$127/100)*(1-$129/100)**0.4)*100)  title "Total" smooth csp dt 3 lc rgb "black" lw 1
+
+#replot
+unset multiplot
+
+#u 1:3:($4):3 w errorlines ls 1 pt 0 lt 1 lc rgb "red" axes x1y1 ti "T°C", \ OLD VERSION

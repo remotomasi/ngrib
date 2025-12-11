@@ -1,0 +1,238 @@
+#!/usr/bin/gnuplot -persist
+reset
+set terminal pngcairo truecolor
+set termoption dashed
+set term pngcairo size 1024,600 #800 pixels by 600 pixels
+
+data = 'data.csv'
+set datafile separator ","
+# Retrieve statistical properties for 1000-850
+stats data using ($53):($93)
+set timefmt "%Y-%m-%d %H:%M"
+stats [time(0):time(0) + 5*24*60*60] 'data.csv' u (timecolumn(1)):($53-$93)
+max_yM8 = STATS_max_y
+max_pos_yM8 = STATS_pos_max_y
+min_yM8 = STATS_min_y
+min_pos_yM8 = STATS_pos_min_y
+
+# Retrieve statistical properties for 1000-700
+stats data using ($45):($93)
+set timefmt "%Y-%m-%d %H:%M"
+stats [time(0):time(0) + 5*24*60*60] 'data.csv' u (timecolumn(1)):($45-$93)
+min_yM7 = STATS_min_y
+min_pos_yM7 = STATS_pos_min_y
+max_yM7 = STATS_max_y
+max_pos_yM7 = STATS_pos_max_y
+
+# Retrieve statistical properties for 1000-500
+stats data using ($29):($93)
+set timefmt "%Y-%m-%d %H:%M"
+stats [time(0):time(0) + 5*24*60*60] 'data.csv' u (timecolumn(1)):($29-$93)
+min_yM5 = STATS_min_y
+min_pos_yM5 = STATS_pos_min_y
+max_yM5 = STATS_max_y
+max_pos_yM5 = STATS_pos_max_y
+
+# Retrieve statistical properties for 850-700
+stats data using ($45):($53)
+set timefmt "%Y-%m-%d %H:%M"
+stats [time(0):time(0) + 5*24*60*60] 'data.csv' u (timecolumn(1)):($45-$53)
+min_yM87 = STATS_min_y
+max_yM87 = STATS_max_y
+min_pos_yM87 = STATS_pos_min_y
+max_pos_yM87 = STATS_pos_max_y
+
+# Retrieve statistical properties for 850-500
+stats data using ($29):($53)
+set timefmt "%Y-%m-%d %H:%M"
+stats [time(0):time(0) + 5*24*60*60] 'data.csv' u (timecolumn(1)):($29-$53)
+min_y85 = STATS_min_y
+max_y85 = STATS_max_y
+min_pos_y85 = STATS_pos_min_y
+max_pos_y85 = STATS_pos_max_y
+
+
+set multiplot layout 5,1 scale 1,1
+
+set xdata time
+set timefmt "%Y-%m-%d %H"
+set xrange [time(0):time(0) + 5*24*60*60]
+set format x "h%H\n%d/%m\n%a"
+unset xlabel
+unset xtics #font ", 10"
+
+## 1 ##
+
+tics = floor((max_yM5 - min_yM5) / 5)
+unset label
+set bmargin 0.6
+set tmargin 2
+unset ytics
+#set autoscale y2
+set y2tics tics
+set y2range [min_yM5:max_yM5]
+set y2label 'm' offset  -98.0
+set grid y2tics lt 0 lw 1 lc rgb "#008800"
+
+run(n) = sprintf("%d",n)
+coord(n) = sprintf("%g",n)
+
+set title "Weather Forecast GFS Model - NOAA (Precipitations types) RUN:".run(run)."z - "."Lat: ".coord(lat)." - "."Lon: ".coord(lon)
+set key lmargin
+set key font ",10"
+set grid
+#set size 1, 1 # ratio 1:1
+
+set style data lines
+
+# 5225 is the snow/rain line  --> 5400 for the 50%/50% (Centrometeo)
+
+set label 5 '5225' at graph 1.08, second 5225 front tc rgb "orange"
+set label sprintf("< %4.4g",max_yM5) at second max_pos_yM5, second max_yM5 left tc rgb "blue"
+set label sprintf("< %4.4g",min_yM5) at second min_pos_yM5, second min_yM5 left tc rgb "blue"
+#set label sprintf("1000-500min = %4.4g m",min_yM5) at graph 0.6,0.97 left font "Arial,10" tc rgb "orange"
+plot "data.csv" using 1:($29-$93) title "1000-500" smooth csplines lw 2 lt 2 lc "orange" axis x1y2, \
+5225 dt 2 lc "orange" lw 1 notitle axis x1y2
+
+
+## 2 ##
+
+tics = floor((max_y85 - min_y85) / 5)
+
+unset label
+set bmargin 0.6
+set tmargin 0.2
+unset xlabel
+unset xtics #font ", 10"
+
+unset ytics
+#set autoscale y2
+set y2tics tics
+set y2range [min_y85:max_y85]
+set y2label 'm'
+set grid y2tics lt 0 lw 1 lc rgb "#008800"
+unset title
+set key lmargin
+set grid
+
+#set size 1, 1 # ratio 1:1
+
+set style data lines
+
+# 4050 is the snow/rain line --> 4100 (Centrometeo)
+
+set label 4 '4050' at graph 1.08, second 4050 front tc rgb "blue"
+set label sprintf("< %4.4g",max_y85) at second max_pos_y85, second max_y85 left tc rgb "orange"
+set label sprintf("< %4.4g",min_y85) at second min_pos_y85, second min_y85 left tc rgb "orange"
+#set label sprintf("850-500min = %4.4g m",min_y85) at graph 0.8,0.97 left font "Arial,10" tc rgb "blue"
+plot "data.csv" using 1:($29-$53) title " 850-500" smooth csplines lw 2 lt 2 lc "blue" axis x1y2, \
+4050 dt 2 lc "blue" lw 1 notitle axis x1y2
+
+
+## 3 ##
+
+tics = floor((max_yM7 - min_yM7) / 6)
+
+unset label
+set bmargin 0.6
+set tmargin 0.2
+unset xlabel
+unset xtics #font ", 10"
+
+unset ytics
+#set autoscale y2
+set y2tics tics
+set y2range [min_yM7:max_yM7]
+set y2label 'm'
+set grid y2tics lt 0 lw 1 lc rgb "#008800"
+unset title
+set key lmargin
+set key font ",10"
+set grid
+#set size 1, 1 # ratio 1:1
+
+set style data lines
+
+# 2800 is the snow/rain line --> 2840 (Centrometeo)
+
+set label 3 '2800' at graph 1.08, second 2800 front tc rgb "red"
+set label sprintf("< %4.4g",max_yM7) at second max_pos_yM7, second max_yM7 left tc rgb "green"
+set label sprintf("< %4.4g",min_yM7) at second min_pos_yM7, second min_yM7 left tc rgb "green"
+#set label sprintf("1000-700min = %4.4g m",min_yM7) at graph 0.4,0.94 left font "Arial,10" tc rgb "red"
+plot "data.csv" using 1:($45-$93) title "1000-700" smooth csplines lw 2 lt 2 lc "red" axis x1y2, \
+"" u 1:((min_yM7-2800)<50?2800:1/0) dt 2 lc "red" lw 1 notitle axis x1y2
+
+
+## 4 ##
+
+tics = floor((max_yM87 - min_yM87) / 4)
+
+unset label
+set bmargin 0.6
+set tmargin 0.2
+unset xlabel
+unset xtics #font ", 10"
+
+unset ytics
+#set autoscale y2
+set y2tics tics
+set y2range [min_yM87:max_yM87]
+set y2label 'm'
+set grid y2tics lt 0 lw 1 lc rgb "#008800"
+unset title
+set key lmargin
+set key font ",10"
+set grid
+#set size 1, 1 # ratio 1:1
+
+set style data lines
+
+# 1520 is the snow/rain line --> 1540 (Centrometeo)
+
+set label 2 '1520' at graph 1.08, second 1520 front tc rgb "green"
+set label sprintf("< %4.4g",max_yM87) at second max_pos_yM87, second max_yM87 left tc rgb "red"
+set label sprintf("< %4.4g",min_yM87) at second min_pos_yM87, second min_yM87 left tc rgb "red"
+#set label sprintf("850-700min = %4.4g m",min_yM87) at graph 0.6,0.94 left font "Arial,10" tc rgb "green"
+plot "data.csv" using 1:($45-$53) title " 850-700" smooth csplines lw 2 lt 2 lc "green" axis x1y2, \
+"" u 1:((min_yM87-1520)<30?1520:1/0) dt 2 lc "green" lw 1 notitle axis x1y2
+
+
+## 5 ##
+
+tics = floor((max_yM8 - min_yM8) / 3)
+
+unset label
+set tmargin 0.2
+unset bmargin
+set xdata time
+set timefmt "%Y-%m-%d %H"
+set xrange [time(0):time(0) + 5*24*60*60]
+set format x "h%H %d/%m\n%a"
+unset xlabel #"Time"
+set xtics font ", 8"
+
+unset ytics
+#set autoscale y2
+set y2tics tics
+set y2range [min_yM8:max_yM8]
+set y2label 'm'
+set grid y2tics lt 0 lw 1 lc rgb "#008800"
+
+unset title
+set key lmargin
+set key font ",10"
+set grid
+#set size 1, 1 # ratio 1:1
+
+set style data lines
+
+# 1281 is the snow/rain line --> 1300 (Centrometeo)
+
+set label 1 '1281' at graph 1.08, second 1281 front tc rgb "dark-grey"
+#set label sprintf("1000-850min = %4.4g m",min_yM8) at graph 0.4,0.97 left font "Arial,10" tc rgb "dark-grey"
+set label sprintf("< %4.4g",max_yM8) at second max_pos_yM8, second max_yM8 left tc rgb "dark-orange"
+set label sprintf("< %4.4g",min_yM8) at second min_pos_yM8, second min_yM8 left tc rgb "dark-orange"
+plot "data.csv" using 1:($53-$93) title "1000-850" smooth csplines lw 2 lt 2 lc "grey" axis x1y2, \
+"" u 1:((min_yM8-1281)<50?1281:1/0) dt 2 lc "dark-grey" lw 1 notitle axis x1y2
+
+unset multiplot
