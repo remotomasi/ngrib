@@ -61,7 +61,7 @@ unameOut="$(uname -a)"
 #     *)          machine="UNKNOWN:${unameOut}"
 # esac
 #echo ${machine}
-if [[ $unameOut == *"Ubuntu"* ]]
+if [[ $unameOut == *"Ubuntu"* || $unameOut == *"Linux"*  ]]
 	then
 		command="wgrib2"
 elif [[ $unameOut == *"Microsoft"* ]] || [[ $unameOut == *"microsoft"* ]]
