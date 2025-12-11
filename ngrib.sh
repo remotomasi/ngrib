@@ -163,19 +163,19 @@ else
 fi
 
 plot_scripts=(
-    pressureWind.pg
-    precipitations.pg
-    clouds.pg
-    hgt.pg
-    temperatures.pg
-    cape-lftx.pg
-    precTypes.pg
-    health.pg
+    pressureWind.gp
+    precipitations.gp
+    clouds.gp
+    hgt.gp
+    temperatures.gp
+    cape-lftx.gp
+    precTypes.gp
+    health.gp
     mist.gp
-    stability.pg
-    sweat.pg
-    kindex.pg
-    weather.pg
+    stability.gp
+    sweat.gp
+    kindex.gp
+    weather.gp
 )
 
 for script in "${plot_scripts[@]}"; do
