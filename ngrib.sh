@@ -36,7 +36,7 @@ o=00
 o=$(date +%H)
 m=$(date +%M)
 hh=""
-if ([ "$o" -ge 0 ] && [ "$o" -lt 8 ] || [ "$o" -ge 23 ]  && [ "$m" -ge 45 ])
+if (([ "$o" -ge 0 ] && [ "$o" -lt 8 ]) || ([ "$o" -ge 23 ]  && [ "$m" -ge 45 ]))
 	then hh="18"
 		today=$(date +%Y%m%d -d "yesterday")
 elif [ "$o" -ge 8 ] && [ "$o" -lt 12 ]
