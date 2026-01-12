@@ -29,6 +29,15 @@ min_ySN = STATS_min_y
 max_pos_ySN = STATS_pos_max_y
 min_pos_ySN = STATS_pos_min_y
 
+# Retrieve statistical properties for Snow Line v2
+stats data using 1:54
+set timefmt "%Y-%m-%d %H:%M"
+stats [time(0):time(0) + 5*24*60*60] 'data.csv' u (timecolumn(1)):( ($54-273.15) * 150 + 1500 )
+max_ySN2 = STATS_max_y
+min_ySN2 = STATS_min_y
+max_pos_ySN2 = STATS_pos_max_y
+min_pos_ySN2 = STATS_pos_min_y
+
 # Retrieve statistical properties for 700 Hgt
 stats data using 1:45
 set timefmt "%Y-%m-%d %H:%M"
@@ -176,8 +185,10 @@ set style data lines
 
 set label 5 sprintf("< %4.4g",min_ySN) at second min_pos_ySN, second min_ySN front tc rgb "dark-green"
 set label 6 sprintf("< %4.4g",max_ySN) at second max_pos_ySN, second max_ySN front tc rgb "dark-green"
-plot "data.csv" using 1:(( ((273.2 + ($54-273.15) + 2480 * ( (exp(A - B / (( ((($55/100)**(0.125))*(112+0.9*($54-273.15))+0.1*($54-273.15)-112) ) + C))) / (850 - (exp(A - B / (( ((($55/100)**(0.125))*(112+0.9*($54-273.15))+0.1*($54-273.15)-112) ) + C)))) * C1) /1) * ((1.176)**(0.29)) -273.15) -12)/0.12*10 ) title "QNe" smooth csplines lw 2 lt 2 lc "dark-cyan" axis x1y2, \
-"" u 1:(( ((273.2 + ($54-273.15) + 2480 * ( (exp(A - B / (( ((($55/100)**(0.125))*(112+0.9*($54-273.15))+0.1*($54-273.15)-112) ) + C))) / (850 - (exp(A - B / (( ((($55/100)**(0.125))*(112+0.9*($54-273.15))+0.1*($54-273.15)-112) ) + C)))) * C1) /1) * ((1.176)**(0.29)) -273.15) -12)/0.12*10 <=0?0:1/0) smooth csplines dt 3 lc rgb "black" lw 1 notitle axis x1y2
+set label 7 sprintf("< %4.4g",min_ySN2) at second min_pos_ySN2, second min_ySN2 front tc rgb "dark-blue"
+plot "data.csv" using 1:(( ((273.2 + ($54-273.15) + 2480 * ( (exp(A - B / (( ((($55/100)**(0.125))*(112+0.9*($54-273.15))+0.1*($54-273.15)-112) ) + C))) / (850 - (exp(A - B / (( ((($55/100)**(0.125))*(112+0.9*($54-273.15))+0.1*($54-273.15)-112) ) + C)))) * C1) /1) * ((1.176)**(0.29)) -273.15) -12)/0.12*10 ) title "QNe" lw 2 lt 2 lc "dark-cyan" axis x1y2, \
+"" u 1:(( ((273.2 + ($54-273.15) + 2480 * ( (exp(A - B / (( ((($55/100)**(0.125))*(112+0.9*($54-273.15))+0.1*($54-273.15)-112) ) + C))) / (850 - (exp(A - B / (( ((($55/100)**(0.125))*(112+0.9*($54-273.15))+0.1*($54-273.15)-112) ) + C)))) * C1) /1) * ((1.176)**(0.29)) -273.15) -12)/0.12*10 <=0?0:1/0) dt 3 lc rgb "black" lw 2 notitle axis x1y2, \
+"" u 1:( ($54-273.15) * 150 + 1500 ) title "QNe2" lw 2 lt 2 lc "blue" axis x1y2, \
 # 0 dt 3 lc rgb "black" lw 1 notitle axis x1y2
 
 
