@@ -162,6 +162,14 @@ else
     mkdir -p graphs
 fi
 
+# check if the save folder already exists
+if [ -d save ]   
+then
+    echo "..creating save folder"
+else
+    mkdir -p save
+fi
+
 plot_scripts=(
     pressureWind.gp
     precipitations.gp
