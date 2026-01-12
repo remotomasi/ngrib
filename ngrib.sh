@@ -193,6 +193,12 @@ done
 
 convert \( graphs/weather.png graphs/health.png graphs/pressureWind.png  -append \) \( graphs/temperatures.png graphs/hgt.png graphs/precTypes.png -append \) \( graphs/cape-lftx.png graphs/kindex.png graphs/sweat.png  -append \) \( graphs/stability.png graphs/clouds.png graphs/precipitations.png -append \) +append graphs/weatherForecastFinal.png
 
+# save the final weather forecast image and data with lat, lon, date and run in the save folder
+ts=$(date +%d%m%Y)
+[[ ! -f "save/weatherForecast_${lat}#${lon}_${ts}-${run}z.png" ]] && cp graphs/weatherForecastFinal.png "save/weatherForecast_${lat}#${lon}_${ts}-${run}z.png"
+[[ ! -f "save/final_forecasting_snow_${lat}#${lon}_${ts}-${run}z.xlsx" ]] && cp data/final_forecasting_snow.xlsx "save/final_forecasting_snow_${lat}#${lon}_${ts}-${run}z.xlsx"
+
+
 # not simple weather
 python3 convertXLSX.py
 python3 saveFile.py
@@ -213,7 +219,7 @@ then
 	rm simpleWeatherSimply.png
 fi
 
-# convert simpleWeatherSimply.xlsx to pdf
+# convert simpleWeatherSimply.xlsx to pdf\
 # alternative way --> unoconv simpleWeatherSimply.xlsx
 # alternative way --> soffice --headless --convert-to pdf simpleWeatherSimply.xlsx
 if [ -f /usr/local/bin/libreoffice7.2 ]
