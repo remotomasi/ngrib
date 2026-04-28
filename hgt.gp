@@ -151,6 +151,11 @@ plot "data.csv" using 1:136 title "0 C" smooth csplines lw 2 lt 2 lc "red" axis 
 
 
 tics = floor((max_ySN - min_ySN) / 5)
+tics2 = floor((max_ySN2 - min_ySN2) / 5)
+
+if (tics < tics2) {
+    tics = tics2
+}
 
 unset label
 set bmargin 0.6
