@@ -77,18 +77,18 @@ fi
 #wget "$incipit$today/${hh}/filter_gfs_0p25_1hr.pl?file=gfs.t${hh}z.pgrb2.0p25.anl&lev_0C_isotherm=on&lev_1000_mb=on&lev_10_m_above_ground=on&lev_2_m_above_ground=on&lev_500_mb=on&lev_700_mb=on&lev_850_mb=on&lev_high_cloud_layer=on&lev_low_cloud_layer=on&lev_mean_sea_level=on&lev_middle_cloud_layer=on&lev_surface=on&lev_tropopause=on&var_ABSV=on&var_ACPCP=on&var_APCP=on&var_CAPE=on&var_CFRZR=on&var_CICEP=on&var_CIN=on&var_CPOFP=on&var_CPRAT=on&var_CRAIN=on&var_CSNOW=on&var_DPT=on&var_GUST=on&var_HGT=on&var_ICEC=on&var_LFTX=on&var_PEVPR=on&var_PRATE=on&var_PRES=on&var_PRMSL=on&var_RH=on&var_SNOD=on&var_SUNSD=on&var_TCDC=on&var_TMP=on&var_UGRD=on&var_VGRD=on&var_VIS=on&var_VVEL=on&var_VWSH=on&subregion=&leftlon=$lon2&rightlon=$lon1&toplat=$lat1&bottomlat=$lat2&dir=%2Fgfs.${today}%2F${hh}"  2>/dev/null -O - > anlFile
 wget "https://nomads.ncep.noaa.gov/cgi-bin/filter_gfs_0p25_1hr.pl?file=gfs.t${hh}z.pgrb2.0p25.anl&lev_0C_isotherm=on&lev_1000_mb=on&lev_10_m_above_ground=on&lev_200_mb=on&lev_2_m_above_ground=on&lev_300_mb=on&lev_400_mb=on&lev_500_mb=on&lev_600_mb=on&lev_700_mb=on&lev_850_mb=on&lev_925_mb=on&lev_950_mb=on&lev_975_mb=on&lev_mean_sea_level=on&var_ABSV=on&var_ACPCP=on&var_APCP=on&var_CAPE=on&var_CFRZR=on&var_CICEP=on&var_CIN=on&var_CPOFP=on&var_CPRAT=on&var_CRAIN=on&var_CSNOW=on&var_DPT=on&var_GUST=on&var_HCDC=on&var_HGT=on&var_HINDEX=on&var_ICEC=on&var_LCDC=on&var_LFTX=on&var_MCDC=on&var_PEVPR=on&var_POT=on&var_PRATE=on&var_PRMSL=on&var_RH=on&var_SNOD=on&var_SUNSD=on&var_TCDC=on&var_TMP=on&var_UGRD=on&var_VGRD=on&var_VIS=on&var_VVEL=on&var_VWSH=on&var_HLCY=on&lev_high_cloud_layer=on&lev_low_cloud_layer=on&lev_middle_cloud_layer=on&lev_tropopause=on&lev_3000-0_m_above_ground=on&subregion=&leftlon=$lon2&rightlon=$lon1&toplat=$lat1&bottomlat=$lat2&dir=%2Fgfs.${today}%2F${hh}%2Fatmos"  2>/dev/null -O - > anlFile
 run="$(./$command anlFile | head -n 1  | cut -d'=' -f2 | cut -c9-10)"
+run_date_new="$(./$command anlFile | head -n 1  | cut -d'=' -f2 | cut -d':' -f1)"
+run_date_old="$(./$command anlFile_OLD | head -n 1  | cut -d'=' -f2 | cut -d':' -f1)"
 
 
-if [ -f anlFile_OLD ]; then
-    if diff -q anlFile anlFile_OLD > /dev/null 2>&1; then
-		echo "No updates"
-        exit 0	# files are identical, no need to re-run
-    else
-        cp anlFile anlFile_OLD # files are different, copy the new one
-    fi
-else
-	cp anlFile anlFile_OLD # anlFile_OLD does not exist, copy the new one
+if [ "$run_date_new" != "$run_date_old" ]; then # check if the run date has changed
+    echo "Run date has changed" # we have new data
+    cp anlFile anlFile_OLD # copy the new anlFile to anlFile_OLD
+else # the run date has not changed
+    echo "Run date has not changed"
+	exit 0 # exit the script if the run date has not changed: we already have the data
 fi
+
 
 # main function divided into 4 in parallel
 # 1° function
