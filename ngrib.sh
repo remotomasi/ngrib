@@ -78,6 +78,18 @@ fi
 wget "https://nomads.ncep.noaa.gov/cgi-bin/filter_gfs_0p25_1hr.pl?file=gfs.t${hh}z.pgrb2.0p25.anl&lev_0C_isotherm=on&lev_1000_mb=on&lev_10_m_above_ground=on&lev_200_mb=on&lev_2_m_above_ground=on&lev_300_mb=on&lev_400_mb=on&lev_500_mb=on&lev_600_mb=on&lev_700_mb=on&lev_850_mb=on&lev_925_mb=on&lev_950_mb=on&lev_975_mb=on&lev_mean_sea_level=on&var_ABSV=on&var_ACPCP=on&var_APCP=on&var_CAPE=on&var_CFRZR=on&var_CICEP=on&var_CIN=on&var_CPOFP=on&var_CPRAT=on&var_CRAIN=on&var_CSNOW=on&var_DPT=on&var_GUST=on&var_HCDC=on&var_HGT=on&var_HINDEX=on&var_ICEC=on&var_LCDC=on&var_LFTX=on&var_MCDC=on&var_PEVPR=on&var_POT=on&var_PRATE=on&var_PRMSL=on&var_RH=on&var_SNOD=on&var_SUNSD=on&var_TCDC=on&var_TMP=on&var_UGRD=on&var_VGRD=on&var_VIS=on&var_VVEL=on&var_VWSH=on&var_HLCY=on&lev_high_cloud_layer=on&lev_low_cloud_layer=on&lev_middle_cloud_layer=on&lev_tropopause=on&lev_3000-0_m_above_ground=on&subregion=&leftlon=$lon2&rightlon=$lon1&toplat=$lat1&bottomlat=$lat2&dir=%2Fgfs.${today}%2F${hh}%2Fatmos"  2>/dev/null -O - > anlFile
 run="$(./$command anlFile | head -n 1  | cut -d'=' -f2 | cut -c9-10)"
 
+
+if [ -f anlFile_OLD ]; then
+    if diff -q anlFile anlFile_OLD > /dev/null 2>&1; then
+		echo "No updates"
+        exit 0	# files are identical, no need to re-run
+    else
+        cp anlFile anlFile_OLD # files are different, copy the new one
+    fi
+else
+	cp anlFile anlFile_OLD # anlFile_OLD does not exist, copy the new one
+fi
+
 # main function divided into 4 in parallel
 # 1° function
 for i in ${h[@]:0:11};
@@ -117,7 +129,7 @@ done &
 wait # wait until the previous functions ended
 
 for i in ${h[*]}; do cut -d',' -f7 csv$i.csv | paste -s; done | tail -n +2 > values.csv # p 	# union of the values of all the grib files
-for i in ${h[*]}; do cut -d',' -f2 csv$i.csv | head -1; done | tail -n +2 > date.csv	# p1		# obtain date $1umn
+for i in ${h[*]}; do cut -d',' -f2 csv$i.csv | head -1; done | tail -n +2 > date.csv	# p1	# obtain date $1umn
 
 echo '"DATE"' > a.csv							# adding a comma in p2.csv temporary file
 cut -d',' -f3 csv003.csv >> a.csv			# adding labels + sublabels to p2.csv: labels complete!
@@ -127,7 +139,7 @@ paste a.csv b.csv > c.csv					# labels
 #cat p2b.csv | paste -s >> p2c.csv			# labels + atmosphere labels	# p2c.csv
 cat c.csv | tr ' ' '_'  | tr '\n' ',' | tr '"' ' ' | tr '\t' '-' | cut -c 4- | tr '\t'  ',' > d.csv			# transform spaces to _ (to obtain one word") p2d.csv
 paste -d',' date.csv values.csv > e.csv		# adding date to datas
-cat e.csv | tr '\t' ',' >> d.csv			# adding values to the head
+cat e.csv | tr '\t' ',' >> d.csv			# adding values to the header
 
 # deleting double quotes from the date >> deleting the last part of the time format ":00" and spaces before and after comma
 cat d.csv | tr '"' ' ' | sed -i -e 's/, /,/g;s/ ,/,/g;s/:00:00/:00/g' d.csv 
@@ -219,6 +231,8 @@ then
 	rm simpleWeatherSimply.png
 fi
 
+# TO Review: Revise the conversion of simpleWeatherSimply.xlsx to pdf and png
+# above all the libreoffice7.2 is installed
 # convert simpleWeatherSimply.xlsx to pdf\
 # alternative way --> unoconv simpleWeatherSimply.xlsx
 # alternative way --> soffice --headless --convert-to pdf simpleWeatherSimply.xlsx
