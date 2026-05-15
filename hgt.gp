@@ -149,13 +149,10 @@ plot "data.csv" using 1:136 title "0 C" smooth csplines lw 2 lt 2 lc "red" axis 
 
 ## 3 ## Snow Line
 
+ismax(x,y) = (x>y)?x:y
+ismin(x,y) = (x<y)?x:y
 
-tics = floor((max_ySN - min_ySN) / 5)
-tics2 = floor((max_ySN2 - min_ySN2) / 5)
-
-if (tics < tics2) {
-    tics = tics2
-}
+tics = floor((ismax(max_ySN,max_ySN2) - ismin(min_ySN,min_ySN2)) / 5)
 
 unset label
 set bmargin 0.6
