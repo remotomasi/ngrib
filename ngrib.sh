@@ -193,7 +193,6 @@ plot_scripts=(
     health.gp
     mist.gp
     stability.gp
-    sweat.gp
     kindex.gp
     weather.gp
 )
@@ -203,7 +202,7 @@ for script in "${plot_scripts[@]}"; do
     gnuplot -e "run=$run;lat=$lat;lon=$lon" "./$script" > "$out"
 done
 
-convert \( graphs/weather.png graphs/health.png graphs/pressureWind.png  -append \) \( graphs/temperatures.png graphs/hgt.png graphs/precTypes.png -append \) \( graphs/cape-lftx.png graphs/kindex.png graphs/sweat.png  -append \) \( graphs/stability.png graphs/clouds.png graphs/precipitations.png -append \) +append graphs/weatherForecastFinal.png
+convert \( graphs/weather.png graphs/health.png graphs/pressureWind.png  -append \) \( graphs/temperatures.png graphs/hgt.png graphs/precTypes.png -append \) \( graphs/cape-lftx.png graphs/kindex.png graphs/precipitations.png -append \) \( graphs/stability.png graphs/clouds.png -append \) +append graphs/weatherForecastFinal.png
 
 # save the final weather forecast image and data with lat, lon, date and run in the save folder
 ts=$(date +%d%m%Y)

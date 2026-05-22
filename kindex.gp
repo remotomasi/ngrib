@@ -46,6 +46,7 @@ stats data using 54
 set timefmt "%Y-%m-%d %H:%M"
 stats [time(0):*] 'data.csv' u (timecolumn(1)):54
 max_yT8 = STATS_max_y
+min_yT8 = STATS_min_y
 max_pos_yT8 = STATS_pos_max_y
 mean_yT8 = STATS_mean_y
 
@@ -97,12 +98,25 @@ min_yEHI = STATS_min_y
 min_pos_yEHI = STATS_pos_min_y
 mean_yEHI = STATS_mean_y
 
+# Retrieve statistical properties for SWEAT
+stats data using ($30):($55)
+set timefmt "%Y-%m-%d %H:%M"
+stats [time(0):*] 'data.csv' u (timecolumn(1)):(($54-273.15)+(-430.22+237.7*log(($55*6.11*10**((7.5*($54-273.15))/(237.7+($54-273.15))))/100))/(-log($55*6.11*10**((7.5*($54-273.15))/(237.7+($54-273.15)))/100)+19.08)-2*($30-273.15))
+max_ySWEAT = STATS_max_y
+max_pos_ySWEAT = STATS_pos_max_y
+min_ySWEAT = STATS_min_y
+min_pos_ySWEAT = STATS_pos_min_y
+mean_ySWEAT = STATS_mean_y
+
+set multiplot layout 5,1
+
 
 ## 1 ##
 
-set multiplot layout 4,1
-
 # K-index
+set tmargin 1.7
+set bmargin 0.6
+
 set xdata time
 set timefmt "%Y-%m-%d %H"
 set xrange [time(0):time(0) + 5*24*60*60]
@@ -111,9 +125,6 @@ unset xlabel
 unset xtics #font ", 10"
 
 #unset label
-set bmargin 0.6
-set tmargin 2.0
-
 unset ytics
 set autoscale y2
 set format y2 "%.0f";
@@ -128,6 +139,8 @@ coord(n) = sprintf("%g",n)
 
 set title "Weather Forecast GFS Model - NOAA (K-Index) RUN:".run(run)."z - "."Lat: ".coord(lat)." - "."Lon: ".coord(lon)
 set key lmargin
+set tmargin 2.0
+set bmargin 0.3
 set key font ",7"
 set grid
 set style data lines
@@ -147,6 +160,8 @@ plot "data.csv" using 1:(($54-273.15)+(-430.22+237.7*log(($55*6.11*10**((7.5*($5
 ## 2 ##
 
 # TT
+set tmargin 0.4
+set bmargin 0.6
 
 set xdata time
 set timefmt "%Y-%m-%d %H"
@@ -156,8 +171,6 @@ unset xlabel
 unset xtics #font ", 10"
 
 unset label
-set bmargin 0.6
-set tmargin 0.2
 
 unset ylabel
 if (max_yTT > 43) {
@@ -203,7 +216,6 @@ unset xlabel
 unset xtics #font ", 10"
 
 unset label
-
 unset ylabel
 set y2range [0:max_ySREH]
 set y2tics floor((max_ySREH-min_ySREH)/4)
@@ -217,8 +229,8 @@ set key font ",8"
 set grid
 set style data lines
 
-set bmargin 0.6
 set tmargin 0.2
+set bmargin 0.6
 set rmargin 7
 set lmargin screen 0.15
 
@@ -236,13 +248,13 @@ plot "data.csv" using 1:130 smooth csplines dt 1 lc rgb "dark-grey" lw 1 title "
 
 # EHI
 set tmargin 0.2
-unset bmargin
+set bmargin 0.6
 set xdata time
 set timefmt "%Y-%m-%d %H"
 set xrange [time(0):time(0) + 5*24*60*60]
 set format x "h%H %d/%m\n%a"
-unset xlabel #"Time"
-set xtics font ", 8"
+unset xlabel
+unset xtics #font ", 10"
 
 unset ylabel
 ehiTics=(max_yEHI-min_yEHI)/3
@@ -271,5 +283,44 @@ plot "data.csv" using 1:($122*$130/160000) smooth csplines dt 1 lc rgb "dark-gre
 "" u 1:(max_yEHI>=1.9?2.4:2.4/0) dt 2 lc rgb "dark-orange" lw 1 title "+Prob." axes x1y2, \
 "" u 1:(max_yEHI>=2.5?2.9:2.9/0) dt 2 lc rgb "brown" lw 1 title "F2/F3" axes x1y2, \
 "" u 1:(max_yEHI>=3.5?3.9:3.9/0) dt 2 lc rgb "dark-red" lw 1 title "F4/F5" axes x1y2
+
+
+## 5 ##
+
+# SWEAT	
+set tmargin 0.2
+set bmargin 2.0
+set xdata time
+set timefmt "%Y-%m-%d %H"
+set xrange [time(0):time(0) + 5*24*60*60]
+set format x "h%H %d/%m\n%a"
+unset xlabel #"Time"
+set xtics font ", 8"
+
+unset ylabel
+sweatTics=(max_ySWEAT-min_ySWEAT)/5
+if (sweatTics > 0) {
+	set y2tics sweatTics
+}
+set y2range [min_ySWEAT:max_ySWEAT]
+set format y2 "%3.1f"
+
+run(n) = sprintf("%d",n)
+coord(n) = sprintf("%g",n)
+
+unset title
+set key lmargin
+set key font ",7"
+set grid lt 0 lw 1 lc rgb "#008800"
+set style data lines
+
+set lmargin screen 0.15
+
+#set label sprintf("Wmean = %4.4g Km/h",mean_yW) at graph 0.45, second mean_yW left font "Arial,10" tc rgb "dark-orange"
+
+plot "data.csv" using 1:( ((12*(-430.22+237.7*log(($55*6.11*10**((7.5*($54-273.15))/(237.7+($54-273.15))))/100))/(-log($55*6.11*10**((7.5*($54-273.15))/(237.7+($54-273.15)))/100)+19.08))>0?(12*(-430.22+237.7*log(($55*6.11*10**((7.5*($54-273.15))/(237.7+($54-273.15))))/100))/(-log($55*6.11*10**((7.5*($54-273.15))/(237.7+($54-273.15)))/100)+19.08)):0 ) +( (20*(($54-273.15)+(-430.22+237.7*log(($55*6.11*10**((7.5*($54-273.15))/(237.7+($54-273.15))))/100))/(-log($55*6.11*10**((7.5*($54-273.15))/(237.7+($54-273.15)))/100)+19.08)-2*($30-273.15)-49)>0)? 20*(($54-273.15)+(-430.22+237.7*log(($55*6.11*10**((7.5*($54-273.15))/(237.7+($54-273.15))))/100))/(-log($55*6.11*10**((7.5*($54-273.15))/(237.7+($54-273.15)))/100)+19.08)-2*($30-273.15)-49):0 ) +2*(sqrt($58*$58+$59*$59)*3.6*0.54)+(sqrt($34*$34+$35*$35)*3.6*0.54) +((atan2($58,$59)*53.7>=130 && atan2($58,$59)*53.7<=250 && atan2($34,$35)*53.7>=210 && atan2($34,$35)*53.7<=310 && (atan2($34,$35)*53.7-atan2($58,$59)*53.7)>0 && (sqrt($34*$34+$35*$35)*3.6*0.54)>=15 && (sqrt($58*$58+$59*$59)*3.6*0.54)>=15 )?125*(sin(atan2($34,$35)-atan2($58,$59))+0.2):0)) smooth csplines dt 1 lc rgb "blue" title "SWEAT", \
+"" u 1:(max_ySWEAT>=250?250:1/0) dt 2 lc rgb "dark-yellow" lw 1 title "Low Tornado Prob.", \
+"" u 1:(max_ySWEAT>=350?350:1/0) dt 2 lc rgb "orange" lw 1 title "Middle/High prob.", \
+"" u 1:(max_ySWEAT>=400?400:1/0) dt 2 lc rgb "dark-orange" lw 1 title "High prob."
 
 unset multiplot
