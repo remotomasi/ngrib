@@ -20,7 +20,6 @@ fi
 
 #echo -e "Insert latitude and longitude separated by spaces (i.e.: 60.75 21.34)"
 #read lat lon
-
 lat=$1
 lon=$2
 
@@ -29,6 +28,9 @@ lat1=`echo $lat+0.1|bc`
 lat2=`echo $lat-0.1|bc`
 lon1=`echo $lon+0.1|bc`
 lon2=`echo $lon-0.1|bc`
+
+#save lat and lon in coordinates file in  way to comparise it to the OLD ones
+echo $lat $lon > coordinates
 
 today=$(date +%Y%m%d)
 
@@ -81,14 +83,17 @@ run_date_new="$(./$command anlFile | head -n 1  | cut -d'=' -f2 | cut -d':' -f1)
 run_date_old="$(./$command anlFile_OLD | head -n 1  | cut -d'=' -f2 | cut -d':' -f1)"
 
 
-if [ "$run_date_new" != "$run_date_old" ]; then # check if the run date has changed
-    echo "Run date has changed" # we have new data
+if [ "$run_date_new" != "$run_date_old" ] || ! diff -q coordinates coordinates_OLD > /dev/null 2>&1; then # check if the run date has changed
+    echo $lat $lon
+	echo "Run date has changed" # we have new data
     cp anlFile anlFile_OLD # copy the new anlFile to anlFile_OLD
 else # the run date has not changed
     echo "Run date has not changed"
 	exit 0 # exit the script if the run date has not changed: we already have the data
 fi
 
+#save lat and lon in coordinates_OLD file in  way to comparise it to the new ones
+echo $lat $lon > coordinates_OLD
 
 # main function divided into 4 in parallel
 # 1° function
