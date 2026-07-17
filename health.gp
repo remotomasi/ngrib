@@ -88,13 +88,16 @@ set grid
 
 set style data lines
 set label 5 '24' at screen 0.975, first 24 front tc rgb "dark-red"
-set label 6 '20' at screen 0.975, first 20 front tc rgb "dark-orange"
-set label 7 '15' at screen 0.975, first 15 front tc rgb "dark-yellow"
-set label 8 '10' at screen 0.975, first 10 front tc rgb "dark-green"
-set label 9 '5' at screen 0.975, first 5 front tc rgb "dark-blue"
+set label 6 '21' at screen 0.975, first 21 front tc rgb "red"
+set label 7 '16' at screen 0.975, first 15 front tc rgb "orange"
+set label 8 '15' at screen 0.975, first 15 front tc rgb "dark-yellow"
+set label 9 '10' at screen 0.975, first 10 front tc rgb "dark-green"
+set label 10 '5' at screen 0.975, first 5 front tc rgb "dark-blue"
 plot "data.csv" using 1:($99-273.15) smooth csplines lc "green" lw 2 axes x1y1 title "Dew Point", \
-24 dt 2 lc rgb "dark-red" lw 1 title "Oppressive" axis x1y1, \
+24 dt 2 lc rgb "dark-red" lw 1 title "High risk" axis x1y1, \
+21 dt 2 lc rgb "red" lw 1 title " Oppressive" axis x1y1, \
 20 dt 2 lc rgb "dark-orange" lw 1 title "Muggy" axis x1y1, \
+16 dt 2 lc rgb "orange" lw 1 title " Sticky" axis x1y1, \
 15 dt 1 lc rgb "dark-yellow" lw 2 title " Ucomfortable" axis x1y1, \
 10 dt 2 lc rgb "dark-green" lw 1 title "Comfortable" axis x1y1, \
 5 dt 2 lc rgb "dark-blue" lw 1 title "Dry" axis x1y1
@@ -123,12 +126,12 @@ set key font ",7"
 set grid
 
 set style data lines
-set label 10 '4' at screen 0.975, first 4 front tc rgb "light-green"
-set label 11 '-6' at screen 0.975, first -6 front tc rgb "green"
-set label 12 '-17' at screen 0.975, first -17 front tc rgb "cyan"
-set label 13 '-29' at screen 0.975, first -29 front tc rgb "dark-cyan"
-set label 14 '-56' at screen 0.975, first  -56 front tc rgb "blue"
-set label 15 sprintf("< %4.3g",min_yWC) at first min_pos_yWC, first min_yWC front tc rgb "dark-green"
+set label 11 '4' at screen 0.975, first 4 front tc rgb "light-green"
+set label 12 '-6' at screen 0.975, first -6 front tc rgb "green"
+set label 13 '-17' at screen 0.975, first -17 front tc rgb "cyan"
+set label 14 '-29' at screen 0.975, first -29 front tc rgb "dark-cyan"
+set label 15 '-56' at screen 0.975, first  -56 front tc rgb "blue"
+set label 16 sprintf("< %4.3g",min_yWC) at first min_pos_yWC, first min_yWC front tc rgb "dark-green"
 plot "data.csv" using 1:(( ($98-273.15) > 4 || (sqrt($101*$101+$102*$102)*3.6) < 8)?(13.12+0.6215*($98-273.15)-11.37*(sqrt($101*$101+$102*$102)*3.6)**0.16+0.3965*($98-273.15)*(sqrt($101*$101+$102*$102)*3.6)**0.16):0) smooth csplines lc "cyan" lw 2 axes x1y1 title "Wind Chill", \
 "" using 1:(( ($98-273.15) <= 4 && (sqrt($101*$101+$102*$102)*3.6) >= 8)?(13.12+0.6215*($98-273.15)-11.37*(sqrt($101*$101+$102*$102)*3.6)**0.16+0.3965*($98-273.15)*(sqrt($101*$101+$102*$102)*3.6)**0.16):1/0) lc "blue" lw 2 axes x1y1 title "WC real", \
 "" using 1:(((13.12+0.6215*($98-273.15)-11.37*(sqrt($101*$101+$102*$102)*3.6)**0.16+0.3965*($98-273.15)*(sqrt($101*$101+$102*$102)*3.6)**0.16) <= -27.8? -27.8:1/0)) smooth csplines lc rgb "dark-blue" lw 2 title "Freeze (<30min)", \

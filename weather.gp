@@ -83,10 +83,10 @@ set lmargin screen 0.2
 # GNUPLOT VERSION - useful for the instruction graph choice
 gnuplotVersion = system("gnuplot --version | cut -d' ' -f2")
 
-set label sprintf("Tmax = %3.3g °C",max_yT) at graph 0.9,0.97 center font "Arial,10" tc rgb "red"
+set label sprintf("Tmax = %3.3g °C",max_yT) at graph 0.9,0.97 center font "Arial,10" tc rgb "brown"
 set label sprintf("< %3.4g",max_yT) at first max_pos_yT, first max_yT left tc rgb "dark-red"
-set label sprintf("Tmean = %3.3g °C",mean_yT) at graph 0.9,0.94 center font "Arial,10" tc rgb "red"
-set label sprintf("Tmin = %3.3g °C",min_yT) at graph 0.9,0.91 center font "Arial,10" tc rgb "red"
+set label sprintf("Tmean = %3.3g °C",mean_yT) at graph 0.9,0.94 center font "Arial,10" tc rgb "brown"
+set label sprintf("Tmin = %3.3g °C",min_yT) at graph 0.9,0.91 center font "Arial,10" tc rgb "brown"
 set label sprintf("< %3.4g",min_yT) at first min_pos_yT, first min_yT left tc rgb "black"
 set label sprintf("Wmax = %3.3g Km/h",max_yW) at graph 0.7,0.97 center font "Arial,10" tc rgb "dark-cyan"
 set label sprintf("Wmean = %3.3g Km/h",mean_yW) at graph 0.45, second mean_yW left font "Arial,10" tc rgb "dark-orange"
