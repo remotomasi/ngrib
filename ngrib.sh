@@ -136,7 +136,7 @@ wait # wait until the previous functions ended
 for i in ${h[*]}; do cut -d',' -f7 csv$i.csv | paste -s; done | tail -n +2 > values.csv # p 	# union of the values of all the grib files
 for i in ${h[*]}; do cut -d',' -f2 csv$i.csv | head -1; done | tail -n +2 > date.csv	# p1	# obtain date $1umn
 
-echo '"DATE"' > a.csv							# adding a comma in p2.csv temporary file
+echo '"DATE"' > a.csv						# adding a comma in p2.csv temporary file
 cut -d',' -f3 csv003.csv >> a.csv			# adding labels + sublabels to p2.csv: labels complete!
 echo ',' > b.csv							# adding a comma in p2b.csv temporary file
 cut -d',' -f4 csv003.csv >> b.csv			# atmosphere labels
@@ -259,6 +259,6 @@ mv -t data final.xlsx simpleWeather.xlsx simpleWeatherSimply.xlsx
 
 # copy final.csv in the data folder
 cp final.csv data	
-# check if python3 is installed and if so execute the forecasting.py script
-type -P python3 >/dev/null 2>&1 && python3 forecasting.py
+# check if python3.13 is installed and if so execute the forecasting.py script
+type -P python3.13 >/dev/null 2>&1 && python3.13 forecasting.py
 
